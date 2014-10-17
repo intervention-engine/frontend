@@ -82,7 +82,8 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         return [
                             mountFolder(connect, 'test'),
-                            mountFolder(connect, '.tmp')
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, yeomanConfig.app)
                         ];
                     }
                 }
@@ -100,6 +101,9 @@ module.exports = function (grunt) {
         open: {
             server: {
                 path: 'http://localhost:<%= connect.options.port %>'
+            },
+            test   : {
+              path : 'http://localhost:<%= connect.test.options.port %>'
             }
         },
         clean: {
@@ -302,7 +306,7 @@ module.exports = function (grunt) {
                         ]
                     }
                 ]
-            }, 
+            },
             dist: {
                 files: [
                     {
@@ -384,19 +388,42 @@ module.exports = function (grunt) {
             'neuter:app',
             'copy:fonts',
             'connect:livereload',
-            'open',
+            'open:server',
             'watch'
         ]);
     });
 
-    grunt.registerTask('test', [
+    grunt.registerTask('test', function(target) {
+      var tasks = [
         'clean:server',
         'replace:app',
         'concurrent:test',
-        'connect:test',
+        'concurrent:server',
         'neuter:app',
-        'mocha'
-    ]);
+        'copy:fonts',
+        // 'connect:livereload',
+        'connect:test',
+        'neuter:app'
+      ];
+
+      if (target === 'browser') {
+        tasks.push('open:test');
+        tasks.push('watch');
+      } else {
+        tasks.push('mocha');
+      }
+
+      grunt.task.run(tasks);
+    });
+
+    // grunt.registerTask('test', [
+    //     'clean:server',
+    //     'replace:app',
+    //     'concurrent:test',
+    //     'connect:test',
+    //     'neuter:app',
+    //     'mocha'
+    // ]);
 
     grunt.registerTask('build', [
         'clean:dist',

@@ -1,4 +1,6 @@
-describe 'basic test of testing framework', ->
-  describe 'can we do basic math?', ->
-    it 'should be 2', ->
-      assert.equal 3, 1+1
+
+describe 'Testing Application Loads', ->
+  describe 'The title should appear', ->
+    it 'should say Intervention Engine', ->
+      visit '/'
+      find('h2').text().should.include("Intervention Engine")
