@@ -1,18 +1,15 @@
 App = window.App = Ember.Application.create()
 
-App.IndexController = Ember.ArrayController.extend
-  data: []
-
-  actions:
-    modelData: (modelName) ->
-      modelData = []
-      App[modelName].eachAttribute (name, meta) -> modelData.push name
-      
-      @set('data', modelData)
-
-
 
 App.ApplicationSerializer = DS.RESTSerializer.extend DS.EmbeddedRecordsMixin,
+
+  keyForAttribute: (key, relationship) ->
+    return Ember.String.capitalize(key)
+
+  extract: (store, type, payload, id, requestType) ->
+    normalizedPayload = {}
+    normalizedPayload[Ember.String.pluralize(Ember.String.camelize(type.toString().split(".")[1]))] = payload
+    @_super(store, type, normalizedPayload, id, requestType)
 
   normalize: (type, hash, prop) ->
     # Because FHIR resources have embedded stuff without IDs we're going to generate them
