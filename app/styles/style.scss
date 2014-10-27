@@ -1,7 +1,50 @@
+$navbar-height:83px;
+$navbar-inverse-bg: #454545;
+$navbar-inverse-color: #ffffff;
+$navbar-inverse-link-color: $navbar-inverse-color;
 $icon-font-path: "../styles/fonts/"; // Change the path to the fonts
+$headings-font-weight: 100;
+$body-bg: #D8D8D8;
+$panel-border-radius: 0px;
+$brand-primary: #5D8FAE;
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
-
+$fa-font-path: "/bower_components/font-awesome/fonts";
+@import "font-awesome/scss/font-awesome";
 /* Put your CSS here */
 html, body {
-    margin: 30px 0;
+    margin-top: 30px;
+}
+
+
+.logo{
+  margin-top: -20px;
+}
+
+
+.nav{
+  padding-right: 44px;
+}
+
+.panel{
+  padding-top: 16px;
+  padding-left: 47px;
+  padding-bottom: 13px;
+  margin-bottom: 44px;
+}
+
+h1{
+  font-size:4.8em;
+}
+
+h2{
+  font-size: 2.2em;
+}
+
+
+.events{
+  width: 626px;
+  height: 111;
+  fill:$brand-primary;
+  fill-opacity: 20%;
+  stroke: $brand-primary;
 }

@@ -1,6 +1,5 @@
 App = window.App = Ember.Application.create()
 
-
 App.ApplicationSerializer = DS.RESTSerializer.extend DS.EmbeddedRecordsMixin,
 
   keyForAttribute: (key, relationship) ->
