@@ -1,0 +1,27 @@
+{
+  "name": "ember-dc",
+  "description": "Multi-Dimensional charts, graphs, maps, data-table with crossfilter and d3.js (dc.js)",
+  "version": "0.0.3",
+  "main": [
+    "ember-dc.js",
+    "ember-dc.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "example-app",
+    "README.md",
+    "LICENCE",
+    "gulpfile.js",
+    "package.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "ember": "~1.5.0-beta.4",
+    "crossfilter": "~1.3.5",
+    "dcjs": "https://github.com/dc-js/dc.js.git#master",
+    "jquery": "~2.1.0"
+  }
+}

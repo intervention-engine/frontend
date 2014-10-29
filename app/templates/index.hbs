@@ -1,1 +1,33 @@
-<h2>Welcome to Intervention Engine</h2>
+<div class="panel">
+  <h1>Patient Filter</h1>
+</div>
+
+
+<div class='container '>
+  <div class="row panel">
+    <div class="col-sm-2">
+      <h2>Group By</h2>
+    </div>
+    <div class="col-sm-1">
+      <button class="btn btn-primary" {{action 'setGrouping' 'day'}}>Day</button>
+    </div>
+    <div class="col-sm-1">
+      <button class="btn btn-primary" {{action 'setGrouping' 'month' }}>Month</button>
+    </div>
+    <div class="col-sm-1">
+      <button class="btn btn-primary" {{action 'setGrouping' 'year' }}>Year</button>
+    </div>
+    <div>
+      <svg class="events">
+        <path {{bind-attr d="barsPath"}}/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="row panel">
+      {{#each group in groupSet}}
+        {{group.value}} at {{group.key}}
+        <br>
+      {{/each}}
+  </div>
+</div>
