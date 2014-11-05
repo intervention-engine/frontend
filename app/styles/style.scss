@@ -1,3 +1,4 @@
+/* variables and imports */
 $navbar-height:83px;
 $navbar-inverse-bg: #454545;
 $navbar-inverse-color: #ffffff;
@@ -10,41 +11,55 @@ $brand-primary: #5D8FAE;
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 @import "font-awesome/scss/font-awesome";
-/* Put your CSS here */
+
+/* Custom CSS */
 html, body {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
+h1 {
+  font-size:4.8em;
+}
 
-.logo{
+h2 {
+  font-size: 2.2em;
+  font-weight: 200;
+}
+
+.logo {
   margin-top: -20px;
 }
 
-
-.nav{
+.nav {
   padding-right: 44px;
 }
 
-.panel{
+.panel {
   padding-top: 16px;
   padding-left: 47px;
   padding-bottom: 13px;
   margin-bottom: 44px;
 }
 
-h1{
-  font-size:4.8em;
-}
-
-h2{
-  font-size: 2.2em;
-}
-
-
-.events{
+.events {
   width: 626px;
   height: 111;
   fill:$brand-primary;
   fill-opacity: 20%;
   stroke: $brand-primary;
+}
+
+.btn-circle {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-width: 5px;
+  background-color: #fff;
+  border-color: $body-bg;
+
+  &.btn-active {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+    color: #fff;
+  }
 }
