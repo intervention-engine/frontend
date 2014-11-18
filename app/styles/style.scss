@@ -11,6 +11,7 @@ $brand-primary: #5D8FAE;
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 @import "font-awesome/scss/font-awesome";
+@import "fontcustom";
 
 /* Custom CSS */
 html, body {
