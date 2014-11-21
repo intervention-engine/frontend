@@ -131,7 +131,3 @@ App.AccomodationSerializer = App.ApplicationSerializer.extend
   attrs:
     bed: {embedded: 'always'}
     period: {embedded: 'always'}
-
-App.Encounter.FIXTURES = [
-
-]

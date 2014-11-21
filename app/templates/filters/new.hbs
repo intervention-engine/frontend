@@ -1,0 +1,19 @@
+<div class="panel">
+  <h1>New Filter</h1>
+</div>
+
+
+  <div class="row">
+      <div class="filter-panel">
+          <h3>Filter Type</h3>
+          <hr>
+          {{#x-drag type="patient"}}<div class="filter"> <i class="fa fa-user fa-fw pull-left"></i>Patient</div>{{/x-drag}}
+          {{#x-drag type="encounter"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div>{{/x-drag}}
+          {{#x-drag type="condition"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Condition</div>{{/x-drag}}
+
+      </div>
+
+      {{#x-drop}}
+        Filters?
+      {{/x-drop}}
+  </div>

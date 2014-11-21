@@ -1,6 +1,6 @@
 App.ApplicationRoute = Ember.Route.extend
     # admittedly, this should be in IndexRoute and not in the
     # top level ApplicationRoute; we're in transition... :-)
-    model: -> @store.findAll('encounter')
+    model: -> {}#@store.findAll('encounter')
     # setupController: (controller) ->
     #   controller.set 'content' @findAll('encounter')

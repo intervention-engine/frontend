@@ -1,5 +1,5 @@
 <div>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse " role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -13,13 +13,16 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li>{{#link-to filters}}<i class="fa fa-filter"></i> Patient Filter{{/link-to}}</li>
+            <li>{{#link-to filters}}<i class="fa fa-bar-chart"></i> My Metrics{{/link-to}}</li>
+            <li>{{#link-to filters}}<i class="fa fa-plus-circle"></i> New Metric{{/link-to}}</li>
+            <li>{{#link-to "filters"}}<i class="fa fa-filter"></i> My Filters{{/link-to}}</li>
+            <li>{{#link-to "filters.new"}}<i class="fa fa-plus-circle"></i> New Filter{{/link-to}}</li>
             <li>{{#link-to utilities}}<i class="fa fa-cogs"></i> Utilities{{/link-to}}</li>
             <li>{{#link-to utilities}}<i class="fa fa-sign-out"></i> Logout{{/link-to}}</li>
           </ul>
         </div>
     </nav>
-    <div class="" id="main">
+    <div class="container">
         <div class="row">
                 <div id="ember-fhir">
                     {{outlet}}

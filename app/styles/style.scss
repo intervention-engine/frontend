@@ -4,19 +4,20 @@ $navbar-inverse-bg: #454545;
 $navbar-inverse-color: #ffffff;
 $navbar-inverse-link-color: $navbar-inverse-color;
 $icon-font-path: "../styles/fonts/"; // Change the path to the fonts
-$headings-font-weight: 100;
 $body-bg: #D8D8D8;
 $panel-border-radius: 0px;
 $brand-primary: #5D8FAE;
+$border-radius-large: 0px;
+$headings-font-weight: 200;
+$headings-color: #707070;
+$btn-default-bg: #D8D8D8;
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 @import "font-awesome/scss/font-awesome";
 @import "fontcustom";
 
 /* Custom CSS */
-html, body {
-  margin-top: 30px;
-}
+
 
 h1 {
   font-size:4.8em;
@@ -24,7 +25,6 @@ h1 {
 
 h2 {
   font-size: 2.2em;
-  font-weight: 200;
 }
 
 .logo {
@@ -42,14 +42,6 @@ h2 {
   margin-bottom: 44px;
 }
 
-.events {
-  width: 626px;
-  height: 111;
-  fill:$brand-primary;
-  fill-opacity: 20%;
-  stroke: $brand-primary;
-}
-
 .btn-circle {
   border-radius: 50%;
   width: 80px;
@@ -62,5 +54,36 @@ h2 {
     background-color: $brand-primary;
     border-color: $brand-primary;
     color: #fff;
+  }
+}
+
+.drop-target{
+  @include make-xs-column(9);
+  min-height:600px;
+  background-color: white;
+}
+
+
+.filter-panel{
+  @include make-xs-column(3);
+  min-height:600px;
+  background-color: #fff;
+  padding-left: 28px;
+  margin-left: 34px;
+
+  .filter {
+    width: 260px;
+    height: 79px;
+    padding:0px;
+    background-color: $body-bg;
+    margin: 11px;
+    font-size:32px;
+    font-weight:200;
+    i{
+      color:white;
+      font-size: 48px;
+      background-color: $brand-primary;
+      height:100%;
+    }
   }
 }
