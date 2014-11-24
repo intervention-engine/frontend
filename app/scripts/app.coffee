@@ -7,7 +7,7 @@ App.ApplicationSerializer = DS.RESTSerializer.extend DS.EmbeddedRecordsMixin,
 
   extract: (store, type, payload, id, requestType) ->
     normalizedPayload = {}
-    normalizedPayload[Ember.String.pluralize(Ember.String.camelize(type.toString().split(".")[1]))] = payload
+    normalizedPayload[Ember.String.pluralize(Ember.String.camelize(type.toString().split(".")[1]))] = payload.Entries
     @_super(store, type, normalizedPayload, id, requestType)
 
   normalize: (type, hash, prop) ->
