@@ -1,6 +1,6 @@
-App.Population = DS.Model.extend
-  filters: DS.hasMany('filter')
-
-
 App.Filter = DS.Model.extend
-  type: DS.attr("string")
+  params: DS.hasMany('param')
+
+
+App.Param = DS.Model.extend
+  template: DS.attr("string")

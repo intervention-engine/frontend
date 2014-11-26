@@ -1,6 +1,12 @@
 App.FiltersNewRoute = Em.Route.extend
   model: ->
-    @store.createRecord('population')
+    @store.createRecord('filter')
+
   actions:
-    filterAdded: (data) ->
-      console.log data
+    updateFilter: (data) ->
+      # debugger
+      @controller.get('params').pushObject(data)
+      console.log @controller.get('params')
+      # @currentModel.get("params").addObject(@store.createRecord("param", {id: Em.generateGuid({}, "param"), template: data}))
+App.FiltersNewController = Em.Controller.extend
+  params: (-> Em.A()).property()

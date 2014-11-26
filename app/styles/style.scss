@@ -58,21 +58,26 @@ h2 {
 }
 
 .drop-target{
-  @include make-xs-column(9);
+
   min-height:600px;
   background-color: white;
+
+
 }
 
+.active{
+  border: 5px solid $brand-primary;
+}
 
 .filter-panel{
-  @include make-xs-column(3);
+
   min-height:600px;
   background-color: #fff;
-  padding-left: 28px;
-  margin-left: 34px;
+  // padding-left: 28px;
+  // margin-left: 34px;
 
   .filter {
-    width: 260px;
+    width: 90%;
     height: 79px;
     padding:0px;
     background-color: $body-bg;

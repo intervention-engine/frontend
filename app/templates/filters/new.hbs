@@ -4,16 +4,23 @@
 
 
   <div class="row">
-      <div class="filter-panel">
-          <h3>Filter Type</h3>
-          <hr>
-          {{#x-drag type="patient"}}<div class="filter"> <i class="fa fa-user fa-fw pull-left"></i>Patient</div>{{/x-drag}}
-          {{#x-drag type="encounter"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div>{{/x-drag}}
-          {{#x-drag type="condition"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Condition</div>{{/x-drag}}
+      <div class="col-sm-3">
+          <div class="filter-panel">
+              <h3>Filter Type</h3>
+              <hr>
+              {{#x-drag templatePath="filters/_patient"}}<div class="filter"> <i class="fa fa-user fa-fw pull-left"></i>Patient</div>{{/x-drag}}
+              {{#x-drag templatePath="filters/_encounter"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div>{{/x-drag}}
+              {{#x-drag templatePath="filters/_condition"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Condition</div>{{/x-drag}}
 
+          </div>
       </div>
 
-      {{#x-drop}}
-        Filters?
-      {{/x-drop}}
+      <div class="col-sm-9">
+          {{#x-drop action="updateFilter" model=params}}
+            Filters?
+          {{/x-drop}}
+      </div>
+
+
+
   </div>

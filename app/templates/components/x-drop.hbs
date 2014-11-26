@@ -1,5 +1,10 @@
-<div class="drop-target">
-  {{#each filter in filters}}
-    {{filter}}
-  {{/each}}
+<div {{bind-attr class=":drop-target droppable:active"}}>
+  <ul>
+    {{log model}}
+      {{#each p in model}}
+
+        <li>{{partial p}}</li>
+      {{/each}}
+  </ul>
+
 </div>
