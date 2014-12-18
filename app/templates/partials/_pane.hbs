@@ -1,0 +1,15 @@
+<i {{bind-attr class=":fa :fa-fw :pull-left icon"}}> </i>
+<div class="filter">
+  {{#each item in items}}
+    {{#with item}}
+      <div>
+          {{input type="checkbox" name="active" checked=active}} {{filterType}}
+          {{#if active}}
+            <div id="name">
+                {{partial template}}
+            </div>
+          {{/if}}
+      </div>
+    {{/with}}
+  {{/each}}
+</div>

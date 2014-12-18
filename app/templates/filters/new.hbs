@@ -8,19 +8,21 @@
           <div class="filter-panel">
               <h3>Filter Type</h3>
               <hr>
-              {{#x-drag templatePath="filters/_patient"}}<div class="filter"> <i class="fa fa-user fa-fw pull-left"></i>Patient</div>{{/x-drag}}
-              {{#x-drag templatePath="filters/_encounter"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div>{{/x-drag}}
-              {{#x-drag templatePath="filters/_condition"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Condition</div>{{/x-drag}}
+              {{#x-drag templatePath="patient"}}<div class="filter"> <i class="fa fa-user fa-fw pull-left"></i>Patient</div>{{/x-drag}}
+              {{#x-drag templatePath="encounter"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div>{{/x-drag}}
+              {{#x-drag templatePath="condition"}}<div class="filter"> <i class="icon-med-clipboard pull-left"></i>Condition</div>{{/x-drag}}
 
           </div>
       </div>
 
       <div class="col-sm-9">
-          {{#x-drop action="updateFilter" model=params}}
+          {{#x-drop action="addPane" model=model}}
             Filters?
           {{/x-drop}}
       </div>
 
 
-
+<button {{action "saveFilter"}}>Save</button>
   </div>
+
+{{json}}

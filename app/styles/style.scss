@@ -62,10 +62,13 @@ h2 {
   min-height:600px;
   background-color: white;
 
+  .filter{
+    border: 5px solid $gray-lighter;
+  }
 
 }
 
-.active{
+.drop-active{
   border: 5px solid $brand-primary;
 }
 

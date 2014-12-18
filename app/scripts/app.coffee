@@ -14,8 +14,26 @@ App.ApplicationSerializer = DS.RESTSerializer.extend DS.EmbeddedRecordsMixin,
     # Because FHIR resources have embedded stuff without IDs we're going to generate them
     hash.id ?= Em.generateGuid({}, type)
     @_super(type, hash, prop)
+  serializeAttribute: (record, json, key, attribute) ->
+    # Because of the way FHIR handles values we have to munge the JSON a little
+    if key =="value"
+      value = record.get('value')
+      switch typeof value
+        when "string"
+          json.valuestring = value
+        when "number"
+          json.value = value
+        when "object"
+          json.valuerange = value
+    else
+      @_super(record, json, key, attribute)
+
 
 # Order and include as you please.
+
+require 'scripts/helpers'
+
+
 require 'scripts/controllers/*'
 require 'scripts/store'
 require 'scripts/models/*'

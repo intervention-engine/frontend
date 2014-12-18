@@ -13,3 +13,6 @@ App.XDropComponent = Ember.Component.extend
     # Handle the case of garbage drop.
     return if data == ""
     @sendAction('action', data)
+  actions:
+    addParam: (url) ->
+      debugger
