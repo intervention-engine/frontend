@@ -28,7 +28,8 @@
     "time-grunt": "~0.1.1",
     "grunt-replace": "~0.4.4",
     "jshint-stylish": "~0.1.3",
-    "grunt-neuter": "~0.6.0"
+    "grunt-neuter": "~0.6.0",
+    "grunt-connect-proxy": "^0.1.11"
   },
   "engines": {
     "node": ">=0.8.0"

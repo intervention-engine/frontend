@@ -12,6 +12,7 @@ var mountFolder = function (connect, dir) {
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
 
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 module.exports = function (grunt) {
     // show elapsed time at the end
     require('time-grunt')(grunt);
@@ -66,13 +67,23 @@ module.exports = function (grunt) {
                 // change this to '0.0.0.0' to access the server from outside
                 hostname: 'localhost'
             },
+            proxies: [
+                {
+                    context: '/',
+                    host: 'localhost',
+                    port: 3001,
+                    https: false,
+                    xforward: false
+                }
+            ],
             livereload: {
                 options: {
                     middleware: function (connect) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app)
+                            mountFolder(connect, yeomanConfig.app),
+                            proxySnippet
                         ];
                     }
                 }
@@ -385,6 +396,7 @@ module.exports = function (grunt) {
             'clean:server',
             'replace:app',
             'concurrent:server',
+            'configureProxies',
             'neuter:app',
             'copy:fonts',
             'connect:livereload',
