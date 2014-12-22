@@ -1,6 +1,8 @@
 App = window.App = Ember.Application.create()
 
 App.ApplicationSerializer = DS.RESTSerializer.extend DS.EmbeddedRecordsMixin,
+  serializeIntoHash: (hash, type, record, options) ->
+    Ember.merge(hash, this.serialize(record, options))
 
   keyForAttribute: (key, relationship) ->
     return Ember.String.capitalize(key)
