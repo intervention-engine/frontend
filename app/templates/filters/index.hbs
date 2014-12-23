@@ -3,15 +3,18 @@
   <h1>My Filters</h1>
   <ul class="filterList">
       {{#each filter in content}}
+        {{#if filter.isNew}}
+        {{else}}
         <li>
           <h2>
             {{#link-to 'filters.show' filter}}
               <i class="fa fa-pie-chart"></i>
               {{#if filter.name}}{{filter.name}}{{else}}Unnamed{{/if}}
-              {{#if filter.isNew}}<small>(draft)</small>{{/if}}
+
             {{/link-to}}
           </h2>
         </li>
+        {{/if}}
       {{/each}}
   </ul>
 </div>
