@@ -2,7 +2,7 @@
 
       {{#each pane in model.panes}}
         {{#with pane}}
-          {{partial "partials/_pane"}}
+          {{render "partials/_pane" pane}}
         {{/with}}
       {{/each}}
 </div>

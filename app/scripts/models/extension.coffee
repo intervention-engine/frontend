@@ -28,6 +28,7 @@
 App.Extension = DS.Model.extend
     url: DS.attr('string')
     value: DS.attr()
+    valueString: DS.attr("string")
 
 App.ExtensionSerializer = App.ApplicationSerializer.extend
     attrs:

@@ -1,2 +1,9 @@
-Patient Gender is {{radio-button name=parameter.value value="M"}} Male
-{{radio-button name=parameter.value value="F"}} Female
+
+
+{{input type="checkbox" name=active checked=active}}
+{{#if active}}
+  Patient Gender is {{radio-button name=parameter.valueString value="M"}} Male
+  {{radio-button name=parameter.valueString value="F"}} Female
+{{else}}
+    Patient Gender Filter
+{{/if}}

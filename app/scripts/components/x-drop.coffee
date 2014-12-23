@@ -14,5 +14,5 @@ App.XDropComponent = Ember.Component.extend
     return if data == ""
     @sendAction('action', data)
   actions:
-    addParam: (url) ->
-      debugger
+    removePane: (pane)->
+      @model.get("panes").removeObject(pane)

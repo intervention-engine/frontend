@@ -1,16 +1,15 @@
-<div class="panel">
-  <h1>Filter</h1>
-</div>
-
-
+<div class="container">
+  <h1>Filter </h1>
+  {{input name=name value=name}}
+  <button class="btn btn-lg"{{action "saveFilter"}}>Save</button>
   <div class="row">
       <div class="col-sm-3">
           <div class="filter-panel">
               <h3>Filter Type</h3>
               <hr>
-              {{#x-drag templatePath="patient"}}<div class="filter"> <i class="fa fa-user fa-fw pull-left"></i>Patient</div>{{/x-drag}}
-              {{#x-drag templatePath="encounter"}}<div class="filter"> <i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div>{{/x-drag}}
-              {{#x-drag templatePath="condition"}}<div class="filter"> <i class="icon-med-clipboard pull-left"></i>Condition</div>{{/x-drag}}
+              {{#x-drag templatePath="patient"}}<div class="filter"><h2><i class="fa fa-user fa-fw pull-left"></i>Patient</div></h2> {{/x-drag}}
+              {{#x-drag templatePath="encounter"}}<div class="filter"> <h2><i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div></h2>{{/x-drag}}
+              {{#x-drag templatePath="condition"}}<div class="filter"> <h2><i class="icon-med-clipboard pull-left"></i>Condition</div></h2>{{/x-drag}}
 
           </div>
       </div>
@@ -21,6 +20,9 @@
           {{/x-drop}}
       </div>
 
+</div>
 
-<button {{action "saveFilter"}}>Save</button>
+
+
+
   </div>

@@ -4,7 +4,7 @@ $navbar-inverse-bg: #454545;
 $navbar-inverse-color: #ffffff;
 $navbar-inverse-link-color: $navbar-inverse-color;
 $icon-font-path: "../styles/fonts/"; // Change the path to the fonts
-$body-bg: #D8D8D8;
+// $body-bg: #D8D8D8;
 $panel-border-radius: 0px;
 $brand-primary: #5D8FAE;
 $border-radius-large: 0px;
@@ -58,40 +58,48 @@ h2 {
 }
 
 .drop-target{
+  border: 1px dashed $brand-primary;
 
-  min-height:600px;
-  background-color: white;
+  padding-bottom: 100px;
+  // background-color: white;
 
   .filter{
-    border: 5px solid $gray-lighter;
+    border: 2px solid $gray-lighter;
+    margin: 15px;
+    padding-right: 15px;
   }
 
 }
 
+.filterList{
+  list-style-type: none;
+}
+
+//
 .drop-active{
-  border: 5px solid $brand-primary;
+  border: 1px solid $brand-primary;
 }
-
-.filter-panel{
-
-  min-height:600px;
-  background-color: #fff;
-  // padding-left: 28px;
-  // margin-left: 34px;
-
-  .filter {
-    width: 90%;
-    height: 79px;
-    padding:0px;
-    background-color: $body-bg;
-    margin: 11px;
-    font-size:32px;
-    font-weight:200;
-    i{
-      color:white;
-      font-size: 48px;
-      background-color: $brand-primary;
-      height:100%;
-    }
-  }
-}
+//
+// .filter-panel{
+//
+//   min-height:600px;
+//   background-color: #fff;
+//   // padding-left: 28px;
+//   // margin-left: 34px;
+//
+//   .filter {
+//     width: 90%;
+//     height: 79px;
+//     padding:0px;
+//     background-color: $body-bg;
+//     margin: 11px;
+//     font-size:32px;
+//     font-weight:200;
+//     i{
+//       color:white;
+//       font-size: 48px;
+//       background-color: $brand-primary;
+//       height:100%;
+//     }
+//   }
+// }

@@ -1,15 +1,19 @@
-<i {{bind-attr class=":fa :fa-fw :pull-left icon"}}> </i>
-<div class="filter">
-  {{#each item in items}}
-    {{#with item}}
-      <div>
-          {{input type="checkbox" name="active" checked=active}} {{filterType}}
-          {{#if active}}
-            <div id="name">
-                {{partial template}}
-            </div>
-          {{/if}}
+
+<div class="filter row">
+  <div class="col-xs-2">
+    <h2><i {{bind-attr class=":fa :fa-fw icon"}}> </i></h2>
+  </div>
+  <button type="button" class="close" {{action "removePane"  model}} aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div class="col-xs-10">
+    {{#each item in items}}
+      {{#with item}}
+      <div class="row">
+        {{partial template}}
       </div>
-    {{/with}}
-  {{/each}}
+      {{/with}}
+    {{/each}}
+  </div>
 </div>
