@@ -43,3 +43,8 @@ App.FiltersNewRoute = Em.Route.extend
 
 # App.FiltersNewController = Em.Controller.extend
 #   filters: (-> Em.A()).property()
+
+
+App.FiltersIndexRoute = Em.Route.extend
+  model: ->
+    @store.findAll("filter")

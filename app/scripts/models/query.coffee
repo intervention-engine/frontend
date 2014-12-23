@@ -50,7 +50,7 @@ App.Response = DS.Model.extend
     previous: DS.hasMany('extension')
     next: DS.hasMany('extension')
     last: DS.hasMany('extension')
-    reference: DS.hasMany('reference')
+    reference: DS.hasMany('resourceReference')
 
 
 App.ResponseSerializer = App.ApplicationSerializer.extend

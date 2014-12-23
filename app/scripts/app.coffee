@@ -9,7 +9,10 @@ App.ApplicationSerializer = DS.RESTSerializer.extend DS.EmbeddedRecordsMixin,
 
   extract: (store, type, payload, id, requestType) ->
     normalizedPayload = {}
-    normalizedPayload[Ember.String.pluralize(Ember.String.camelize(type.toString().split(".")[1]))] = payload.Entries
+    # Because the server returns NULL if no filters...
+    # TODO Is this misbehavior on the server side?
+    return [] if payload == null
+    normalizedPayload[Ember.String.pluralize(Ember.String.camelize(type.toString().split(".")[1]))] = payload.Entries||payload
     @_super(store, type, normalizedPayload, id, requestType)
 
   normalize: (type, hash, prop) ->

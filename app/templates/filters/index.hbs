@@ -1,3 +1,9 @@
 <div class="panel">
   <h1>My Filters</h1>
 </div>
+
+<ul>
+  {{#each filter in content}}
+    {{#link-to 'filters.show' filter}}LINK{{/link-to}}
+  {{/each}}
+</ul>
