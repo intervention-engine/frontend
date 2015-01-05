@@ -3,6 +3,7 @@ App.Filter = DS.Model.extend
   description: DS.attr("string")
   query: DS.belongsTo("query")
   panes: DS.hasMany("pane")
+  url: DS.attr("string")
   buildQuery: ->
     if not @get('query')
       @set('query', @store.createRecord("query", {}))

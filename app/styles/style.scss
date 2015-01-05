@@ -80,7 +80,7 @@ h2 {
   border: 1px solid $brand-primary;
 }
 //
-// .filter-panel{
+.filter-panel{
 //
 //   min-height:600px;
 //   background-color: #fff;
@@ -102,4 +102,9 @@ h2 {
 //       height:100%;
 //     }
 //   }
-// }
+  .filter{
+    border: 1px dashed $gray-lighter;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}

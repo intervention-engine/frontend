@@ -3,3 +3,4 @@ App.Router.map ->
   @resource 'filters', ->
     @route 'new'
     @route 'show', path: ':id'
+  

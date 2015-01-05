@@ -29,7 +29,9 @@ App.Extension = DS.Model.extend
     url: DS.attr('string')
     value: DS.attr()
     valueString: DS.attr("string")
+    valueCodeableConcept: DS.belongsTo("codeableConcept")
 
 App.ExtensionSerializer = App.ApplicationSerializer.extend
     attrs:
         value : {embedded: 'always'}
+        valueCodeableConcept: {embedded: 'always'}
