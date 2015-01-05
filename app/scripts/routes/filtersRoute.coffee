@@ -21,6 +21,12 @@ App.FiltersNewRoute = Em.Route.extend
 App.FiltersShowRoute = Em.Route.extend
   model: (params) ->
     @store.find('filter', params.id)
+  afterModel: (filter) ->
+    query = DS.PromiseObject.create({promise: $.get(filter.get('url'))})
+    query.then(() ->
+      console.log query.content.Response.Total
+      filter.set('results', query.content.Response.Total)
+    )
   actions:
     saveFilter: ->
       @currentModel.buildQuery()

@@ -2,6 +2,7 @@
   <h1>Filter </h1>
   {{input name=name value=name}}
   <button class="btn btn-lg"{{action "saveFilter"}}>Save</button>
+
   <div class="row">
       <div class="col-sm-3">
           <div class="filter-panel">
@@ -22,7 +23,7 @@
 
 </div>
 
-
+<span class="pull-right"><h3>{{results}} Patient(s) returned</h3></span>
 
 
   </div>
