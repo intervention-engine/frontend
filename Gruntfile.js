@@ -208,7 +208,7 @@ module.exports = function (grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                        // '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                         '<%= yeoman.dist %>/styles/fonts/*'
                     ]
                 }
@@ -221,7 +221,7 @@ module.exports = function (grunt) {
             }
         },
         usemin: {
-            html: ['<%= yeoman.dist %>/{,*/}*.html'],
+        html: ['<%= yeoman.dist %>/{,*/}*.{html,hbs}'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
             options: {
                 dirs: ['<%= yeoman.dist %>']
@@ -314,6 +314,7 @@ module.exports = function (grunt) {
                         dest: '<%= yeoman.app %>/styles/fonts/',
                         src: [
                             'bootstrap-sass-official/vendor/assets/fonts/bootstrap/**'
+
                         ]
                     }
                 ]
@@ -328,8 +329,9 @@ module.exports = function (grunt) {
                         src: [
                             '*.{ico,txt}',
                             '.htaccess',
-                            'images/{,*/}*.{webp,gif}',
-                            'styles/fonts/*'
+                          'images/{,*/}*.{webp,gif, png}',
+                            'styles/fonts/*',
+                            'font-awesome/fonts/**'
                         ]
                     }
                 ]

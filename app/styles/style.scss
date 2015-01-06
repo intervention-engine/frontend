@@ -12,7 +12,8 @@ $headings-font-weight: 200;
 $headings-color: #707070;
 $btn-default-bg: #D8D8D8;
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
-$fa-font-path: "/bower_components/font-awesome/fonts";
+$fa-font-path: "fonts/";
+// @import "font-awesome/fonts";
 @import "font-awesome/scss/font-awesome";
 @import "fontcustom";
 
