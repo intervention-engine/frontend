@@ -1,0 +1,55 @@
+{
+  "checksum": {
+    "previous": "a181ead63b4f889f5cbed4783c0445f8b9013732bcea9e4cb3c5fa0c6d2ed391",
+    "current": "a181ead63b4f889f5cbed4783c0445f8b9013732bcea9e4cb3c5fa0c6d2ed391"
+  },
+  "fonts": [
+    "fontcustom/fontcustom_a181ead63b4f889f5cbed4783c0445f8.ttf",
+    "fontcustom/fontcustom_a181ead63b4f889f5cbed4783c0445f8.svg",
+    "fontcustom/fontcustom_a181ead63b4f889f5cbed4783c0445f8.woff",
+    "fontcustom/fontcustom_a181ead63b4f889f5cbed4783c0445f8.eot"
+  ],
+  "glyphs": {
+    "med-clipboard": {
+      "codepoint": 61696,
+      "source": "/Users/nebrown/Projects/InterventionEngine/Designs/user-interface/fontcustom/vectors/med-clipboard.svg"
+    },
+    "medication": {
+      "codepoint": 61697,
+      "source": "/Users/nebrown/Projects/InterventionEngine/Designs/user-interface/fontcustom/vectors/medication.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": false,
+    "css_selector": ".icon-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "fontcustom",
+    "force": false,
+    "input": {
+      "templates": "/Users/nebrown/Projects/InterventionEngine/Designs/user-interface/fontcustom/vectors",
+      "vectors": "/Users/nebrown/Projects/InterventionEngine/Designs/user-interface/fontcustom/vectors"
+    },
+    "no_hash": false,
+    "output": {
+      "css": "fontcustom",
+      "fonts": "fontcustom",
+      "preview": "fontcustom"
+    },
+    "preprocessor_path": null,
+    "quiet": false,
+    "skip_first": false,
+    "templates": [
+      "css",
+      "preview"
+    ]
+  },
+  "templates": [
+    "fontcustom/fontcustom.css",
+    "fontcustom/fontcustom-preview.html"
+  ]
+}
