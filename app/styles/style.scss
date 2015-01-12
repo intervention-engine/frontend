@@ -1,111 +1,11 @@
-/* variables and imports */
-$navbar-height:83px;
-$navbar-inverse-bg: #454545;
-$navbar-inverse-color: #ffffff;
-$navbar-inverse-link-color: $navbar-inverse-color;
-$icon-font-path: "../styles/fonts/"; // Change the path to the fonts
-// $body-bg: #D8D8D8;
-$panel-border-radius: 0px;
-$brand-primary: #5D8FAE;
-$border-radius-large: 0px;
-$headings-font-weight: 200;
-$headings-color: #707070;
-$btn-default-bg: #D8D8D8;
+// import variables
+@import "variables";
+
+// import 3rd party vendors
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
-$fa-font-path: "fonts/";
-// @import "font-awesome/fonts";
 @import "font-awesome/scss/font-awesome";
 @import "fontcustom";
 
-/* Custom CSS */
-
-
-h1 {
-  font-size:4.8em;
-}
-
-h2 {
-  font-size: 2.2em;
-}
-
-.logo {
-  margin-top: -20px;
-}
-
-.nav {
-  padding-right: 44px;
-}
-
-.panel {
-  padding-top: 16px;
-  padding-left: 47px;
-  padding-bottom: 13px;
-  margin-bottom: 44px;
-}
-
-.btn-circle {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  border-width: 5px;
-  background-color: #fff;
-  border-color: $body-bg;
-
-  &.btn-active {
-    background-color: $brand-primary;
-    border-color: $brand-primary;
-    color: #fff;
-  }
-}
-
-.drop-target{
-  border: 1px dashed $brand-primary;
-
-  padding-bottom: 100px;
-  // background-color: white;
-
-  .filter{
-    border: 2px solid $gray-lighter;
-    margin: 15px;
-    padding-right: 15px;
-  }
-
-}
-
-.filterList{
-  list-style-type: none;
-}
-
-//
-.drop-active{
-  border: 1px solid $brand-primary;
-}
-//
-.filter-panel{
-//
-//   min-height:600px;
-//   background-color: #fff;
-//   // padding-left: 28px;
-//   // margin-left: 34px;
-//
-//   .filter {
-//     width: 90%;
-//     height: 79px;
-//     padding:0px;
-//     background-color: $body-bg;
-//     margin: 11px;
-//     font-size:32px;
-//     font-weight:200;
-//     i{
-//       color:white;
-//       font-size: 48px;
-//       background-color: $brand-primary;
-//       height:100%;
-//     }
-//   }
-  .filter{
-    border: 1px dashed $gray-lighter;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-}
+// import custom scss
+@import "application";
+@import "newfilter";

@@ -1,28 +1,43 @@
 <div class="container">
-  <h1>New Filter</h1>
-  {{input name=name value=name}}
-  <button class="btn btn-lg"{{action "saveFilter"}}>Save</button>
+
+  <div class="title-panel">
+    <h1>Create Filter</h1>
+  </div>
+
   <div class="row">
-      <div class="col-sm-3">
-          <div class="filter-panel">
-              <h3>Filter Type</h3>
-              <hr>
-              {{#x-drag templatePath="patient"}}<div class="filter"><h2><i class="fa fa-user fa-fw pull-left"></i>Patient</div></h2> {{/x-drag}}
-              {{#x-drag templatePath="encounter"}}<div class="filter"> <h2><i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div></h2>{{/x-drag}}
-              {{#x-drag templatePath="condition"}}<div class="filter"> <h2><i class="icon-med-clipboard pull-left"></i>Condition</div></h2>{{/x-drag}}
-
+    <div class="col-sm-3">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3>Filter Type</h3>
           </div>
-      </div>
+        </div>
 
-      <div class="col-sm-9">
+        <div class="panel-body">
+          {{#x-drag templatePath="patient"}}<div class="filter"><h2><i class="fa fa-user fa-fw pull-left"></i>Patient</div></h2> {{/x-drag}}
+          {{#x-drag templatePath="encounter"}}<div class="filter"> <h2><i class="fa fa-stethoscope fa-fw pull-left"></i>Encounter</div></h2>{{/x-drag}}
+          {{#x-drag templatePath="condition"}}<div class="filter"> <h2><i class="icon-med-clipboard pull-left"></i>Condition</div></h2>{{/x-drag}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-9">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3>Filter Details</h3>
+          </div>
+        </div>
+
+        <div class="panel-body">
           {{#x-drop action="addPane" model=model}}
             Filters?
           {{/x-drop}}
+
+          {{input name=name value=name}}
+          <button class="btn btn-lg"{{action "saveFilter"}}>Save</button>
+        </div>
       </div>
-
-</div>
-
-
-
-
+    </div>
   </div>
+</div>

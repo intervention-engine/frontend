@@ -1,0 +1,19 @@
+/* -------------------------------- COLORS -------------------------------- */
+$brand-primary: #5D8FAE;
+$brand-secondary: #505050; // custom
+$body-bg: #EEEEEE;
+$headings-color: $brand-secondary;
+$btn-default-bg: $brand-primary;
+$navbar-inverse-bg: $brand-secondary;
+$navbar-inverse-color: #ffffff;
+$navbar-inverse-link-color: $navbar-inverse-color;
+
+/* -------------------------------- DIMENTIONS -------------------------------- */
+$navbar-height: 83px;
+$panel-border-radius: 0px;
+$border-radius-large: 0px;
+$headings-font-weight: 200;
+
+/* -------------------------------- PATHS -------------------------------- */
+$icon-font-path: "../styles/fonts/"; // Change the path to the fonts
+$fa-font-path: "fonts/"; // font-awesome

@@ -1,0 +1,71 @@
+/* -------------------------------- DOM -------------------------------- */
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+}
+
+h1 {
+  font-size: 4.8em;
+  font-weight: 100;
+}
+
+h2 {
+  font-size: 2.2em;
+}
+
+/* -------------------------------- LOGO -------------------------------- */
+
+.logo {
+  margin-top: -20px;
+}
+
+/* -------------------------------- NAV -------------------------------- */
+
+.nav {
+  padding-right: 44px;
+}
+
+/* -------------------------------- PANELS -------------------------------- */
+
+.panel {
+  padding: 0;
+  margin: 10px 0;
+
+  .panel-title {
+    padding: 0 10px 5px 30px;
+  }
+
+  .panel-heading {
+    border-bottom: 1px solid $body-bg;
+    padding: 0;
+  }
+}
+
+.title-panel {
+  background-color: #fff;
+  margin: -20px -9999rem 10px -9999rem;
+  /* add back negative margin value */
+  padding: 0.25rem 9999rem;
+}
+
+/* -------------------------------- BUTTONS -------------------------------- */
+
+.btn-circle {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-width: 5px;
+  background-color: #fff;
+  border-color: $body-bg;
+
+  &.btn-active {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+    color: #fff;
+  }
+}
