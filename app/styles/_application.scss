@@ -51,6 +51,10 @@ h2 {
   margin: -20px -9999rem 10px -9999rem;
   /* add back negative margin value */
   padding: 0.25rem 9999rem;
+
+  &.h1 {
+    display: inline-block;
+  }
 }
 
 /* -------------------------------- BUTTONS -------------------------------- */
@@ -68,4 +72,12 @@ h2 {
     border-color: $brand-primary;
     color: #fff;
   }
+}
+
+/* -------------------------------- OTHER -------------------------------- */
+
+.sub-text {
+  color: lighten($brand-secondary, 40%);
+  font-style: italic;
+  font-size: 1.2em;
 }

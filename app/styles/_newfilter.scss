@@ -1,6 +1,10 @@
+/* -------------------------------- LIST -------------------------------- */
+
 .filterList {
   list-style-type: none;
 }
+
+/* -------------------------------- FILTER TYPE -------------------------------- */
 
 .filter-type {
   height: 60px;
@@ -10,6 +14,11 @@
   padding: 0;
   background-color: $body-bg;
   cursor: move;
+
+  &:hover {
+    background-color: $brand-primary;
+    color: #fff;
+  }
 
 
   .filter-type-icon {
@@ -21,7 +30,16 @@
     background-color: $brand-primary;
     color: #fff;
   }
+
+  .filter-type-chevron {
+    float: right;
+    line-height: inherit;
+    padding-right: 5px;
+    font-size: 0.8em;
+  }
 }
+
+/* -------------------------------- DRAG AND DROP -------------------------------- */
 
 .drop-target {
   border: 1px dashed $brand-primary;
@@ -37,6 +55,8 @@
 .drop-active {
   border: 1px solid $brand-primary;
 }
+
+/* -------------------------------- SAVE -------------------------------- */
 
 #save-new-filter {
   text-align: right;

@@ -2,6 +2,9 @@
 
   <div class="title-panel">
     <h1>Create Filter</h1>
+    <div class="count" id="patient-count">
+    Patients
+    </div>
   </div>
 
   <div class="row">
@@ -20,6 +23,7 @@
                 <i class="fa fa-user fa-fw"></i>
               </div>
               Patient
+              <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/x-drag}}
 
@@ -29,15 +33,17 @@
                 <i class="icon-med-clipboard"></i>
               </div>
               Condition
+              <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/x-drag}}
 
           {{#x-drag templatePath="encounter"}}
             <div class="filter-type">
               <div class="filter-type-icon">
-                <i class="fa fa-stethoscope fa-fw"></i>
+                <i class="fa fa-hospital-o fa-fw"></i>
               </div>
               Encounter
+              <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/x-drag}}
         </div>
@@ -54,6 +60,13 @@
 
         <div class="panel-body">
           <div>
+            {{#if hasFilterPane}}
+            {{else}}
+              <span class="sub-text">
+                No filters. Drag filter type here to add a filter.
+              </span>
+            {{/if}}
+
             {{#x-drop action="addPane" model=model}}
               Filters?
             {{/x-drop}}
@@ -61,7 +74,8 @@
 
           <div id="save-new-filter">
             {{input name=name value=name}}
-            <button class="btn btn-lg btn-primary"{{action "saveFilter"}}>Save</button>
+            <button {{action 'openModal' 'saveFilterModal'}}>Save to My Filters</button>
+            <!-- <button class="btn btn-lg btn-primary"{{action "saveFilter"}}>Save to My Filters</button> -->
           </div>
         </div>
       </div>

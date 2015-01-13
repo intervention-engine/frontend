@@ -38,8 +38,6 @@ App.ApplicationSerializer = DS.RESTSerializer.extend DS.EmbeddedRecordsMixin,
 # Order and include as you please.
 
 require 'scripts/helpers'
-
-
 require 'scripts/controllers/*'
 require 'scripts/store'
 require 'scripts/models/*'

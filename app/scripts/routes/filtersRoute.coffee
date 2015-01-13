@@ -4,12 +4,9 @@ App.FiltersNewRoute = Em.Route.extend
 
   actions:
     saveFilter: ->
-
       @currentModel.buildQuery()
       @currentModel.save()
       @transitionTo("filters.index")
-
-
 
     addPane: (pane) ->
       App.AddFilterPane(@, pane)
@@ -55,7 +52,7 @@ App.AddFilterPane = (context, pane) ->
       newPane.get('items').pushObjects([genderFilter])
       context.currentModel.get('panes').pushObject(newPane)
     when "encounter"
-      newPane = context.store.createRecord("pane", {id: Em.generateGuid({},"pane"), icon:"fa-stethoscope"})
+      newPane = context.store.createRecord("pane", {id: Em.generateGuid({},"pane"), icon:"fa-hospital-o"})
       codeParam = context.store.createRecord("extension", {id: Em.generateGuid({}, "extension"), url: "http://interventionengine.org/encounterCode"})
       codeFilter = context.store.createRecord("emberItem", {id: Em.generateGuid({},"emberItem"), parameter: codeParam, template:"partials/_encounterCodeFilter"})
       newPane.get('items').pushObjects([codeFilter])
@@ -65,6 +62,5 @@ App.AddFilterPane = (context, pane) ->
       codeFilter = context.store.createRecord("emberItem", {id: Em.generateGuid({},"emberItem"), template:"partials/_conditionCodeFilter"})
       newPane.get('items').pushObjects([codeFilter])
       context.currentModel.get('panes').pushObject(newPane)
-
     else
       return
