@@ -1,3 +1,31 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<div>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-{{outlet}}
+      {{#link-to 'index' class='navbar-brand'}}
+        <img class="logo" {{bind-attr src="logoURL"}} alt="Intervention Engine" />
+      {{/link-to}}
+    </div>
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {{#navbar-active-link}}{{#link-to "filters.new"}}<i class="fa fa-plus-circle"></i> Filter Builder{{/link-to}}{{/navbar-active-link}}
+        {{#navbar-active-link}}{{#link-to utilities}}<i class="fa fa-cogs"></i> Utilities{{/link-to}}{{/navbar-active-link}}
+        <li>{{#link-to logout}}<i class="fa fa-sign-out"></i> Logout{{/link-to}}</li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div id="ember-fhir">
+        {{outlet}}
+      </div>
+    </div>
+  </div>
+</div>

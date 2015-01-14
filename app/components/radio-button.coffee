@@ -1,13 +1,18 @@
-App.RadioButtonComponent = Ember.Component.extend
-    tagName: 'input'
+`import Ember from 'ember'`
 
-    attributeBindings: ['type', 'checked']
+RadioButtonComponent = Ember.Component.extend(
+  tagName: 'input'
 
-    type: 'radio'
+  attributeBindings: ['type', 'checked']
 
-    checked: (() ->
-        @get('value') == @get('name');
-    ).property('value', 'name'),
+  type: 'radio'
 
-    click: ->
-        @set('name', @get('value'));
+  checked: (->
+    @get('value') == @get('name')
+  ).property('value', 'name')
+
+  click: ->
+    @set('name', @get('value'))
+)
+
+`export default RadioButtonComponent`
