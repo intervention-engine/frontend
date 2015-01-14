@@ -2,9 +2,9 @@
 
   <div class="title-panel">
     <h1>Create Filter</h1>
-    <div class="count" id="patient-count">
+{{!--     <div class="count" id="patient-count">
     Patients
-    </div>
+    </div> --}}
   </div>
 
   <div class="row">
@@ -59,24 +59,19 @@
         </div>
 
         <div class="panel-body">
-          <div>
+          {{#x-drop action="addPane" model=model}}
             {{#if hasFilterPane}}
             {{else}}
               <span class="sub-text">
-                No filters. Drag filter type here to add a filter.
+                No filters. Drag filter type here.
               </span>
             {{/if}}
-
-            {{#x-drop action="addPane" model=model}}
-              Filters?
-            {{/x-drop}}
-          </div>
-
-          <div id="save-new-filter">
-            {{input name=name value=name}}
-            <button {{action 'openModal' 'saveFilterModal'}}>Save to My Filters</button>
-            <!-- <button class="btn btn-lg btn-primary"{{action "saveFilter"}}>Save to My Filters</button> -->
-          </div>
+            <div id="save-new-filter">
+              {{!-- {{input name=name value=name}} --}}
+              {{!-- <button {{action 'openModal' 'saveFilterModal'}}>Save to My Filters</button> --}}
+              <button class="btn btn-lg btn-primary"{{action "saveFilter"}}>Save to My Filters</button>
+            </div>
+          {{/x-drop}}
         </div>
       </div>
     </div>

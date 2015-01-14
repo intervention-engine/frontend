@@ -1648,7 +1648,10 @@ define("ember-on-fhir/templates/components/x-drop",
       data.buffer.push(">\n");
       stack1 = helpers.each.call(depth0, "pane", "in", "model.panes", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("</div>\n");
+      data.buffer.push("\n  ");
+      stack1 = helpers._triageMustache.call(depth0, "yield", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("\n</div>\n");
       return buffer;
     },"useData":true});
   });
@@ -1740,14 +1743,20 @@ define("ember-on-fhir/templates/filters/new",
       },"5":function(depth0,helpers,partials,data) {
       data.buffer.push("            <div class=\"filter-type\">\n              <div class=\"filter-type-icon\">\n                <i class=\"fa fa-hospital-o fa-fw\"></i>\n              </div>\n              Encounter\n              <i class=\"fa fa-chevron-right filter-type-chevron\"></i>\n            </div>\n");
       },"7":function(depth0,helpers,partials,data) {
+      var stack1, escapeExpression=this.escapeExpression, buffer = '';
+      stack1 = helpers['if'].call(depth0, "hasFilterPane", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.program(10, data),"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("            <div id=\"save-new-filter\">\n              <button class=\"btn btn-lg btn-primary\"");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveFilter", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
+      data.buffer.push(">Save to My Filters</button>\n            </div>\n");
+      return buffer;
+    },"8":function(depth0,helpers,partials,data) {
       return "";
-    },"9":function(depth0,helpers,partials,data) {
-      data.buffer.push("              <span class=\"sub-text\">\n                No filters. Drag filter type here to add a filter.\n              </span>\n");
-      },"11":function(depth0,helpers,partials,data) {
-      data.buffer.push("              Filters?\n");
+    },"10":function(depth0,helpers,partials,data) {
+      data.buffer.push("              <span class=\"sub-text\">\n                No filters. Drag filter type here.\n              </span>\n");
       },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-      var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<div class=\"container\">\n\n  <div class=\"title-panel\">\n    <h1>Create Filter</h1>\n    <div class=\"count\" id=\"patient-count\">\n    Patients\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Type</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
+      var stack1, helperMissing=helpers.helperMissing, buffer = '';
+      data.buffer.push("<div class=\"container\">\n\n  <div class=\"title-panel\">\n    <h1>Create Filter</h1>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Type</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
       stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
         'templatePath': ("patient")
       },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
@@ -1762,25 +1771,13 @@ define("ember-on-fhir/templates/filters/new",
         'templatePath': ("encounter")
       },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(5, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("        </div>\n      </div>\n    </div>\n\n    <div class=\"col-sm-9\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Details</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n          <div>\n");
-      stack1 = helpers['if'].call(depth0, "hasFilterPane", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(7, data),"inverse":this.program(9, data),"types":["ID"],"contexts":[depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n");
+      data.buffer.push("        </div>\n      </div>\n    </div>\n\n    <div class=\"col-sm-9\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Details</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
       stack1 = ((helpers['x-drop'] || (depth0 && depth0['x-drop']) || helperMissing).call(depth0, {"name":"x-drop","hash":{
         'model': ("model"),
         'action': ("addPane")
-      },"hashTypes":{'model': "ID",'action': "STRING"},"hashContexts":{'model': depth0,'action': depth0},"fn":this.program(11, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      },"hashTypes":{'model': "ID",'action': "STRING"},"hashContexts":{'model': depth0,'action': depth0},"fn":this.program(7, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("          </div>\n\n          <div id=\"save-new-filter\">\n            ");
-      data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
-        'value': ("name"),
-        'name': ("name")
-      },"hashTypes":{'value': "ID",'name': "ID"},"hashContexts":{'value': depth0,'name': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push("\n            <button ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "openModal", "saveFilterModal", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(">Save to My Filters</button>\n            <!-- <button class=\"btn btn-lg btn-primary\"");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveFilter", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
-      data.buffer.push(">Save to My Filters</button> -->\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n");
+      data.buffer.push("        </div>\n      </div>\n    </div>\n  </div>\n</div>\n");
       return buffer;
     },"useData":true});
   });
@@ -2013,6 +2010,26 @@ define("ember-on-fhir/tests/unit/controllers/application-test",
       var controller;
       controller = this.subject();
       return ok(controller);
+    });
+  });
+define("ember-on-fhir/tests/unit/controllers/filters.new-test", 
+  ["ember-qunit"],
+  function(__dependency1__) {
+    "use strict";
+    var test = __dependency1__.test;
+    var moduleFor = __dependency1__.moduleFor;
+    moduleFor('controller:FiltersNewController', 'Filters.NewController', {});
+
+    test('it exists', function() {
+      var controller;
+      controller = this.subject();
+      return ok(controller);
+    });
+
+    test('it updates hasFilterPane appropriately', function() {
+      var controller;
+      controller = this.subject();
+      return ok(false === controller.hasFilterPane());
     });
   });
 define("ember-on-fhir/tests/unit/models/accomodation-test", 

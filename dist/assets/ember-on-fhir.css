@@ -6575,7 +6575,8 @@ h2 {
 .sub-text {
   color: #b6b6b6;
   font-style: italic;
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  padding: 10px; }
 
 /* -------------------------------- LIST -------------------------------- */
 .filterList {
@@ -6607,19 +6608,20 @@ h2 {
     padding-right: 5px;
     font-size: 0.8em; }
 
+/* -------------------------------- SAVE -------------------------------- */
+#save-new-filter {
+  text-align: right;
+  padding: 10px; }
+
 /* -------------------------------- DRAG AND DROP -------------------------------- */
 .drop-target {
-  border: 1px dashed #5D8FAE;
-  padding-bottom: 100px; }
+  border: 4px dashed #5D8FAE;
+  margin: -15px;
+  padding: 10px; }
   .drop-target .filter {
     border: 2px solid #EEEEEE;
     margin: 15px;
     padding-right: 15px; }
 
 .drop-active {
-  border: 1px solid #5D8FAE; }
-
-/* -------------------------------- SAVE -------------------------------- */
-#save-new-filter {
-  text-align: right;
-  padding: 10px; }
+  border: 4px solid #5D8FAE; }
