@@ -1,0 +1,17 @@
+/* -------------------------------- DRAG AND DROP -------------------------------- */
+
+.drop-target {
+  border: 4px dashed $brand-primary;
+  margin: -15px;
+  padding: 10px;
+
+  .filter {
+    border: 2px solid $body-bg;
+    margin: 15px;
+    padding-right: 15px;
+  }
+}
+
+.drop-active {
+  border: 4px solid $brand-primary;
+}
