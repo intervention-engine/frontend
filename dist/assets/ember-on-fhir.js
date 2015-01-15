@@ -1756,7 +1756,7 @@ define("ember-on-fhir/templates/filters/new",
       data.buffer.push("              <span class=\"sub-text\">\n                No filters. Drag filter type here.\n              </span>\n");
       },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, helperMissing=helpers.helperMissing, buffer = '';
-      data.buffer.push("<div class=\"container\">\n\n  <div class=\"title-panel\">\n    <h1>Create Filter</h1>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Type</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
+      data.buffer.push("<div class=\"container\">\n\n  <div class=\"title-panel\">\n    <h1>Create Filter</h1>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"panel filter-type-panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Type</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
       stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
         'templatePath': ("patient")
       },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
@@ -1771,7 +1771,7 @@ define("ember-on-fhir/templates/filters/new",
         'templatePath': ("encounter")
       },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(5, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("        </div>\n      </div>\n    </div>\n\n    <div class=\"col-sm-9\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Details</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
+      data.buffer.push("        </div>\n      </div>\n    </div>\n\n    <div class=\"col-sm-9\">\n      <div class=\"panel filter-description-panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Details</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
       stack1 = ((helpers['x-drop'] || (depth0 && depth0['x-drop']) || helperMissing).call(depth0, {"name":"x-drop","hash":{
         'model': ("model"),
         'action': ("addPane")
