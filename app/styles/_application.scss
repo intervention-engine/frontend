@@ -53,8 +53,9 @@ h2 {
   /* add back negative margin value */
   padding: 0.25rem 9999rem;
 
-  &.h1 {
-    display: inline-block;
+  .title-text {
+    font-size: 4.8em;
+    font-weight: 100;
   }
 }
 
