@@ -2,7 +2,7 @@
 
 moduleForModel 'coding', 'Coding', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:resource-reference']
 }
 
 test 'it exists', ->

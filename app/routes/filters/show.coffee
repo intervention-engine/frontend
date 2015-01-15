@@ -6,10 +6,11 @@ FiltersShowRoute = Ember.Route.extend(
     @store.find('filter', params.id)
 
   afterModel: (filter) ->
-    query = DS.PromiseObject.create({promise: Ember.$.get(filter.get('url'))})
-    query.then(->
-      filter.set('results', query.content.Response.Total)
-    )
+    # query = DS.PromiseObject.create({promise: Ember.$.get(filter.get('url'))})
+    # query.then(->
+    #   filter.set('results', query.content.Response.Total)
+    # )
+
 
   actions:
     saveFilter: ->

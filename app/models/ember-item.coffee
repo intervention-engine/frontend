@@ -29,7 +29,6 @@
 EmberItem = DS.Model.extend(
   parameter: DS.belongsTo("extension")
   active: DS.attr("boolean", { defaultValue: false })
-  filterType: DS.attr()
   componentName: DS.attr("string")
 )
 

@@ -32,7 +32,7 @@ Coding = DS.Model.extend(
   code: DS.attr('string')
   display: DS.attr('string')
   primary: DS.attr('boolean')
-  valueSet: DS.belongsTo('resource-reference')
+  valueSet: DS.belongsTo 'resource-reference'
 )
 
 `export default Coding`

@@ -33,6 +33,9 @@ Filter = DS.Model.extend(
   panes: DS.hasMany("pane")
   url: DS.attr("string")
   results: DS.attr("number")
+  hasFilterPane: (->
+    @get('panes.length') > 0
+  ).property('panes.length')
   buildQuery: ->
     if not @get('query')
       @set('query', @store.createRecord("query", {}))
@@ -40,6 +43,7 @@ Filter = DS.Model.extend(
     for itemSet in activeItems
       for item in itemSet
         @get('query.parameter').pushObject(item.get('parameter'))
-)
+  )
+
 
 `export default Filter`
