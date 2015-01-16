@@ -2,8 +2,6 @@
 `import { createPane } from '../../utils/add-filter-pane'`
 
 FiltersNewController = Ember.Controller.extend({
-<<<<<<< Updated upstream
-=======
   # returns true if filter description has at least 1 filter pane and false if not
   hasFilterPane: (->
     @get('model.panes.length') > 0
@@ -28,7 +26,6 @@ FiltersNewController = Ember.Controller.extend({
     addPane: (pane) ->
       paneObject = createPane(@, pane.get('type'))
       @get('model.panes').pushObject(paneObject)
->>>>>>> Stashed changes
 })
 
 `export default FiltersNewController`

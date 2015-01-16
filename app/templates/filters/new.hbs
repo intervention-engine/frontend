@@ -2,11 +2,11 @@
 
   <div class="title-panel">
     <span class="title-text">Create Filter</span>
-    {{!-- <div>
-    {{#count type="patient"}}
-    <span class="count" id="patient-count">
-    Patients
-    </span>
+{{!--     <div>
+      {{#count type="patient"}}
+      <span class="count" id="patient-count">
+      Patients
+      </span>
     </div> --}}
   </div>
 
@@ -75,8 +75,7 @@
               </span>
             {{/if}}
             <div id="save-new-filter">
-              {{!-- {{input name=name value=name}} --}}
-              {{!-- <button {{action 'openModal' 'saveFilterModal'}}>Save to My Filters</button> --}}
+
               <button class="btn btn-lg btn-primary" {{action "saveFilter"}}>Save to My Filters</button>
             </div>
           {{/draggable-object-target}}

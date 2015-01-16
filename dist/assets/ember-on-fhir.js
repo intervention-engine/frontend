@@ -343,9 +343,6 @@ define("ember-on-fhir/controllers/filters/new",
     var createPane = __dependency2__.createPane;
     var FiltersNewController;
 
-<<<<<<< Updated upstream
-    FiltersNewController = Ember.Controller.extend({});
-=======
     FiltersNewController = Ember.Controller.extend({
       hasFilterPane: (function() {
         return this.get('model.panes.length') > 0;
@@ -372,7 +369,6 @@ define("ember-on-fhir/controllers/filters/new",
         }
       }
     });
->>>>>>> Stashed changes
 
     __exports__["default"] = FiltersNewController;
   });
@@ -1937,7 +1933,6 @@ define("ember-on-fhir/templates/components/gender-filter",
     },"useData":true});
   });
 define("ember-on-fhir/templates/components/object-bin", 
-<<<<<<< Updated upstream
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1979,28 +1974,12 @@ define("ember-on-fhir/templates/components/object-bin",
       else { data.buffer.push(''); }
       },"useData":true});
   });
-define("ember-on-fhir/templates/components/x-drag", 
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    __exports__["default"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-      var stack1, buffer = '';
-      data.buffer.push("<div draggable=\"true\">\n  ");
-      stack1 = helpers._triageMustache.call(depth0, "yield", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n</div>\n");
-      return buffer;
-    },"useData":true});
-  });
 define("ember-on-fhir/templates/components/x-drop", 
-=======
->>>>>>> Stashed changes
   ["exports"],
   function(__exports__) {
     "use strict";
     __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
       var stack1, buffer = '';
-<<<<<<< Updated upstream
       stack1 = helpers['with'].call(depth0, "pane", "as", "pane", {"name":"with","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(2, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
       return buffer;
@@ -2009,43 +1988,22 @@ define("ember-on-fhir/templates/components/x-drop",
       data.buffer.push("      ");
       data.buffer.push(escapeExpression(((helpers.render || (depth0 && depth0.render) || helperMissing).call(depth0, "partials/-pane", "pane", {"name":"render","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}))));
       data.buffer.push("\n");
-=======
-      data.buffer.push("  <div class=\"object-bin-title\">");
-      stack1 = helpers._triageMustache.call(depth0, "name", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("</div>\n  <br>\n\n");
-      stack1 = helpers.each.call(depth0, "obj", "in", "model", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(2, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      return buffer;
-    },"2":function(depth0,helpers,partials,data) {
-      var stack1, helperMissing=helpers.helperMissing, buffer = '';
-      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
-        'action': ("handleObjectDragged"),
-        'content': ("obj")
-      },"hashTypes":{'action': "STRING",'content': "ID"},"hashContexts":{'action': depth0,'content': depth0},"fn":this.program(3, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
-      if (stack1 != null) { data.buffer.push(stack1); }
->>>>>>> Stashed changes
-      return buffer;
-    },"3":function(depth0,helpers,partials,data) {
-      var stack1, buffer = '';
-      stack1 = helpers['with'].call(depth0, "obj", {"name":"with","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(4, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      return buffer;
-    },"4":function(depth0,helpers,partials,data) {
-      var stack1, buffer = '';
-      data.buffer.push("        ");
-      stack1 = helpers._triageMustache.call(depth0, "yield", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n");
       return buffer;
     },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-      var stack1, helperMissing=helpers.helperMissing;
-      stack1 = ((helpers['draggable-object-target'] || (depth0 && depth0['draggable-object-target']) || helperMissing).call(depth0, {"name":"draggable-object-target","hash":{
-        'action': ("handleObjectDropped")
-      },"hashTypes":{'action': "STRING"},"hashContexts":{'action': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      var stack1, escapeExpression=this.escapeExpression, buffer = '';
+      data.buffer.push("<div ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
+        'class': (":drop-target droppable:drop-active")
+      },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
+      data.buffer.push(">\n");
+      stack1 = helpers.each.call(depth0, "pane", "in", "model.panes", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      else { data.buffer.push(''); }
-      },"useData":true});
+      data.buffer.push("\n  ");
+      stack1 = helpers._triageMustache.call(depth0, "yield", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("\n</div>\n");
+      return buffer;
+    },"useData":true});
   });
 define("ember-on-fhir/templates/filter-builder", 
   ["exports"],
@@ -2138,7 +2096,7 @@ define("ember-on-fhir/templates/filters/new",
       var stack1, escapeExpression=this.escapeExpression, buffer = '';
       stack1 = helpers['if'].call(depth0, "hasFilterPane", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.program(12, data),"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("            <div id=\"save-new-filter\">\n              <button class=\"btn btn-lg btn-primary\" ");
+      data.buffer.push("            <div id=\"save-new-filter\">\n\n              <button class=\"btn btn-lg btn-primary\" ");
       data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveFilter", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
       data.buffer.push(">Save to My Filters</button>\n            </div>\n");
       return buffer;
@@ -2425,16 +2383,24 @@ define("ember-on-fhir/tests/unit/controllers/application-test",
     });
   });
 define("ember-on-fhir/tests/unit/controllers/filters.new-test", 
-  [],
-  function() {
+  ["ember-qunit"],
+  function(__dependency1__) {
     "use strict";
-<<<<<<< Updated upstream
-=======
     var test = __dependency1__.test;
     var moduleFor = __dependency1__.moduleFor;
     moduleFor('controller:filters/new', 'FiltersNewController', {});
->>>>>>> Stashed changes
 
+    test('it exists', function() {
+      var controller;
+      controller = this.subject();
+      return ok(controller);
+    });
+
+    test('it updates hasFilterPane appropriately', function() {
+      var controller;
+      controller = this.subject();
+      return ok(false === controller.hasFilterPane());
+    });
   });
 define("ember-on-fhir/tests/unit/models/accomodation-test", 
   ["ember-qunit"],
