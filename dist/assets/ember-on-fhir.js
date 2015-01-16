@@ -2119,41 +2119,51 @@ define("ember-on-fhir/templates/filters/show",
       data.buffer.push("            <div class=\"filter-type\">\n              <div class=\"filter-type-icon\">\n                <i class=\"fa fa-hospital-o fa-fw\"></i>\n              </div>\n              Encounter\n              <i class=\"fa fa-chevron-right filter-type-chevron\"></i>\n            </div>\n");
       },"7":function(depth0,helpers,partials,data) {
       var stack1, escapeExpression=this.escapeExpression, buffer = '';
-      stack1 = helpers['if'].call(depth0, "hasFilterPane", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.program(10, data),"types":["ID"],"contexts":[depth0],"data":data});
+      stack1 = helpers['if'].call(depth0, "hasFilterPane", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.program(12, data),"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("            <div id=\"save-new-filter\">\n              <button class=\"btn btn-lg btn-primary\"");
+      data.buffer.push("            <div id=\"save-new-filter\">\n              <button class=\"btn btn-lg btn-primary\" ");
       data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveFilter", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
       data.buffer.push(">Save to My Filters</button>\n            </div>\n");
       return buffer;
     },"8":function(depth0,helpers,partials,data) {
-      return "";
+      var stack1, buffer = '';
+      stack1 = helpers.each.call(depth0, "pane", "in", "model.panes", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      return buffer;
+    },"9":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      stack1 = helpers['with'].call(depth0, "pane", {"name":"with","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(10, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      return buffer;
     },"10":function(depth0,helpers,partials,data) {
+      var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
+      data.buffer.push("                  ");
+      data.buffer.push(escapeExpression(((helpers.render || (depth0 && depth0.render) || helperMissing).call(depth0, "filters/_pane", "pane", {"name":"render","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}))));
+      data.buffer.push("\n");
+      return buffer;
+    },"12":function(depth0,helpers,partials,data) {
       data.buffer.push("              <span class=\"sub-text\">\n                No filters. Drag filter type here.\n              </span>\n");
       },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, helperMissing=helpers.helperMissing, buffer = '';
-      data.buffer.push("<div class=\"container\">\n\n  <div class=\"title-panel\">\n    <h1>Filter ");
-      stack1 = helpers._triageMustache.call(depth0, "name", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("</h1>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Type</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
-      stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
-        'templatePath': ("patient")
-      },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      data.buffer.push("<div class=\"container\">\n\n  <div class=\"title-panel\">\n    <span class=\"title-text\">Create Filter</span>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"panel filter-type-panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Type</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
+      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
+        'content': ("patientObject")
+      },"hashTypes":{'content': "ID"},"hashContexts":{'content': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("\n");
-      stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
-        'templatePath': ("condition")
-      },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(3, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
+        'content': ("conditionObject")
+      },"hashTypes":{'content': "ID"},"hashContexts":{'content': depth0},"fn":this.program(3, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("\n");
-      stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
-        'templatePath': ("encounter")
-      },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(5, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
+        'content': ("encounterObject")
+      },"hashTypes":{'content': "ID"},"hashContexts":{'content': depth0},"fn":this.program(5, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("        </div>\n      </div>\n    </div>\n\n    <div class=\"col-sm-9\">\n      <div class=\"panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Details</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
-      stack1 = ((helpers['x-drop'] || (depth0 && depth0['x-drop']) || helperMissing).call(depth0, {"name":"x-drop","hash":{
-        'model': ("model"),
+      data.buffer.push("        </div>\n      </div>\n    </div>\n\n    <div class=\"col-sm-9\">\n      <div class=\"panel filter-description-panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Details</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
+      stack1 = ((helpers['draggable-object-target'] || (depth0 && depth0['draggable-object-target']) || helperMissing).call(depth0, {"name":"draggable-object-target","hash":{
         'action': ("addPane")
-      },"hashTypes":{'model': "ID",'action': "STRING"},"hashContexts":{'model': depth0,'action': depth0},"fn":this.program(7, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      },"hashTypes":{'action': "STRING"},"hashContexts":{'action': depth0},"fn":this.program(7, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("        </div>\n      </div>\n    </div>\n  </div>\n</div>\n");
       return buffer;
