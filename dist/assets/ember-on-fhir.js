@@ -1857,31 +1857,39 @@ define("ember-on-fhir/templates/components/gender-filter",
     "use strict";
     __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
       var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("      <span class=\"col-sm-1\">is</span>\n      <span class=\"col-sm-2\"><label>");
-      data.buffer.push(escapeExpression(((helpers['radio-button'] || (depth0 && depth0['radio-button']) || helperMissing).call(depth0, {"name":"radio-button","hash":{
+      data.buffer.push("      <div class=\"row\">\n        <span class=\"col-sm-1\">is</span>\n        <span class=\"col-sm-2\">\n          ");
+      data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
         'value': ("M"),
         'name': ("item.parameter.valueString"),
-        'class': ("input-control")
-      },"hashTypes":{'value': "STRING",'name': "ID",'class': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'class': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push(" Male</label></span>\n      <span class=\"col-sm-2\"><label>");
-      data.buffer.push(escapeExpression(((helpers['radio-button'] || (depth0 && depth0['radio-button']) || helperMissing).call(depth0, {"name":"radio-button","hash":{
+        'id': ("male"),
+        'class': ("input-control css-checkbox"),
+        'type': ("radio")
+      },"hashTypes":{'value': "STRING",'name': "ID",'id': "STRING",'class': "STRING",'type': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'id': depth0,'class': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+      data.buffer.push("\n          <label class=\"css-label css-label-circle radio-label\" for=\"male\">Male</label>\n        </span>\n        <span class=\"col-sm-2\">\n          ");
+      data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
         'value': ("F"),
         'name': ("item.parameter.valueString"),
-        'class': ("input-control")
-      },"hashTypes":{'value': "STRING",'name': "ID",'class': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'class': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push(" Female</label></span>\n      <span class=\"col-sm-2\"><label>");
-      data.buffer.push(escapeExpression(((helpers['radio-button'] || (depth0 && depth0['radio-button']) || helperMissing).call(depth0, {"name":"radio-button","hash":{
+        'id': ("female"),
+        'class': ("input-control css-checkbox"),
+        'type': ("radio")
+      },"hashTypes":{'value': "STRING",'name': "ID",'id': "STRING",'class': "STRING",'type': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'id': depth0,'class': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+      data.buffer.push("\n          <label class=\"css-label css-label-circle radio-label\" for=\"female\">Female</label>\n        </span>\n        <span class=\"col-sm-2\">\n          ");
+      data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
         'value': ("O"),
         'name': ("item.parameter.valueString"),
-        'class': ("input-control")
-      },"hashTypes":{'value': "STRING",'name': "ID",'class': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'class': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push(" Other</label></span>\n      <span class=\"col-sm-2\"><label>");
-      data.buffer.push(escapeExpression(((helpers['radio-button'] || (depth0 && depth0['radio-button']) || helperMissing).call(depth0, {"name":"radio-button","hash":{
+        'id': ("other"),
+        'class': ("input-control css-checkbox"),
+        'type': ("radio")
+      },"hashTypes":{'value': "STRING",'name': "ID",'id': "STRING",'class': "STRING",'type': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'id': depth0,'class': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+      data.buffer.push("\n          <label class=\"css-label css-label-circle radio-label\" for=\"other\">Other</label>\n        </span>\n        <span class=\"col-sm-2\">\n          ");
+      data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
         'value': ("U"),
         'name': ("item.parameter.valueString"),
-        'class': ("input-control")
-      },"hashTypes":{'value': "STRING",'name': "ID",'class': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'class': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push(" Unknown</label></span>\n");
+        'id': ("unknown"),
+        'class': ("input-control css-checkbox"),
+        'type': ("radio")
+      },"hashTypes":{'value': "STRING",'name': "ID",'id': "STRING",'class': "STRING",'type': "STRING"},"hashContexts":{'value': depth0,'name': depth0,'id': depth0,'class': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+      data.buffer.push("\n          <label class=\"css-label css-label-circle radio-label\" for=\"unknown\">Unknown</label>\n        </span>\n      </div>\n");
       return buffer;
     },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
@@ -1893,7 +1901,7 @@ define("ember-on-fhir/templates/components/gender-filter",
         'name': ("active"),
         'type': ("checkbox")
       },"hashTypes":{'class': "STRING",'id': "STRING",'checked': "ID",'name': "ID",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'checked': depth0,'name': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push("\n    <label for=\"checkbox-patient-gender\" class=\"css-label checkbox-title\">Patient Gender</label>\n  </div>\n  <div class=\"form-group\">\n");
+      data.buffer.push("\n    <label for=\"checkbox-patient-gender\" class=\"css-label css-label-box checkbox-label\">Patient Gender</label>\n  </div>\n\n  <div class=\"form-group\">\n");
       stack1 = helpers['if'].call(depth0, "item.active", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("  </div>\n</form>\n");
@@ -1972,12 +1980,12 @@ define("ember-on-fhir/templates/filters/-pane",
     "use strict";
     __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
       var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("          <div class=\"row\">\n            ");
+      data.buffer.push("        <div class=\"row\">\n          ");
       data.buffer.push(escapeExpression(((helpers['dynamic-component'] || (depth0 && depth0['dynamic-component']) || helperMissing).call(depth0, {"name":"dynamic-component","hash":{
         'item': ("item"),
         'type': ("item.componentName")
       },"hashTypes":{'item': "ID",'type': "ID"},"hashContexts":{'item': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push("\n          </div>\n");
+      data.buffer.push("\n        </div>\n");
       return buffer;
     },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, escapeExpression=this.escapeExpression, buffer = '';
@@ -1985,12 +1993,12 @@ define("ember-on-fhir/templates/filters/-pane",
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
         'class': (":fa :fa-fw icon")
       },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
-      data.buffer.push("></i>\n  </div>\n\n  <div class=\"col-xs-10\">\n    <div class=\"row pane-content\">\n      <div class=\"col-xs-10\">\n");
+      data.buffer.push("></i>\n  </div>\n\n  <div class=\"col-xs-10\">\n    <div class=\"close-pane\">\n      <button type=\"button\" class=\"close\" ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "removePane", "model", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+      data.buffer.push(" aria-label=\"Close\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n\n    <div class=\"row pane-content\">\n");
       stack1 = helpers.each.call(depth0, "item", "in", "items", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("      </div>\n\n      <div class=\"col-xs-2\">\n        <button type=\"button\" class=\"close\" ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "removePane", "model", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n");
+      data.buffer.push("    </div>\n  </div>\n</div>\n");
       return buffer;
     },"useData":true});
   });
