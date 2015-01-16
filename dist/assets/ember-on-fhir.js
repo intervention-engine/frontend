@@ -2216,25 +2216,29 @@ define("ember-on-fhir/templates/partials/-pane",
     "use strict";
     __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
       var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("      <div class=\"row\">\n        ");
+      data.buffer.push("          <div class=\"row\">\n            ");
       data.buffer.push(escapeExpression(((helpers['dynamic-component'] || (depth0 && depth0['dynamic-component']) || helperMissing).call(depth0, {"name":"dynamic-component","hash":{
         'item': ("item"),
         'type': ("item.componentName")
       },"hashTypes":{'item': "ID",'type': "ID"},"hashContexts":{'item': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push("\n      </div>\n");
+      data.buffer.push("\n          </div>\n");
       return buffer;
     },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<div class=\"filter row\">\n  <div class=\"col-xs-2\">\n    <h2><i ");
+      data.buffer.push("<<<<<<< Updated upstream:app/templates/partials/-pane.hbs\n<div class=\"filter row\">\n  <div class=\"col-xs-2\">\n    <h2><i ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
         'class': (":fa :fa-fw icon")
       },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
-      data.buffer.push("> </i></h2>\n  </div>\n  <button type=\"button\" class=\"close\" ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "removePane", "model", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(" aria-label=\"Close\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n\n  <div class=\"col-xs-10\">\n");
+      data.buffer.push("> </i></h2>\n=======\n<div class=\"row pane\">\n  <div class=\"col-xs-2 pane-icon\">\n    <i ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
+        'class': (":fa :fa-fw icon")
+      },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
+      data.buffer.push("></i>\n>>>>>>> Stashed changes:app/templates/filters/-pane.hbs\n  </div>\n\n  <div class=\"col-xs-10\">\n    <div class=\"row pane-content\">\n      <div class=\"col-xs-10\">\n");
       stack1 = helpers.each.call(depth0, "item", "in", "items", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("  </div>\n</div>\n");
+      data.buffer.push("      </div>\n\n      <div class=\"col-xs-2\">\n        <button type=\"button\" class=\"close\" ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "removePane", "model", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+      data.buffer.push(" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n\n");
       return buffer;
     },"useData":true});
   });

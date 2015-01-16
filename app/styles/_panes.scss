@@ -1,0 +1,26 @@
+/* -------------------------------- PANES -------------------------------- */
+
+.pane {
+  margin: 5px;
+  padding: 5px;
+
+  .pane-icon {
+    position: relative;
+    font-size: 3.25em;
+    color: $brand-primary;
+    border: 8px solid $body-bg;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    margin: 0 15px 0 0;
+    text-align: center;
+  }
+
+  .pane-content {
+    border: 8px solid $body-bg;
+    padding-left: 40px;
+  }
+}
