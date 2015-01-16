@@ -1,9 +1,0 @@
-<div {{bind-attr class=":drop-target droppable:drop-active"}}>
-  {{#each pane in model.panes}}
-    {{#with pane as pane}}
-      {{render "partials/-pane" pane}}
-    {{/with}}
-  {{/each}}
-
-  {{yield}}
-</div>

@@ -6617,17 +6617,10 @@ h2 {
   padding: 10px; }
 
 /* -------------------------------- DRAG AND DROP -------------------------------- */
-.drop-target {
-  border: 4px dashed #5D8FAE;
+.accepts-drag {
+  border: 4px solid #5D8FAE;
   margin: -15px;
   padding: 10px; }
-  .drop-target .filter {
-    border: 2px solid #EEEEEE;
-    margin: 15px;
-    padding-right: 15px; }
-
-.drop-active {
-  border: 4px solid #5D8FAE; }
 
 /* -------------------------------- PANES -------------------------------- */
 .pane {

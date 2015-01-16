@@ -7,6 +7,7 @@ FiltersNewController = Ember.Controller.extend({
     @get('model.panes.length') > 0
   ).property('model.panes.length')
 
+  # filter-type objects
   patientObject: Ember.Object.create({
     type: 'patient'
   })
@@ -17,6 +18,7 @@ FiltersNewController = Ember.Controller.extend({
     type: 'encounter'
   })
 
+  # actions
   actions:
     saveFilter: ->
       @get('model').buildQuery()
@@ -26,6 +28,9 @@ FiltersNewController = Ember.Controller.extend({
     addPane: (pane) ->
       paneObject = createPane(@, pane.get('type'))
       @get('model.panes').pushObject(paneObject)
+
+    removePane: (pane) ->
+      @model.get("panes").removeObject(pane)
 })
 
 `export default FiltersNewController`

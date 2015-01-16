@@ -285,43 +285,6 @@ define("ember-on-fhir/components/radio-button",
 
     __exports__["default"] = RadioButtonComponent;
   });
-define("ember-on-fhir/components/x-drop", 
-  ["ember","exports"],
-  function(__dependency1__, __exports__) {
-    "use strict";
-    var Ember = __dependency1__["default"];
-    var XDropComponent;
-
-    XDropComponent = Ember.Component.extend({
-      dragOver: function(event) {
-        return event.preventDefault();
-      },
-      dragEnter: function(event) {
-        if (event.dataTransfer.types.contains("text/data")) {
-          return this.set('droppable', true);
-        }
-      },
-      dragLeave: function() {
-        return this.set('droppable', false);
-      },
-      drop: function(event) {
-        var data;
-        this.set('droppable', false);
-        data = event.dataTransfer.getData('text/data');
-        if (data === "") {
-          return;
-        }
-        return this.sendAction('action', data);
-      },
-      actions: {
-        removePane: function(pane) {
-          return this.model.get("panes").removeObject(pane);
-        }
-      }
-    });
-
-    __exports__["default"] = XDropComponent;
-  });
 define("ember-on-fhir/controllers/application", 
   ["ember","exports"],
   function(__dependency1__, __exports__) {
@@ -366,6 +329,9 @@ define("ember-on-fhir/controllers/filters/new",
           var paneObject;
           paneObject = createPane(this, pane.get('type'));
           return this.get('model.panes').pushObject(paneObject);
+        },
+        removePane: function(pane) {
+          return this.model.get("panes").removeObject(pane);
         }
       }
     });
@@ -1974,37 +1940,6 @@ define("ember-on-fhir/templates/components/object-bin",
       else { data.buffer.push(''); }
       },"useData":true});
   });
-define("ember-on-fhir/templates/components/x-drop", 
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
-      var stack1, buffer = '';
-      stack1 = helpers['with'].call(depth0, "pane", "as", "pane", {"name":"with","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(2, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      return buffer;
-    },"2":function(depth0,helpers,partials,data) {
-      var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("      ");
-      data.buffer.push(escapeExpression(((helpers.render || (depth0 && depth0.render) || helperMissing).call(depth0, "partials/-pane", "pane", {"name":"render","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}))));
-      data.buffer.push("\n");
-      return buffer;
-    },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-      var stack1, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<div ");
-      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
-        'class': (":drop-target droppable:drop-active")
-      },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
-      data.buffer.push(">\n");
-      stack1 = helpers.each.call(depth0, "pane", "in", "model.panes", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n  ");
-      stack1 = helpers._triageMustache.call(depth0, "yield", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n</div>\n");
-      return buffer;
-    },"useData":true});
-  });
 define("ember-on-fhir/templates/filter-builder", 
   ["exports"],
   function(__exports__) {
@@ -2029,13 +1964,41 @@ define("ember-on-fhir/templates/filters/-encounter",
       data.buffer.push("Encounter\n");
       },"useData":true});
   });
+define("ember-on-fhir/templates/filters/-pane", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
+      var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
+      data.buffer.push("          <div class=\"row\">\n            ");
+      data.buffer.push(escapeExpression(((helpers['dynamic-component'] || (depth0 && depth0['dynamic-component']) || helperMissing).call(depth0, {"name":"dynamic-component","hash":{
+        'item': ("item"),
+        'type': ("item.componentName")
+      },"hashTypes":{'item': "ID",'type': "ID"},"hashContexts":{'item': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+      data.buffer.push("\n          </div>\n");
+      return buffer;
+    },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+      var stack1, escapeExpression=this.escapeExpression, buffer = '';
+      data.buffer.push("<div class=\"row pane\">\n  <div class=\"col-xs-2 pane-icon\">\n    <i ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
+        'class': (":fa :fa-fw icon")
+      },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
+      data.buffer.push("></i>\n  </div>\n\n  <div class=\"col-xs-10\">\n    <div class=\"row pane-content\">\n      <div class=\"col-xs-10\">\n");
+      stack1 = helpers.each.call(depth0, "item", "in", "items", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("      </div>\n\n      <div class=\"col-xs-2\">\n        <button type=\"button\" class=\"close\" ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "removePane", "model", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+      data.buffer.push(" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n");
+      return buffer;
+    },"useData":true});
+  });
 define("ember-on-fhir/templates/filters/-patient", 
   ["exports"],
   function(__exports__) {
     "use strict";
     __exports__["default"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<div class=\"row\">\n  <div class=\"col-sm-2\">\n    <button class=\"btn btn-circle\" disabled=\"true\"><i class=\"fa fa-user fa-fw pull-left\"></i></button>\n  </div>\n  <div class=\"col-sm-5\">\n    <button ");
+      data.buffer.push("<div class=\"row filter-pane\">\n  <div class=\"col-sm-2\">\n    <button class=\"btn btn-circle\" disabled=\"true\"><i class=\"fa fa-user fa-fw pull-left\"></i></button>\n  </div>\n  <div class=\"col-sm-5\">\n    <button ");
       data.buffer.push(escapeExpression(helpers.action.call(depth0, "addParam", "/patientage", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING"],"contexts":[depth0,depth0],"data":data})));
       data.buffer.push(">Test</button>Patient Age\n    <br>\n    Patient Gender\n  </div>\n</div>\n");
       return buffer;
@@ -2096,7 +2059,7 @@ define("ember-on-fhir/templates/filters/new",
       var stack1, escapeExpression=this.escapeExpression, buffer = '';
       stack1 = helpers['if'].call(depth0, "hasFilterPane", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.program(12, data),"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("            <div id=\"save-new-filter\">\n\n              <button class=\"btn btn-lg btn-primary\" ");
+      data.buffer.push("            <div id=\"save-new-filter\">\n              <button class=\"btn btn-lg btn-primary\" ");
       data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveFilter", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
       data.buffer.push(">Save to My Filters</button>\n            </div>\n");
       return buffer;
@@ -2113,7 +2076,7 @@ define("ember-on-fhir/templates/filters/new",
     },"10":function(depth0,helpers,partials,data) {
       var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
       data.buffer.push("                  ");
-      data.buffer.push(escapeExpression(((helpers.render || (depth0 && depth0.render) || helperMissing).call(depth0, "partials/_pane", "pane", {"name":"render","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}))));
+      data.buffer.push(escapeExpression(((helpers.render || (depth0 && depth0.render) || helperMissing).call(depth0, "filters/_pane", "pane", {"name":"render","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}))));
       data.buffer.push("\n");
       return buffer;
     },"12":function(depth0,helpers,partials,data) {
@@ -2228,38 +2191,6 @@ define("ember-on-fhir/templates/index",
       stack1 = helpers.each.call(depth0, "group", "in", "groupSet", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("  </div>\n</div>\n");
-      return buffer;
-    },"useData":true});
-  });
-define("ember-on-fhir/templates/partials/-pane", 
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
-      var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("          <div class=\"row\">\n            ");
-      data.buffer.push(escapeExpression(((helpers['dynamic-component'] || (depth0 && depth0['dynamic-component']) || helperMissing).call(depth0, {"name":"dynamic-component","hash":{
-        'item': ("item"),
-        'type': ("item.componentName")
-      },"hashTypes":{'item': "ID",'type': "ID"},"hashContexts":{'item': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push("\n          </div>\n");
-      return buffer;
-    },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-      var stack1, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<<<<<<< Updated upstream:app/templates/partials/-pane.hbs\n<div class=\"filter row\">\n  <div class=\"col-xs-2\">\n    <h2><i ");
-      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
-        'class': (":fa :fa-fw icon")
-      },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
-      data.buffer.push("> </i></h2>\n=======\n<div class=\"row pane\">\n  <div class=\"col-xs-2 pane-icon\">\n    <i ");
-      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
-        'class': (":fa :fa-fw icon")
-      },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
-      data.buffer.push("></i>\n>>>>>>> Stashed changes:app/templates/filters/-pane.hbs\n  </div>\n\n  <div class=\"col-xs-10\">\n    <div class=\"row pane-content\">\n      <div class=\"col-xs-10\">\n");
-      stack1 = helpers.each.call(depth0, "item", "in", "items", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
-      if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("      </div>\n\n      <div class=\"col-xs-2\">\n        <button type=\"button\" class=\"close\" ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "removePane", "model", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n\n");
       return buffer;
     },"useData":true});
   });
