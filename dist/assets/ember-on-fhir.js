@@ -1885,13 +1885,15 @@ define("ember-on-fhir/templates/components/gender-filter",
       return buffer;
     },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<form class=\"form-horizontal\">\n  <div class=\"form-group\">\n    <h4><label class=\"control-label\">");
+      data.buffer.push("<form class=\"form-horizontal\">\n  <div class=\"form-group\">\n    ");
       data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+        'class': ("css-checkbox"),
+        'id': ("checkbox-patient-gender"),
         'checked': ("item.active"),
         'name': ("active"),
         'type': ("checkbox")
-      },"hashTypes":{'checked': "ID",'name': "ID",'type': "STRING"},"hashContexts":{'checked': depth0,'name': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-      data.buffer.push(" Patient Gender</label></h4>\n  </div>\n  <div class=\"form-group\">\n");
+      },"hashTypes":{'class': "STRING",'id': "STRING",'checked': "ID",'name': "ID",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'checked': depth0,'name': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+      data.buffer.push("\n    <label for=\"checkbox-patient-gender\" class=\"css-label checkbox-title\">Patient Gender</label>\n  </div>\n  <div class=\"form-group\">\n");
       stack1 = helpers['if'].call(depth0, "item.active", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("  </div>\n</form>\n");
