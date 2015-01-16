@@ -2,7 +2,7 @@
 
 moduleForModel 'period', 'Period', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:date']
 }
 
 test 'it exists', ->

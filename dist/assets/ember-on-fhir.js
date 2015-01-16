@@ -285,21 +285,6 @@ define("ember-on-fhir/components/radio-button",
 
     __exports__["default"] = RadioButtonComponent;
   });
-define("ember-on-fhir/components/x-drag", 
-  ["ember","exports"],
-  function(__dependency1__, __exports__) {
-    "use strict";
-    var Ember = __dependency1__["default"];
-    var XDragComponent;
-
-    XDragComponent = Ember.Component.extend({
-      dragStart: function(event) {
-        return event.dataTransfer.setData("text/data", this.get("templatePath"));
-      }
-    });
-
-    __exports__["default"] = XDragComponent;
-  });
 define("ember-on-fhir/components/x-drop", 
   ["ember","exports"],
   function(__dependency1__, __exports__) {
@@ -351,13 +336,43 @@ define("ember-on-fhir/controllers/application",
     __exports__["default"] = ApplicationController;
   });
 define("ember-on-fhir/controllers/filters/new", 
-  ["ember","exports"],
-  function(__dependency1__, __exports__) {
+  ["ember","ember-on-fhir/utils/add-filter-pane","exports"],
+  function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
     var Ember = __dependency1__["default"];
+    var createPane = __dependency2__.createPane;
     var FiltersNewController;
 
+<<<<<<< Updated upstream
     FiltersNewController = Ember.Controller.extend({});
+=======
+    FiltersNewController = Ember.Controller.extend({
+      hasFilterPane: (function() {
+        return this.get('model.panes.length') > 0;
+      }).property('model.panes.length'),
+      patientObject: Ember.Object.create({
+        type: 'patient'
+      }),
+      conditionObject: Ember.Object.create({
+        type: 'condition'
+      }),
+      encounterObject: Ember.Object.create({
+        type: 'encounter'
+      }),
+      actions: {
+        saveFilter: function() {
+          this.get('model').buildQuery();
+          this.get('model').save();
+          return this.transitionTo("filters.index");
+        },
+        addPane: function(pane) {
+          var paneObject;
+          paneObject = createPane(this, pane.get('type'));
+          return this.get('model.panes').pushObject(paneObject);
+        }
+      }
+    });
+>>>>>>> Stashed changes
 
     __exports__["default"] = FiltersNewController;
   });
@@ -1922,6 +1937,7 @@ define("ember-on-fhir/templates/components/gender-filter",
     },"useData":true});
   });
 define("ember-on-fhir/templates/components/object-bin", 
+<<<<<<< Updated upstream
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1977,11 +1993,14 @@ define("ember-on-fhir/templates/components/x-drag",
     },"useData":true});
   });
 define("ember-on-fhir/templates/components/x-drop", 
+=======
+>>>>>>> Stashed changes
   ["exports"],
   function(__exports__) {
     "use strict";
     __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
       var stack1, buffer = '';
+<<<<<<< Updated upstream
       stack1 = helpers['with'].call(depth0, "pane", "as", "pane", {"name":"with","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(2, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
       return buffer;
@@ -1990,22 +2009,43 @@ define("ember-on-fhir/templates/components/x-drop",
       data.buffer.push("      ");
       data.buffer.push(escapeExpression(((helpers.render || (depth0 && depth0.render) || helperMissing).call(depth0, "partials/-pane", "pane", {"name":"render","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}))));
       data.buffer.push("\n");
-      return buffer;
-    },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-      var stack1, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<div ");
-      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
-        'class': (":drop-target droppable:drop-active")
-      },"hashTypes":{'class': "STRING"},"hashContexts":{'class': depth0},"types":[],"contexts":[],"data":data})));
-      data.buffer.push(">\n");
-      stack1 = helpers.each.call(depth0, "pane", "in", "model.panes", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+=======
+      data.buffer.push("  <div class=\"object-bin-title\">");
+      stack1 = helpers._triageMustache.call(depth0, "name", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n  ");
+      data.buffer.push("</div>\n  <br>\n\n");
+      stack1 = helpers.each.call(depth0, "obj", "in", "model", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(2, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      return buffer;
+    },"2":function(depth0,helpers,partials,data) {
+      var stack1, helperMissing=helpers.helperMissing, buffer = '';
+      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
+        'action': ("handleObjectDragged"),
+        'content': ("obj")
+      },"hashTypes":{'action': "STRING",'content': "ID"},"hashContexts":{'action': depth0,'content': depth0},"fn":this.program(3, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      if (stack1 != null) { data.buffer.push(stack1); }
+>>>>>>> Stashed changes
+      return buffer;
+    },"3":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      stack1 = helpers['with'].call(depth0, "obj", {"name":"with","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(4, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      return buffer;
+    },"4":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      data.buffer.push("        ");
       stack1 = helpers._triageMustache.call(depth0, "yield", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n</div>\n");
+      data.buffer.push("\n");
       return buffer;
-    },"useData":true});
+    },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+      var stack1, helperMissing=helpers.helperMissing;
+      stack1 = ((helpers['draggable-object-target'] || (depth0 && depth0['draggable-object-target']) || helperMissing).call(depth0, {"name":"draggable-object-target","hash":{
+        'action': ("handleObjectDropped")
+      },"hashTypes":{'action': "STRING"},"hashContexts":{'action': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      if (stack1 != null) { data.buffer.push(stack1); }
+      else { data.buffer.push(''); }
+      },"useData":true});
   });
 define("ember-on-fhir/templates/filter-builder", 
   ["exports"],
@@ -2095,29 +2135,52 @@ define("ember-on-fhir/templates/filters/new",
       },"5":function(depth0,helpers,partials,data) {
       data.buffer.push("            <div class=\"filter-type\">\n              <div class=\"filter-type-icon\">\n                <i class=\"fa fa-hospital-o fa-fw\"></i>\n              </div>\n              Encounter\n              <i class=\"fa fa-chevron-right filter-type-chevron\"></i>\n            </div>\n");
       },"7":function(depth0,helpers,partials,data) {
+      var stack1, escapeExpression=this.escapeExpression, buffer = '';
+      stack1 = helpers['if'].call(depth0, "hasFilterPane", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.program(12, data),"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("            <div id=\"save-new-filter\">\n              <button class=\"btn btn-lg btn-primary\" ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveFilter", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
+      data.buffer.push(">Save to My Filters</button>\n            </div>\n");
+      return buffer;
+    },"8":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      stack1 = helpers.each.call(depth0, "pane", "in", "model.panes", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      return buffer;
+    },"9":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      stack1 = helpers['with'].call(depth0, "pane", {"name":"with","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(10, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      return buffer;
+    },"10":function(depth0,helpers,partials,data) {
+      var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
+      data.buffer.push("                  ");
+      data.buffer.push(escapeExpression(((helpers.render || (depth0 && depth0.render) || helperMissing).call(depth0, "partials/_pane", "pane", {"name":"render","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}))));
       data.buffer.push("\n");
+      return buffer;
+    },"12":function(depth0,helpers,partials,data) {
+      data.buffer.push("              <span class=\"sub-text\">\n                No filters. Drag filter type here.\n              </span>\n");
       },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, helperMissing=helpers.helperMissing, buffer = '';
       data.buffer.push("<div class=\"container\">\n\n  <div class=\"title-panel\">\n    <span class=\"title-text\">Create Filter</span>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"panel filter-type-panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Type</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
-      stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
-        'templatePath': ("patient")
-      },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
+        'content': ("patientObject")
+      },"hashTypes":{'content': "ID"},"hashContexts":{'content': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("\n");
-      stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
-        'templatePath': ("condition")
-      },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(3, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
+        'content': ("conditionObject")
+      },"hashTypes":{'content': "ID"},"hashContexts":{'content': depth0},"fn":this.program(3, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("\n");
-      stack1 = ((helpers['x-drag'] || (depth0 && depth0['x-drag']) || helperMissing).call(depth0, {"name":"x-drag","hash":{
-        'templatePath': ("encounter")
-      },"hashTypes":{'templatePath': "STRING"},"hashContexts":{'templatePath': depth0},"fn":this.program(5, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      stack1 = ((helpers['draggable-object'] || (depth0 && depth0['draggable-object']) || helperMissing).call(depth0, {"name":"draggable-object","hash":{
+        'content': ("encounterObject")
+      },"hashTypes":{'content': "ID"},"hashContexts":{'content': depth0},"fn":this.program(5, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("        </div>\n      </div>\n    </div>\n\n    <div class=\"col-sm-9\">\n      <div class=\"panel filter-description-panel\">\n        <div class=\"panel-heading\">\n          <div class=\"panel-title\">\n            <h3>Filter Details</h3>\n          </div>\n        </div>\n\n        <div class=\"panel-body\">\n");
-      stack1 = ((helpers['x-drop'] || (depth0 && depth0['x-drop']) || helperMissing).call(depth0, {"name":"x-drop","hash":{
-        'model': ("model"),
+      stack1 = ((helpers['draggable-object-target'] || (depth0 && depth0['draggable-object-target']) || helperMissing).call(depth0, {"name":"draggable-object-target","hash":{
         'action': ("addPane")
-      },"hashTypes":{'model': "ID",'action': "STRING"},"hashContexts":{'model': depth0,'action': depth0},"fn":this.program(7, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
+      },"hashTypes":{'action': "STRING"},"hashContexts":{'action': depth0},"fn":this.program(7, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("        </div>\n      </div>\n    </div>\n  </div>\n</div>\n");
       return buffer;
@@ -2365,6 +2428,12 @@ define("ember-on-fhir/tests/unit/controllers/filters.new-test",
   [],
   function() {
     "use strict";
+<<<<<<< Updated upstream
+=======
+    var test = __dependency1__.test;
+    var moduleFor = __dependency1__.moduleFor;
+    moduleFor('controller:filters/new', 'FiltersNewController', {});
+>>>>>>> Stashed changes
 
   });
 define("ember-on-fhir/tests/unit/models/accomodation-test", 
@@ -2374,7 +2443,7 @@ define("ember-on-fhir/tests/unit/models/accomodation-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('accomodation', 'Accomodation', {
-      needs: []
+      needs: ['model:resource-reference', 'model:period', 'model:date']
     });
 
     test('it exists', function() {
@@ -2390,7 +2459,7 @@ define("ember-on-fhir/tests/unit/models/address-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('address', 'Address', {
-      needs: []
+      needs: ['model:period', 'model:date']
     });
 
     test('it exists', function() {
@@ -2406,7 +2475,7 @@ define("ember-on-fhir/tests/unit/models/animal-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('animal', 'Animal', {
-      needs: []
+      needs: ['model:codeable-concept', 'model:coding']
     });
 
     test('it exists', function() {
@@ -2438,7 +2507,7 @@ define("ember-on-fhir/tests/unit/models/codeable-concept-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('codeable-concept', 'CodeableConcept', {
-      needs: []
+      needs: ['model:coding', 'model:resource-reference']
     });
 
     test('it exists', function() {
@@ -2470,7 +2539,7 @@ define("ember-on-fhir/tests/unit/models/contact-point-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('contact-point', 'ContactPoint', {
-      needs: []
+      needs: ['model:period', 'model:date']
     });
 
     test('it exists', function() {
@@ -2486,7 +2555,7 @@ define("ember-on-fhir/tests/unit/models/contact-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('contact', 'Contact', {
-      needs: []
+      needs: ['model:codeable-concept', 'model:human-name', 'model:contact-point', 'model:address', 'model:reference', 'model:coding', 'model:period']
     });
 
     test('it exists', function() {
@@ -2518,7 +2587,7 @@ define("ember-on-fhir/tests/unit/models/ember-item-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('ember-item', 'EmberItem', {
-      needs: []
+      needs: ['model:extension', 'model:codeable-concept']
     });
 
     test('it exists', function() {
@@ -2534,7 +2603,7 @@ define("ember-on-fhir/tests/unit/models/encounter-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('encounter', 'Encounter', {
-      needs: []
+      needs: ['model:identifier', 'model:codeable-concept', 'model:resource-reference', 'model:participant', 'model:period', 'model:quantity', 'model:hospitalization', 'model:location', 'model:coding', 'model:date', 'model:accomodation']
     });
 
     test('it exists', function() {
@@ -2550,7 +2619,7 @@ define("ember-on-fhir/tests/unit/models/extension-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('extension', 'Extension', {
-      needs: []
+      needs: ['model:codeable-concept', 'model:coding']
     });
 
     test('it exists', function() {
@@ -2566,7 +2635,7 @@ define("ember-on-fhir/tests/unit/models/filter-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('filter', 'Filter', {
-      needs: []
+      needs: ['model:query', 'model:pane', 'model:extension', 'model:response', 'model:ember-item']
     });
 
     test('it exists', function() {
@@ -2582,7 +2651,7 @@ define("ember-on-fhir/tests/unit/models/hospitalization-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('hospitalization', 'Hospitalization', {
-      needs: []
+      needs: ['model:identifier', 'model:resource-reference', 'model:codeable-concept', 'model:period', 'model:accomodation', 'model:coding', 'model:date']
     });
 
     test('it exists', function() {
@@ -2598,7 +2667,7 @@ define("ember-on-fhir/tests/unit/models/human-name-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('human-name', 'HumanName', {
-      needs: []
+      needs: ['model:period', 'model:date']
     });
 
     test('it exists', function() {
@@ -2614,7 +2683,7 @@ define("ember-on-fhir/tests/unit/models/identifier-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('identifier', 'Identifier', {
-      needs: []
+      needs: ['model:period', 'model:resource-reference', 'model:date']
     });
 
     test('it exists', function() {
@@ -2630,7 +2699,7 @@ define("ember-on-fhir/tests/unit/models/link-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('link', 'Link', {
-      needs: []
+      needs: ['model:reference']
     });
 
     test('it exists', function() {
@@ -2646,7 +2715,7 @@ define("ember-on-fhir/tests/unit/models/location-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('location', 'Location', {
-      needs: []
+      needs: ['model:resource-reference', 'model:period', 'model:date']
     });
 
     test('it exists', function() {
@@ -2662,7 +2731,7 @@ define("ember-on-fhir/tests/unit/models/pane-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('pane', 'Pane', {
-      needs: []
+      needs: ['model:ember-item', 'model:extension']
     });
 
     test('it exists', function() {
@@ -2678,7 +2747,7 @@ define("ember-on-fhir/tests/unit/models/participant-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('participant', 'Participant', {
-      needs: []
+      needs: ['model:codeable-concept', 'model:resource-reference', 'model:coding']
     });
 
     test('it exists', function() {
@@ -2694,7 +2763,7 @@ define("ember-on-fhir/tests/unit/models/patient-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('patient', 'Patient', {
-      needs: []
+      needs: ['model:identifier', 'model:human-name', 'model:contact-point', 'model:address', 'model:codeable-concept', 'model:attachment', 'model:contact', 'model:animal', 'model:reference', 'model:link', 'model:period', 'model:resource-reference', 'model:coding']
     });
 
     test('it exists', function() {
@@ -2710,7 +2779,7 @@ define("ember-on-fhir/tests/unit/models/period-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('period', 'Period', {
-      needs: []
+      needs: ['model:date']
     });
 
     test('it exists', function() {
@@ -2742,7 +2811,7 @@ define("ember-on-fhir/tests/unit/models/query-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('query', 'Query', {
-      needs: []
+      needs: ['model:extension', 'model:response', 'model:codeable-concept', 'model:resource-reference']
     });
 
     test('it exists', function() {
@@ -2758,7 +2827,7 @@ define("ember-on-fhir/tests/unit/models/range-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('range', 'Range', {
-      needs: []
+      needs: ['model:quantity']
     });
 
     test('it exists', function() {
@@ -2774,7 +2843,7 @@ define("ember-on-fhir/tests/unit/models/reference-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('reference', 'Reference', {
-      needs: []
+      needs: ['model:reference']
     });
 
     test('it exists', function() {
@@ -2806,7 +2875,7 @@ define("ember-on-fhir/tests/unit/models/response-test",
     var test = __dependency1__.test;
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('response', 'Response', {
-      needs: []
+      needs: ['model:extension', 'model:resource-reference', 'model:codeable-concept']
     });
 
     test('it exists', function() {
@@ -3169,66 +3238,89 @@ define("ember-on-fhir/utils/add-filter-pane",
   function(__dependency1__, __exports__) {
     "use strict";
     var Ember = __dependency1__["default"];
-    var addFilterPane;
+    var addFilterPane, createConditionPane, createEncounterPane, createPane, createPatientPane;
 
     addFilterPane = function(context, pane) {
-      var ageFilter, ageParam, codeFilter, codeParam, genderFilter, genderParam, newPane;
+      var paneObject;
+      paneObject = createPane(context, pane);
+      return context.currentModel.get('panes').pushObject(paneObject);
+    };
+
+    createPane = function(context, pane) {
       switch (pane) {
         case "patient":
-          newPane = context.store.createRecord("pane", {
-            id: Ember.generateGuid({}, "pane")
-          });
-          ageParam = context.store.createRecord("extension", {
-            id: Ember.generateGuid({}, "extension"),
-            url: "http://interventionengine.org/patientage",
-            value: 18
-          });
-          ageFilter = context.store.createRecord("ember-item", {
-            id: Ember.generateGuid({}, "ember-item"),
-            parameter: ageParam,
-            componentName: "age-filter"
-          });
-          genderParam = context.store.createRecord("extension", {
-            id: Ember.generateGuid({}, "extension"),
-            url: "http://interventionengine.org/patientgender",
-            valueString: "M"
-          });
-          genderFilter = context.store.createRecord("ember-item", {
-            id: Ember.generateGuid({}, "ember-item"),
-            parameter: genderParam,
-            componentName: "gender-filter"
-          });
-          newPane.get('items').pushObjects([genderFilter]);
-          return context.currentModel.get('panes').pushObject(newPane);
+          return createPatientPane(context);
         case "encounter":
-          newPane = context.store.createRecord("pane", {
-            id: Ember.generateGuid({}, "pane"),
-            icon: "fa-hospital-o"
-          });
-          codeParam = context.store.createRecord("extension", {
-            id: Ember.generateGuid({}, "extension"),
-            url: "http://interventionengine.org/encounterCode"
-          });
-          codeFilter = context.store.createRecord("ember-item", {
-            id: Ember.generateGuid({}, "ember-item"),
-            parameter: codeParam,
-            componentName: "encounter-code-filter"
-          });
-          newPane.get('items').pushObjects([codeFilter]);
-          return context.currentModel.get('panes').pushObject(newPane);
+          return createEncounterPane(context);
         case "condition":
-          newPane = context.store.createRecord("pane", {
-            id: Ember.generateGuid({}, "pane"),
-            icon: "icon-med-clipboard"
-          });
-          codeFilter = context.store.createRecord("ember-item", {
-            id: Ember.generateGuid({}, "ember-item"),
-            componentName: "condition-code-filter"
-          });
-          newPane.get('items').pushObjects([codeFilter]);
-          return context.currentModel.get('panes').pushObject(newPane);
+          return createConditionPane(context);
       }
     };
+
+    createPatientPane = function(context) {
+      var ageFilter, ageParam, genderFilter, genderParam, newPane;
+      newPane = context.store.createRecord("pane", {
+        id: Ember.generateGuid({}, "pane")
+      });
+      ageParam = context.store.createRecord("extension", {
+        id: Ember.generateGuid({}, "extension"),
+        url: "http://interventionengine.org/patientage",
+        value: 18
+      });
+      ageFilter = context.store.createRecord("ember-item", {
+        id: Ember.generateGuid({}, "ember-item"),
+        parameter: ageParam,
+        componentName: "age-filter"
+      });
+      genderParam = context.store.createRecord("extension", {
+        id: Ember.generateGuid({}, "extension"),
+        url: "http://interventionengine.org/patientgender",
+        valueString: "M"
+      });
+      genderFilter = context.store.createRecord("ember-item", {
+        id: Ember.generateGuid({}, "ember-item"),
+        parameter: genderParam,
+        componentName: "gender-filter"
+      });
+      newPane.get('items').pushObjects([genderFilter]);
+      return newPane;
+    };
+
+    createEncounterPane = function(context) {
+      var codeFilter, codeParam, newPane;
+      newPane = context.store.createRecord("pane", {
+        id: Ember.generateGuid({}, "pane"),
+        icon: "fa-hospital-o"
+      });
+      codeParam = context.store.createRecord("extension", {
+        id: Ember.generateGuid({}, "extension"),
+        url: "http://interventionengine.org/encounterCode"
+      });
+      codeFilter = context.store.createRecord("ember-item", {
+        id: Ember.generateGuid({}, "ember-item"),
+        parameter: codeParam,
+        componentName: "encounter-code-filter"
+      });
+      newPane.get('items').pushObjects([codeFilter]);
+      return newPane;
+    };
+
+    createConditionPane = function(context) {
+      var codeFilter, newPane;
+      newPane = context.store.createRecord("pane", {
+        id: Ember.generateGuid({}, "pane"),
+        icon: "icon-med-clipboard"
+      });
+      codeFilter = context.store.createRecord("ember-item", {
+        id: Ember.generateGuid({}, "ember-item"),
+        componentName: "condition-code-filter"
+      });
+      newPane.get('items').pushObjects([codeFilter]);
+      return newPane;
+    };
+
+    __exports__.addFilterPane = addFilterPane;
+    __exports__.createPane = createPane;
 
     __exports__["default"] = addFilterPane;
   });

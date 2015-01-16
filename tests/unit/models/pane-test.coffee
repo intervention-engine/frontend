@@ -2,7 +2,7 @@
 
 moduleForModel 'pane', 'Pane', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:ember-item', 'model:extension']
 }
 
 test 'it exists', ->

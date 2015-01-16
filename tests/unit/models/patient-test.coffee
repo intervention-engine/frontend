@@ -2,7 +2,7 @@
 
 moduleForModel 'patient', 'Patient', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:identifier', 'model:human-name', 'model:contact-point', 'model:address', 'model:codeable-concept', 'model:attachment', 'model:contact', 'model:animal', 'model:reference', 'model:link', 'model:period', 'model:resource-reference', 'model:coding']
 }
 
 test 'it exists', ->

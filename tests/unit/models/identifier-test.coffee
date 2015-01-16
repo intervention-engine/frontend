@@ -2,7 +2,7 @@
 
 moduleForModel 'identifier', 'Identifier', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:period', 'model:resource-reference', 'model:date']
 }
 
 test 'it exists', ->

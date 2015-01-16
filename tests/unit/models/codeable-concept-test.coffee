@@ -2,7 +2,7 @@
 
 moduleForModel 'codeable-concept', 'CodeableConcept', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:coding', 'model:resource-reference']
 }
 
 test 'it exists', ->

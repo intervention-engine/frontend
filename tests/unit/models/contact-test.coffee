@@ -2,7 +2,7 @@
 
 moduleForModel 'contact', 'Contact', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:codeable-concept', 'model:human-name', 'model:contact-point', 'model:address', 'model:reference', 'model:coding', 'model:period']
 }
 
 test 'it exists', ->

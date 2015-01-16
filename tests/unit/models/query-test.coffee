@@ -2,7 +2,7 @@
 
 moduleForModel 'query', 'Query', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:extension', 'model:response', 'model:codeable-concept', 'model:resource-reference']
 }
 
 test 'it exists', ->

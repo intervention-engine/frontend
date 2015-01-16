@@ -2,7 +2,7 @@
 
 moduleForModel 'link', 'Link', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:reference']
 }
 
 test 'it exists', ->

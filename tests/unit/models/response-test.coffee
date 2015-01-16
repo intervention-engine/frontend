@@ -2,7 +2,7 @@
 
 moduleForModel 'response', 'Response', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:extension', 'model:resource-reference', 'model:codeable-concept']
 }
 
 test 'it exists', ->
