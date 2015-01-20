@@ -46,6 +46,10 @@ Patient = DS.Model.extend(
   managingOrganization: DS.belongsTo('reference')
   link: DS.hasMany('link')
   active: DS.attr('boolean')
+
+  fullName: Ember.computed 'name', ->
+    firstHumanName = this.get('name').get('firstObject')
+    return firstHumanName.get('given') + ' ' + firstHumanName.get('family')
 )
 
 `export default Patient`

@@ -4,9 +4,10 @@
     {{#each patient in content}}
       <li>
         <h2>
-            <p>Hello</p>
+          {{#link-to 'patients.show' patient}}
             <i class="fa fa-user"></i>
-            {{patient.name}}
+            {{patient.fullName}}
+          {{/link-to}}
         </h2>
       </li>
     {{/each}}
