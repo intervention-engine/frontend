@@ -13,7 +13,10 @@ ApplicationSerializer = DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin,
   #   # TODO Is this misbehavior on the server side?
   #   debugger
   #   return [] if payload == null
-    normalizedPayload[Ember.String.pluralize(type.typeKey)] = payload.Entries||payload
+    # normalizedPayload[Ember.String.pluralize(type.typeKey)] = payload.Entries||payload
+    if payload.Type = "Bundle"
+      console.log "Bundle came in"
+      payload = payload.Entries
     @_super(store, type, payload, id, requestType)
 
   normalize: (type, hash, prop) ->
