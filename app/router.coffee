@@ -10,6 +10,9 @@ Router.map(->
     @route('new')
     @route('show', path: ':id')
   )
+  @resource('patients', ->
+    @route('show', path: ':id')
+  )
 )
 
 `export default Router`
