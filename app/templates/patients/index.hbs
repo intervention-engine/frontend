@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>My Patients</h1>
+  <ul class="filterList">
+    {{#each patient in content}}
+      <li>
+        <h2>
+          {{#link-to 'patients.show' patient}}
+            <i class="fa fa-user"></i>
+            {{patient.fullName}}
+          {{/link-to}}
+        </h2>
+      </li>
+    {{/each}}
+  </ul>
+</div>
