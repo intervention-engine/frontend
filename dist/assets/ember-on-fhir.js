@@ -322,6 +322,7 @@ define("ember-on-fhir/controllers/filters/new",
       actions: {
         saveFilter: function() {
           this.get('model').buildQuery();
+          this.get('model').set("name", Ember.generateGuid({}, "Population "));
           this.get('model').save();
           return this.transitionTo("filters.index");
         },
@@ -337,6 +338,45 @@ define("ember-on-fhir/controllers/filters/new",
     });
 
     __exports__["default"] = FiltersNewController;
+  });
+define("ember-on-fhir/controllers/index", 
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"];
+    var IndexController;
+
+    IndexController = Em.Controller.extend({
+      selectedItems: Em.computed.filterBy('model.populations', 'selected', true),
+      selectedItemsCount: (function() {
+        return this.get('selectedItems.length');
+      }).property('selectedItems.length'),
+      results: (function() {
+        var item, items, promise, _i, _len, _results;
+        items = this.get('selectedItems');
+        if (items.length > 0) {
+          _results = [];
+          for (_i = 0, _len = items.length; _i < _len; _i++) {
+            item = items[_i];
+            if (item.get("query.results") != null) {
+              continue;
+            }
+            console.log("URL:" + (item.get("url")));
+            promise = DS.PromiseObject.create({
+              promise: $.get(item.get("url"))
+            });
+            _results.push(promise.then((function(_this) {
+              return function() {
+                return _this.set('query', promise.content);
+              };
+            })(this)));
+          }
+          return _results;
+        }
+      }).observes('selectedItems.length')
+    });
+
+    __exports__["default"] = IndexController;
   });
 define("ember-on-fhir/helpers/dynamic-component", 
   ["ember","ember-dynamic-component","exports"],
@@ -423,6 +463,19 @@ define("ember-on-fhir/initializers/export-application-global",
 
       initialize: initialize
     };
+  });
+define("ember-on-fhir/mixins/selectable", 
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"];
+    var SelectableMixin;
+
+    SelectableMixin = Ember.Mixin.create({
+      selected: false
+    });
+
+    __exports__["default"] = SelectableMixin;
   });
 define("ember-on-fhir/models/accomodation", 
   ["ember-data","exports"],
@@ -591,6 +644,17 @@ define("ember-on-fhir/models/coordinator",
       }
     });
   });
+define("ember-on-fhir/models/dashboard", 
+  ["ember-data","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var DS = __dependency1__["default"];
+    var Dashboard;
+
+    Dashboard = DS.Model.extend({});
+
+    __exports__["default"] = Dashboard;
+  });
 define("ember-on-fhir/models/date", 
   ["ember-data","exports"],
   function(__dependency1__, __exports__) {
@@ -667,13 +731,14 @@ define("ember-on-fhir/models/extension",
     __exports__["default"] = Extension;
   });
 define("ember-on-fhir/models/filter", 
-  ["ember-data","exports"],
-  function(__dependency1__, __exports__) {
+  ["ember-data","ember-on-fhir/mixins/selectable","exports"],
+  function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
     var DS = __dependency1__["default"];
+    var SelectableMixin = __dependency2__["default"];
     var Filter;
 
-    Filter = DS.Model.extend({
+    Filter = DS.Model.extend(SelectableMixin, {
       name: DS.attr("string"),
       description: DS.attr("string"),
       query: DS.belongsTo("query"),
@@ -1075,6 +1140,8 @@ define("ember-on-fhir/routes/filters/new",
       actions: {
         saveFilter: function() {
           this.currentModel.buildQuery();
+          debugger;
+          this.currentModel.set("name", Ember.generateGuid({}, "Population "));
           this.currentModel.save();
           return this.transitionTo("filters.index");
         },
@@ -1113,7 +1180,29 @@ define("ember-on-fhir/routes/filters/show",
 
     __exports__["default"] = FiltersShowRoute;
   });
-define("ember-on-fhir/routes/patients/index", 
+define("ember-on-fhir/routes/index", 
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"];
+    var IndexRoute;
+
+    IndexRoute = Ember.Route.extend({
+      model: function() {
+        return Ember.RSVP.hash({
+          populations: this.store.findAll('filter')
+        });
+      },
+      actions: {
+        populationClicked: function() {
+          debugger;
+        }
+      }
+    });
+
+    __exports__["default"] = IndexRoute;
+  });
+define("ember-on-fhir/routes/patients", 
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -1127,21 +1216,6 @@ define("ember-on-fhir/routes/patients/index",
     });
 
     __exports__["default"] = PatientsIndexRoute;
-  });
-define("ember-on-fhir/routes/patients/show", 
-  ["ember","exports"],
-  function(__dependency1__, __exports__) {
-    "use strict";
-    var Ember = __dependency1__["default"];
-    var PatientsShowRoute;
-
-    PatientsShowRoute = Ember.Route.extend({
-      model: function(params) {
-        return this.store.find('patient', params.id);
-      }
-    });
-
-    __exports__["default"] = PatientsShowRoute;
   });
 define("ember-on-fhir/serializers/accomodation", 
   ["ember-on-fhir/serializers/application","exports"],
@@ -1220,6 +1294,9 @@ define("ember-on-fhir/serializers/application",
       extract: function(store, type, payload, id, requestType) {
         var normalizedPayload;
         normalizedPayload = {};
+        if (payload === null) {
+          return [];
+        }
         if (payload.Type === "Bundle") {
           console.log("Bundle came in");
           payload = payload.Entries;
@@ -2231,32 +2308,50 @@ define("ember-on-fhir/templates/index",
     "use strict";
     __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
       var stack1, buffer = '';
-      data.buffer.push("      ");
-      stack1 = helpers._triageMustache.call(depth0, "group.value", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      stack1 = helpers['if'].call(depth0, "population.name", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(2, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push(" at ");
-      stack1 = helpers._triageMustache.call(depth0, "group.key", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      return buffer;
+    },"2":function(depth0,helpers,partials,data) {
+      var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
+      data.buffer.push("            <div class=\"form-group\">\n              <label class=\"control-label\">");
+      data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+        'action': ("populationChecked"),
+        'checked': ("population.selected"),
+        'class': ("input-control"),
+        'type': ("checkbox")
+      },"hashTypes":{'action': "STRING",'checked': "ID",'class': "STRING",'type': "STRING"},"hashContexts":{'action': depth0,'checked': depth0,'class': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+      data.buffer.push(" ");
+      stack1 = helpers._triageMustache.call(depth0, "population.name", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("\n      <br>\n");
+      data.buffer.push("</label>\n            </div>\n");
+      return buffer;
+    },"4":function(depth0,helpers,partials,data) {
+      data.buffer.push("Add New");
+      },"6":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      data.buffer.push("          ");
+      stack1 = helpers._triageMustache.call(depth0, "item.name", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push(":");
+      stack1 = helpers._triageMustache.call(depth0, "item.query.response.total", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
       return buffer;
     },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-      var stack1, escapeExpression=this.escapeExpression, buffer = '';
-      data.buffer.push("<div class=\"title-panel\">\n  <h1>My Metrics</h1>\n</div>\n\n<div class=\"container\">\n  <div class=\"row panel\">\n    <div class=\"col-sm-2\">\n      <h2><i class=\"icon-med-clipboard\"></i>Group by:</h2>\n    </div>\n    <div class=\"col-sm-1\">\n      <button class=\"btn btn-circle\" ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "setGrouping", "day", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(">Day</button>\n    </div>\n    <div class=\"col-sm-1\">\n      <button class=\"btn btn-circle btn-active\" ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "setGrouping", "week", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(">Week</button>\n    </div>\n    <div class=\"col-sm-1\">\n      <button class=\"btn btn-circle\" ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "setGrouping", "month", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(">Month</button>\n    </div>\n    <div class=\"col-sm-1\">\n      <button class=\"btn btn-circle\" ");
-      data.buffer.push(escapeExpression(helpers.action.call(depth0, "setGrouping", "year", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING"],"contexts":[depth0,depth0],"data":data})));
-      data.buffer.push(">Year</button>\n    </div>\n    <div>\n      <svg class=\"events\">\n        <path ");
-      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
-        'd': ("barsPath")
-      },"hashTypes":{'d': "STRING"},"hashContexts":{'d': depth0},"types":[],"contexts":[],"data":data})));
-      data.buffer.push("/>\n      </svg>\n    </div>\n  </div>\n\n  <div class=\"row panel\">\n");
-      stack1 = helpers.each.call(depth0, "group", "in", "groupSet", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+      var stack1, helperMissing=helpers.helperMissing, buffer = '';
+      data.buffer.push("<div class=\"title-panel\">\n  <h1>Populations</h1>\n</div>\n<div class=\"container\">\n  <div class=\"panel-heading\" role=\"tab\">\n      <h4 class=\"panel-title\">\n        <a data-toggle=\"collapse\" href=\"#populationList\" aria-expanded=\"true\" aria-controls=\"collapseOne\">\n          Choose Populations\n        </a>\n      </h4>\n    </div>\n  <div class=\"collapse in\" id=\"populationList\">\n    <div class=\"well\">\n      <form class=\"form-horizontal\">\n");
+      stack1 = helpers.each.call(depth0, "population", "in", "content.populations", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
-      data.buffer.push("  </div>\n</div>\n");
+      data.buffer.push("      </form>\n      <div class=\"form-group\">\n        <label class=\"control-label\">");
+      stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "filters.new", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(4, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("</label>\n      </div>\n    </div>\n  </div>\n  <div class=\"panel-heading\" role=\"tab\">\n      <h4 class=\"panel-title\">\n        <a data-toggle=\"collapse\" href=\"#resultsList\" aria-expanded=\"true\" aria-controls=\"collapseOne\">\n          View Results (");
+      stack1 = helpers._triageMustache.call(depth0, "selectedItemsCount", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push(")\n        </a>\n      </h4>\n    </div>\n  <div class=\"collapse in\" id=\"resultsList\">\n    <div class=\"well\">\n      <form class=\"form-horizontal\">\n\n");
+      stack1 = helpers.each.call(depth0, "item", "in", "selectedItems", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(6, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("      </form>\n    </div>\n  </div>\n</div>\n");
       return buffer;
     },"useData":true});
   });
@@ -2439,6 +2534,21 @@ define("ember-on-fhir/tests/unit/controllers/filters.new-test",
       return ok(false === controller.hasFilterPane());
     });
   });
+define("ember-on-fhir/tests/unit/mixins/selectable-test", 
+  ["ember","ember-on-fhir/mixins/selectable"],
+  function(__dependency1__, __dependency2__) {
+    "use strict";
+    var Ember = __dependency1__["default"];
+    var SelectableMixin = __dependency2__["default"];
+    module('SelectableMixin');
+
+    test('it works', function() {
+      var SelectableObject, subject;
+      SelectableObject = Ember.Object.extend(SelectableMixin);
+      subject = SelectableObject.create();
+      return ok(subject);
+    });
+  });
 define("ember-on-fhir/tests/unit/models/accomodation-test", 
   ["ember-qunit"],
   function(__dependency1__) {
@@ -2559,6 +2669,22 @@ define("ember-on-fhir/tests/unit/models/contact-test",
     var moduleForModel = __dependency1__.moduleForModel;
     moduleForModel('contact', 'Contact', {
       needs: ['model:codeable-concept', 'model:human-name', 'model:contact-point', 'model:address', 'model:reference', 'model:coding', 'model:period']
+    });
+
+    test('it exists', function() {
+      var model;
+      model = this.subject();
+      return ok(!!model);
+    });
+  });
+define("ember-on-fhir/tests/unit/models/dashboard-test", 
+  ["ember-qunit"],
+  function(__dependency1__) {
+    "use strict";
+    var test = __dependency1__.test;
+    var moduleForModel = __dependency1__.moduleForModel;
+    moduleForModel('dashboard', 'Dashboard', {
+      needs: []
     });
 
     test('it exists', function() {

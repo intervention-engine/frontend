@@ -12,7 +12,7 @@ ApplicationSerializer = DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin,
   #   # Because the server returns NULL if no filters...
   #   # TODO Is this misbehavior on the server side?
     # debugger
-  #   return [] if payload == null
+    return [] if payload == null
     # normalizedPayload[Ember.String.pluralize(type.typeKey)] = payload.Entries||payload
     if payload.Type == "Bundle"
       console.log "Bundle came in"

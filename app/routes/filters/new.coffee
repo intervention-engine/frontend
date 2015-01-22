@@ -8,6 +8,8 @@ FiltersNewRoute = Ember.Route.extend(
   actions:
     saveFilter: ->
       @currentModel.buildQuery()
+      debugger
+      @currentModel.set("name", Ember.generateGuid({}, "Population "))
       @currentModel.save()
       @transitionTo("filters.index")
 
