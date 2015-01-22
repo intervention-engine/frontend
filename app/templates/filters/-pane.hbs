@@ -4,18 +4,21 @@
   </div>
 
   <div class="col-xs-10">
-    <div class="close-pane">
-      <button type="button" class="close" {{action "removePane" model}} aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
     <div class="row pane-content">
-      {{#each item in items}}
-        <div class="row">
-          {{dynamic-component type=item.componentName item=item}}
-        </div>
-      {{/each}}
+      <div class="col-xs-10">
+        {{#each item in items}}
+          <div class="row">
+            {{dynamic-component type=item.componentName item=item}}
+          </div>
+        {{/each}}
+      </div>
+
+      <div class="col-xs-2">
+        <button type="button" class="close" {{action "removePane" model}} aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
+
