@@ -25,8 +25,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 `import DS from 'ember-data'`
+`import SelectableMixin from '../mixins/selectable'`
 
-Filter = DS.Model.extend(
+Filter = DS.Model.extend(SelectableMixin,
   name: DS.attr("string")
   description: DS.attr("string")
   query: DS.belongsTo("query")
