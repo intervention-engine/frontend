@@ -898,7 +898,12 @@ define("ember-on-fhir/models/patient",
       careProvider: DS.hasMany('reference'),
       managingOrganization: DS.belongsTo('reference'),
       link: DS.hasMany('link'),
-      active: DS.attr('boolean')
+      active: DS.attr('boolean'),
+      fullName: Ember.computed('name', function() {
+        var firstHumanName;
+        firstHumanName = this.get('name').get('firstObject');
+        return firstHumanName.get('given') + ' ' + firstHumanName.get('family');
+      })
     });
 
     __exports__["default"] = Patient;
@@ -1025,8 +1030,13 @@ define("ember-on-fhir/router",
     });
 
     Router.map(function() {
-      return this.resource('filters', function() {
+      this.resource('filters', function() {
         this.route('new');
+        return this.route('show', {
+          path: ':id'
+        });
+      });
+      return this.resource('patients', function() {
         return this.route('show', {
           path: ':id'
         });
@@ -1102,6 +1112,36 @@ define("ember-on-fhir/routes/filters/show",
     });
 
     __exports__["default"] = FiltersShowRoute;
+  });
+define("ember-on-fhir/routes/patients/index", 
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"];
+    var PatientsIndexRoute;
+
+    PatientsIndexRoute = Ember.Route.extend({
+      model: function() {
+        return this.store.findAll("patient");
+      }
+    });
+
+    __exports__["default"] = PatientsIndexRoute;
+  });
+define("ember-on-fhir/routes/patients/show", 
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"];
+    var PatientsShowRoute;
+
+    PatientsShowRoute = Ember.Route.extend({
+      model: function(params) {
+        return this.store.find('patient', params.id);
+      }
+    });
+
+    __exports__["default"] = PatientsShowRoute;
   });
 define("ember-on-fhir/serializers/accomodation", 
   ["ember-on-fhir/serializers/application","exports"],
@@ -1180,7 +1220,10 @@ define("ember-on-fhir/serializers/application",
       extract: function(store, type, payload, id, requestType) {
         var normalizedPayload;
         normalizedPayload = {};
-        normalizedPayload[Ember.String.pluralize(type.typeKey)] = payload.Entries || payload;
+        if (payload.Type === "Bundle") {
+          console.log("Bundle came in");
+          payload = payload.Entries;
+        }
         return this._super(store, type, payload, id, requestType);
       },
       normalize: function(type, hash, prop) {
@@ -1713,6 +1756,13 @@ define("ember-on-fhir/templates/application",
       },"7":function(depth0,helpers,partials,data) {
       data.buffer.push("<i class=\"fa fa-cogs\"></i> Utilities");
       },"9":function(depth0,helpers,partials,data) {
+      var stack1, helperMissing=helpers.helperMissing;
+      stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "patients", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(10, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+      if (stack1 != null) { data.buffer.push(stack1); }
+      else { data.buffer.push(''); }
+      },"10":function(depth0,helpers,partials,data) {
+      data.buffer.push("<i class=\"fa fa-users\"></i> Patients");
+      },"12":function(depth0,helpers,partials,data) {
       data.buffer.push("<i class=\"fa fa-sign-out\"></i> Logout");
       },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
       var stack1, helper, options, helperMissing=helpers.helperMissing, functionType="function", blockHelperMissing=helpers.blockHelperMissing, buffer = '';
@@ -1729,8 +1779,12 @@ define("ember-on-fhir/templates/application",
       stack1 = ((helper = (helper = helpers['navbar-active-link'] || (depth0 != null ? depth0['navbar-active-link'] : depth0)) != null ? helper : helperMissing),(options={"name":"navbar-active-link","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(6, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
       if (!helpers['navbar-active-link']) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
       if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("\n        ");
+      stack1 = ((helper = (helper = helpers['navbar-active-link'] || (depth0 != null ? depth0['navbar-active-link'] : depth0)) != null ? helper : helperMissing),(options={"name":"navbar-active-link","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":[],"contexts":[],"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
+      if (!helpers['navbar-active-link']) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+      if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("\n        <li>");
-      stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "logout", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data}));
+      stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "logout", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(12, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data}));
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("</li>\n      </ul>\n    </div>\n  </nav>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div id=\"ember-fhir\">\n        ");
       stack1 = helpers._triageMustache.call(depth0, "outlet", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
@@ -2203,6 +2257,46 @@ define("ember-on-fhir/templates/index",
       stack1 = helpers.each.call(depth0, "group", "in", "groupSet", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
       if (stack1 != null) { data.buffer.push(stack1); }
       data.buffer.push("  </div>\n</div>\n");
+      return buffer;
+    },"useData":true});
+  });
+define("ember-on-fhir/templates/patients/index", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    __exports__["default"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
+      var stack1, helperMissing=helpers.helperMissing, buffer = '';
+      data.buffer.push("      <li>\n        <h2>\n");
+      stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "patients.show", "patient", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(2, data),"inverse":this.noop,"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data}));
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("        </h2>\n      </li>\n");
+      return buffer;
+    },"2":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      data.buffer.push("            <i class=\"fa fa-user\"></i>\n            ");
+      stack1 = helpers._triageMustache.call(depth0, "patient.fullName", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+    },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      data.buffer.push("<div class=\"container\">\n  <h1>My Patients</h1>\n  <ul class=\"filterList\">\n");
+      stack1 = helpers.each.call(depth0, "patient", "in", "content", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("  </ul>\n</div>");
+      return buffer;
+    },"useData":true});
+  });
+define("ember-on-fhir/templates/patients/show", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    __exports__["default"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+      var stack1, buffer = '';
+      data.buffer.push("<div class=\"container\">\n  <h1>");
+      stack1 = helpers._triageMustache.call(depth0, "content.fullName", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+      if (stack1 != null) { data.buffer.push(stack1); }
+      data.buffer.push("</h1>\n</div>");
       return buffer;
     },"useData":true});
   });
