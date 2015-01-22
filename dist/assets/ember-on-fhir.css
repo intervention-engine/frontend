@@ -6642,3 +6642,55 @@ h2 {
   .pane .pane-content {
     border: 8px solid #EEEEEE;
     padding-left: 40px; }
+
+form {
+  margin: 10px; }
+
+/* -------------------------------- CHECKBOXES & RADIO BUTTONS -------------------------------- */
+input[type=checkbox].css-checkbox, input[type=radio].css-checkbox {
+  position: absolute;
+  z-index: -1000;
+  left: -1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0; }
+
+input[type=checkbox].css-checkbox + label.css-label, input[type=radio].css-checkbox + label.css-label {
+  height: 31px;
+  display: inline-block;
+  line-height: 31px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  vertical-align: middle;
+  cursor: pointer; }
+
+input[type=checkbox].css-checkbox:checked + label.css-label, input[type=radio].css-checkbox:checked + label.css-label {
+  background-position: 0 -31px; }
+
+label.css-label {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+label.css-label-box {
+  background-image: url(/assets/images/checkbox-style.png); }
+
+label.css-label-circle {
+  background-image: url(/assets/images/radio-style.png); }
+
+label.checkbox-label {
+  padding-left: 40px;
+  font-size: 1.5em;
+  font-weight: 300; }
+
+label.radio-label {
+  padding-left: 35px;
+  font-size: 1.2em;
+  font-weight: 400; }
