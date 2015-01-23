@@ -14,6 +14,7 @@ input {
   border: 1px solid $brand-secondary;
   height: 45px;
   margin-top: -10px;
+  padding-left: 20px;
 }
 
 /* -------------------------------- INPUT PLACEHOLDERS -------------------------------- */
@@ -23,27 +24,47 @@ input {
   font-style: italic;
   font-size: 0.9em;
   font-weight: 200;
-  padding: 2px 10px;
+  padding: 2px;
+}
+
+@mixin placeholder-focus {
+  color: transparent;
 }
 
 ::-webkit-input-placeholder,
 :focus::-webkit-input-placeholder {
-   @include placeholder;
+  @include placeholder;
+}
+
+:focus::-webkit-input-placeholder {
+  @include placeholder-focus;
 }
 
 :-moz-placeholder,
 :focus:-moz-placeholder { /* Firefox 18- */
-   @include placeholder;
+  @include placeholder;
+}
+
+:focus:-moz-placeholder { /* Firefox 18- */
+  @include placeholder-focus;
 }
 
 ::-moz-placeholder,
 :focus::-moz-placeholder {  /* Firefox 19+ */
-   @include placeholder;
+  @include placeholder;
+}
+
+:focus::-moz-placeholder {  /* Firefox 19+ */
+  @include placeholder-focus;
 }
 
 :-ms-input-placeholder,
 :focus:-ms-input-placeholder {
    @include placeholder;
+}
+
+:focus:-ms-input-placeholder {
+   @include placeholder-focus;
 }
 
 /* -------------------------------- CHECKBOXES & RADIO BUTTONS -------------------------------- */

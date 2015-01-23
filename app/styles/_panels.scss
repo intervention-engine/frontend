@@ -1,0 +1,47 @@
+/* -------------------------------- PANELS -------------------------------- */
+
+.panel {
+  padding: 0;
+  margin: 10px 0;
+
+  .panel-title {
+    padding: 0 10px 5px 30px;
+    font-size: 24px;
+  }
+
+  .collapse-panel-title {
+    padding: 15px;
+    font-size: 24px;
+    line-height: 24px;
+    background-color: $brand-primary;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .collapsed {
+      .fa-chevron-down {
+        @extend .fa-rotate-270;
+      }
+    }
+  }
+
+  .panel-heading {
+    border-bottom: 1px solid $body-bg;
+    padding: 0;
+  }
+}
+
+.title-panel {
+  background-color: #fff;
+  margin: -20px -9999rem 10px -9999rem;
+  /* add back negative margin value */
+  padding: 0.25rem 9999rem;
+
+  .title-text {
+    font-size: 4.8em;
+    font-weight: 100;
+  }
+}

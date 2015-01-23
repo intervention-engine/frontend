@@ -31,34 +31,6 @@ h2 {
   padding-right: 44px;
 }
 
-/* -------------------------------- PANELS -------------------------------- */
-
-.panel {
-  padding: 0;
-  margin: 10px 0;
-
-  .panel-title {
-    padding: 0 10px 5px 30px;
-  }
-
-  .panel-heading {
-    border-bottom: 1px solid $body-bg;
-    padding: 0;
-  }
-}
-
-.title-panel {
-  background-color: #fff;
-  margin: -20px -9999rem 10px -9999rem;
-  /* add back negative margin value */
-  padding: 0.25rem 9999rem;
-
-  .title-text {
-    font-size: 4.8em;
-    font-weight: 100;
-  }
-}
-
 /* -------------------------------- BUTTONS -------------------------------- */
 
 .btn-circle {
