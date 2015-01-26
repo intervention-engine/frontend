@@ -6,9 +6,5 @@ IndexRoute = Ember.Route.extend
       populations: @store.findAll('filter')
     )
     # dashboard: @store.createRecord("dashboard", {id: Ember.generateGuid({}, "dashboard")})
-  actions:
-    populationClicked: ->
-      debugger
-
 
 `export default IndexRoute`

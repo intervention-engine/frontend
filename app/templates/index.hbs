@@ -35,9 +35,10 @@
   <div class="collapse in" id="resultsList">
     <div class="well">
       <form class="form-horizontal">
-
-        {{#each item in selectedItems}}
-          {{item.name}}:{{item.query.response.total}}
+        {{#each population in selectedItems}}
+          {{#each patient in population.patients.patientids}}
+            <i class="fa fa-user"></i>{{patient.fullName}}
+          {{/each}}
         {{/each}}
       </form>
     </div>

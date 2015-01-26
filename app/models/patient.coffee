@@ -48,8 +48,8 @@ Patient = DS.Model.extend(
   active: DS.attr('boolean')
 
   fullName: Ember.computed 'name', ->
-    firstHumanName = this.get('name').get('firstObject')
-    return firstHumanName.get('given') + ' ' + firstHumanName.get('family')
+    firstHumanName = this.get('name')?.get('firstObject')
+    return firstHumanName?.get('given') + ' ' + firstHumanName?.get('family')
 )
 
 `export default Patient`
