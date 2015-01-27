@@ -1,5 +1,70 @@
 form {
   margin: 10px;
+  font-size: 20px;
+  font-weight: 200;
+}
+
+label {
+  font-weight: 200;
+  font-size: 20px;
+}
+
+input {
+  width: 100%;
+  border: 1px solid $brand-secondary;
+  height: 45px;
+  margin-top: -10px;
+  padding-left: 20px;
+}
+
+/* -------------------------------- INPUT PLACEHOLDERS -------------------------------- */
+
+@mixin placeholder {
+  color: lighten($brand-secondary, 40%);
+  font-style: italic;
+  font-size: 0.9em;
+  font-weight: 200;
+  padding: 2px;
+}
+
+@mixin placeholder-focus {
+  color: transparent;
+}
+
+::-webkit-input-placeholder,
+:focus::-webkit-input-placeholder {
+  @include placeholder;
+}
+
+:focus::-webkit-input-placeholder {
+  @include placeholder-focus;
+}
+
+:-moz-placeholder,
+:focus:-moz-placeholder { /* Firefox 18- */
+  @include placeholder;
+}
+
+:focus:-moz-placeholder { /* Firefox 18- */
+  @include placeholder-focus;
+}
+
+::-moz-placeholder,
+:focus::-moz-placeholder {  /* Firefox 19+ */
+  @include placeholder;
+}
+
+:focus::-moz-placeholder {  /* Firefox 19+ */
+  @include placeholder-focus;
+}
+
+:-ms-input-placeholder,
+:focus:-ms-input-placeholder {
+   @include placeholder;
+}
+
+:focus:-ms-input-placeholder {
+   @include placeholder-focus;
 }
 
 /* -------------------------------- CHECKBOXES & RADIO BUTTONS -------------------------------- */
@@ -53,12 +118,8 @@ label.css-label-circle {
 
 label.checkbox-label {
   padding-left: 40px;
-  font-size: 1.5em;
-  font-weight: 300;
 }
 
 label.radio-label {
   padding-left: 35px;
-  font-size: 1.2em;
-  font-weight: 400;
 }

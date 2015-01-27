@@ -6,24 +6,24 @@
 
   <div class="form-group">
     {{#if item.active}}
-      <div class="row">
-        <span class="col-sm-1">is</span>
-        <span class="col-sm-2">
+      <div class="row pane-element">
+        <div class="col-sm-1">is</div>
+        <div class="col-sm-3">
           {{input type="radio" class="input-control css-checkbox" id="male" name=item.parameter.valueString value="M"}}
           <label class="css-label css-label-circle radio-label" for="male">Male</label>
-        </span>
-        <span class="col-sm-2">
+        </div>
+        <div class="col-sm-3">
           {{input type="radio" class="input-control css-checkbox" id="female" name=item.parameter.valueString value="F"}}
           <label class="css-label css-label-circle radio-label" for="female">Female</label>
-        </span>
-        <span class="col-sm-2">
+        </div>
+        <div class="col-sm-3">
           {{input type="radio" class="input-control css-checkbox" id="other" name=item.parameter.valueString value="O"}}
           <label class="css-label css-label-circle radio-label" for="other">Other</label>
-        </span>
-        <span class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
           {{input type="radio" class="input-control css-checkbox" id="unknown" name=item.parameter.valueString value="U"}}
           <label class="css-label css-label-circle radio-label" for="unknown">Unknown</label>
-        </span>
+        </div>
       </div>
     {{/if}}
   </div>
