@@ -9,7 +9,8 @@ label {
   font-size: 20px;
 }
 
-input {
+input.condition,
+input.encounter {
   width: 100%;
   border: 1px solid $brand-secondary;
   height: 45px;
@@ -17,12 +18,19 @@ input {
   padding-left: 20px;
 }
 
+input.login-input {
+  border: 1px solid $brand-secondary;
+  height: 45px;
+  border-radius: 0;
+}
+
 /* -------------------------------- INPUT PLACEHOLDERS -------------------------------- */
 
 @mixin placeholder {
   color: lighten($brand-secondary, 40%);
   font-style: italic;
-  font-size: 0.9em;
+  font-size: 18px;
+  line-height: 16px;
   font-weight: 200;
   padding: 2px;
 }
