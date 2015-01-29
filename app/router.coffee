@@ -13,6 +13,10 @@ Router.map(->
   @resource('patients', ->
     @route('show', path: ':id')
   )
+  @route('login')
+  @route('utilities')
+  @route('register')
+  @route('forgotPassword')
 )
 
 `export default Router`
