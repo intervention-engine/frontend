@@ -26,6 +26,7 @@ var gzipFiles = require('broccoli-gzip');
 
 app.import('bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js');
 app.import('bower_components/d3/d3.js');
+app.import('bower_components/d3-tip/index.js');
 app.import('bower_components/crossfilter/crossfilter.js');
 
 // bootstrap fonts

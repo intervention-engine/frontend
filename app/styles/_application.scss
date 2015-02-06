@@ -51,3 +51,14 @@ h2 {
   font-size: 1.2em;
   padding: 10px;
 }
+
+
+svg {
+  fill:$brand-primary;
+  shape-rendering: geometricPrecision;
+}
+
+.active{
+  stroke: black;
+  stroke-width: 4px;
+}

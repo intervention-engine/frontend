@@ -35,11 +35,16 @@
       </div>
 
       <div class="panel-body">
-        {{#if patients}}
-            {{#each patient in patients}}
-              <div id="name">
-                <i class="fa fa-user"></i>{{patient.fullName}}
-              </div>
+        {{#each pat in patients}}
+          {{pat.id}}
+        {{/each}}
+        {{#if selectedItems}}
+            {{#each item in selectedItems}}
+              {{#each patient in item.patients.patientids}}
+                <div id="name">
+                  <i class="fa fa-user"></i>{{patient.fullName}}
+                </div>
+              {{/each}}
             {{/each}}
         {{else}}
           <span class="sub-text">Please select at least one population.</span>
