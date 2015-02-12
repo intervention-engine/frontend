@@ -5,7 +5,7 @@
 
   <div class="col-xs-10">
     <div class="row pane-content">
-      <div class="col-xs-10">
+      <div class="col-xs-11">
         {{#each item in items}}
           <div class="row">
             {{dynamic-component type=item.componentName item=item}}
@@ -13,7 +13,7 @@
         {{/each}}
       </div>
 
-      <div class="col-xs-2">
+      <div class="col-xs-1">
         <button type="button" class="close" {{action "removePane" model}} aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

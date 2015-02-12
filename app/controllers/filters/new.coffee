@@ -8,15 +8,14 @@ FiltersNewController = Ember.Controller.extend({
   ).property('model.panes.length')
 
   # filter-type objects
-  patientObject: Ember.Object.create({
-    type: 'patient'
-  })
-  conditionObject: Ember.Object.create({
-    type: 'condition'
-  })
-  encounterObject: Ember.Object.create({
-    type: 'encounter'
-  })
+  patientObject: Ember.Object.create({ type: 'patient' })
+  conditionObject: Ember.Object.create({ type: 'condition' })
+  encounterObject: Ember.Object.create({ type: 'encounter' })
+
+  # counts
+  patientsCount: '49,461'
+  conditionsCount: '1,536'
+  encountersCount: '126,185'
 
   # actions
   actions:
