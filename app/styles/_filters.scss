@@ -6,8 +6,24 @@
 
 /* -------------------------------- COUNTS -------------------------------- */
 
-.count {
+.filter-counts {
+  text-align: center;
+  padding: 15px;
+  font-size: 1.3em;
+  color: $brand-secondary;
 
+  .count {
+    min-width: 150px;
+
+    .count-value {
+      display: inline-block;
+      min-width: 160px;
+      font-size: 1.7em;
+      font-weight: 500;
+      background-color: $body-bg;
+      border-radius: 25px;
+    }
+  }
 }
 
 /* -------------------------------- FILTER TYPE -------------------------------- */

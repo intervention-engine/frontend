@@ -1,12 +1,27 @@
 <div class="container">
-  <div class="title-panel">
-    <span class="title-text">Create Filter</span>
-{{!--     <div>
-      {{#count type="patient"}}
-      <span class="count" id="patient-count">
-      Patients
-      </span>
-    </div> --}}
+  <div class="title-panel row">
+    <div class="title-text col-sm-4">Create Filter</div>
+    <div class="filter-counts col-sm-8">
+      {{!-- {{#count type="patient"}} --}}
+      <div class="row">
+        <div class="count col-sm-3">
+          <span class="count-value" id="patient-count">49,461</span><br/>
+          <span>patients</span>
+        </div>
+        <div class="count col-sm-3">
+          <span class="count-value" id="condition-count">1,536</span><br/>
+          <span>conditions</span>
+        </div>
+        <div class="count col-sm-3">
+          <span class="count-value" id="encounter-count">126,185</span><br/>
+          <span>encounters</span>
+        </div>
+        <div class="col-sm-3">
+          <span>in the last</span><br/>
+          <span>year</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="row">

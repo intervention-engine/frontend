@@ -24,6 +24,11 @@ h2 {
 
 .nav {
   padding-right: 44px;
+
+  a {
+    min-width: 150px;
+    text-align: center;
+  }
 }
 
 /* -------------------------------- BUTTONS -------------------------------- */
