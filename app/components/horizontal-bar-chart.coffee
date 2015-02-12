@@ -1,47 +1,29 @@
 `import Ember from 'ember'`
 
-HorizontalBarChartComponent = Ember.Component.extend
-  data: null
+VerticalBarChartComponent = Em.Component.extend
+  data: []
+  didInsertElement: ->
+    data = this.data
+    element = d3.select(@element)
+    width = 100
+    height = 5
+    widthScale = d3.scale.linear()
+      .domain([0, d3.max(data, (d) -> d.value)])
+      .range([0,width])
+    row = element.selectAll("tbody").selectAll("tr").data(data).enter()
+      .append("tr")
+    row.append("td").text((d) -> d.risk)
+    row.append("td").text((d) -> d.label)
+    svg = row.append("td").append("svg").attr("viewBox", "0 0 #{width} #{height}")
+    svg.append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .classed("background", true)
+    svg.append("rect")
+      .attr("width", (d) -> widthScale(d.value))
+      .attr("height", height)
 
-# barChart = (selection) ->
-#   selection.each (data) ->
-#     padding = 5
-#     width = 600 - padding * 2
-#     height = 200 - padding * 2
-#     barScale = d3.scale.ordinal()
-#       .domain(d3.range(0, data.length))
-#       .rangeRoundBands([padding, width], .1)
-#     heightScale = d3.scale.linear()
-#       .domain([0, d3.max(data, (d) -> d.value)])
-#       .range([padding, height])
-#     opacityScale = d3.scale.linear()
-#       .domain([0, d3.max(data, (d) -> d.value)])
-#       .range([.2, 1])
-#     svg = d3.select(this)
-#     g = svg.append("g")
-#     gEnter = g.selectAll("rect")
-#       .data(data)
-#       .enter()
-#     gEnter.append("rect")
-#       .attr("x", (d,i) -> barScale(i))
-#       .attr("y", (d) -> height )
-#       .attr("width", barScale.rangeBand())
-#       .attr("height", 0)
-#       .attr("fill-opacity", (d) -> opacityScale(d.value))
-#     g.selectAll("rect")
-#       .transition()
-#       .duration(1000)
-#       .attr("x", (d,i) -> barScale(i))
-#       .attr("y", (d) -> height - heightScale(d.value))
-#       .attr("width", barScale.rangeBand())
-#       .attr("height", (d) -> heightScale(d.value))
-#       .attr("fill-opacity", (d) -> opacityScale(d.value))
-#
-#
-#
-#
-#
-#
-#
 
-`export default HorizontalBarChartComponent`
+
+
+`export default VerticalBarChartComponent`

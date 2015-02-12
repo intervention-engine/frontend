@@ -1,20 +1,23 @@
 `import Ember from 'ember'`
 
-barChart = (selection) ->
-  selection.each (data) ->
+HorizontalBarChartComponent = Ember.Component.extend
+  data: []
+  didInsertElement: ->
+    svg = d3.select(@element).select("svg")
     padding = 5
     width = 600 - padding * 2
     height = 200 - padding * 2
+    data = @data
     barScale = d3.scale.ordinal()
       .domain(d3.range(0, data.length))
-      .rangeRoundBands([padding, width], .1)
+      .rangeRoundBands([padding, width], (@bandPadding||0))
+    console.log @bandPadding
     heightScale = d3.scale.linear()
       .domain([0, d3.max(data, (d) -> d.value)])
       .range([padding, height])
     opacityScale = d3.scale.linear()
       .domain([0, d3.max(data, (d) -> d.value)])
       .range([.2, 1])
-    svg = d3.select(this)
     g = svg.append("g")
     gEnter = g.selectAll("rect")
       .data(data)
@@ -35,10 +38,4 @@ barChart = (selection) ->
       .attr("fill-opacity", (d) -> opacityScale(d.value))
 
 
-
-
-
-
-
-
-`export default barChart`
+`export default HorizontalBarChartComponent`
