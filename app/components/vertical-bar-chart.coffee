@@ -1,6 +1,6 @@
 `import Ember from 'ember'`
 
-HorizontalBarChartComponent = Ember.Component.extend
+VerticalBarChartComponent = Ember.Component.extend
   data: []
   didInsertElement: ->
     svg = d3.select(@element).select("svg")
@@ -38,4 +38,4 @@ HorizontalBarChartComponent = Ember.Component.extend
       .attr("fill-opacity", (d) -> opacityScale(d.value))
 
 
-`export default HorizontalBarChartComponent`
+`export default VerticalBarChartComponent`

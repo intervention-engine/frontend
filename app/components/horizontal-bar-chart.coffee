@@ -1,12 +1,12 @@
 `import Ember from 'ember'`
 
-VerticalBarChartComponent = Em.Component.extend
+HorizontalBarChartComponent = Em.Component.extend
   data: []
   didInsertElement: ->
     data = this.data
     element = d3.select(@element)
     width = 100
-    height = 5
+    height = 10
     widthScale = d3.scale.linear()
       .domain([0, d3.max(data, (d) -> d.value)])
       .range([0,width])
@@ -26,4 +26,4 @@ VerticalBarChartComponent = Em.Component.extend
 
 
 
-`export default VerticalBarChartComponent`
+`export default HorizontalBarChartComponent`
