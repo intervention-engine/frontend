@@ -1,10 +1,16 @@
+
 `import Ember from 'ember'`
 
-lineChart = (selection) ->
-  selection.each (data) ->
+VerticalLineChartComponent = Ember.Component.extend
+  data: []
+  didInsertElement: ->
+
+    svg = d3.select(@element).select("svg")
+    data = this.data
     padding = 5
-    width = 600 - padding * 2
-    height = 200 - padding * 2
+    width = (this.width||600) - padding * 2
+    height = (this.height||200) - padding * 2
+    svg.attr("viewBox", "0 0 #{width} #{height}")
     positionScale = d3.scale.ordinal()
       .domain(d3.range(0, data.length))
       .rangeRoundBands([padding, width], .1)
@@ -16,14 +22,10 @@ lineChart = (selection) ->
       .x((d,i) -> positionScale(i))
       .y0(height)
       .y1((d) -> height - heightScale(d.value))
-      # .interpolate("cardinal-open")
+      .interpolate("step")
 
-    svg = d3.select(this)
     g = svg.append("g")
       .append("path")
       .attr("d", areaGenerator(data))
 
-
-
-
-`export default lineChart`
+`export default VerticalLineChartComponent`

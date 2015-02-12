@@ -1,7 +1,10 @@
 `import Ember from 'ember'`
 
-asterPlot = (selection) ->
-  selection.each (data) ->
+AsterPlotComponent = Ember.Component.extend
+  data: []
+  didInsertElement: ->
+    svg = d3.select(@element).select("svg")
+    data = this.data
     padding = 5
     width = height = 600 - 2 * padding
 
@@ -15,7 +18,6 @@ asterPlot = (selection) ->
     opacityScale = d3.scale.linear()
       .domain([0,6])
       .range([.2, 1])
-    svg = d3.select(this)
     pie = d3.layout.pie()
       .padAngle(.03)
       .sort(null)
@@ -44,11 +46,11 @@ asterPlot = (selection) ->
       .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
       # .on("mouseover", tip.show())
       # .on("mouseout", tip.hide())
-      .on("click", (d) ->
+      .on("click", (d) =>
         # rotateAngle = -d3.mean([d.startAngle, d.endAngle])*180/Math.PI
         # d3.select(this.parentNode).transition().duration(1000).attr("transform", => "rotate(#{rotateAngle})")
-        d3.selectAll(".category").classed("active", false)
-        d3.selectAll(".category#{d.data.name}").classed("active", true)
+        svg.selectAll(".category").classed("active", false)
+        svg.selectAll(".category#{d.data.name}").classed("active", true)
       )
 
     gEnter.append("path")
@@ -56,9 +58,9 @@ asterPlot = (selection) ->
       .attr("d", outerArc)
       .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
 
-      .on("click", (d) ->
-        d3.selectAll(".category").classed("active", false)
-        d3.selectAll(".category#{d.data.name}").classed("active", true)
+      .on("click", (d) =>
+        svg.selectAll(".category").classed("active", false)
+        svg.selectAll(".category#{d.data.name}").classed("active", true)
       )
       .on("dblclick", (d) ->
         rotateAngle = -d3.mean([d.startAngle, d.endAngle])*180/Math.PI
@@ -67,7 +69,4 @@ asterPlot = (selection) ->
       # .on("mouseover", tip.show())
       # .on("mouseout", tip.hide())
 
-
-
-
-`export default asterPlot`
+`export default AsterPlotComponent`
