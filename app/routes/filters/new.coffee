@@ -9,17 +9,6 @@ FiltersNewRoute = Ember.Route.extend(
   resetController: (controller, isExiting, transition) ->
     controller.set('filterName', null) if isExiting
     return
-
-  actions:
-    saveFilter: ->
-      @currentModel.buildQuery()
-      debugger
-      @currentModel.set("name", Ember.generateGuid({}, "Population "))
-      @currentModel.save()
-      @transitionTo("filters.index")
-
-    addPane: (pane) ->
-      addFilterPane(@, pane)
 )
 
 `export default FiltersNewRoute`

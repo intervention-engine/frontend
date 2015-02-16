@@ -1,38 +1,4 @@
-/* -------------------------------- PANELS -------------------------------- */
-
-.panel {
-  padding: 0;
-  margin: 10px 0;
-
-  .panel-title {
-    padding: 0 10px 5px 30px;
-    font-size: 20px;
-  }
-
-  .collapse-panel-title {
-    padding: 15px;
-    font-size: 20px;
-    line-height: 20px;
-    background-color: $brand-primary;
-
-    a {
-      display: block;
-      text-decoration: none;
-      color: #fff;
-    }
-
-    .collapsed {
-      .fa-chevron-down {
-        @extend .fa-rotate-270;
-      }
-    }
-  }
-
-  .panel-heading {
-    border-bottom: 1px solid $body-bg;
-    padding: 0;
-  }
-}
+/* -------------------------------- TITLE PANELS -------------------------------- */
 
 .title-panel {
   background-color: #fff;
@@ -43,5 +9,43 @@
   .title-text {
     font-size: 4.8em;
     font-weight: 100;
+  }
+}
+
+/* -------------------------------- CONTENT PANELS -------------------------------- */
+
+.panel {
+
+  .panel-heading {
+    border-bottom: 1px solid $body-bg;
+    padding: 0;
+    margin: 0;
+
+    .panel-title, .collapse-panel-title {
+      font-size: 20px;
+      line-height: 20px;
+      padding: 20px;
+    }
+
+    .collapse-panel-title {
+      background-color: $brand-primary;
+
+      a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .collapsed {
+        .fa-chevron-down {
+          @extend .fa-rotate-270;
+        }
+      }
+    }
+  }
+
+  .panel-body {
+    margin: 0;
+    padding: 0;
   }
 }

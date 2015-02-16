@@ -1,2 +1,65 @@
 /* -------------------------------- PATIENTS -------------------------------- */
 
+.patients-striped {
+  > .patient:nth-child(odd) {
+    background-color: $table-bg-accent;
+  }
+
+  .patient {
+    margin: 0;
+    padding: 5px 2px 2px 15px;
+    border-bottom: 1px solid $body-bg;
+    font-size: 16px;
+    height: 80px;
+
+    .patient-info {
+      padding-top: 10px;
+      position: relative;
+
+      .patient-name {
+        color: $brand-primary;
+        font-size: 18px;
+
+        .badge {
+          display: inline-block;
+          background-color: $brand-alert;
+          width: 15px;
+          height: 15px;
+          padding: 0 2px;
+          line-height: 1.4;
+        }
+      }
+
+      .patient-age-gender {
+        font-size: 14px;
+        color: lighten($brand-secondary, 40%);
+
+        i {
+          color: lighten($brand-secondary, 55%);
+        }
+
+        .patient-age {
+          margin-right: 30px;
+        }
+      }
+
+      .patient-risk {
+        position: absolute;
+        top: 50%;
+        right: -2px;
+
+        background-color: $brand-primary;
+        font-size: 12px;
+        color: #fff;
+        padding: 0 3px 0 2px;
+      }
+
+      .patient-risk-1 { width: 20px; }
+      .patient-risk-2 { width: 30px; }
+      .patient-risk-3 { width: 40px; }
+      .patient-risk-4 { width: 50px; }
+      .patient-risk-5 { width: 60px; }
+      .patient-risk-6 { width: 70px; }
+    }
+  }
+}
