@@ -35,9 +35,11 @@ Filter = DS.Model.extend(SelectableMixin,
   patients: DS.belongsTo("queryList", { async: true })
   patientsCount: (-> @get('patients').length).property('patients.[]')
   results: DS.attr("number")
+
   hasFilterPane: (->
     @get('panes.length') > 0
   ).property('panes.length')
+
   buildQuery: ->
     if not @get('query')
       @set('query', @store.createRecord("query", {}))
@@ -45,7 +47,10 @@ Filter = DS.Model.extend(SelectableMixin,
     for itemSet in activeItems
       for item in itemSet
         @get('query.parameter').pushObject(item.get('parameter'))
-  )
 
+  checkboxId: (->
+    "checkbox-population-#{@get('id')}"
+  ).property('id')
+)
 
 `export default Filter`

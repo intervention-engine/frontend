@@ -52,7 +52,6 @@
     color: #fff;
   }
 
-
   .filter-type-icon {
     display: inline-block;
     font-size: 1.3em;
@@ -71,9 +70,27 @@
   }
 }
 
-/* -------------------------------- SAVE -------------------------------- */
+/* -------------------------------- FILTER DETAILS -------------------------------- */
 
-#save-new-filter {
-  text-align: right;
-  padding: 10px;
+.filter-details {
+
+  .drop-area {
+    min-height: 400px;
+  }
+
+  .save-new-filter {
+    text-align: right;
+    padding: 10px;
+
+    input {
+      height: 45px;
+      width: 325px;
+    }
+  }
 }
+
+.selected-filter-details {
+  margin-left: 25px;
+}
+
+

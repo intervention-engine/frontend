@@ -9,6 +9,10 @@ label {
   font-size: 20px;
 }
 
+input {
+  padding-left: 15px;
+}
+
 input.condition,
 input.encounter {
   width: 100%;
@@ -30,7 +34,7 @@ input.login-input {
   color: lighten($brand-secondary, 40%);
   font-style: italic;
   font-size: 18px;
-  line-height: 16px;
+  line-height: 18px;
   font-weight: 200;
   padding: 2px;
 }

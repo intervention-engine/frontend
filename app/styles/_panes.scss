@@ -1,8 +1,8 @@
 /* -------------------------------- PANES -------------------------------- */
 
 .pane {
-  margin: 5px;
-  padding: 5px;
+  margin: 0;
+  padding: 10px 5px;
 
   .pane-icon {
     position: relative;
@@ -21,11 +21,6 @@
 
   .pane-content {
     border: 8px solid $body-bg;
-    padding-left: 40px;
+    padding-left: 20px;
   }
 }
-
-.pane-element {
-  margin-left: 25px;
-}
-
