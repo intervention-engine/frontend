@@ -2,9 +2,12 @@
 
 AsterPlotComponent = Ember.Component.extend
   data: []
+  svg: null
+
   didInsertElement: ->
     svg = d3.select(@element).select("svg")
-    data = this.data
+    @set('svg', svg)
+    data = this.get('data')
     padding = 5
     width = height = 600 - 2 * padding
 
@@ -68,5 +71,23 @@ AsterPlotComponent = Ember.Component.extend
       )
       # .on("mouseover", tip.show())
       # .on("mouseout", tip.hide())
+
+  _dataDidChange: (->
+    Ember.run.once(@, @_updateChart)
+  ).observes('data.[]')
+
+  _updateChart: ->
+    svg = @get('svg')
+    return unless svg?
+
+    pie = d3.layout.pie()
+      .padAngle(.03)
+      .sort(null)
+      .value((d) -> d.weight)
+
+    path = svg.selectAll('path')
+    console.debug path
+    path.data(pie(@get('data')))
+    return
 
 `export default AsterPlotComponent`

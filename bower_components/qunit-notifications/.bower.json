@@ -1,7 +1,6 @@
 {
   "name": "qunit-notifications",
   "main": "index.js",
-  "version": "0.0.4",
   "homepage": "https://github.com/dockyard/qunit-notifications",
   "authors": [
     "Brian Cardarella <bcardarella@gmail.com>"
@@ -15,11 +14,17 @@
     "test",
     "tests"
   ],
-  "_release": "0.0.4",
+  "devDependencies": {
+    "qunit": "~1.17.0",
+    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
+    "rsvp": "~3.0.16"
+  },
+  "version": "0.0.6",
+  "_release": "0.0.6",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.4",
-    "commit": "4c8e178258244948b5de16ae6c66bdccab8d3823"
+    "tag": "v0.0.6",
+    "commit": "b6facd4fc23f78f589e36b8250dcd12804e6b20a"
   },
   "_source": "https://github.com/dockyard/qunit-notifications.git",
   "_target": "~0.0.3",
