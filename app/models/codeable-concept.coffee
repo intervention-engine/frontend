@@ -29,6 +29,9 @@
 CodeableConcept = DS.Model.extend(
   coding: DS.hasMany('coding')
   text: DS.attr('string')
+
+  toString: ->
+    @get('text')||@get('coding').map((code) -> code.toString()).join()
 )
 
 `export default CodeableConcept`
