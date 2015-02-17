@@ -30,7 +30,7 @@ Patient = DS.Model.extend(
   identifier: DS.hasMany('identifier')
   name: DS.hasMany('human-name')
   telecom: DS.hasMany('contact-point')
-  gender: DS.attr('string')
+  gender: DS.belongsTo('codeable-concept')
   birthDate: DS.attr('date')
   deceasedBoolean: DS.attr('boolean')
   deceasedDateTime: DS.attr('date')

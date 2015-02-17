@@ -3,6 +3,7 @@
 PatientSerializer = ApplicationSerializer.extend(
   attrs:
     identifier : {embedded: 'always'}
+    gender: {embedded: 'always'}
     name : {embedded: 'always'}
     telecom : {embedded: 'always'}
     address : {embedded: 'always'}
