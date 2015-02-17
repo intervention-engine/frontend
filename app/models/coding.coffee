@@ -33,6 +33,9 @@ Coding = DS.Model.extend(
   display: DS.attr('string')
   primary: DS.attr('boolean')
   valueSet: DS.belongsTo 'resource-reference'
+
+  toString: ->
+    @get('display')||@get('code')
 )
 
 `export default Coding`
