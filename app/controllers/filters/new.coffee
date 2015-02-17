@@ -2,6 +2,8 @@
 `import { createPane } from '../../utils/add-filter-pane'`
 
 FiltersNewController = Ember.Controller.extend({
+  filterName: null
+
   # returns true if filter description has at least 1 filter pane and false if not
   hasFilterPane: (->
     @get('model.panes.length') > 0
@@ -21,7 +23,7 @@ FiltersNewController = Ember.Controller.extend({
   actions:
     saveFilter: ->
       @get('model').buildQuery()
-      @get('model').set("name", Ember.generateGuid({}, "Population "))
+      @get('model').set("name", @get('filterName') || Ember.generateGuid({}, "Population "))
       @get('model').save()
       @transitionTo("filters.index")
 

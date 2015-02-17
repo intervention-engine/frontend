@@ -9,6 +9,10 @@ label {
   font-size: 20px;
 }
 
+input {
+  padding-left: 15px;
+}
+
 input.condition,
 input.encounter {
   width: 100%;
@@ -24,13 +28,19 @@ input.login-input {
   border-radius: 0;
 }
 
+.form-group-striped {
+  > .form-group:nth-child(odd) {
+    background-color: $table-bg-accent;
+  }
+}
+
 /* -------------------------------- INPUT PLACEHOLDERS -------------------------------- */
 
 @mixin placeholder {
   color: lighten($brand-secondary, 40%);
   font-style: italic;
   font-size: 18px;
-  line-height: 16px;
+  line-height: 18px;
   font-weight: 200;
   padding: 2px;
 }
@@ -131,3 +141,34 @@ label.checkbox-label {
 label.radio-label {
   padding-left: 35px;
 }
+
+/* -------------------------------- FORM GROUP -------------------------------- */
+
+.form-horizontal {
+  margin: 0;
+}
+
+.form-group-striped {
+  > .form-group:nth-child(odd) {
+    background-color: $table-bg-accent;
+  }
+
+  .form-group {
+    margin: 0;
+    padding: 5px 2px 2px 15px;
+    border-bottom: 1px solid $body-bg;
+
+    label {
+      font-size: 16px;
+      line-height: 16px;
+    }
+
+    i {
+      font-size: 14px;
+      padding: 10px 10px 0 0;
+      color: lighten($brand-secondary, 30%);
+    }
+  }
+}
+
+

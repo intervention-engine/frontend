@@ -1,105 +1,68 @@
 <div class="container">
-  <div class="title-panel row">
-    <div class="title-text">Patients</div>
+  <div class="title-panel">
+    <span class="title-text">Patients</span>
   </div>
+</div>
 
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="panel filter-type-panel">
-        <div class="panel-heading">
-          <div class="collapse-panel-title">
-            <a data-toggle="collapse" href="#choosePopulation" aria-expanded="true" aria-controls="collapseOne">
-              Choose Population
-              <i class="fa fa-chevron-down pull-right"></i>
-            </a>
-          </div>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="panel">
+      {{populations-list populations=populations}}
+
+      <div class="panel-heading">
+        <div class="collapse-panel-title">
+          <a data-toggle="collapse" href="#choosePatient" aria-expanded="true" aria-controls="collapseOne">
+            Choose Patient
+            <i class="fa fa-chevron-down pull-right"></i>
+          </a>
         </div>
+      </div>
 
-        <div class="panel-body">
-          <div class="collapse in" id="choosePopulation">
-            <ul class="populationList">
-              {{#each population in content.populations}}
-                <li>
-                  <h3>{{population.name}}</h3>
-                </li>
-              {{/each}}
-              <li>
-                <a href="filters.new">add new</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="panel-heading">
-          <div class="collapse-panel-title">
-            <a data-toggle="collapse" href="#choosePatient" aria-expanded="true" aria-controls="collapseOne">
-              Choose Patient
-              <i class="fa fa-chevron-down pull-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <div class="panel-body">
-          <div class="collapse in" id="choosePatient">
-            <ul class="filterList">
+      <div class="panel-body">
+        <div class="collapse in" id="choosePatient">
+          <div class="patients-striped">
             {{#each patient in content}}
-                <li>
-                  <span {{action "showPatient" patient}}>
-                    <i class="fa fa-user"></i>
+              <div {{action "showPatient" patient}} class="patient">
+                <div class="patient-info">
+                  <div class="patient-name">
                     {{patient.fullName}}
-                  </span>
-                </li>
-              {{/each}}
-            </ul>
+                    {{#if patient.hasNotifications}}
+                      <span class="badge">{{patient.notificationCount}}</span>
+                    {{/if}}
+                  </div>
+                  <div class="patient-age-gender">
+                    <span class="patient-age">
+                      <i class="fa fa-birthday-cake"></i>
+                      {{patient.computedAge}} yrs
+                    </span>
+                    <span class="patient-gender">
+                      <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+                      {{patient.computedGender}}
+                    </span>
+                  </div>
+                  <div {{bind-attr class=":patient-risk patient.riskClassName"}}>
+                    {{patient.computedRiskName}}
+                  </div>
+                </div>
+              </div>
+            {{/each}}
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-sm-9">
-      <div class="panel filter-description-panel">
-        <div class="panel-heading">
-          <div class="panel-title">
-            <h3>View Results</h3>
-          </div>
+  <div class="col-sm-9">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="panel-title">
+          View Results
         </div>
+      </div>
+
+      <div class="panel-body patient-results">
+        {{patient-viewer patient=currentPatient}}
       </div>
     </div>
   </div>
 </div>
-
-
-{{!-- <div class="container">
-  <div class="title-panel">
-    <span class="title-text">My Patients</span>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="panel">
-        <div class="panel-heading">
-          <div class="panel-title">
-            <h3>
-              {{input class="input-control" placeholder="search for patient" value=item.parameter.valueCodeableConcept.text}}
-            </h3>
-          </div>
-        </div>
-
-        <div class="panel-body">
-          <ul class="filterList">
-            {{#each patient in content}}
-              <li>
-                <h2>
-                  {{#link-to 'patients.show' patient}}
-                    <i class="fa fa-user"></i>
-                    {{patient.fullName}}
-                  {{/link-to}}
-                </h2>
-              </li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> --}}

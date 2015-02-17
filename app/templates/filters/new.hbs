@@ -5,7 +5,6 @@
       <div class="row">
         <div class="count col-sm-3">
           <span class="count-value" id="patient-count">
-            {{!-- 49,461 --}}
             {{patientsCount}}
           </span><br/>
           <span>patients</span>
@@ -32,14 +31,14 @@
 
   <div class="row">
     <div class="col-sm-3">
-      <div class="panel filter-type-panel">
+      <div class="panel">
         <div class="panel-heading">
           <div class="panel-title">
-            <h3>Filter Type</h3>
+            Filter Type
           </div>
         </div>
 
-        <div class="panel-body">
+        <div class="panel-body filter-types">
           {{#draggable-object content=patientObject}}
             <div class="filter-type">
               <div class="filter-type-icon">
@@ -74,29 +73,34 @@
     </div>
 
     <div class="col-sm-9">
-      <div class="panel filter-description-panel">
+      <div class="panel">
         <div class="panel-heading">
           <div class="panel-title">
-            <h3>Filter Details</h3>
+            Filter Details
           </div>
         </div>
 
-        <div class="panel-body">
-          {{#draggable-object-target action="addPane"}}
+        <div class="filter-details panel-body">
+          {{#draggable-object-target action="addPane" class="drop-area"}}
             {{#if hasFilterPane}}
               {{#each pane in model.panes}}
                 {{#with pane}}
                   {{render "filters/_pane" pane}}
                 {{/with}}
               {{/each}}
+              <div class="row save-new-filter">
+                <div class="col-sm-4 col-sm-offset-4">
+                  {{input type="text" value=filterName placeholder="name of filter"}}
+                </div>
+                <div class="col-sm-4">
+                  <button class="btn btn-lg btn-primary" {{action "saveFilter"}}>Save Filter</button>
+                </div>
+              </div>
             {{else}}
               <span class="sub-text">
                 No filters. Drag filter type here.
               </span>
             {{/if}}
-            <div id="save-new-filter">
-              <button class="btn btn-lg btn-primary" {{action "saveFilter"}}>Save to My Filters</button>
-            </div>
           {{/draggable-object-target}}
         </div>
       </div>

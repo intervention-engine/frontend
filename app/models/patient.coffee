@@ -49,7 +49,49 @@ Patient = DS.Model.extend(
 
   fullName: Ember.computed 'name', ->
     firstHumanName = this.get('name')?.get('firstObject')
-    return firstHumanName?.get('given') + ' ' + firstHumanName?.get('family')
+    firstHumanName?.get('family') + ', ' + firstHumanName?.get('given')
+
+  computedAge: Ember.computed 'birthDate', ->
+    if @get('birthDate')?
+      moment().diff(moment(@get('birthDate')), 'years')
+    else
+      Math.round(Math.random() * (92 - 65) + 65)
+
+  computedGender: Ember.computed 'gender', ->
+    if @get('gender') == '[object Object]'
+      if Math.round(Math.random()) == 0
+        'male'
+      else
+        'female'
+    else
+      @get('gender')
+
+  isMale: Ember.computed.equal('computedGender', 'male')
+  isFemale: Ember.computed.equal('computedGender', 'female')
+  isOtherGender: Ember.computed 'computedGender', ->
+    @get('computedGender') != 'male' && @get('computedGender') != 'female'
+
+  computedRisk: Ember.computed ->
+    Math.round(Math.random() * 6 + 1)
+
+  computedRiskName: Ember.computed 'computedRisk', ->
+    value = @get('computedRisk')
+    if value == 1 then '1'
+    else if value == 2 then '1+'
+    else if value == 3 then '2'
+    else if value == 4 then '2+'
+    else if value == 5 then '3'
+    else '3+'
+
+  riskClassName: Ember.computed 'computedRisk', ->
+    "patient-risk-#{@get('computedRisk')}"
+
+  notificationCount: Ember.computed ->
+    Math.round(Math.random() * 6)
+
+  hasNotifications: Ember.computed.gt('notificationCount', 0)
+
+
 )
 
 `export default Patient`

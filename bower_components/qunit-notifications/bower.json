@@ -1,7 +1,6 @@
 {
   "name": "qunit-notifications",
   "main": "index.js",
-  "version": "0.0.4",
   "homepage": "https://github.com/dockyard/qunit-notifications",
   "authors": [
     "Brian Cardarella <bcardarella@gmail.com>"
@@ -14,5 +13,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "qunit": "~1.17.0",
+    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
+    "rsvp": "~3.0.16"
+  }
 }

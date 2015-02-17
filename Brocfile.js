@@ -28,6 +28,7 @@ app.import('bower_components/bootstrap-sass-official/assets/javascripts/bootstra
 app.import('bower_components/d3/d3.js');
 app.import('bower_components/d3-tip/index.js');
 app.import('bower_components/crossfilter/crossfilter.js');
+app.import('bower_components/moment/moment.js');
 
 // bootstrap fonts
 var bootstrapFonts = pickFiles('bower_components/bootstrap-sass-official/assets/fonts/bootstrap', {

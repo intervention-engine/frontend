@@ -38,42 +38,72 @@
 
 /* -------------------------------- FILTER TYPE -------------------------------- */
 
-.filter-type {
-  height: 60px;
-  line-height: 60px;
-  font-size: 2em;
-  margin-bottom: 15px;
-  padding: 0;
-  background-color: $body-bg;
-  cursor: move;
+.filter-types {
 
-  &:hover {
-    background-color: $brand-primary;
-    color: #fff;
-  }
+  .filter-type {
+    height: 60px;
+    line-height: 60px;
+    font-size: 2em;
+    margin: 15px;
+    padding: 0;
+    background-color: $body-bg;
+    cursor: move;
 
+    &:hover {
+      background-color: $brand-primary;
+      color: #fff;
+    }
 
-  .filter-type-icon {
-    display: inline-block;
-    font-size: 1.3em;
-    margin: 0;
-    width: 50px;
-    text-align: center;
-    background-color: $brand-primary;
-    color: #fff;
-  }
+    .filter-type-icon {
+      display: inline-block;
+      font-size: 1.3em;
+      margin: 0;
+      width: 50px;
+      text-align: center;
+      background-color: $brand-primary;
+      color: #fff;
+    }
 
-  .filter-type-chevron {
-    float: right;
-    line-height: inherit;
-    padding-right: 5px;
-    font-size: 0.8em;
+    .filter-type-chevron {
+      float: right;
+      line-height: inherit;
+      padding-right: 5px;
+      font-size: 0.8em;
+    }
   }
 }
 
-/* -------------------------------- SAVE -------------------------------- */
+/* -------------------------------- FILTER DETAILS -------------------------------- */
 
-#save-new-filter {
-  text-align: right;
-  padding: 10px;
+.filter-details {
+  padding: 15px !important;
+
+  .drop-area {
+    min-height: 400px;
+  }
+
+  .form-group {
+    padding: 10px;
+  }
+
+  .save-new-filter {
+    text-align: right;
+    padding: 10px;
+
+    input {
+      height: 45px;
+      width: 325px;
+    }
+  }
 }
+
+.selected-filter-details {
+  margin-left: 25px;
+}
+
+.add-new-filter {
+  font-size: 0.8em;
+  text-align: center;
+  margin: 10px;
+}
+

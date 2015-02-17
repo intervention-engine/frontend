@@ -6,31 +6,14 @@
 
 <div class="row">
   <div class="col-sm-3">
-    <div class="panel filter-type-panel">
-      <div class="panel-heading">
-        <div class="panel-title">
-          <h3>Choose Populations</h3>
-        </div>
-      </div>
-      <div class="panel-body">
-        <form class="form-horizontal">
-          {{#each population in content.populations}}
-            {{#if population.name}}
-              <div class="form-group">
-                <label class="control-label">{{input type="checkbox" checked=population.selected action="populationChecked" }} {{population.name}}</label>
-              </div>
-            {{/if}}
-          {{/each}}
-        </form>
-      </div>
-    </div>
+    {{populations-list populations=model.populations}}
   </div>
 
   <div class="col-sm-9">
     <div class="panel filter-description-panel">
       <div class="panel-heading">
         <div class="panel-title">
-          <h3>View Results</h3>
+          View Results
         </div>
       </div>
 
