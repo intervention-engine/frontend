@@ -27,8 +27,8 @@
 `import DS from 'ember-data'`
 
 Period = DS.Model.extend(
-  start: DS.belongsTo('date')
-  end: DS.belongsTo('date')
+  start: DS.attr('date')
+  end: DS.attr('date')
 )
 
 `export default Period`
