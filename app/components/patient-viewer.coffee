@@ -19,7 +19,7 @@ PatientViewerComponent = Ember.Component.extend(
       value = if i == 0 then Math.floor(Math.random() * (5) + 1) else randomDataLong[randomDataLong.length - 1].value
       if upOrDown == 1 && value < 6
         value += 1
-      else if upOrDown == 0 && value > 0
+      else if upOrDown == 0 && value > 1
         value -= 1
 
       randomDataLong.push({ risk: i, label: "#{i/2}", value: value })

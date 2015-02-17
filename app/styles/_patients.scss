@@ -67,56 +67,71 @@
   }
 }
 
+.select-patient {
+  min-height: 500px;
+}
+
 /* -------------------------------- PATIENT RESULTS -------------------------------- */
 
 .patient-results {
 
   .patient-photo {
-    font-size: 144px;
-    padding: 10px;
+    font-size: 130px;
     color: $body-bg;
-  }
-
-  .patient-info {
-    float: right;
-    text-align: right;
-    padding-top: 10px;
-    position: relative;
-    padding: 10px 20px 0 0;
-
-    .patient-name {
-      color: $brand-secondary;
-      font-size: 24px;
-    }
-
-    .patient-age-gender {
-      font-size: 14px;
-      color: lighten($brand-secondary, 20%);
-
-      i {
-        color: lighten($brand-secondary, 40%);
-      }
-
-      .patient-age {
-        margin-right: 20px;
-      }
-    }
-
-    .patient-location {
-      font-size: 14px;
-      color: lighten($brand-secondary, 20%);
-    }
-  }
-
-  .patient-risk {
-    float: left;
-    font-size: 42px;
-    line-height: 55px;
-    margin-left: 150px;
-    border: 5px solid $brand-secondary;
-    border-radius: 50%;
-    width: 65px;
-    height: 65px;
     text-align: center;
   }
+
+  .patient-risk-info {
+    position: relative;
+    height: 100px;
+    margin-top: 85px;
+    padding: 0;
+    border-left: 2px solid $brand-secondary;
+
+    .patient-risk {
+      position: absolute;
+      top: -82px;
+      left: -30px;
+      font-size: 42px;
+      line-height: 55px;
+      border: 5px solid $brand-secondary;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      text-align: center;
+    }
+
+    .patient-info {
+      position: absolute;
+      top: -10px;
+      right: 0;
+      text-align: right;
+      padding: 10px 20px 0 0;
+
+      .patient-name {
+        color: $brand-secondary;
+        font-size: 24px;
+      }
+
+      .patient-age-gender {
+        font-size: 14px;
+        color: lighten($brand-secondary, 20%);
+
+        i {
+          color: lighten($brand-secondary, 40%);
+        }
+
+        .patient-age {
+          margin-right: 20px;
+        }
+      }
+
+      .patient-location {
+        font-size: 14px;
+        color: lighten($brand-secondary, 20%);
+      }
+    }
+  }
+
+
 }

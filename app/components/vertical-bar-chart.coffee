@@ -2,11 +2,14 @@
 
 VerticalBarChartComponent = Ember.Component.extend
   data: []
+
   didInsertElement: ->
     svg = d3.select(@element).select("svg")
-    padding = 5
-    @width = 600 - padding * 2
-    @height = 200 - padding * 2
+
+    padding = 0
+    @width = (@width || 600) - padding * 2
+    svg.attr("height", @height)
+      .attr("viewBox", "0 0 #{@width} #{@height}")
     data = @data
     @barScale = d3.scale.ordinal()
       .domain(d3.range(0, data.length))
@@ -45,6 +48,5 @@ VerticalBarChartComponent = Ember.Component.extend
       .attr("height", (d) => @heightScale(d.value))
       .attr("fill-opacity", (d) => @opacityScale(d.value))
     ).observes('data')
-
 
 `export default VerticalBarChartComponent`
