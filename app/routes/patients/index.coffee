@@ -3,11 +3,9 @@
 PatientsIndexRoute = Ember.Route.extend(
 
   model: ->
-    @store.findAll("patient")
-
-  afterModel: ->
-    @store.findAll('filter').then((populations) =>
-      @controllerFor('patients.index').set('populations', populations)
+    Ember.RSVP.hash(
+      patients: @store.findAll('patient'),
+      populations: @store.findAll('filter')
     )
 )
 

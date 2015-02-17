@@ -91,6 +91,8 @@ Patient = DS.Model.extend(
 
   hasNotifications: Ember.computed.gt('notificationCount', 0)
 
+  patientLocation: 'Home'
+
 
 )
 

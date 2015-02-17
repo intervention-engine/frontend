@@ -1,0 +1,23 @@
+<div {{action "showPatient" patient}} class="patient">
+  <div class="patient-info">
+    <div class="patient-name">
+      {{patient.fullName}}
+      {{#if patient.hasNotifications}}
+        <span class="badge">{{patient.notificationCount}}</span>
+      {{/if}}
+    </div>
+    <div class="patient-age-gender">
+      <span class="patient-age">
+        <i class="fa fa-birthday-cake"></i>
+        {{patient.computedAge}} yrs
+      </span>
+      <span class="patient-gender">
+        <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+        {{patient.computedGender}}
+      </span>
+    </div>
+    <div {{bind-attr class=":patient-risk patient.riskClassName"}}>
+      {{patient.computedRiskName}}
+    </div>
+  </div>
+</div>
