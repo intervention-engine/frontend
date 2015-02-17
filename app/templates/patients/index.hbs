@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-sm-3">
     <div class="panel">
-      {{populations-list populations=populations}}
+      {{populations-list populations=content.populations}}
 
       <div class="panel-heading">
         <div class="collapse-panel-title">
@@ -18,34 +18,20 @@
         </div>
       </div>
 
-      <div class="panel-body">
+      <div class="panel-body patient-list">
         <div class="collapse in" id="choosePatient">
           <div class="patients-striped">
-            {{#each patient in content}}
-              <div {{action "showPatient" patient}} class="patient">
-                <div class="patient-info">
-                  <div class="patient-name">
-                    {{patient.fullName}}
-                    {{#if patient.hasNotifications}}
-                      <span class="badge">{{patient.notificationCount}}</span>
-                    {{/if}}
-                  </div>
-                  <div class="patient-age-gender">
-                    <span class="patient-age">
-                      <i class="fa fa-birthday-cake"></i>
-                      {{patient.computedAge}} yrs
-                    </span>
-                    <span class="patient-gender">
-                      <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
-                      {{patient.computedGender}}
-                    </span>
-                  </div>
-                  <div {{bind-attr class=":patient-risk patient.riskClassName"}}>
-                    {{patient.computedRiskName}}
-                  </div>
-                </div>
-              </div>
-            {{/each}}
+            {{#if selectedItems}}
+              {{#each item in selectedItems}}
+                {{#each patient in item.patients.patientids}}
+                  {{patient-badge patient=patient currentPatient=currentPatient}}
+                {{/each}}
+              {{/each}}
+            {{else}}
+              {{#each patient in content.patients}}
+                {{patient-badge patient=patient currentPatient=currentPatient}}
+              {{/each}}
+            {{/if}}
           </div>
         </div>
       </div>

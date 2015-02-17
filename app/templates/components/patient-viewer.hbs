@@ -1,9 +1,35 @@
-<h1>{{patient.fullName}}</h1>
-<div class="row">
-  <div class="col-sm-12">
+<div class="patient-results">
+  <div class="row">
+    <div class="col-xs-2 patient-photo">
+      {{#if patientPhoto}}
+        {{patient.photo}}
+      {{else}}
+        <i class="fa fa-user"></i>
+      {{/if}}
+    </div>
+    <div class="col-xs-10 patient-info">
+      <div class="patient-name">{{patient.fullName}}</div>
+        <div class="patient-age-gender">
+          <span class="patient-age">
+            <i class="fa fa-birthday-cake"></i>
+            {{patient.computedAge}} yrs
+          </span>
+          <span class="patient-gender">
+            <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+            {{patient.computedGender}}
+          </span>
+        </div>
+        <div class="patient-location">@{{patient.patientLocation}}</div>
+      </div>
+      <div class="patient-risk">{{patient.computedRiskName}}</div>
+        <div class="risk-chart">
     {{vertical-bar-chart data=randomDataLong height=200}}
   </div>
+    </div>
+
+
 </div>
+
 <div class="row">
   <div class="col-sm-2">
       {{aster-plot-chart data=randomRisk}}
@@ -18,4 +44,5 @@
     {{vertical-bar-chart data=randomData bandPadding=0.1}}
   </div>
 </div>
+
 
