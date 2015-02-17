@@ -7,42 +7,48 @@
         <i class="fa fa-user"></i>
       {{/if}}
     </div>
-    <div class="col-xs-10 patient-info">
-      <div class="patient-name">{{patient.fullName}}</div>
-        <div class="patient-age-gender">
-          <span class="patient-age">
-            <i class="fa fa-birthday-cake"></i>
-            {{patient.computedAge}} yrs
-          </span>
-          <span class="patient-gender">
-            <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
-            {{patient.computedGender}}
-          </span>
-        </div>
-        <div class="patient-location">@{{patient.patientLocation}}</div>
+
+    <div class="col-xs-10 patient-risk-info">
+      {{vertical-bar-chart data=randomDataLong height=100}}
+
+
+      <div class="patient-risk">
+        {{patient.computedRiskName}}
       </div>
-      <div class="patient-risk">{{patient.computedRiskName}}</div>
-        <div class="risk-chart">
-    {{vertical-bar-chart data=randomDataLong height=200}}
+
+      {{!-- <div class="patient-info">
+        <div class="patient-name">{{patient.fullName}}</div>
+          <div class="patient-age-gender">
+            <span class="patient-age">
+              <i class="fa fa-birthday-cake"></i>
+              {{patient.computedAge}} yrs
+            </span>
+            <span class="patient-gender">
+              <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+              {{patient.computedGender}}
+            </span>
+          </div>
+          <div class="patient-location">@{{patient.patientLocation}}</div>
+        </div>
+      </div>
+    </div> --}}
+
   </div>
+
+{{!--   <div class="row">
+    <div class="col-sm-2">
+        {{aster-plot-chart data=randomRisk}}
     </div>
-
-
-</div>
-
-<div class="row">
-  <div class="col-sm-2">
-      {{aster-plot-chart data=randomRisk}}
-  </div>
-  <div class="col-sm-4">
-      {{horizontal-bar-chart data=randomData}}
-  </div>
-  <div class="col-sm-3">
-      {{vertical-line-chart data=randomData}}
-  </div>
-  <div class="col-sm-3">
-    {{vertical-bar-chart data=randomData bandPadding=0.1}}
-  </div>
+    <div class="col-sm-4">
+        {{horizontal-bar-chart data=randomData}}
+    </div>
+    <div class="col-sm-3">
+        {{vertical-line-chart data=randomData}}
+    </div>
+    <div class="col-sm-3">
+      {{vertical-bar-chart data=randomData bandPadding=0.1}}
+    </div>
+  </div> --}}
 </div>
 
 
