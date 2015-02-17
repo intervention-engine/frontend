@@ -71,7 +71,7 @@
   min-height: 500px;
 }
 
-/* -------------------------------- PATIENT RESULTS -------------------------------- */
+/* -------------------------------- PATIENT RISK -------------------------------- */
 
 .patient-results {
 
@@ -86,12 +86,11 @@
     height: 100px;
     margin-top: 85px;
     padding: 0;
-    border-left: 2px solid $brand-secondary;
 
     .patient-risk {
       position: absolute;
-      top: -82px;
-      left: -30px;
+      top: -85px;
+      left: -35px;
       font-size: 42px;
       line-height: 55px;
       border: 5px solid $brand-secondary;
@@ -103,7 +102,7 @@
 
     .patient-info {
       position: absolute;
-      top: -10px;
+      top: -90px;
       right: 0;
       text-align: right;
       padding: 10px 20px 0 0;
@@ -132,6 +131,45 @@
       }
     }
   }
-
-
 }
+
+/* -------------------------------- PATIENT STATS -------------------------------- */
+
+.patient-stats {
+  padding: 0;
+}
+
+/* -------------------------------- PATIENT INTERVENTIONS -------------------------------- */
+
+.completed-interventions {
+  text-align: center;
+
+  .completed-interventions-value {
+    font-size: 64px;
+  }
+
+  .completed-interventions-stars {
+    font-size: 20px;
+  }
+
+  .completed-interventions-text {
+    font-size: 18px;
+  }
+}
+
+/* -------------------------------- PATIENT CATEGORIES -------------------------------- */
+
+.aster-plot {
+  padding: 15px 5px;
+}
+
+.category-details {
+
+  .category-name {
+    font-size: 2em;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+
