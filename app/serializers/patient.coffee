@@ -16,6 +16,11 @@ PatientSerializer = ApplicationSerializer.extend(
     careProvider : {embedded: 'always'}
     managingOrganization : {embedded: 'always'}
     link : {embedded: 'always'}
+
+  normalize: (type, hash, prop) ->
+    queryParam = "?subject:Patient=#{hash.id}"
+    hash.content.links = conditions: "/Condition#{queryParam}", observations: "/Observation#{queryParam}", encounters: "/Encounter#{queryParam}"
+    @_super(type, hash, prop)
 )
 
 `export default PatientSerializer`
