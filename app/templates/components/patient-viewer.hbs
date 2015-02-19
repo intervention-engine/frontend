@@ -61,11 +61,17 @@
         <div class="panel-heading-alt">
           <div class="panel-title">
             <i class="icon-med-clipboard"></i>
-            Conditions (3)
+            Conditions ({{patient.conditions.length}})
           </div>
         </div>
         <div class="panel-body">
-
+          <ul>
+          {{#each condition in patient.conditions}}
+            {{#if condition.code}}
+            <li>{{condition.code.text}}</li>
+            {{/if}}
+          {{/each}}
+          </ul>
         </div>
 
         <div class="panel-heading-alt">
