@@ -46,6 +46,9 @@ Patient = DS.Model.extend(
   managingOrganization: DS.belongsTo('reference')
   link: DS.hasMany('link')
   active: DS.attr('boolean')
+  conditions: DS.hasMany('condition', async: true)
+  observations: DS.hasMany('observation', {async: true})
+  encounters: DS.hasMany('encounter', async: true)
 
   fullName: Ember.computed 'name', ->
     firstHumanName = this.get('name')?.get('firstObject')
