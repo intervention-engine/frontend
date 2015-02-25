@@ -52,4 +52,4 @@ Since you are using boot2docker, the docker containers expose ports on the boot2
     $ echo $DOCKER_HOST
     tcp://192.168.59.103:2376
 
-So to access the frontend, enter http://192.168.59.103:49162 in your browswer. You can also set up port forwarding on your machine to allow access via localhost.
+So to access the frontend, enter http://192.168.59.103:49162 in your browser. You can also set up port forwarding on your machine to allow access via localhost.
