@@ -46,6 +46,9 @@ Patient = DS.Model.extend(
   managingOrganization: DS.belongsTo('reference')
   link: DS.hasMany('link')
   active: DS.attr('boolean')
+  conditions: DS.hasMany('condition', async: true)
+  observations: DS.hasMany('observation', {async: true})
+  encounters: DS.hasMany('encounter', async: true)
 
   fullName: Ember.computed 'name', ->
     firstHumanName = this.get('name')?.get('firstObject')
@@ -58,13 +61,10 @@ Patient = DS.Model.extend(
       Math.round(Math.random() * (92 - 65) + 65)
 
   computedGender: Ember.computed 'gender', ->
-    if @get('gender') == '[object Object]'
-      if Math.round(Math.random()) == 0
-        'male'
-      else
-        'female'
-    else
-      @get('gender')
+    value = @get('gender')?.toString()
+    if value == 'M' then 'male'
+    else if value == 'F' then 'female'
+    else 'other'
 
   isMale: Ember.computed.equal('computedGender', 'male')
   isFemale: Ember.computed.equal('computedGender', 'female')

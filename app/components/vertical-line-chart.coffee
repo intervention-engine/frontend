@@ -18,17 +18,24 @@ VerticalLineChartComponent = Ember.Component.extend
       .domain([0, d3.max(data, (d) -> d.value)])
       .range([padding, @height])
 
-    @areaGenerator = d3.svg.area()
-      .x((d,i) -> @positionScale(i))
-      .y0(@height)
-      .y1((d) -> @height - @heightScale(d.value))
-      .interpolate("step")
+    if @area
+      @generator = d3.svg.area()
+        .x((d,i) -> @positionScale(i))
+        .y0(@height)
+        .y1((d) -> @height - @heightScale(d.value))
+        .interpolate(@interpolate||"step")
+    else
+      @generator = d3.svg.line()
+        .x((d,i) -> @positionScale(i))
+        .y((d) -> @height - @heightScale(d.value))
+        .interpolate(@interpolate||"step")
+
 
     g = svg.append("g")
       .append("path")
-      .attr("d", @areaGenerator(data))
+      .attr("d", @generator(data))
   updateGraph:(->
-    d3.select(@element).select("svg g path").transition().attr("d", @areaGenerator(@data))
+    d3.select(@element).select("svg g path").transition().attr("d", @generator(@data))
     ).observes('data')
 
 `export default VerticalLineChartComponent`

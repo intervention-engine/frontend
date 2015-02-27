@@ -7,41 +7,123 @@
         <i class="fa fa-user"></i>
       {{/if}}
     </div>
-    <div class="col-xs-10 patient-info">
-      <div class="patient-name">{{patient.fullName}}</div>
-        <div class="patient-age-gender">
-          <span class="patient-age">
-            <i class="fa fa-birthday-cake"></i>
-            {{patient.computedAge}} yrs
-          </span>
-          <span class="patient-gender">
-            <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
-            {{patient.computedGender}}
-          </span>
-        </div>
-        <div class="patient-location">@{{patient.patientLocation}}</div>
+
+    <div class="col-xs-10 patient-risk-info">
+      {{vertical-bar-chart data=randomDataLong height=100}}
+
+
+      <div class="patient-risk">
+        {{patient.computedRiskName}}
       </div>
-      <div class="patient-risk">{{patient.computedRiskName}}</div>
-        <div class="risk-chart">
-    {{vertical-bar-chart data=randomDataLong height=200}}
-  </div>
+
+      <div class="patient-info">
+        <div class="patient-name">{{patient.fullName}}</div>
+          <div class="patient-age-gender">
+            <span class="patient-age">
+              <i class="fa fa-birthday-cake"></i>
+              {{patient.computedAge}} yrs
+            </span>
+            <span class="patient-gender">
+              <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+              {{patient.computedGender}}
+            </span>
+          </div>
+          <div class="patient-location">@{{patient.patientLocation}}</div>
+        </div>
+      </div>
     </div>
 
+  </div>
 
-</div>
+  <div class="row">
+    <div class="col-xs-2 patient-stats">
+      <div class="panel">
+        <div class="panel-heading-alt">
+          <div class="panel-title">
+            <i class="fa fa-hospital-o fa-fw"></i>
+            Appointments (1)
+          </div>
+        </div>
+        <div class="panel-body">
 
-<div class="row">
-  <div class="col-sm-2">
-      {{aster-plot-chart data=randomRisk}}
-  </div>
-  <div class="col-sm-4">
-      {{horizontal-bar-chart data=randomData}}
-  </div>
-  <div class="col-sm-3">
-      {{vertical-line-chart data=randomData}}
-  </div>
-  <div class="col-sm-3">
-    {{vertical-bar-chart data=randomData bandPadding=0.1}}
+        </div>
+
+        <div class="panel-heading-alt">
+          <div class="panel-title">
+            <i class="fa fa-user-md fa-fw"></i>
+            Inverventions (2)
+          </div>
+        </div>
+        <div class="panel-body">
+
+        </div>
+
+        <div class="panel-heading-alt">
+          <div class="panel-title">
+            <i class="icon-med-clipboard"></i>
+            Conditions ({{patient.conditions.length}})
+          </div>
+        </div>
+        <div class="panel-body">
+          <ul>
+          {{#each condition in patient.conditions}}
+            {{#if condition.code}}
+            <li>{{condition.code.text}}</li>
+            {{/if}}
+          {{/each}}
+          </ul>
+        </div>
+
+        <div class="panel-heading-alt">
+          <div class="panel-title">
+            <i class="fa fa-pagelines fa-fw"></i>
+            Allergies (2)
+          </div>
+        </div>
+        <div class="panel-body">
+
+        </div>
+
+        <div class="panel-heading-alt">
+          <div class="panel-title">
+            <i class="icon-medication"></i>
+            Medications (6)
+          </div>
+        </div>
+        <div class="panel-body">
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="completed-interventions">
+        <span class="completed-interventions-value">19</span>
+        <span class="completed-interventions-stars">
+          <i class="fa fa-star fa-fw"></i>
+          <i class="fa fa-star fa-fw"></i>
+          <i class="fa fa-star-o fa-fw"></i><br/>
+        </span>
+        <span class="completed-interventions-text">
+          Completed Interventions
+        </span>
+      </div>
+      <div class="aster-plot">
+        {{aster-plot-chart data=randomRisk}}
+      </div>
+      <div class="category-details">
+        <div class="category-name">
+          Medications
+        </div>
+        {{horizontal-bar-chart data=randomData}}
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="timeline">
+{{!--         {{vertical-line-chart data=randomData interpolate="none" area=true}}
+        {{vertical-bar-chart data=randomData bandPadding=0.1 height=100}} --}}
+      </div>
+    </div>
   </div>
 </div>
 

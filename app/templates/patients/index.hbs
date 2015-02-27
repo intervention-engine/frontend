@@ -46,8 +46,14 @@
         </div>
       </div>
 
-      <div class="panel-body patient-results">
-        {{patient-viewer patient=currentPatient}}
+      <div class="panel-body">
+        {{#if currentPatient}}
+          {{patient-viewer patient=currentPatient}}
+        {{else}}
+          <div class="select-patient sub-text">
+            Please select patient.
+          </div>
+        {{/if}}
       </div>
     </div>
   </div>

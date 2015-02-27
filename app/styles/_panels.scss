@@ -2,7 +2,7 @@
 
 .title-panel {
   background-color: #fff;
-  margin: -20px -9999rem 10px -9999rem;
+  margin: -20px -9999rem 20px -9999rem;
   /* add back negative margin value */
   padding: 0.25rem 9999rem;
 
@@ -15,6 +15,7 @@
 /* -------------------------------- CONTENT PANELS -------------------------------- */
 
 .panel {
+  margin: 0;
 
   .panel-heading {
     border-bottom: 1px solid $body-bg;
@@ -41,6 +42,20 @@
           @extend .fa-rotate-270;
         }
       }
+    }
+  }
+
+  .panel-heading-alt {
+    background-color: $brand-primary;
+    border-bottom: 1px solid $body-bg;
+    padding: 0;
+    margin: 0;
+
+    .panel-title {
+      color: #fff;
+      font-size: 14px;
+      line-height: 14px;
+      padding: 10px 5px;
     }
   }
 

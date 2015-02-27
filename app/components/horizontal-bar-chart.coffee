@@ -5,7 +5,7 @@ HorizontalBarChartComponent = Em.Component.extend
   didInsertElement: ->
     data = this.data
     element = d3.select(@element)
-    width = 100
+    width = 200
     height = 10
     widthScale = d3.scale.linear()
       .domain([0, d3.max(data, (d) -> d.value)])
@@ -22,8 +22,5 @@ HorizontalBarChartComponent = Em.Component.extend
     svg.append("rect")
       .attr("width", (d) -> widthScale(d.value))
       .attr("height", height)
-
-
-
 
 `export default HorizontalBarChartComponent`
