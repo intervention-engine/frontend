@@ -22,7 +22,7 @@
     "broccoli-asset-rev": "2.0.1",
     "broccoli-gzip": "0.2.0",
     "broccoli-merge-trees": "0.2.1",
-    "broccoli-sass": "0.3.3",
+    "broccoli-sass": "0.2.4",
     "broccoli-static-compiler": "0.2.1",
     "ember-cli": "0.1.7",
     "ember-cli-6to5": "0.2.1",
