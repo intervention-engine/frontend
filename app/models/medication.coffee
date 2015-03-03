@@ -26,29 +26,13 @@
 
 `import DS from 'ember-data'`
 
-Observation = DS.Model.extend(
-  name: DS.belongsTo('codeable-concept')
-  valueQuantity: DS.belongsTo('quantity')
-  valueCodeableConcept: DS.belongsTo('codeable-concept')
-  valueDateTime: DS.attr('date')
-  valuePeriod: DS.belongsTo('period')
-  valueString: DS.attr('string')
-  interpretation: DS.belongsTo('codeable-concept')
-  comments: DS.attr('string')
-  appliesDateTime: DS.attr('date')
-  appliesPeriod: DS.belongsTo('period')
-  issued: DS.attr('date')
-  status: DS.attr('string')
-  reliability: DS.attr('string')
-  bodySite: DS.belongsTo('codeable-concept')
-  method: DS.belongsTo('codeable-concept')
-  identifier: DS.belongsTo('identifier')
-  subject: DS.belongsTo('reference')
-  specimen: DS.belongsTo('reference')
-  performer: DS.hasMany('reference')
-  encounter: DS.belongsTo('reference')
-  isCoded: (system, code) ->
-    return @get('name.coding').mapBy('code').indexOf(code) > -1
-)
+Medication = DS.Model.extend
+    name: DS.attr('string')
+    code: DS.belongsTo('codeableConcept')
+    isBrand: DS.attr('boolean')
+    manufacturer: DS.belongsTo('reference')
+    kind: DS.attr('string')
+    # product: DS.belongsTo('product')
+    # package: DS.belongsTo('package')
 
-`export default Observation`
+`export default Medication`

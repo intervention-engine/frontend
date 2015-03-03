@@ -19,7 +19,8 @@ PatientSerializer = ApplicationSerializer.extend(
 
   normalize: (type, hash, prop) ->
     queryParam = "?subject:Patient=#{hash.id}"
-    hash.content.links = conditions: "/Condition#{queryParam}", observations: "/Observation#{queryParam}", encounters: "/Encounter#{queryParam}"
+    medQuery = "?patient:Patient=#{hash.id}"
+    (hash.content||hash)["links"] = conditions: "/Condition#{queryParam}", observations: "/Observation#{queryParam}", encounters: "/Encounter#{queryParam}", medications: "/MedicationStatement#{medQuery}"
     @_super(type, hash, prop)
 )
 

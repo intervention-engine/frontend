@@ -9,11 +9,11 @@
     </div>
 
     <div class="col-xs-10 patient-risk-info">
-      {{vertical-bar-chart data=randomDataLong height=100}}
+      {{vertical-bar-chart data=patient.risks height=100}}
 
 
       <div class="patient-risk">
-        {{patient.computedRiskName}}
+        {{patient.computedRisk}}
       </div>
 
       <div class="patient-info">
@@ -109,7 +109,7 @@
         </span>
       </div>
       <div class="aster-plot">
-        {{aster-plot-chart data=randomRisk}}
+        {{aster-plot-chart data=patient.riskDisplay}}
       </div>
       <div class="category-details">
         <div class="category-name">
@@ -120,11 +120,7 @@
     </div>
     <div class="col-sm-5">
       <div class="timeline">
-{{!--         {{vertical-line-chart data=randomData interpolate="none" area=true}}
-        {{vertical-bar-chart data=randomData bandPadding=0.1 height=100}} --}}
       </div>
     </div>
   </div>
 </div>
-
-

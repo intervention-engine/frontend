@@ -26,29 +26,14 @@
 
 `import DS from 'ember-data'`
 
-Observation = DS.Model.extend(
-  name: DS.belongsTo('codeable-concept')
-  valueQuantity: DS.belongsTo('quantity')
-  valueCodeableConcept: DS.belongsTo('codeable-concept')
-  valueDateTime: DS.attr('date')
-  valuePeriod: DS.belongsTo('period')
-  valueString: DS.attr('string')
-  interpretation: DS.belongsTo('codeable-concept')
-  comments: DS.attr('string')
-  appliesDateTime: DS.attr('date')
-  appliesPeriod: DS.belongsTo('period')
-  issued: DS.attr('date')
-  status: DS.attr('string')
-  reliability: DS.attr('string')
-  bodySite: DS.belongsTo('codeable-concept')
-  method: DS.belongsTo('codeable-concept')
-  identifier: DS.belongsTo('identifier')
-  subject: DS.belongsTo('reference')
-  specimen: DS.belongsTo('reference')
-  performer: DS.hasMany('reference')
-  encounter: DS.belongsTo('reference')
-  isCoded: (system, code) ->
-    return @get('name.coding').mapBy('code').indexOf(code) > -1
-)
+MedicationStatement = DS.Model.extend
+    identifier: DS.hasMany('identifier')
+    patient: DS.belongsTo('reference')
+    wasNotGiven: DS.attr('boolean')
+    reasonNotGiven: DS.hasMany('codeableConcept')
+    whenGiven: DS.belongsTo('period')
+    medication: DS.belongsTo('reference')
+    device: DS.hasMany('reference')
+    dosage: DS.hasMany('dosage')
 
-`export default Observation`
+`export default MedicationStatement`

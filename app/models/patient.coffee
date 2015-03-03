@@ -49,6 +49,26 @@ Patient = DS.Model.extend(
   conditions: DS.hasMany('condition', async: true)
   observations: DS.hasMany('observation', {async: true})
   encounters: DS.hasMany('encounter', async: true)
+  medications: DS.hasMany('medicationStatement', async: true)
+
+
+
+  # "LOINC 75492-9"
+  risks: (->
+    @get("observations").filter((el) -> el.isCoded("LOINC", "75492-9"))
+  ).property("observations")
+
+  computedRisk: (->
+    @get('risks.firstObject.valueQuantity.value')
+  ).property('risks')
+
+
+  riskDisplay: Ember.computed "medications", "observations", "conditions", ->
+    [
+      {name: "medications", value: @get('medications.length'), weight: 1}
+      {name: "conditions", value: @get('conditions.length'), weight: 2}
+      {name: "risks", value: @get('computedRisk'), weight: 0.5}
+    ]
 
   fullName: Ember.computed 'name', ->
     firstHumanName = this.get('name')?.get('firstObject')
@@ -71,8 +91,6 @@ Patient = DS.Model.extend(
   isOtherGender: Ember.computed 'computedGender', ->
     @get('computedGender') != 'male' && @get('computedGender') != 'female'
 
-  computedRisk: Ember.computed ->
-    Math.round(Math.random() * 6 + 1)
 
   computedRiskName: Ember.computed 'computedRisk', ->
     value = @get('computedRisk')

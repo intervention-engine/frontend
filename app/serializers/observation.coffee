@@ -15,6 +15,7 @@ ObservationSerializer = ApplicationSerializer.extend(
     specimen : {embedded: 'always'}
     performer : {embedded: 'always'}
     encounter : {embedded: 'always'}
+  
 )
 
 `export default ObservationSerializer`
