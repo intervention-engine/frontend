@@ -13,7 +13,7 @@
 #       endorse or promote products derived from this software without specific
 #       prior written permission.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
 # IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
@@ -51,23 +51,23 @@ Patient = DS.Model.extend(
   encounters: DS.hasMany('encounter', async: true)
   medications: DS.hasMany('medicationStatement', async: true)
 
-
-
-  # "LOINC 75492-9"
+  # 'LOINC 75492-9'
   risks: (->
-    @get("observations").filter((el) -> el.isCoded("LOINC", "75492-9"))
-  ).property("observations")
+    @get('observations').filter((el) -> el.isCoded('LOINC', '75492-9'))
+  ).property('observations')
 
   computedRisk: (->
     @get('risks.firstObject.valueQuantity.value')
   ).property('risks')
 
-
-  riskDisplay: Ember.computed "medications", "observations", "conditions", ->
+  categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', ->
     [
-      {name: "medications", value: @get('medications.length'), weight: 1}
-      {name: "conditions", value: @get('conditions.length'), weight: 2}
-      {name: "risks", value: @get('computedRisk'), weight: 0.5}
+      {name: 'medications', title: 'Medications', value: @get('medications.length'), weight: 1}
+      {name: 'conditions', title: 'Conditions', value: @get('conditions.length'), weight: 2}
+      {name: 'social_barriers', title: 'Social Barriers', value: 2, weight: 0.5}
+      {name: 'falls', title: 'Falls', value: 1, weight: 0.5}
+      {name: 'admissions', title: 'Admissions', value: 3, weight: 0.5}
+      {name: 'utilization', title: 'Utilizations', value: 2, weight: 0.5}
     ]
 
   fullName: Ember.computed 'name', ->
@@ -102,7 +102,7 @@ Patient = DS.Model.extend(
     else '3+'
 
   riskClassName: Ember.computed 'computedRisk', ->
-    "patient-risk-#{@get('computedRisk')}"
+    'patient-risk-#{@get("computedRisk")}'
 
   notificationCount: Ember.computed ->
     Math.round(Math.random() * 6)
@@ -110,8 +110,6 @@ Patient = DS.Model.extend(
   hasNotifications: Ember.computed.gt('notificationCount', 0)
 
   patientLocation: 'Home'
-
-
 )
 
 `export default Patient`

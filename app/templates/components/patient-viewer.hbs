@@ -31,7 +31,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <div class="row">
@@ -67,7 +66,7 @@
         <ul>
         {{#each condition in patient.conditions}}
           {{#if condition.code}}
-          <li>{{condition.code.text}}</li>
+          <li>{{condition.text}}</li>
           {{/if}}
         {{/each}}
         </ul>
@@ -95,6 +94,7 @@
 
     </div>
   </div>
+
   <div class="col-sm-5">
     <div class="completed-interventions">
       <span class="completed-interventions-value">19</span>
@@ -107,16 +107,19 @@
         Completed Interventions
       </span>
     </div>
+
     <div class="aster-plot">
-      {{aster-plot-chart data=patient.riskDisplay}}
+      {{aster-plot-chart patient=patient data=patient.categoryDisplay selectedCategory=selectedCategory}}
     </div>
+
     <div class="category-details">
       <div class="category-name">
-        Medications
+        {{selectedCategory}}
       </div>
       {{horizontal-bar-chart data=randomData}}
     </div>
   </div>
+
   <div class="col-sm-5">
     <div class="timeline">
     </div>

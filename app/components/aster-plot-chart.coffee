@@ -3,6 +3,7 @@
 AsterPlotComponent = Ember.Component.extend
   data: []
   svg: null
+  patient: null
 
   didInsertElement: ->
     svg = d3.select(@element).select("svg")
@@ -44,9 +45,10 @@ AsterPlotComponent = Ember.Component.extend
       .classed("inner", true)
       .attr("d", arc)
       .attr("fill-opacity", (d) -> opacityScale(d.data.value))
-      .on("click", (d) =>
+      .on("click", (d) ->
         svg.selectAll(".category").classed("active", false)
         svg.selectAll(".category#{d.data.name}").classed("active", true)
+        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name).title)
       )
 
     gEnter.append("path")
@@ -57,10 +59,12 @@ AsterPlotComponent = Ember.Component.extend
       .on("click", (d) =>
         svg.selectAll(".category").classed("active", false)
         svg.selectAll(".category#{d.data.name}").classed("active", true)
+        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name).title)
       )
+
       .on("dblclick", (d) ->
         rotateAngle = -d3.mean([d.startAngle, d.endAngle])*180/Math.PI
-        d3.select(this.parentNode).transition().duration(1000).attr("transform", => "rotate(#{rotateAngle})")
+        d3.select(this.parentNode).transition().duration(1000).attr("transform", -> "rotate(#{rotateAngle})")
       )
 
   updateChart: (->
@@ -90,13 +94,13 @@ AsterPlotComponent = Ember.Component.extend
       .innerRadius(innerRadius)
       .outerRadius((d) -> radiusScale(d.data?.value||0))
       .cornerRadius(5)
-    # debugger
     path = svg.selectAll('.inner').data(pie(@data))
       .attr("d", arc)
       .attr("fill-opacity", (d) -> opacityScale(d.data.value))
       .on("click", (d) =>
         svg.selectAll(".category").classed("active", false)
         svg.selectAll(".category#{d.data.name}").classed("active", true)
+        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name).title)
       )
     svg.selectAll(".outer").data(pie(@data))
       .attr("fill-opacity", (d) -> opacityScale(d.data.value))

@@ -42,6 +42,10 @@ Condition = DS.Model.extend(
   abatementBoolean: DS.attr('boolean')
   location: DS.hasMany('location')
   notes: DS.attr('string')
+
+  text: (->
+    @get('code.text').match(/:\s+([^(]+)\s+\(/)[1]
+  ).property('code')
 )
 
 `export default Condition`
