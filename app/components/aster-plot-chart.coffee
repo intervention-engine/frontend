@@ -44,22 +44,22 @@ AsterPlotComponent = Ember.Component.extend
       .attr("class", (d) -> "category#{d.data.name} category")
       .classed("inner", true)
       .attr("d", arc)
-      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
       .on("click", (d) ->
         svg.selectAll(".category").classed("active", false)
         svg.selectAll(".category#{d.data.name}").classed("active", true)
-        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name).title)
+        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name))
       )
 
     gEnter.append("path")
       .attr("class", (d) -> "category#{d.data.name} category outer")
       .attr("d", outerArc)
-      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
 
       .on("click", (d) =>
         svg.selectAll(".category").classed("active", false)
         svg.selectAll(".category#{d.data.name}").classed("active", true)
-        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name).title)
+        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name))
       )
 
       .on("dblclick", (d) ->
@@ -92,18 +92,18 @@ AsterPlotComponent = Ember.Component.extend
       .range([.2, 1])
     arc = d3.svg.arc()
       .innerRadius(innerRadius)
-      .outerRadius((d) -> radiusScale(d.data?.value||0))
+      .outerRadius((d) -> radiusScale(d.data?.risk||0))
       .cornerRadius(5)
     path = svg.selectAll('.inner').data(pie(@data))
       .attr("d", arc)
-      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
       .on("click", (d) =>
         svg.selectAll(".category").classed("active", false)
         svg.selectAll(".category#{d.data.name}").classed("active", true)
-        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name).title)
+        @set('selectedCategory', @get('patient.categoryDisplay').findBy('name', d.data.name))
       )
     svg.selectAll(".outer").data(pie(@data))
-      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
     # return
   ).observes('data')
 

@@ -164,12 +164,16 @@
 }
 
 .category-details {
+  font-size: 18px;
+  margin-bottom: 80px;
 
   .category-name {
     font-size: 2em;
     text-align: center;
     padding: 10px;
   }
+
+  .category-stat-value {
+    font-weight: 500;
+  }
 }
-
-

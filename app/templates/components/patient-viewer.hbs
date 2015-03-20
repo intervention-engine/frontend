@@ -112,26 +112,37 @@
       {{aster-plot-chart patient=patient data=patient.categoryDisplay selectedCategory=selectedCategory}}
     </div>
 
-    <div class="category-details">
-      <div class="category-name">
-        {{selectedCategory.title}}
-      </div>
+    {{#if selectedCategory}}
+      <div class="category-details">
+        <div class="category-name">
+          {{selectedCategory.title}}
+        </div>
 
-      <div class="container">
-        <div class="col-sm-2">
-          Risk: {{selectedCategory.risk}}
+        <div class="category-stat">
+          <div class="col-sm-3">
+            Risk:
+          </div>
+          <div class="col-sm-1 category-stat-value">
+            {{selectedCategory.risk}}
+          </div>
+          <div class="col-sm-7">
+            {{horizontal-bar-chart max=6 width=200 height=5 value=selectedCategory.risk}}
+          </div>
         </div>
-        <div class="col-sm-10">
-          {{horizontal-bar-chart max=6 value=selectedCategory.risk}}
-        </div>
-        <div class="col-sm-2">
-          Weight: {{selectedCategory.weight}}
-        </div>
-        <div class="col-sm-10">
-          {{horizontal-bar-chart max=3 value=selectedCategory.weight}}
+
+        <div class="category-stat">
+          <div class="col-sm-3">
+            Weight:
+          </div>
+          <div class="col-sm-1 category-stat-value">
+            {{selectedCategory.weight}}
+          </div>
+          <div class="col-sm-7">
+            {{horizontal-bar-chart max=3 width=200 height=5 value=selectedCategory.weight}}
+          </div>
         </div>
       </div>
-    </div>
+    {{/if}}
   </div>
 
   <div class="col-sm-5">

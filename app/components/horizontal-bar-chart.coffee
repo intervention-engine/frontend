@@ -14,8 +14,8 @@ HorizontalBarChartComponent = Ember.Component.extend
     width = parseInt(@get('width'), 10)
     height = parseInt(@get('height'), 10)
 
-    value = parseFloat(@get('value'))
-    max = parseFloat(@get('max'))
+    value = parseFloat(@get('value')) || 0
+    max = parseFloat(@get('max')) || 0
 
     widthScale = d3.scale.linear()
       .domain([0, Math.max.apply(Math, [max, value])])

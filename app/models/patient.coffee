@@ -64,10 +64,10 @@ Patient = DS.Model.extend(
     [
       {name: 'medications', title: 'Medications', risk: @get('medications.length')+1, weight: 1}
       {name: 'conditions', title: 'Conditions', risk: @get('conditions.length'), weight: 2}
-      {name: 'social_barriers', title: 'Social Barriers', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
-      {name: 'falls', title: 'Falls', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
-      {name: 'admissions', title: 'Admissions', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
-      {name: 'utilization', title: 'Utilizations', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
+      {name: 'social_barriers', title: 'Social Barriers', risk: 2, weight: 1}
+      {name: 'falls', title: 'Falls', risk: 1, weight: 1}
+      {name: 'admissions', title: 'Admissions', risk: 3, weight: 1}
+      {name: 'utilization', title: 'Utilizations', risk: 5, weight: 1}
     ]
 
   fullName: Ember.computed 'name', ->
@@ -90,7 +90,6 @@ Patient = DS.Model.extend(
   isFemale: Ember.computed.equal('computedGender', 'female')
   isOtherGender: Ember.computed 'computedGender', ->
     @get('computedGender') != 'male' && @get('computedGender') != 'female'
-
 
   computedRiskName: Ember.computed 'computedRisk', ->
     value = @get('computedRisk')

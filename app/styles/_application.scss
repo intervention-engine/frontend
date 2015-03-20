@@ -1,5 +1,9 @@
 /* -------------------------------- DOM -------------------------------- */
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
    font-weight: 300;
