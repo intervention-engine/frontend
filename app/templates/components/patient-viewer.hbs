@@ -114,9 +114,23 @@
 
     <div class="category-details">
       <div class="category-name">
-        {{selectedCategory}}
+        {{selectedCategory.title}}
       </div>
-      {{horizontal-bar-chart data=randomData}}
+
+      <div class="container">
+        <div class="col-sm-2">
+          Risk: {{selectedCategory.risk}}
+        </div>
+        <div class="col-sm-10">
+          {{horizontal-bar-chart max=6 value=selectedCategory.risk}}
+        </div>
+        <div class="col-sm-2">
+          Weight: {{selectedCategory.weight}}
+        </div>
+        <div class="col-sm-10">
+          {{horizontal-bar-chart max=3 value=selectedCategory.weight}}
+        </div>
+      </div>
     </div>
   </div>
 

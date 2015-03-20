@@ -76,6 +76,12 @@ svg {
   fill: $gray-lighter;
 }
 
+.svg-risk {
+  .bar {
+    background-color: $brand-primary;
+  }
+}
+
 .row {
   margin: 0;
 }

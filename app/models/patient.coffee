@@ -62,12 +62,12 @@ Patient = DS.Model.extend(
 
   categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', ->
     [
-      {name: 'medications', title: 'Medications', value: @get('medications.length'), weight: 1}
-      {name: 'conditions', title: 'Conditions', value: @get('conditions.length'), weight: 2}
-      {name: 'social_barriers', title: 'Social Barriers', value: 2, weight: 0.5}
-      {name: 'falls', title: 'Falls', value: 1, weight: 0.5}
-      {name: 'admissions', title: 'Admissions', value: 3, weight: 0.5}
-      {name: 'utilization', title: 'Utilizations', value: 2, weight: 0.5}
+      {name: 'medications', title: 'Medications', risk: @get('medications.length')+1, weight: 1}
+      {name: 'conditions', title: 'Conditions', risk: @get('conditions.length'), weight: 2}
+      {name: 'social_barriers', title: 'Social Barriers', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
+      {name: 'falls', title: 'Falls', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
+      {name: 'admissions', title: 'Admissions', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
+      {name: 'utilization', title: 'Utilizations', risk: Math.round(Math.random() * 6), weight: Math.round(Math.random() * 3)}
     ]
 
   fullName: Ember.computed 'name', ->
