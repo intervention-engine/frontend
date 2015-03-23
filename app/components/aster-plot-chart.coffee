@@ -19,6 +19,7 @@ AsterPlotComponent = Ember.Component.extend
     radiusScale = d3.scale.linear()
       .domain([0,6])
       .range([innerRadius, radius])
+      .clamp(true)
     opacityScale = d3.scale.linear()
       .domain([0,6])
       .range([.2, 1])
