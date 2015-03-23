@@ -56,9 +56,13 @@ Patient = DS.Model.extend(
     @get('observations').filter((el) -> el.isCoded('LOINC', '75492-9'))
   ).property('observations')
 
-  computedRisk: (->
+  lastRisk: (->
     @get('risks.firstObject.valueQuantity.value')
   ).property('risks')
+
+  computedRisk: (->
+    Math.floor(d3.sum(@get('categoryDisplay'), (el)->el.risk*el.weight)/d3.max([d3.sum(@get('categoryDisplay'), (el)->el.weight), 1]), 1)
+  ).property('categoryDisplay')
 
   categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', ->
     [
@@ -67,7 +71,7 @@ Patient = DS.Model.extend(
       {name: 'social_barriers', title: 'Social Barriers', risk: 2, weight: 1}
       {name: 'falls', title: 'Falls', risk: 1, weight: 1}
       {name: 'admissions', title: 'Admissions', risk: 3, weight: 1}
-      {name: 'utilization', title: 'Utilizations', risk: 5, weight: 1}
+      {name: 'utilization', title: 'Utilizations', risk: 5, weight: .5}
     ]
 
   fullName: Ember.computed 'name', ->
