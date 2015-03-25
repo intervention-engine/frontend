@@ -27,13 +27,13 @@
 `import DS from 'ember-data'`
 
 MedicationStatement = DS.Model.extend
-    identifier: DS.hasMany('identifier')
-    patient: DS.belongsTo('reference')
-    wasNotGiven: DS.attr('boolean')
-    reasonNotGiven: DS.hasMany('codeableConcept')
-    whenGiven: DS.belongsTo('period')
-    medication: DS.belongsTo('reference')
-    device: DS.hasMany('reference')
-    dosage: DS.hasMany('dosage')
+  identifier: DS.hasMany('identifier')
+  patient: DS.belongsTo('reference')
+  wasNotGiven: DS.attr('boolean')
+  reasonNotGiven: DS.hasMany('codeableConcept')
+  whenGiven: DS.belongsTo('period')
+  medication: DS.belongsTo('reference')
+  device: DS.hasMany('reference')
+  dosage: DS.hasMany('dosage')
 
 `export default MedicationStatement`
