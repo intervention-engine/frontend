@@ -2,7 +2,7 @@
 
 moduleFor 'controller:filters/new', 'FiltersNewController', {
   # Specify the other units that are required for this test.
-  # needs: ['controller:filters.new']
+  needs: ['controller:filters.new']
 }
 
 # Replace this with your real tests.
@@ -12,4 +12,4 @@ test 'it exists', ->
 
 test 'it updates hasFilterPane appropriately', ->
   controller = @subject()
-  ok false == controller.hasFilterPane()
+  ok false == controller.get('hasFilterPane')
