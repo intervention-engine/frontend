@@ -2,7 +2,7 @@
 
 moduleForModel 'resource-reference', 'ResourceReference', {
   # Specify the other units that are required for this test.
-  needs: ['model:thing-time']
+  #needs: ['model:thing-time']
 }
 
 test 'it exists', ->

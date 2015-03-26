@@ -27,12 +27,10 @@
 `import DS from 'ember-data'`
 
 Medication = DS.Model.extend
-    name: DS.attr('string')
-    code: DS.belongsTo('codeableConcept')
-    isBrand: DS.attr('boolean')
-    manufacturer: DS.belongsTo('reference')
-    kind: DS.attr('string')
-    # product: DS.belongsTo('product')
-    # package: DS.belongsTo('package')
+  name: DS.attr('string')
+  code: DS.belongsTo('codeableConcept')
+  isBrand: DS.attr('boolean')
+  manufacturer: DS.belongsTo('reference')
+  kind: DS.attr('string')
 
 `export default Medication`

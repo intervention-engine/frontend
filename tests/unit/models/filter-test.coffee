@@ -2,7 +2,7 @@
 
 moduleForModel 'filter', 'Filter', {
   # Specify the other units that are required for this test.
-  needs: ['model:query', 'model:pane', 'model:extension', 'model:response', 'model:ember-item']
+  needs: ['model:query', 'model:queryList', 'model:patient','model:pane', 'model:extension', 'model:response', 'model:ember-item']
 }
 
 test 'it exists', ->
