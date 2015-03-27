@@ -61,12 +61,15 @@ Patient = DS.Model.extend(
   ).property('risks')
 
   computedRisk: (->
-    Math.floor(d3.sum(@get('categoryDisplay'), (el)->el.risk*el.weight)/d3.max([d3.sum(@get('categoryDisplay'), (el)->el.weight), 1]), 1)
-  ).property('categoryDisplay')
+    riskTotal = @get('medications.length') + @get('conditions.length')
+    if riskTotal > 6
+      riskTotal = 6
+    riskTotal
+  ).property('medications', 'conditions')
 
   categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', ->
     [
-      {name: 'medications', title: 'Medications', risk: @get('medications.length')+1, weight: 1}
+      {name: 'medications', title: 'Medications', risk: @get('medications.length'), weight: 1}
       {name: 'conditions', title: 'Conditions', risk: @get('conditions.length'), weight: 2}
       {name: 'social_barriers', title: 'Social Barriers', risk: 2, weight: 1}
       {name: 'falls', title: 'Falls', risk: 1, weight: 1}
@@ -79,7 +82,7 @@ Patient = DS.Model.extend(
     firstHumanName?.get('family') + ', ' + firstHumanName?.get('given')
 
   computedAge: Ember.computed 'birthDate', ->
-    if @get('birthDate')?
+    if @get('birthDate')
       moment().diff(moment(@get('birthDate')), 'years')
     else
       Math.round(Math.random() * (92 - 65) + 65)
