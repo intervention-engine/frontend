@@ -5,8 +5,11 @@ MedicationStatementSerializer = ApplicationSerializer.extend
     patient : {embedded: 'always'}
     reasonNotGiven : {embedded: 'always'}
     whenGiven : {embedded: 'always'}
-    medication : {embedded: 'always'}
     device : {embedded: 'always'}
     dosage : {embedded: 'always'}
+
+  normalize: (type, hash, prop) ->
+    (hash.content||hash)["links"] = medication: hash.content.Medication.Reference
+    @_super(type, hash, prop)
 
 `export default MedicationStatementSerializer`

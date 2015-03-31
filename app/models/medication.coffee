@@ -33,4 +33,8 @@ Medication = DS.Model.extend
   manufacturer: DS.belongsTo('reference')
   kind: DS.attr('string')
 
+  text: (->
+    @get('name').match(/:\s+([^(]+)\s+\(/)[1]
+  ).property('name')
+
 `export default Medication`
