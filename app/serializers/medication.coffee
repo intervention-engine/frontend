@@ -4,6 +4,7 @@ MedicationSerializer = ApplicationSerializer.extend
   attrs:
     code : {embedded: 'always'}
     manufacturer : {embedded: 'always'}
+    name : {embedded: 'always'}
     # product : {embedded: 'always'}
     # package : {embedded: 'always'}
 

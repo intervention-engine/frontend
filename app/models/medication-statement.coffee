@@ -32,7 +32,7 @@ MedicationStatement = DS.Model.extend
   wasNotGiven: DS.attr('boolean')
   reasonNotGiven: DS.hasMany('codeableConcept')
   whenGiven: DS.belongsTo('period')
-  medication: DS.belongsTo('reference')
+  medication: DS.belongsTo('medication', async: true)
   device: DS.hasMany('reference')
   dosage: DS.hasMany('dosage')
 
