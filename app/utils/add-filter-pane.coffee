@@ -33,7 +33,10 @@ createEncounterPane = (context) ->
 
 createConditionPane = (context) ->
   newPane = context.store.createRecord("pane", {id: Ember.generateGuid({}, "pane"), icon:"icon-med-clipboard"})
-  codeFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({},"ember-item"), componentName: "condition-code-filter"})
+  codeParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/conditionCode"})
+  codeParam.set('valueCodeableConcept', context.store.createRecord("codeableConcept"))
+  codeFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({}, "ember-item"), parameter: codeParam, componentName: "condition-code-filter"})
+
   newPane.get('items').pushObjects([codeFilter])
   newPane
 

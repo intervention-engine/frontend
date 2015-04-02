@@ -84,9 +84,7 @@
           {{#draggable-object-target action="addPane" class="drop-area"}}
             {{#if hasFilterPane}}
               {{#each pane in model.panes}}
-                {{#with pane}}
-                  {{render "filters/_pane" pane}}
-                {{/with}}
+                {{render "filters/_pane" pane}}
               {{/each}}
               <div class="row save-new-filter">
                 <div class="col-sm-4 col-sm-offset-4">
