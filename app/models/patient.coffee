@@ -135,40 +135,6 @@ Patient = DS.Model.extend(
   hasNotifications: Ember.computed.gt('notificationCount', 0)
 
   patientLocation: 'Home'
-
-  events: Ember.computed 'medications', 'observations', 'conditions', ->
-    events = Ember.A()
-    @get("conditions").forEach (ev) =>
-      events.pushObject(@store.createRecord('event', {
-        startDate: moment(ev.get('onsetDate')).format('lll'),
-        text: ev.get('text')+" Started",
-        type: "condition"
-      }))
-      if ev.get('abatementDate') >= ev.get('onsetDate')
-        events.pushObject(@store.createRecord('event', {
-          startDate: moment(ev.get('abatementDate')).format('lll'),
-          text:ev.get('text')+" Ended",
-          type:"condition"
-        }))
-    @get("medications").forEach (ev) =>
-      events.pushObject(@store.createRecord('event', {
-        startDate: moment(ev.get('whenGiven.start')).format('lll'),
-        text:ev.get('medication.text')+" started.",
-        type:"medication"
-      }))
-      if ev.get('whenGiven.end') >= ev.get('whenGiven.start')
-        events.pushObject(@store.createRecord('event', {
-          startDate: moment(ev.get('whenGiven.end')).format('lll'),
-          text:ev.get('medication.text')+" stopped.",
-          type:"medication"
-        }))
-    #@get("observations").forEach (ev) =>
-      #events.pushObject(@store.createRecord('event', {
-        #startDate: moment(ev.get('appliesDateTime')).format(lll),
-        #text:ev.get('text')+".",
-        #type:"observation"
-      #}))
-    events.sortBy('startDate').reverse()
 )
 
 `export default Patient`
