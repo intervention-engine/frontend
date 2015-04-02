@@ -151,6 +151,11 @@
 
   <div class="col-sm-5">
     <div class="timeline">
+      <ul>
+        {{#each event in patient.events}}
+          <li>{{event.type}} - {{event.text}} ({{event.startDate}})</li>
+        {{/each}}
+      </ul>
     </div>
   </div>
 </div>
