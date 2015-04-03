@@ -149,30 +149,38 @@
     {{/if}}
   </div>
 
-  <div class="col-sm-5">
-    <div class="timeline">
-      <div class="timeline-icon-search">
-        <i class="fa fa-user timeline-icon"></i>
+  <div class="col-sm-5 timeline">
+    <div class="timeline-icon-search">
+      <i class="fa fa-user timeline-icon"></i>
 
-        <div class="row timeline-search">
-          <div class="col-lg-6">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-              </span>
-              {{input type="text" class="form-control" value=searchTimeline placeholder="Search timeline..."}}
-            </div>
+      <div class="row timeline-search">
+        <div class="col-lg-6">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+            </span>
+            {{input type="text" class="form-control" value=searchTimeline placeholder="Search timeline..."}}
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="timeline-events">
-        <ul>
-          {{#each event in patient.events}}
-            <li>{{event.type}} - {{event.text}} ({{event.startDate}})</li>
-          {{/each}}
-        </ul>
-      </div>
+    <div class="timeline-events">
+      {{#each event in patient.events}}
+        <div class="timeline-event">
+          <div class="timeline-event-type">
+            {{event.type}}
+          </div>
+
+          <div class="timeline-event-text">
+            {{event.text}}
+          </div>
+
+          <div class="timeline-event-start-date">
+            {{event.startDate}}
+          </div>
+        </div>
+      {{/each}}
     </div>
   </div>
 </div>
