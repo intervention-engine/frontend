@@ -1,14 +1,14 @@
-// import variables
+/* ------------------------- IMPORT VARIABLES ------------------------------ */
 @import "variables";
 
-// import 3rd party vendors
+/* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
 @import "bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
 @import "bower_components/fontawesome/scss/font-awesome";
 
-// font custom
+/* ------------------------- IMPORT CUSTOM FONTS --------------------------- */
 @import "fontcustom";
 
-// import custom scss
+/* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 @import "application";
 @import "filters";
 @import "drag-and-drop";
@@ -17,3 +17,4 @@
 @import "panels";
 @import "login";
 @import "patients";
+@import "timeline";

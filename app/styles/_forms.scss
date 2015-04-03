@@ -39,7 +39,7 @@ input.login-input {
 @mixin placeholder {
   color: lighten($brand-secondary, 40%);
   font-style: italic;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 18px;
   font-weight: 200;
   padding: 2px;
