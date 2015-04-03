@@ -87,6 +87,24 @@ Patient = DS.Model.extend(
     else
       Math.round(Math.random() * (92 - 65) + 65)
 
+  inpatientAdmissions: Ember.computed 'encounters', ->
+    @get('encounters').filter (item, index, self) ->
+      is_inpatient = false
+      item.get('type').get('coding')?.forEach (c, i) ->
+        if c.get('system') == 'http://www.ama-assn.org/go/cpt'
+          is_inpatient = ['99221', '99222', '99223'].contains(c.get('code'))
+      is_inpatient
+
+  readmissions: Ember.computed 'inpatientAdmissions', ->
+    @get('inpatientAdmissions').sortBy('period.end').reduce (previousValue, item, index, enumerable) ->
+      if previousValue?
+        previousValue.count++ if ((item.get('period.start') - previousValue.previousAdmission.get('period.end'))/(1000*60*60*24)) <= 30
+        previousValue.previousAdmission = item
+        previousValue
+      else
+        count: 0, previousAdmission: item
+    , null
+
   computedGender: Ember.computed 'gender', ->
     value = @get('gender')?.toString()
     if value == 'M' then 'male'
