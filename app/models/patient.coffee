@@ -135,6 +135,20 @@ Patient = DS.Model.extend(
   hasNotifications: Ember.computed.gt('notificationCount', 0)
 
   patientLocation: 'Home'
+
+  events: Ember.computed 'medications', 'observations', 'conditions', ->
+    events = Ember.A()
+    @get("conditions").forEach (ev) =>
+      events.pushObject(@store.createRecord('event', {startDate: ev.get('onsetDate'), text:ev.get('text')+" started.", type:"condition"}))
+      if ev.get('abatementDate') >= ev.get('onsetDate')
+        events.pushObject(@store.createRecord('event', {startDate: ev.get('abatementDate'), text:ev.get('text')+" ended.", type:"condition"}))
+    @get("medications").forEach (ev) =>
+      events.pushObject(@store.createRecord('event', {startDate: ev.get('whenGiven.start'), text:ev.get('medication.text')+" started.", type:"medication"}))
+      if ev.get('whenGiven.end') >= ev.get('whenGiven.start') 
+        events.pushObject(@store.createRecord('event', {startDate: ev.get('whenGiven.end'), text:ev.get('medication.text')+" stopped.", type:"medication"}))
+    @get("observations").forEach (ev) =>
+      events.pushObject(@store.createRecord('event', {startDate: ev.get('appliesDateTime'), text:ev.get('name')+" observed.", type:"observation"}))
+    events.sortBy('startDate').reverse()
 )
 
 `export default Patient`
