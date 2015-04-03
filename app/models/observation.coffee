@@ -51,7 +51,7 @@ Observation = DS.Model.extend(
     return @get('name.coding').mapBy('code').indexOf(code) > -1
   text: (->
     @get('name.text').match(/:\s+([^(]+)\s+\(/)[1]
-  ).property('code')
+  ).property('name')
 )
 
 `export default Observation`
