@@ -47,10 +47,15 @@ Observation = DS.Model.extend(
   specimen: DS.belongsTo('reference')
   performer: DS.hasMany('reference')
   encounter: DS.belongsTo('reference')
+
   isCoded: (system, code) ->
     return @get('name.coding').mapBy('code').indexOf(code) > -1
+
   text: (->
-    @get('name.text').match(/:\s+([^(]+)\s+\(/)[1]
+    if @get('name.text') != ""
+      @get('name.text').match(/:\s+([^(]+)\s+\(/)[1]
+    else
+      ""
   ).property('name')
 )
 

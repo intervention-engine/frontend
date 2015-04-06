@@ -62,17 +62,19 @@
       margin: 10px 0 10px 30px;
       padding: 5px;
 
-      .timeline-event-type {
+      .timeline-event-text {
         font-size: 20px;
       }
 
-      .timeline-event-text {
+      .timeline-event-start-date {
         font-size: 16px;
         color: lighten($brand-secondary, 40%);
       }
 
-      .timeline-event-start-date {
-
+      .timeline-event-icon {
+        color: $brand-secondary;
+        font-size: 24px;
+        padding-left: 20px;
       }
     }
   }

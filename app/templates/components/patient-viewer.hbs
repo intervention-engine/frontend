@@ -168,10 +168,6 @@
     <div class="timeline-events">
       {{#each event in patient.events}}
         <div class="timeline-event">
-          <div class="timeline-event-type">
-            {{event.type}}
-          </div>
-
           <div class="timeline-event-text">
             {{event.text}}
           </div>
@@ -179,6 +175,14 @@
           <div class="timeline-event-start-date">
             {{event.startDate}}
           </div>
+
+          {{#if event.isCondition}}
+            <div class="timeline-event-icon">
+              <i class="icon-med-clipboard"></i>
+            </div>
+          {{/if}}
+
+
         </div>
       {{/each}}
     </div>
