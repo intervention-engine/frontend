@@ -1,4 +1,4 @@
-`import ember from 'Ember'`
+`import ApplicationSerializer from './application'`
 
 DosageSerializer = ApplicationSerializer.extend
   attrs:

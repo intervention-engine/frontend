@@ -17,10 +17,14 @@ PatientSerializer = ApplicationSerializer.extend(
     managingOrganization : {embedded: 'always'}
     link : {embedded: 'always'}
 
+  testingPrefix: false
+
   normalize: (type, hash, prop) ->
+    prefix = ""
+    prefix = "/testing" if @testingPrefix
     queryParam = "?subject:Patient=#{hash.id}"
     medQuery = "?patient:Patient=#{hash.id}"
-    (hash.content||hash)["links"] = conditions: "/Condition#{queryParam}", observations: "/Observation#{queryParam}", encounters: "/Encounter#{queryParam}", medications: "/MedicationStatement#{medQuery}"
+    (hash.content||hash)["links"] = conditions: "#{prefix}/Condition#{queryParam}", observations: "#{prefix}/Observation#{queryParam}", encounters: "#{prefix}/Encounter#{queryParam}", medications: "#{prefix}/MedicationStatement#{medQuery}"
     @_super(type, hash, prop)
 )
 
