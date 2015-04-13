@@ -1,4 +1,7 @@
 `import { test, moduleForModel} from 'ember-qunit'`
+`import Pretender from 'pretender'`
+
+server = null
 
 moduleForModel 'patient', 'Patient', {
   # Specify the other units that are required for this test.
@@ -15,8 +18,27 @@ moduleForModel 'patient', 'Patient', {
    'model:participant', 'model:hospitalization',
    'model:dosage', 'model:medication', 'model:accomodation']
   setup: ->
-    @store().adapterFor('patient').reopen({namespace: 'testing'})
-    @store().serializerFor('patient').reopen({testingPrefix: true})
+    server = new Pretender ->
+      @get '/Patient/', (request) ->
+        all =  JSON.stringify({
+          resourceType: 'Bundle',
+          entry: [{content: {id: 1, Name: [{ Family: ["A"], Given: ["BH_Adult"]}]}}]
+        })
+        [200, {"Content-Type": "application/json"}, all]
+      @get '/Patient/1', (request) ->
+        all =  JSON.stringify({id: 1, Name: [{ Family: ["A"], Given: ["BH_Adult"]}]})
+        [200, {"Content-Type": "application/json"}, all]
+      @get '/Encounter', (request) ->
+        all =  JSON.stringify({
+          resourceType: 'Bundle',
+          entry: [
+            {
+              content: {id: 1, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99221"}], Text: "Inpatient Encounter"}],
+              Period: {Start: "2012-10-01T08:00:00-04:00", End: "2012-10-01T09:00:00-04:00"}}
+            }
+          ]
+          })
+        [200, {"Content-Type": "application/json"}, all]
 }
 
 test 'fullName', ->
@@ -25,7 +47,7 @@ test 'fullName', ->
   Ember.run ->
     model = store.find('patient', 1)
   model.then ->
-    equal model.get('fullName'), 'A, BH_Adult'
+    equal model.get('fullName'), 'A, BH_Adult', 'Full name is correct'
 
 test 'inpatientAdmissions', ->
   store = @store()
@@ -36,4 +58,4 @@ test 'inpatientAdmissions', ->
   patient.then ->
     patient.get('encounters').then ->
       ia = patient.get('inpatientAdmissions')
-      equal ia.get('length'), 1
+      equal ia.get('length'), 1, 'One inpatient encounter is returned'
