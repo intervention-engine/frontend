@@ -14,11 +14,16 @@
     {{#if item.active}}
       <div class="row selected-filter-details">
         <div class="col-sm-12">
-          <button name="button" {{action "addCode"}}>Add Code</button>
-          {{#each code in item.parameter.valueCodeableConcept.coding}}
-            {{input classNames="input-control condition" placeholder="input condition name or code" value=code.code}}
-          {{/each}}
-
+            {{#each code in item.parameter.valueCodeableConcept.coding}}
+              <div class="formgroup">
+                <label >System</label>
+                {{view "select" value=code.system content=codingSystems optionValuePath="content.url" optionLabelPath="content.system" class="form-control"}}
+              </div>
+              <div class="formgroup">
+                <label>Code</label>
+                {{input classNames="input-control condition" placeholder="input condition code" value=code.code}}
+              </div>
+            {{/each}}
         </div>
       </div>
     {{/if}}
