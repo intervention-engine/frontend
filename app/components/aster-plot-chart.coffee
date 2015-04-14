@@ -13,7 +13,7 @@ AsterPlotComponent = Ember.Component.extend
     width = height = @get('size') - 2 * @get('padding')
 
     outerRadius = d3.min([width, height])/2
-    radius = outerRadius *.95
+    radius = outerRadius *.80
     innerRadius = .17* radius
 
     radiusScale = d3.scale.linear()
@@ -87,7 +87,7 @@ AsterPlotComponent = Ember.Component.extend
       .html((d) -> d.data.name)
     svg.call(tip)
     outerRadius = d3.min([width, height])/2
-    radius = outerRadius *.95
+    radius = outerRadius *.80
     innerRadius = .17* radius
     pie = d3.layout.pie()
       .padAngle(.03)
