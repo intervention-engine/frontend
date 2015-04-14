@@ -17,7 +17,8 @@
     "jquery": "1.11.2",
     "loader.js": "ember-cli/loader.js#3.2.0",
     "moment": "2.9.0",
-    "qunit": "1.17.1"
+    "qunit": "1.17.1",
+    "pretender": "0.1.0"
   },
   "resolutions": {
     "d3": "3.5.5"
