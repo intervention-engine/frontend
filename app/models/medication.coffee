@@ -34,7 +34,7 @@ Medication = DS.Model.extend
   kind: DS.attr('string')
 
   text: (->
-    @get('name').match(/:\s+([^(]+)\s+\(/)?[1]
+    @get('name')?.match(/:\s+([^(]+)\s+\(/)?[1]||""
   ).property('name')
 
 `export default Medication`
