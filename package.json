@@ -22,9 +22,8 @@
     "broccoli-asset-rev": "2.0.1",
     "broccoli-gzip": "0.2.0",
     "broccoli-merge-trees": "0.2.1",
-    "broccoli-sass": "0.6.0",
+    "broccoli-sass": "0.6.4",
     "broccoli-static-compiler": "0.2.1",
-    "connect-restreamer": "^1.0.2",
     "ember-cli": "0.2.0",
     "ember-cli-app-version": "0.3.2",
     "ember-cli-babel": "4.1.0",
@@ -41,8 +40,7 @@
     "ember-drag-drop": "0.1.4",
     "ember-dynamic-component": "0.0.4",
     "ember-export-application-global": "1.0.2",
-    "express": "^4.12.3",
-    "glob": "^4.5.3",
-    "morgan": "^1.5.2"
+    "express": "4.10.8",
+    "glob": "4.3.2"
   }
 }
