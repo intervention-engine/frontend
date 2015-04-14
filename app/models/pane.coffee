@@ -29,6 +29,15 @@
 Pane = DS.Model.extend(
   icon: DS.attr("string", {defaultValue: "fa-user"})
   items: DS.hasMany('ember-item')
+
+  activeItems: (->
+    @get('items').filterBy('active', true)
+  ).property('items.@each.active', 'items.@each.parameter')
+
+  parameters: (->
+    @get('activeItems').mapBy('parameter')
+  ).property('activeItems')
+
 )
 
 `export default Pane`

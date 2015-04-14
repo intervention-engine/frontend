@@ -30,11 +30,25 @@
 Filter = DS.Model.extend(SelectableMixin,
   name: DS.attr("string")
   description: DS.attr("string")
-  query: DS.belongsTo("query")
+  # query: DS.belongsTo("query")
   panes: DS.hasMany("pane")
   patients: DS.belongsTo("queryList", { async: true })
   patientsCount: (-> @get('patients').length).property('patients.[]')
   results: DS.attr("number")
+
+  instaCount: (->
+    console.log @get('query')
+
+    {patients: Math.floor(Math.random()*100+1,2), conditions: 0, encounters: 0}
+  ).property('query')
+
+  query: (->
+    constructedQuery = @store.createRecord("query", {})
+    items = @get('panes').mapBy('activeItems').reduce(((prev, cur) -> prev.concat(cur)), [])
+    console.log "updating query"
+    constructedQuery.get('parameter').pushObjects(items.mapBy('parameter'))
+    constructedQuery
+  ).property('panes.items.@each.parameters')
 
   hasFilterPane: (->
     @get('panes.length') > 0
