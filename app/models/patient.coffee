@@ -151,11 +151,23 @@ Patient = DS.Model.extend(
           type:"condition"
         }))
     @get("medications").forEach (ev) =>
-      events.pushObject(@store.createRecord('event', {startDate: ev.get('whenGiven.start'), text:ev.get('medication.text')+" started.", type:"medication"}))
+      events.pushObject(@store.createRecord('event', {
+        startDate: moment(ev.get('whenGiven.start')).format(lll),
+        text:ev.get('medication.text')+" started.",
+        type:"medication"
+      }))
       if ev.get('whenGiven.end') >= ev.get('whenGiven.start')
-        events.pushObject(@store.createRecord('event', {startDate: ev.get('whenGiven.end'), text:ev.get('medication.text')+" stopped.", type:"medication"}))
-    @get("observations").forEach (ev) =>
-      events.pushObject(@store.createRecord('event', {startDate: ev.get('appliesDateTime'), text:ev.get('text')+".", type:"observation"}))
+        events.pushObject(@store.createRecord('event', {
+          startDate: moment(ev.get('whenGiven.end')).format(lll),
+          text:ev.get('medication.text')+" stopped.",
+          type:"medication"
+        }))
+    #@get("observations").forEach (ev) =>
+      #events.pushObject(@store.createRecord('event', {
+        #startDate: moment(ev.get('appliesDateTime')).format(lll),
+        #text:ev.get('text')+".",
+        #type:"observation"
+      #}))
     events.sortBy('startDate').reverse()
 )
 
