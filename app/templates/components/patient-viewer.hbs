@@ -181,7 +181,11 @@
               <i class="icon-med-clipboard"></i>
             </div>
           {{/if}}
-
+          {{#if event.isMedication}}
+            <div class="timeline-event-icon">
+              <i class="icon-medication"></i>
+            </div>
+          {{/if}}
 
         </div>
       {{/each}}
