@@ -1,4 +1,5 @@
 `import ApplicationSerializer from './application'`
+
 MedicationStatementSerializer = ApplicationSerializer.extend
   attrs:
     identifier : {embedded: 'always'}
@@ -9,7 +10,9 @@ MedicationStatementSerializer = ApplicationSerializer.extend
     dosage : {embedded: 'always'}
 
   normalize: (type, hash, prop) ->
-    (hash.content||hash)["links"] = medication: hash.content.Medication.Reference
+    medUrl = new URI(hash.content.Medication.Reference)
+    if medUrl?
+      (hash.content||hash)["links"] = medication: medUrl.path()
     @_super(type, hash, prop)
 
 `export default MedicationStatementSerializer`
