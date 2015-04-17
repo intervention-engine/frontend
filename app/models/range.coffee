@@ -27,8 +27,8 @@
 `import DS from 'ember-data'`
 
 Range = DS.Model.extend(
-  low: DS.hasMany('quantity')
-  high: DS.hasMany('quantity')
+  low: DS.belongsTo('quantity')
+  high: DS.belongsTo('quantity')
 )
 
 `export default Range`

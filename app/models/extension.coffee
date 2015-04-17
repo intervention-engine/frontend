@@ -31,6 +31,7 @@ Extension = DS.Model.extend(
   value: DS.attr()
   valueString: DS.attr("string")
   valueCodeableConcept: DS.belongsTo("codeable-concept")
+  valueRange: DS.belongsTo("range")
 )
 
 `export default Extension`
