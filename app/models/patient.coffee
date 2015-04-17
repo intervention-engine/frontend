@@ -95,7 +95,7 @@ Patient = DS.Model.extend(
     is_inpatient
 
   readmissions: Ember.computed 'inpatientAdmissions', ->
-    @get('inpatientAdmissions').sortBy('period.end').reduce (previousValue, item, index, enumerable) ->
+    result = @get('inpatientAdmissions').sortBy('period.end').reduce (previousValue, item, index, enumerable) ->
       if previousValue?
         previousValue.count++ if ((item.get('period.start') - previousValue.previousAdmission.get('period.end'))/(1000*60*60*24)) <= 30
         previousValue.previousAdmission = item
@@ -103,6 +103,7 @@ Patient = DS.Model.extend(
       else
         count: 0, previousAdmission: item
     , null
+    result.count
 
   computedGender: Ember.computed 'gender', ->
     value = @get('gender')?.toString()

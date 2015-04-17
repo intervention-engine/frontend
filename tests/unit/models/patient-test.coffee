@@ -35,6 +35,14 @@ moduleForModel 'patient', 'Patient', {
             {
               content: {id: 1, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99221"}], Text: "Inpatient Encounter"}],
               Period: {Start: "2012-10-01T08:00:00-04:00", End: "2012-10-01T09:00:00-04:00"}}
+            },
+            {
+              content: {id: 2, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99221"}], Text: "Inpatient Readmission Encounter"}],
+              Period: {Start: "2012-10-03T08:00:00-04:00", End: "2012-10-03T09:00:00-04:00"}}
+            },
+            {
+              content: {id: 3, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99201"}], Text: "Outpatient Office Visit"}],
+              Period: {Start: "2012-10-03T08:00:00-04:00", End: "2012-10-03T09:00:00-04:00"}}
             }
           ]
           })
@@ -58,4 +66,15 @@ test 'inpatientAdmissions', ->
   patient.then ->
     patient.get('encounters').then ->
       ia = patient.get('inpatientAdmissions')
-      equal ia.get('length'), 1, 'One inpatient encounter is returned'
+      equal ia.get('length'), 2, 'Two inpatient encounters are returned'
+
+test 'readmissions', ->
+  store = @store()
+  patient = null
+  admissions = null
+  Ember.run ->
+    patient = store.find('patient', 1)
+  patient.then ->
+    patient.get('encounters').then ->
+      readmissions = patient.get('readmissions')
+      equal readmissions, 1, '1 readmission'
