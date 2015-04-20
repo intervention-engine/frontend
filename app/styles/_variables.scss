@@ -1,20 +1,62 @@
-/* ------------------------- COLORS ---------------------------------------- */
-$brand-primary: #5D8FAE;   // blue
-$brand-secondary: #454545; // custom - dark gray
-$brand-alert: #E2495C;     // custom - red
-$body-bg: #EEEEEE;         // light gray
+// ------------------------- COLORS ---------------------------------------- //
+
+$brand-primary: #5D8FAE;    // blue
+$brand-secondary: #454545;  // custom - dark gray
+$brand-alert: #E2495C;      // custom - red
+$body-bg: #EEEEEE;          // light gray
 $headings-color: $brand-secondary;
 $btn-default-bg: $brand-primary;
 $navbar-inverse-bg: $brand-secondary;
 $navbar-inverse-color: #ffffff;
 $navbar-inverse-link-color: $navbar-inverse-color;
 
-/* ------------------------- DIMENSIONS ------------------------------------ */
+// ------------------------- BOOTSTRAP VARIABLES --------------------------- //
+
 $navbar-height: 83px;
 $panel-border-radius: 0px;
 $border-radius-large: 0px;
 $headings-font-weight: 200;
 
-/* ------------------------- PATHS ----------------------------------------- */
+$screen-xs: 480px;
+$screen-sm: 768px;
+$screen-md: 1200px;
+$screen-lg: 1600px;
+
+$grid-gutter-width: 30px;
+$container-tablet: $screen-sm + $grid-gutter-width;
+$container-desktop: $screen-md + $grid-gutter-width;
+$container-large-desktop: $screen-lg + $grid-gutter-width;
+
+// ------------------------- PATHS ----------------------------------------- //
+
 $icon-font-path: '/assets/bootstrap/';
 $fa-font-path: '/assets/fontawesome';
+
+// ------------------------- MEDIA QUERIES --------------------------------- //
+
+$break-mobile: $screen-sm;
+$break-tablet: $screen-md;
+$break-desktop: $screen-lg;
+
+@mixin respond-to($media) {
+  @if $media == mobile {
+    @media only screen and (max-width: $break-mobile) {
+      @content;
+    }
+  }
+  @else if $media == tablet {
+    @media only screen and (min-width: $break-mobile + 1) and (max-width: $break-tablet) {
+      @content;
+    }
+  }
+  @else if $media == desktop {
+    @media only screen and (min-width: $break-tablet + 1) and (max-width: $break-desktop) {
+      @content;
+    }
+  }
+  @else if $media == desktop-wide {
+    @media only screen and (min-width: $break-desktop + 1) {
+      @content;
+    }
+  }
+}
