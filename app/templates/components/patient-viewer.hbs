@@ -167,13 +167,13 @@
 
     <div class="timeline-events">
       {{#each event in patient.events}}
-        <div class="timeline-event">
+        <div {{bind-attr class=":timeline-event event.event.id"}}>
           <div class="timeline-event-text">
-            {{event.text}}
+            {{event.event.text}}
           </div>
 
           <div class="timeline-event-start-date">
-            {{event.startDate}}
+            {{date-format event.effectiveDate}}
           </div>
 
           {{#if event.isCondition}}
