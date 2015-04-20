@@ -17,7 +17,7 @@
 
       <div class="patient-info">
         <div class="patient-name">{{patient.fullName}}</div>
-        <div class="patient-age-gender">
+        <div class="patient-age-gender-location">
           <span class="patient-age">
             <i class="fa fa-birthday-cake"></i>
             {{patient.computedAge}} yrs
@@ -26,15 +26,28 @@
             <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
             {{patient.computedGender}}
           </span>
+          <span class="patient-location">
+            <i class="fa fa-home"></i>
+            {{patient.patientLocation}}
+          </span>
         </div>
-        <div class="patient-location">@{{patient.patientLocation}}</div>
+      </div>
+
+      <div class="completed-interventions">
+        <div class="completed-interventions-value">19</div>
+        <div class="completed-interventions-stars">
+          <i class="fa fa-star fa-fw"></i>
+          <i class="fa fa-star fa-fw"></i>
+          <i class="fa fa-star-o fa-fw"></i>
+          <div class="completed-interventions-text">Completed Interventions</div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-xs-2 patient-stats">
+  <div class="col-lg-2 col-md-3 patient-stats">
     <div class="panel">
       <div class="panel-heading-alt">
         <div class="panel-title">
@@ -99,19 +112,7 @@
     </div>
   </div>
 
-  <div class="col-sm-5">
-    <div class="completed-interventions">
-      <span class="completed-interventions-value">19</span>
-      <span class="completed-interventions-stars">
-        <i class="fa fa-star fa-fw"></i>
-        <i class="fa fa-star fa-fw"></i>
-        <i class="fa fa-star-o fa-fw"></i><br/>
-      </span>
-      <span class="completed-interventions-text">
-        Completed Interventions
-      </span>
-    </div>
-
+  <div class="col-lg-5 col-md-9">
     <div class="aster-plot">
       {{aster-plot-chart patient=patient data=patient.categoryDisplay selectedCategory=selectedCategory}}
     </div>
@@ -147,48 +148,13 @@
         </div>
       </div>
     {{/if}}
+
+
   </div>
 
-  <div class="col-sm-5 timeline">
-    <div class="timeline-icon-search">
-      <i class="fa fa-user timeline-icon"></i>
-
-      <div class="row timeline-search">
-        <div class="col-lg-6">
-          <div class="input-group">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-            </span>
-            {{input type="text" class="form-control" value=searchTimeline placeholder="Search timeline..."}}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="timeline-events">
-      {{#each event in patient.events}}
-        <div {{bind-attr class=":timeline-event event.event.id"}}>
-          <div class="timeline-event-text">
-            {{event.event.text}}
-          </div>
-
-          <div class="timeline-event-start-date">
-            {{date-format event.effectiveDate}}
-          </div>
-
-          {{#if event.isCondition}}
-            <div class="timeline-event-icon">
-              <i class="icon-med-clipboard"></i>
-            </div>
-          {{/if}}
-          {{#if event.isMedication}}
-            <div class="timeline-event-icon">
-              <i class="icon-medication"></i>
-            </div>
-          {{/if}}
-
-        </div>
-      {{/each}}
-    </div>
+  <div class="col-lg-5 hidden-md timeline">
+    {{patient-timeline patient=patient}}
   </div>
+
+
 </div>
