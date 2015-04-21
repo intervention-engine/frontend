@@ -52,27 +52,36 @@
     border-left: 10px solid $body-bg;
     margin: 44px 0 0 0;
     overflow-y: scroll;
-    height: 800px;
+    min-height: 800px;
+    width: 500px;
 
     .timeline-event {
       position: relative;
+      left: 20px;
       min-height: 100px;
       width: 400px;
-      border: 10px solid $body-bg;
+      border: 8px solid $body-bg;
       margin: 10px 0 10px 30px;
       padding: 5px;
 
-      &:after {
-        content: "";
-        position: absolute;
-        top: 5px;
-        left: -15px;
-        border-style: solid;
-        border-width: 30px 35px 30px 0;
-        border-color: transparent #eee;
+      .pointer-bottom {
         display: block;
-        width: 0;
-        z-index: 1;
+        position: absolute;
+        top: 10px;
+        left: -25px;
+        border-top: 18px solid transparent;
+        border-bottom: 18px solid transparent;
+        border-right: 18px solid $body-bg;
+      }
+
+      .pointer-top {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: -15px;
+        border-top: 18px solid transparent;
+        border-bottom: 18px solid transparent;
+        border-right: 18px solid #fff;
       }
 
       .timeline-event-text {
