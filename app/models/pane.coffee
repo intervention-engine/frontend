@@ -35,8 +35,13 @@ Pane = DS.Model.extend(
   ).property('items.@each.active', 'items.@each.parameter')
 
   parameters: (->
-    @get('activeItems').mapBy('parameter')
+    @get('activeItems').mapBy('parameter').reduce(((prev, cur) -> prev.concat(cur)), [])
   ).property('activeItems')
+
+  activeParameters: (->
+    @get('items').mapBy('changed')
+    @get('parameters')
+  ).property("items.@each.changed", "items.@each.active")
 
 )
 

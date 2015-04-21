@@ -36,19 +36,44 @@ Filter = DS.Model.extend(SelectableMixin,
   patientsCount: (-> @get('patients').length).property('patients.[]')
   results: DS.attr("number")
 
-  instaCount: (->
-    console.log @get('query')
+  instaPatient: ( ->
+    NaN
+  ).property('computeInsta')
 
-    {patients: Math.floor(Math.random()*100+1,2), conditions: 0, encounters: 0}
+  computeInsta: (->
+    req = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query').serialize()))
+    req.then ((res)=>
+      val = JSON.parse(res).total
+      console.log "pats #{val}"
+      _this.set('instaPatient', val)
+    )
+
+  ).observes('query')
+
+  instaEncounter: ( ->
+    req = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query').serialize()))
+    req.then ((res)->
+      val = JSON.parse(res).total
+      console.log val
+    )
+    Math.random()
+  ).property('query')
+
+  instaCondition: ( ->
+    req = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query').serialize()))
+    req.then ((res)->
+      val = JSON.parse(res).total
+      console.log val
+    )
+    Math.random()
   ).property('query')
 
   query: (->
+    items = @get('panes').mapBy('activeParameters').reduce(((prev, cur) -> prev.concat(cur)), [])
     constructedQuery = @store.createRecord("query", {})
-    items = @get('panes').mapBy('activeItems').reduce(((prev, cur) -> prev.concat(cur)), [])
-    console.log "updating query"
-    constructedQuery.get('parameter').pushObjects(items.mapBy('parameter'))
+    constructedQuery.get('parameter').pushObjects(items)
     constructedQuery
-  ).property('panes.items.@each.parameters')
+  ).property('panes.@each.activeParameters')
 
   hasFilterPane: (->
     @get('panes.length') > 0
