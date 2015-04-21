@@ -1,40 +1,42 @@
-<div class="timeline-icon-search">
-  <i class="fa fa-user timeline-icon"></i>
+<div class="timeline">
+  <div class="timeline-icon-search">
+    <i class="fa fa-user timeline-icon"></i>
 
-  <div class="row timeline-search">
-    <div class="col-lg-6">
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-        </span>
-        {{input type="text" class="form-control" value=searchTimeline placeholder="Search timeline..."}}
+    <div class="row timeline-search">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+          </span>
+          {{input type="text" class="form-control" value=searchTimeline placeholder="Search timeline..."}}
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="timeline-events">
-  {{#each event in patient.events}}
-    <div {{bind-attr class=":timeline-event event.event.id"}}>
-      <div class="timeline-event-text">
-        {{event.event.text}}
-      </div>
-
-      <div class="timeline-event-start-date">
-        {{date-format event.effectiveDate}}
-      </div>
-
-      {{#if event.isCondition}}
-        <div class="timeline-event-icon">
-          <i class="icon-med-clipboard"></i>
+  <div class="timeline-events">
+    {{#each event in patient.events}}
+      <div {{bind-attr class=":timeline-event event.event.id"}}>
+        <div class="timeline-event-text">
+          {{event.event.text}}
         </div>
-      {{/if}}
-      {{#if event.isMedication}}
-        <div class="timeline-event-icon">
-          <i class="icon-medication"></i>
-        </div>
-      {{/if}}
 
-    </div>
-  {{/each}}
+        <div class="timeline-event-start-date">
+          {{date-format event.effectiveDate}}
+        </div>
+
+        {{#if event.isCondition}}
+          <div class="timeline-event-icon">
+            <i class="icon-med-clipboard"></i>
+          </div>
+        {{/if}}
+        {{#if event.isMedication}}
+          <div class="timeline-event-icon">
+            <i class="icon-medication"></i>
+          </div>
+        {{/if}}
+
+      </div>
+    {{/each}}
+  </div>
 </div>

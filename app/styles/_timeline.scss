@@ -1,7 +1,7 @@
 // ------------------------- TIMELINE -------------------------------------- //
 .timeline {
   position: relative;
-  margin-top: 20px;
+  margin: 20px auto;
 
   .timeline-icon-search {
     position: absolute;
@@ -22,8 +22,7 @@
       border-radius: 15px;
       height: 28px;
       font-size: 16px;
-      width: 250px;
-      @include respond-to(desktop-wide) { width: 385px; }
+      width: 385px;
 
       .form-control,
       .btn {
@@ -58,11 +57,23 @@
     .timeline-event {
       position: relative;
       min-height: 100px;
+      width: 400px;
       border: 10px solid $body-bg;
       margin: 10px 0 10px 30px;
       padding: 5px;
-      width: 270px;
-      @include respond-to(desktop-wide) { width: 400px; }
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: -15px;
+        border-style: solid;
+        border-width: 30px 35px 30px 0;
+        border-color: transparent #eee;
+        display: block;
+        width: 0;
+        z-index: 1;
+      }
 
       .timeline-event-text {
         font-size: 20px;

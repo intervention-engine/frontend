@@ -1,160 +1,43 @@
-<div class="patient-results">
-  <div class="row">
-    <div class="col-xs-2 patient-photo">
-      {{#if patientPhoto}}
-        {{patient.photo}}
-      {{else}}
-        <i class="fa fa-user"></i>
-      {{/if}}
-    </div>
+{{!------------------------- PATIENT SUMMARY --------------------------------}}
 
-    <div class="col-xs-10 patient-risk-info">
-      {{vertical-bar-chart data=patient.risks height=100}}
-
-      <div class="patient-risk">
-        {{patient.computedRisk}}
-      </div>
-
-      <div class="patient-info">
-        <div class="patient-name">{{patient.fullName}}</div>
-        <div class="patient-age-gender-location">
-          <span class="patient-age">
-            <i class="fa fa-birthday-cake"></i>
-            {{patient.computedAge}} yrs
-          </span>
-          <span class="patient-gender">
-            <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
-            {{patient.computedGender}}
-          </span>
-          <span class="patient-location">
-            <i class="fa fa-home"></i>
-            {{patient.patientLocation}}
-          </span>
-        </div>
-      </div>
-
-      <div class="completed-interventions">
-        <div class="completed-interventions-value">19</div>
-        <div class="completed-interventions-stars">
-          <i class="fa fa-star fa-fw"></i>
-          <i class="fa fa-star fa-fw"></i>
-          <i class="fa fa-star-o fa-fw"></i>
-          <div class="completed-interventions-text">Completed Interventions</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="col-xs-12 col-reset">
+  {{patient-summary patientPhoto=patientPhoto patient=patient}}
 </div>
 
-<div class="row">
-  <div class="col-lg-2 col-md-3 patient-stats">
-    <div class="panel">
-      <div class="panel-heading-alt">
-        <div class="panel-title">
-          <i class="fa fa-hospital-o fa-fw"></i>
-          Appointments (1)
-        </div>
-      </div>
-      <div class="panel-body">
+{{!------------------------- PATIENT STATS ----------------------------------}}
 
-      </div>
+<div class="col-lg-2 col-md-3 col-reset">
+  {{patient-stats patient=patient}}
+</div>
 
-      <div class="panel-heading-alt">
-        <div class="panel-title">
-          <i class="fa fa-user-md fa-fw"></i>
-          Inverventions (2)
-        </div>
-      </div>
-      <div class="panel-body">
+<div class="col-lg-10 col-md-9">
+  <div class="row">
 
-      </div>
+    {{!------------------------- ASTER PLOT ---------------------------------}}
 
-      <div class="panel-heading-alt">
-        <div class="panel-title">
-          <i class="icon-med-clipboard"></i>
-          Conditions ({{patient.conditions.length}})
-        </div>
-      </div>
-      <div class="panel-body">
-        <ul>
-        {{#each condition in patient.conditions}}
-          {{#if condition.code}}
-          <li>{{condition.text}}</li>
-          {{/if}}
-        {{/each}}
-        </ul>
-      </div>
-
-      <div class="panel-heading-alt">
-        <div class="panel-title">
-          <i class="fa fa-pagelines fa-fw"></i>
-          Allergies (2)
-        </div>
-      </div>
-      <div class="panel-body">
-
-      </div>
-
-      <div class="panel-heading-alt">
-        <div class="panel-title">
-          <i class="icon-medication"></i>
-          Medications ({{patient.medications.length}})
-        </div>
-      </div>
-      <div class="panel-body">
-        {{#each medication in patient.medications}}
-          {{#if medication.medication}}
-          <li>{{medication.medication.text}}</li>
-          {{/if}}
-        {{/each}}
-      </div>
-
-    </div>
-  </div>
-
-  <div class="col-lg-5 col-md-9">
-    <div class="aster-plot">
+    <div class="col-lg-6 col-md-6">
       {{aster-plot-chart patient=patient data=patient.categoryDisplay selectedCategory=selectedCategory}}
     </div>
 
-    {{#if selectedCategory}}
-      <div class="category-details">
-        <div class="category-name">
-          {{selectedCategory.title}}
-        </div>
+    {{!------------------------- PATIENT TIMELINE ---------------------------}}
 
-        <div class="category-stat">
-          <div class="col-sm-3">
-            Risk:
-          </div>
-          <div class="col-sm-1 category-stat-value">
-            {{selectedCategory.risk}}
-          </div>
-          <div class="col-sm-7">
-            {{horizontal-bar-chart max=6 width=200 height=5 value=selectedCategory.risk}}
-          </div>
-        </div>
+    <div class="col-lg-6 hidden-md">
+      {{patient-timeline patient=patient}}
+    </div>
 
-        <div class="category-stat">
-          <div class="col-sm-3">
-            Weight:
-          </div>
-          <div class="col-sm-1 category-stat-value">
-            {{selectedCategory.weight}}
-          </div>
-          <div class="col-sm-7">
-            {{horizontal-bar-chart max=3 width=200 height=5 value=selectedCategory.weight}}
-          </div>
-        </div>
-      </div>
-    {{/if}}
+    {{!------------------------- CATEGORY DETAILS ---------------------------}}
 
+    <div class="col-lg-12 col-md-6">
+      {{#if selectedCategory}}
+        {{category-details selectedCategory=selectedCategory}}
+      {{/if}}
+    </div>
+
+    {{!------------------------- PATIENT TIMELINE ---------------------------}}
+
+    <div class="hidden-lg col-md-12">
+      {{patient-timeline patient=patient}}
+    </div>
 
   </div>
-
-  <div class="col-lg-5 hidden-md timeline">
-    {{patient-timeline patient=patient}}
-  </div>
-
-
 </div>

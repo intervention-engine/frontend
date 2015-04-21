@@ -77,9 +77,9 @@
   min-height: 500px;
 }
 
-// ------------------------- PATIENT DASH ---------------------------------- //
+// ------------------------- PATIENT SUMMARY ------------------------------- //
 
-.patient-results {
+.patient-summary {
 
   .patient-photo {
     font-size: 130px;
@@ -176,16 +176,15 @@
 // ------------------------- PATIENT CATEGORIES ---------------------------- //
 
 .aster-plot {
-  padding: 15px 5px;
-
-  @include respond-to(desktop-wide) {
-    padding: 50px;
-  }
+  margin: 0 auto;
+  padding: 20px;
+  @include respond-to(desktop) { padding: 20px 5px; }
 }
 
 .category-details {
   font-size: 18px;
-  margin-bottom: 80px;
+  @include respond-to(desktop-wide) { width: 450px; }
+  @include respond-to(desktop) { margin-top: 80px; }
 
   .category-name {
     font-size: 2em;

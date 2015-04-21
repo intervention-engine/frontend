@@ -1,0 +1,45 @@
+<div class="row patient-summary">
+  <div class="col-lg-2 col-md-3 col-reset patient-photo">
+    {{#if patientPhoto}}
+      {{patient.photo}}
+    {{else}}
+      <i class="fa fa-user"></i>
+    {{/if}}
+  </div>
+
+  <div class="col-lg-10 col-md-9 patient-risk-info">
+    {{vertical-bar-chart data=patient.risks height=100}}
+
+    <div class="patient-risk">
+      {{patient.computedRisk}}
+    </div>
+
+    <div class="patient-info">
+      <div class="patient-name">{{patient.fullName}}</div>
+      <div class="patient-age-gender-location">
+        <span class="patient-age">
+          <i class="fa fa-birthday-cake"></i>
+          {{patient.computedAge}} yrs
+        </span>
+        <span class="patient-gender">
+          <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+          {{patient.computedGender}}
+        </span>
+        <span class="patient-location">
+          <i class="fa fa-home"></i>
+          {{patient.patientLocation}}
+        </span>
+      </div>
+    </div>
+
+    <div class="completed-interventions">
+      <div class="completed-interventions-value">19</div>
+      <div class="completed-interventions-stars">
+        <i class="fa fa-star fa-fw"></i>
+        <i class="fa fa-star fa-fw"></i>
+        <i class="fa fa-star-o fa-fw"></i>
+        <div class="completed-interventions-text">Completed Interventions</div>
+      </div>
+    </div>
+  </div>
+</div>
