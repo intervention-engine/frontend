@@ -71,10 +71,11 @@ Patient = DS.Model.extend(
     [
       {name: 'medications', title: 'Medications', risk: @get('medications.length'), weight: 1}
       {name: 'conditions', title: 'Conditions', risk: @get('conditions.length'), weight: 2}
+      {name: 'readmissions', title: 'Readmissions', risk: @get('readmissions'), weight: 1}
+      {name: 'inpatientAdmissions', title: 'Inpatient Admissions', risk: @get('inpatientAdmissions.length'), weight: 1}
+      {name: 'utilization', title: 'Utilizations', risk: 5, weight: .5}
       {name: 'social_barriers', title: 'Social Barriers', risk: 2, weight: 1}
       {name: 'falls', title: 'Falls', risk: 1, weight: 1}
-      {name: 'admissions', title: 'Admissions', risk: 3, weight: 1}
-      {name: 'utilization', title: 'Utilizations', risk: 5, weight: .5}
     ]
 
   fullName: Ember.computed 'name', ->
@@ -103,7 +104,7 @@ Patient = DS.Model.extend(
       else
         count: 0, previousAdmission: item
     , null
-    result.count
+    result?.count||0
 
   computedGender: Ember.computed 'gender', ->
     value = @get('gender')?.toString()
