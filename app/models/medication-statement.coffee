@@ -41,7 +41,7 @@ MedicationStatement = DS.Model.extend
   text: Ember.computed('medication',  -> @get('medication.text'))
 
   active: (->
-    not @get('period.end')? or (@get('period.end') > new Date())
-  ).property('period')
+    not @get('whenGiven.end')? or (@get('whenGiven.end') > new Date())
+  ).property('whenGiven.end')
 
 `export default MedicationStatement`

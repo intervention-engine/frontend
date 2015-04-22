@@ -12,9 +12,15 @@ test 'a medication statement without an period end is active', ->
   ok model.get('active')
 
 test 'a medication statement with an period end in the future is active', ->
-  model = @subject({period: {end: new Date(2020, 1, 1)}})
+  period = null
+  Ember.run =>
+    period = @store().createRecord('period', {end: new Date(2020, 1, 1)})
+  model = @subject({whenGiven: period})
   ok model.get('active')
 
 test 'a medication statement with an period end in the past is not active', ->
-  model = @subject({period: {end: new Date(2000, 1, 1)}})
+  period = null
+  Ember.run =>
+    period = @store().createRecord('period', {end: new Date(2000, 1, 1)})
+  model = @subject({whenGiven: period})
   ok !model.get('active')

@@ -88,6 +88,8 @@ Patient = DS.Model.extend(
     else
       Math.round(Math.random() * (92 - 65) + 65)
 
+  activeMedications: Ember.computed.filterBy 'medications', 'active', true
+
   inpatientAdmissions: Ember.computed.filter 'encounters', (item) ->
     is_inpatient = false
     item.get('type.firstObject.coding')?.forEach (c, i) ->
