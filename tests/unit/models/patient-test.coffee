@@ -74,6 +74,14 @@ moduleForModel 'patient', 'Patient', {
                     Code: [{Coding: [{System: "http://hl7.org/fhir/sid/icd-9", Code: "305.00"}], Text: "Diagnosis, Active: Alcohol and Drug Dependence"}]
                     DateAsserted: "2012-10-03T08:00:00-04:00"
                   }
+                },
+                {
+                  content: {
+                    id: 2
+                    Code: [{Coding: [{System: "http://hl7.org/fhir/sid/icd-9", Code: "305.00"}], Text: "Diagnosis, Active: Alcohol and Drug Dependence"}]
+                    DateAsserted: "2012-10-03T08:00:00-04:00",
+                    AbatementDate: "2012-11-03T08:00:00-04:00"
+                  }
                 }
               ]
               })
@@ -158,7 +166,7 @@ test 'conditions load', ->
     patient = store.find('patient', 1)
   patient.then ->
     patient.get('conditions').then ->
-      equal patient.get('conditions.length'), 1
+      equal patient.get('conditions.length'), 2
 
 test 'medications load', ->
   store = @store()
@@ -169,6 +177,17 @@ test 'medications load', ->
   patient.then ->
     patient.get('medications').then ->
       equal patient.get('medications.length'), 1
+
+test 'active conditions', ->
+  store = @store()
+  patient = null
+  admissions = null
+  Ember.run ->
+    patient = store.find('patient', 1)
+  patient.then ->
+    patient.get('conditions').then ->
+      equal patient.get('conditions.length'), 2
+      equal patient.get('activeConditions.length'), 1
 
 test 'categoryDisplay data is correct', ->
   store = @store()
@@ -183,7 +202,7 @@ test 'categoryDisplay data is correct', ->
         patient.get('encounters')
       ]).then ->
       wheel = patient.get('categoryDisplay')
-      equal wheel.filterBy('name', 'conditions')?[0].risk, 1
+      equal wheel.filterBy('name', 'conditions')?[0].risk, 2
       equal wheel.filterBy('name', 'medications')?[0].risk, 1
       equal wheel.filterBy('name', 'inpatientAdmissions')?[0].risk, 2
       equal wheel.filterBy('name', 'readmissions')?[0].risk, 1

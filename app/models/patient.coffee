@@ -61,7 +61,7 @@ Patient = DS.Model.extend(
   ).property('risks')
 
   computedRisk: (->
-    riskTotal = @get('medications.length') + @get('conditions.length')
+    riskTotal = @get('activeMedications.length') + @get('activeConditions.length')
     if riskTotal > 6
       riskTotal = 6
     riskTotal
@@ -89,6 +89,7 @@ Patient = DS.Model.extend(
       Math.round(Math.random() * (92 - 65) + 65)
 
   activeMedications: Ember.computed.filterBy 'medications', 'active', true
+  activeConditions: Ember.computed.filterBy 'conditions', 'active', true
 
   inpatientAdmissions: Ember.computed.filter 'encounters', (item) ->
     is_inpatient = false
