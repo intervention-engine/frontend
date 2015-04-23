@@ -13,31 +13,25 @@
 <div class="col-lg-10 col-md-9">
   <div class="row">
 
-    {{!------------------------- ASTER PLOT ---------------------------------}}
+    {{!--------------------- ASTER PLOT -------------------------------------}}
+    <div class="col-lg-6">
+      <div class="col-lg-12 col-md-6">
+        {{aster-plot-chart patient=patient data=patient.categoryDisplay selectedCategory=selectedCategory}}
+      </div>
 
-    <div class="col-lg-6 col-md-6">
-      {{aster-plot-chart patient=patient data=patient.categoryDisplay selectedCategory=selectedCategory}}
+      {{!------------------- CATEGORY DETAILS -------------------------------}}
+
+      <div class="col-lg-12 col-md-6">
+        {{#if selectedCategory}}
+          {{category-details selectedCategory=selectedCategory}}
+        {{/if}}
+      </div>
     </div>
 
-    {{!------------------------- PATIENT TIMELINE ---------------------------}}
+    {{!--------------------- PATIENT TIMELINE -------------------------------}}
 
-    <div class="col-lg-6 hidden-md">
+    <div class="col-lg-6 col-md-12">
       {{patient-timeline patient=patient}}
     </div>
-
-    {{!------------------------- CATEGORY DETAILS ---------------------------}}
-
-    <div class="col-lg-12 col-md-6">
-      {{#if selectedCategory}}
-        {{category-details selectedCategory=selectedCategory}}
-      {{/if}}
-    </div>
-
-    {{!------------------------- PATIENT TIMELINE ---------------------------}}
-
-    <div class="hidden-lg col-md-12">
-      {{patient-timeline patient=patient}}
-    </div>
-
   </div>
 </div>
