@@ -1,59 +1,64 @@
-<div class="container">
+<div class="container patients">
   <div class="title-panel">
     <span class="title-text">Patients</span>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-3">
-    <div class="panel patient-panel">
+  <div class="row">
+
+    {{!--------------------- PATIENT LIST -----------------------------------}}
+
+    <div class="col-sm-3 patient-populations-list">
       {{populations-list populations=content.populations}}
 
-      <div class="panel-heading">
-        <div class="collapse-panel-title">
-          <a data-toggle="collapse" href="#choosePatient" aria-expanded="true" aria-controls="collapseOne">
-            Choose Patient
-            <i class="fa fa-chevron-down pull-right"></i>
-          </a>
+      <div class="panel patients-panel">
+        <div class="panel-heading">
+          <div class="collapse-panel-title">
+            <a data-toggle="collapse" href="#choosePatient" aria-expanded="true" aria-controls="collapseOne">
+              Choose Patient
+              <i class="fa fa-chevron-down pull-right"></i>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div class="panel-body patient-list">
-        <div class="collapse in" id="choosePatient">
-          <div class="patients-striped">
-            {{#if selectedItems}}
-              {{#each item in selectedItems}}
-                {{#each patient in item.patients.patientids}}
+        <div class="panel-body patient-list">
+          <div class="collapse in" id="choosePatient">
+            <div class="patients-striped">
+              {{#if selectedItems}}
+                {{#each item in selectedItems}}
+                  {{#each patient in item.patients.patientids}}
+                    {{patient-badge patient=patient currentPatient=currentPatient}}
+                  {{/each}}
+                {{/each}}
+              {{else}}
+                {{#each patient in content.patients}}
                   {{patient-badge patient=patient currentPatient=currentPatient}}
                 {{/each}}
-              {{/each}}
-            {{else}}
-              {{#each patient in content.patients}}
-                {{patient-badge patient=patient currentPatient=currentPatient}}
-              {{/each}}
-            {{/if}}
+              {{/if}}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-sm-9">
-    <div class="panel patient-panel">
-      <div class="panel-heading">
-        <div class="panel-title">
-          View Results
-        </div>
-      </div>
+    {{!--------------------- PATIENT SUMMARY --------------------------------}}
 
-      <div class="panel-body">
-        {{#if currentPatient}}
-          {{patient-viewer patient=currentPatient}}
-        {{else}}
-          <div class="select-patient sub-text">
-            Please select patient.
+    <div class="col-sm-9 patient-results">
+      <div class="panel patient-panel">
+        <div class="panel-heading">
+          <div class="panel-title">
+            View Results
           </div>
-        {{/if}}
+        </div>
+
+        <div class="panel-body">
+          {{#if currentPatient}}
+            {{patient-viewer patient=currentPatient}}
+          {{else}}
+            <div class="select-patient sub-text">
+              Please select patient.
+            </div>
+          {{/if}}
+        </div>
       </div>
     </div>
   </div>

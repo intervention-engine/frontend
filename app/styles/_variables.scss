@@ -22,6 +22,7 @@ $screen-sm: 768px;
 $screen-md: 1200px;
 $screen-lg: 1600px;
 
+$grid-float-breakpoint: $screen-md;
 $grid-gutter-width: 30px;
 $container-tablet: $screen-sm + $grid-gutter-width;
 $container-desktop: $screen-md + $grid-gutter-width;
@@ -34,9 +35,9 @@ $fa-font-path: '/assets/fontawesome';
 
 // ------------------------- MEDIA QUERIES --------------------------------- //
 
-$break-mobile: $screen-sm;
-$break-tablet: $screen-md;
-$break-desktop: $screen-lg;
+$break-mobile: $screen-sm;  // mobile and tablet-portrait
+$break-tablet: $screen-md;  // tablet-landscape
+$break-desktop: $screen-lg; // desktop-regular (> desktop-wide)
 
 @mixin respond-to($media) {
   @if $media == mobile {

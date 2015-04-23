@@ -1,5 +1,8 @@
 <div class="row patient-summary">
-  <div class="col-lg-2 col-md-3 col-reset patient-photo">
+
+  {{!----------------------- PATIENT PHOTO ----------------------------------}}
+
+  <div class="col-lg-2 col-sm-3 col-reset patient-photo">
     {{#if patientPhoto}}
       {{patient.photo}}
     {{else}}
@@ -7,12 +10,16 @@
     {{/if}}
   </div>
 
-  <div class="col-lg-10 col-md-9 patient-risk-info">
+  <div class="col-lg-10 col-sm-9 patient-risk-info">
     {{vertical-bar-chart data=patient.risks height=100}}
+
+    {{!--------------------- PATIENT RISK -----------------------------------}}
 
     <div class="patient-risk">
       {{patient.computedRisk}}
     </div>
+
+    {{!--------------------- PATIENT INFO -----------------------------------}}
 
     <div class="patient-info">
       <div class="patient-name">{{patient.fullName}}</div>
@@ -31,6 +38,8 @@
         </span>
       </div>
     </div>
+
+    {{!--------------------- COMPLETED INTERVENTIONS ------------------------}}
 
     <div class="completed-interventions">
       <div class="completed-interventions-value">19</div>

@@ -2,6 +2,7 @@
 .timeline {
   margin: 20px auto;
   @include respond-to(desktop) { margin: 20px 0 0 80px; }
+  @include respond-to(tablet) { margin: 20px 0 0 80px; }
 
   .timeline-icon-search {
 
