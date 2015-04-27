@@ -46,6 +46,9 @@ Condition = DS.Model.extend(
   text: (->
     @get('code.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||""
   ).property('code')
+
+  startDate: Em.computed('onsetDate', -> @get('onsetDate'))
+  endDate: Em.computed('abatementDate', -> @get('abatementDate'))
 )
 
 `export default Condition`

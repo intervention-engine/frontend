@@ -1,0 +1,35 @@
+<div class="row category-details">
+  <div class="col-xs-12 category-name">
+    {{selectedCategory.title}}
+  </div>
+
+  <div class="category-stat">
+    <div class="col-lg-3 col-md-4 col-xs-3">
+      Risk:
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
+      {{selectedCategory.risk}}
+    </div>
+    <div class="col-lg-7 hidden-md col-xs-7">
+      {{horizontal-bar-chart max=6 width=200 height=5 value=selectedCategory.risk}}
+    </div>
+    <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
+      {{horizontal-bar-chart max=6 width=100 height=5 value=selectedCategory.risk}}
+    </div>
+  </div>
+
+  <div class="category-stat">
+    <div class="col-lg-3 col-md-4 col-xs-3">
+      Weight:
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
+      {{selectedCategory.weight}}
+    </div>
+    <div class="col-lg-7 hidden-md col-xs-7">
+      {{horizontal-bar-chart max=3 width=200 height=5 value=selectedCategory.weight}}
+    </div>
+    <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
+      {{horizontal-bar-chart max=3 width=100 height=5 value=selectedCategory.weight}}
+    </div>
+  </div>
+</div>

@@ -3,8 +3,12 @@
 .title-panel {
   background-color: #fff;
   margin: -20px -9999rem 20px -9999rem;
-  /* add back negative margin value */
-  padding: 0.25rem 9999rem;
+  padding: 0.25rem 9999rem; // add back negative margin value
+  @include respond-to(tablet) {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  @include respond-to(mobile) { text-align: center; }
 
   .title-text {
     font-size: 4.8em;

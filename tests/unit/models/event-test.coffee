@@ -1,11 +1,11 @@
 `import { test, moduleForModel } from 'ember-qunit'`
 
-moduleForModel 'ember-item', 'EmberItem', {
+moduleForModel 'event', {
   # Specify the other units that are required for this test.
-  needs: ['model:extension', 'model:codeable-concept', 'model:range']
+  needs: []
 }
 
-test 'it exists', ->
+test 'it exists', (assert) ->
   model = @subject()
   # store = @store()
-  ok !!model
+  assert.ok !!model

@@ -27,7 +27,7 @@
 `import DS from 'ember-data'`
 
 Quantity = DS.Model.extend(
-  value: DS.attr()
+  value: DS.attr('number')
   comparator: DS.attr('string')
   units: DS.attr('string')
   system: DS.attr('string')

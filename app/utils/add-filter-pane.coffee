@@ -17,11 +17,14 @@ createPane = (context, pane) ->
 
 createPatientPane = (context) ->
   newPane = context.store.createRecord("pane", {id: Ember.generateGuid({}, "pane")})
-  ageParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/patientage", value: 18})
+  ageRange = context.store.createRecord('range')
+  ageRange.set("low", context.store.createRecord("quantity", {value: 0}))
+  ageRange.set("high", context.store.createRecord("quantity", {value: Infinity}))
+  ageParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/patientage", valueRange: ageRange})
   ageFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({}, "ember-item"), parameter: ageParam, componentName: "age-filter"})
   genderParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/patientgender", valueString: "M"})
   genderFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({}, "ember-item"), parameter: genderParam, componentName: "gender-filter"})
-  newPane.get('items').pushObjects([genderFilter])
+  newPane.get('items').pushObjects([genderFilter, ageFilter])
   newPane
 
 createEncounterPane = (context) ->

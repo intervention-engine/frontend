@@ -1,0 +1,23 @@
+<div class="timeline">
+  <div class="timeline-icon-search">
+    <i class="fa fa-user timeline-icon"></i>
+
+    <div class="row timeline-search">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+          </span>
+          {{input type="text" class="form-control" value=searchTimeline placeholder="Search timeline..."}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-events">
+    <div class="timeline-line"></div>
+    {{#each event in patient.events}}
+      {{timeline-event event=event}}
+    {{/each}}
+  </div>
+</div>

@@ -36,4 +36,8 @@ MedicationStatement = DS.Model.extend
   device: DS.hasMany('reference')
   dosage: DS.hasMany('dosage')
 
+  startDate: Ember.computed('whenGiven', -> @get('whenGiven.start'))
+  endDate: Ember.computed('whenGiven', -> @get('whenGiven.end'))
+  text: Ember.computed('medication',  -> @get('medication.text'))
+
 `export default MedicationStatement`

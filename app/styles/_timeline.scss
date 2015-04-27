@@ -1,0 +1,126 @@
+// ------------------------- TIMELINE -------------------------------------- //
+.timeline {
+  margin: 20px auto;
+  @include respond-to(desktop) { margin: 20px 0 0 80px; }
+  @include respond-to(tablet) { margin: 20px 0 0 80px; }
+
+  .timeline-icon-search {
+
+    .timeline-icon {
+      margin-left: -15px;
+      font-size: 48px;
+      color: $brand-primary;
+    }
+
+    // --------------------- TIMELINE SEARCH ------------------------------- //
+
+    .timeline-search {
+      display: inline-block;
+      margin-left: 35px;
+      border: 1px solid lighten($brand-secondary, 60%);
+      border-radius: 15px;
+      height: 28px;
+      font-size: 16px;
+      width: 380px;
+
+      .form-control,
+      .btn {
+        border: none;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        color: lighten($brand-secondary, 40%);
+      }
+
+      .form-control {
+        height: 25px;
+        width: 180px;
+        padding-left: 10px;
+      }
+    }
+  }
+
+  // ----------------------- TIMELINE EVENTS ------------------------------- //
+
+  .timeline-events {
+    margin: -4px 0 0 -25px;
+    overflow-y: scroll;
+    width: 500px;
+
+    .timeline-line {
+      display: block;
+      position: absolute;
+      margin-left: 25px;
+      width: 8px;
+      height: 100%;
+      background-color: $body-bg;
+    }
+
+    .timeline-event {
+      position: relative;
+      left: 20px;
+      min-height: 100px;
+      width: 380px;
+      border: 8px solid $body-bg;
+      margin: 10px 0 10px 70px;
+      padding: 5px;
+
+      .pointer-bottom {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: -25px;
+        border-top: 18px solid transparent;
+        border-bottom: 18px solid transparent;
+        border-right: 18px solid $body-bg;
+      }
+
+      .pointer-top {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: -15px;
+        border-top: 18px solid transparent;
+        border-bottom: 18px solid transparent;
+        border-right: 18px solid #fff;
+      }
+
+      .timeline-event-icon {
+        display: block;
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        top: 5px;
+        left: -91px;
+        border-radius: 50%;
+        border: 8px solid $body-bg;
+        background-color: #fff;
+
+        .icon-med-clipboard {
+          position: absolute;
+          font-size: 25px;
+          top: -4px;
+          left: 2px;
+        }
+      }
+
+      .timeline-event-text {
+        font-size: 20px;
+      }
+
+      .timeline-event-start-date {
+        font-size: 16px;
+        color: lighten($brand-secondary, 40%);
+      }
+
+      .timeline-event-type-icon {
+        color: $brand-secondary;
+        font-size: 24px;
+        padding-left: 20px;
+      }
+    }
+  }
+}

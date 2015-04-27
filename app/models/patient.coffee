@@ -53,7 +53,7 @@ Patient = DS.Model.extend(
 
   # 'LOINC 75492-9'
   risks: (->
-    @get('observations').filter((el) -> el.isCoded('LOINC', '75492-9'))
+    @get('observations').filter((el) -> el.isCoded('LOINC', '75492-9')).sortBy('appliesDateTime')
   ).property('observations')
 
   lastRisk: (->
@@ -135,6 +135,44 @@ Patient = DS.Model.extend(
   hasNotifications: Ember.computed.gt('notificationCount', 0)
 
   patientLocation: 'Home'
+
+  events: Ember.computed 'medications', 'observations', 'conditions', ->
+    events = Ember.A()
+    events.pushObject(@store.createRecord('event', {
+      event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."}
+    }))
+    @get("conditions").forEach (ev) =>
+      events.pushObject(@store.createRecord('event', {
+        event: ev,
+        type: "condition"
+      }))
+      if ev.get('abatementDate') >= ev.get('onsetDate')
+        events.pushObject(@store.createRecord('event', {
+          event: ev
+          isEnd: true,
+          type:"condition"
+        }))
+    @get("medications").forEach (ev) =>
+      console.log ev.get('medication')
+      events.pushObject(@store.createRecord('event', {
+        startDate: moment(ev.get('whenGiven.start')).format('lll'),
+        text:ev.get('medication.text')+" started.",
+        type:"medication"
+      }))
+      if ev.get('whenGiven.end') >= ev.get('whenGiven.start')
+        events.pushObject(@store.createRecord('event', {
+          startDate: moment(ev.get('whenGiven.end')).format('lll'),
+          text:ev.get('medication.text')+" stopped.",
+          type:"medication"
+        }))
+
+    #@get("observations").forEach (ev) =>
+      #events.pushObject(@store.createRecord('event', {
+        #startDate: moment(ev.get('appliesDateTime')).format(lll),
+        #text:ev.get('text')+".",
+        #type:"observation"
+      #}))
+    events.sortBy('effectiveDate').reverse()
 )
 
 `export default Patient`
