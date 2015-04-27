@@ -22,12 +22,12 @@
   <div class="panel-heading-alt">
     <div class="panel-title">
       <i class="icon-med-clipboard"></i>
-      Conditions ({{patient.conditions.length}})
+      Conditions ({{patient.activeConditions.length}})
     </div>
   </div>
   <div class="panel-body">
     <ul>
-    {{#each condition in patient.conditions}}
+    {{#each condition in patient.activeConditions}}
       {{#if condition.code}}
         <li>{{condition.text}}</li>
       {{/if}}
@@ -48,11 +48,11 @@
   <div class="panel-heading-alt">
     <div class="panel-title">
       <i class="icon-medication"></i>
-      Medications ({{patient.medications.length}})
+      Medications ({{patient.activeMedications.length}})
     </div>
   </div>
   <div class="panel-body">
-    {{#each medication in patient.medications}}
+    {{#each medication in patient.activeMedications}}
       {{#if medication.medication}}
         <li>{{medication.medication.text}}</li>
       {{/if}}
