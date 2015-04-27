@@ -2,7 +2,7 @@
 
 moduleForModel 'ember-item', 'EmberItem', {
   # Specify the other units that are required for this test.
-  needs: ['model:extension', 'model:codeable-concept']
+  needs: ['model:extension', 'model:codeable-concept', 'model:range']
 }
 
 test 'it exists', ->

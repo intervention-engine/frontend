@@ -139,9 +139,8 @@ Patient = DS.Model.extend(
   events: Ember.computed 'medications', 'observations', 'conditions', ->
     events = Ember.A()
     events.pushObject(@store.createRecord('event', {
-        event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."}
-
-      }))
+      event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."}
+    }))
     @get("conditions").forEach (ev) =>
       events.pushObject(@store.createRecord('event', {
         event: ev,
