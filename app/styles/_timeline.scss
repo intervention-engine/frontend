@@ -46,10 +46,18 @@
   // ----------------------- TIMELINE EVENTS ------------------------------- //
 
   .timeline-events {
-    border-left: 10px solid $body-bg;
-    margin: -4px 0 0 0;
+    margin: -4px 0 0 -25px;
     overflow-y: scroll;
     width: 500px;
+
+    .timeline-line {
+      display: block;
+      position: absolute;
+      margin-left: 25px;
+      width: 8px;
+      height: 100%;
+      background-color: $body-bg;
+    }
 
     .timeline-event {
       position: relative;
@@ -57,7 +65,7 @@
       min-height: 100px;
       width: 380px;
       border: 8px solid $body-bg;
-      margin: 10px 0 10px 30px;
+      margin: 10px 0 10px 70px;
       padding: 5px;
 
       .pointer-bottom {
@@ -80,6 +88,25 @@
         border-right: 18px solid #fff;
       }
 
+      .timeline-event-icon {
+        display: block;
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        top: 5px;
+        left: -91px;
+        border-radius: 50%;
+        border: 8px solid $body-bg;
+        background-color: #fff;
+
+        .icon-med-clipboard {
+          position: absolute;
+          font-size: 25px;
+          top: -4px;
+          left: 2px;
+        }
+      }
+
       .timeline-event-text {
         font-size: 20px;
       }
@@ -89,7 +116,7 @@
         color: lighten($brand-secondary, 40%);
       }
 
-      .timeline-event-icon {
+      .timeline-event-type-icon {
         color: $brand-secondary;
         font-size: 24px;
         padding-left: 20px;

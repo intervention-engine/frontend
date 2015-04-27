@@ -10,9 +10,6 @@ Event = DS.Model.extend {
       return @get('event.endDate')
     return @get('event.startDate')
   ).property('isEnd', 'event')
-
-  isCondition: Ember.computed.equal('type', 'condition')
-  isMedication: Ember.computed.equal('type', 'medication')
 }
 
 `export default Event`
