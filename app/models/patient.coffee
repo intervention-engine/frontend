@@ -158,23 +158,16 @@ Patient = DS.Model.extend(
     @get("medications").forEach (ev) =>
       console.log ev.get('medication')
       events.pushObject(@store.createRecord('event', {
-        startDate: moment(ev.get('whenGiven.start')).format('lll'),
-        text:ev.get('medication.text')+" started.",
+        event: ev
+        isEnd: false,
         type:"medication"
       }))
       if ev.get('whenGiven.end') >= ev.get('whenGiven.start')
         events.pushObject(@store.createRecord('event', {
-          startDate: moment(ev.get('whenGiven.end')).format('lll'),
-          text:ev.get('medication.text')+" stopped.",
+          event: ev
+          isEnd: true,
           type:"medication"
         }))
-
-    #@get("observations").forEach (ev) =>
-      #events.pushObject(@store.createRecord('event', {
-        #startDate: moment(ev.get('appliesDateTime')).format(lll),
-        #text:ev.get('text')+".",
-        #type:"observation"
-      #}))
     events.sortBy('effectiveDate').reverse()
 )
 
