@@ -28,16 +28,20 @@
 
 MedicationStatement = DS.Model.extend
   identifier: DS.hasMany('identifier')
-  patient: DS.belongsTo('reference')
+  patient: DS.belongsTo('resource-reference')
   wasNotGiven: DS.attr('boolean')
-  reasonNotGiven: DS.hasMany('codeableConcept')
+  reasonNotGiven: DS.hasMany('codeable-concept')
   whenGiven: DS.belongsTo('period')
   medication: DS.belongsTo('medication', async: true)
-  device: DS.hasMany('reference')
+  device: DS.hasMany('resource-reference')
   dosage: DS.hasMany('dosage')
 
   startDate: Ember.computed('whenGiven', -> @get('whenGiven.start'))
   endDate: Ember.computed('whenGiven', -> @get('whenGiven.end'))
   text: Ember.computed('medication',  -> @get('medication.text'))
+
+  active: (->
+    not @get('whenGiven.end')? or (@get('whenGiven.end') > new Date())
+  ).property('whenGiven.end')
 
 `export default MedicationStatement`

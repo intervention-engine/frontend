@@ -49,6 +49,10 @@ Condition = DS.Model.extend(
 
   startDate: Em.computed('onsetDate', -> @get('onsetDate'))
   endDate: Em.computed('abatementDate', -> @get('abatementDate'))
+
+  active: (->
+    not @get('abatementDate')? or (@get('abatementDate') > new Date())
+  ).property('abatementDate')
 )
 
 `export default Condition`

@@ -30,7 +30,7 @@ Medication = DS.Model.extend
   name: DS.attr('string')
   code: DS.belongsTo('codeableConcept')
   isBrand: DS.attr('boolean')
-  manufacturer: DS.belongsTo('reference')
+  manufacturer: DS.belongsTo('resource-reference')
   kind: DS.attr('string')
 
   text: (->

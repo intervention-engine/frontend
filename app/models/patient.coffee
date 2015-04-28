@@ -61,7 +61,7 @@ Patient = DS.Model.extend(
   ).property('risks')
 
   computedRisk: (->
-    riskTotal = @get('medications.length') + @get('conditions.length')
+    riskTotal = @get('activeMedications.length') + @get('activeConditions.length')
     if riskTotal > 6
       riskTotal = 6
     riskTotal
@@ -87,6 +87,9 @@ Patient = DS.Model.extend(
       moment().diff(moment(@get('birthDate')), 'years')
     else
       Math.round(Math.random() * (92 - 65) + 65)
+
+  activeMedications: Ember.computed.filterBy 'medications', 'active', true
+  activeConditions: Ember.computed.filterBy 'conditions', 'active', true
 
   inpatientAdmissions: Ember.computed.filter 'encounters', (item) ->
     is_inpatient = false
@@ -155,23 +158,16 @@ Patient = DS.Model.extend(
     @get("medications").forEach (ev) =>
       console.log ev.get('medication')
       events.pushObject(@store.createRecord('event', {
-        startDate: moment(ev.get('whenGiven.start')).format('lll'),
-        text:ev.get('medication.text')+" started.",
+        event: ev
+        isEnd: false,
         type:"medication"
       }))
       if ev.get('whenGiven.end') >= ev.get('whenGiven.start')
         events.pushObject(@store.createRecord('event', {
-          startDate: moment(ev.get('whenGiven.end')).format('lll'),
-          text:ev.get('medication.text')+" stopped.",
+          event: ev
+          isEnd: true,
           type:"medication"
         }))
-
-    #@get("observations").forEach (ev) =>
-      #events.pushObject(@store.createRecord('event', {
-        #startDate: moment(ev.get('appliesDateTime')).format(lll),
-        #text:ev.get('text')+".",
-        #type:"observation"
-      #}))
     events.sortBy('effectiveDate').reverse()
 )
 
