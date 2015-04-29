@@ -11,26 +11,27 @@ VerticalLineChartComponent = Ember.Component.extend
     @width = (this.width||600) - padding * 2
     @height = (this.height||200) - padding * 2
     svg.attr("viewBox", "0 0 #{@width} #{@height}")
-    @positionScale = d3.scale.ordinal()
-      .domain(d3.range(0, data.length))
-      .rangeRoundBands([padding, @width], .1)
+    @positionScale = d3.time.scale()
+      .domain([new Date(2011, 1, 1), new Date()])
+      .range([padding, @width])
     @heightScale = d3.scale.linear()
-      .domain([0, d3.max(data, (d) -> d.value)])
+      .domain([0, 6])
       .range([padding, @height])
 
     if @area
       @generator = d3.svg.area()
-        .x((d,i) -> @positionScale(i))
+        .x((d) -> @positionScale(d.effectiveDate))
         .y0(@height)
         .y1((d) -> @height - @heightScale(d.value))
         .interpolate(@interpolate||"step")
     else
       @generator = d3.svg.line()
-        .x((d,i) -> @positionScale(i))
+        .x((d) -> @positionScale(d.effectiveDate))
         .y((d) -> @height - @heightScale(d.value))
         .interpolate(@interpolate||"step")
 
 
+    window.heightScale = @heightScale
     g = svg.append("g")
       .append("path")
       .attr("d", @generator(data))

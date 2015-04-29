@@ -16,7 +16,7 @@ moduleForModel 'patient', 'Patient', {
    'model:resource-reference', 'model:coding', 'serializer:coding',
    'model:location', 'model:quantity',
    'model:participant', 'model:hospitalization',
-   'model:dosage', 'model:medication', 'model:accomodation']
+   'model:dosage', 'model:medication', 'model:accomodation', 'model:event']
   setup: ->
     server = new Pretender ->
       @get '/Patient/', (request) ->
@@ -72,14 +72,14 @@ moduleForModel 'patient', 'Patient', {
                   content: {
                     id: 1
                     Code: [{Coding: [{System: "http://hl7.org/fhir/sid/icd-9", Code: "305.00"}], Text: "Diagnosis, Active: Alcohol and Drug Dependence"}]
-                    DateAsserted: "2012-10-03T08:00:00-04:00"
+                    OnsetDate: "2012-10-03T08:00:00-04:00"
                   }
                 },
                 {
                   content: {
                     id: 2
                     Code: [{Coding: [{System: "http://hl7.org/fhir/sid/icd-9", Code: "305.00"}], Text: "Diagnosis, Active: Alcohol and Drug Dependence"}]
-                    DateAsserted: "2012-10-03T08:00:00-04:00",
+                    OnsetDate: "2012-10-03T08:00:00-04:00",
                     AbatementDate: "2012-11-03T08:00:00-04:00"
                   }
                 }
@@ -239,7 +239,6 @@ test 'computedGender is correct for other', ->
   patient.then ->
     equal patient.get('computedGender'), "other"
 
-
 test 'computedAge is correct', ->
   store = @store()
   patient = null
@@ -250,3 +249,18 @@ test 'computedAge is correct', ->
     # We're doing this so that this test doesn't break when the patient gets older
     computedAge = moment.duration({to: moment(), from: moment(patient.get('birthDate'))}).years()
     equal patient.get('computedAge'), computedAge
+
+test 'risk calculation is correct', ->
+  store = @store()
+  patient = null
+  Ember.run ->
+    patient = store.find('patient', 1)
+  patient.then ->
+    Ember.RSVP.allSettled([
+        patient.get('conditions'),
+        patient.get('medications')
+      ]).then ->
+        events = patient.get('events')
+        risks = patient.get('risks')
+        debugger
+        equal risks.length, 7

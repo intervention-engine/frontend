@@ -51,13 +51,36 @@ Patient = DS.Model.extend(
   encounters: DS.hasMany('encounter', async: true)
   medications: DS.hasMany('medicationStatement', async: true)
 
-  # 'LOINC 75492-9'
   risks: (->
-    @get('observations').filter((el) -> el.isCoded('LOINC', '75492-9')).sortBy('appliesDateTime')
-  ).property('observations')
+    theRisks = @get('events').map((item, index, enumerable) ->
+      if (item.get('type') is 'medication') or (item.get('type') is 'condition')
+        riskLevelAdjustment = 0
+        if item.get('isEnd')
+          riskLevelAdjustment = -1
+        else
+          riskLevelAdjustment = 1
+        {value: riskLevelAdjustment, effectiveDate: item.get('effectiveDate')}
+      else
+        # Covers birth
+        {value: 0, effectiveDate: item.get('effectiveDate')}
+    ).compact().reverse().reduce((previousValue, item) ->
+      if previousValue.length > 0
+        last = previousValue[previousValue.length - 1]
+        if last.effectiveDate == item.effectiveDate
+          last.value = item.value + last.value
+        else
+          previousValue.push(value: item.value + last.value, effectiveDate: item.effectiveDate)
+      else
+        previousValue.push({value: 0, effectiveDate: item.effectiveDate})
+      previousValue
+    , Ember.A())
+    if theRisks.length > 0
+      theRisks.push({value: theRisks[theRisks.length - 1].value, effectiveDate: new Date()})
+    theRisks
+  ).property('events')
 
   lastRisk: (->
-    @get('risks.firstObject.valueQuantity.value')
+    @get('risks.firstObject.value')
   ).property('risks')
 
   computedRisk: (->
@@ -149,7 +172,7 @@ Patient = DS.Model.extend(
         event: ev,
         type: "condition"
       }))
-      if ev.get('abatementDate') >= ev.get('onsetDate')
+      if ev.get('abatementDate')? and (ev.get('abatementDate') >= ev.get('onsetDate'))
         events.pushObject(@store.createRecord('event', {
           event: ev
           isEnd: true,
@@ -162,7 +185,7 @@ Patient = DS.Model.extend(
         isEnd: false,
         type:"medication"
       }))
-      if ev.get('whenGiven.end') >= ev.get('whenGiven.start')
+      if ev.get('whenGiven.end')? and (ev.get('whenGiven.end') >= ev.get('whenGiven.start'))
         events.pushObject(@store.createRecord('event', {
           event: ev
           isEnd: true,
