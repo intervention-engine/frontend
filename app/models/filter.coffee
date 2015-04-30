@@ -30,62 +30,81 @@
 Filter = DS.Model.extend(SelectableMixin,
   name: DS.attr("string")
   description: DS.attr("string")
-  # query: DS.belongsTo("query")
+  query: DS.belongsTo("query")
   panes: DS.hasMany("pane")
   patients: DS.belongsTo("queryList", { async: true })
   patientsCount: (-> @get('patients').length).property('patients.[]')
   results: DS.attr("number")
 
-  instaPatient: ( ->
-    NaN
-  ).property('computeInsta')
 
-  computeInsta: (->
-    req = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query').serialize()))
-    req.then ((res)=>
+
+  computeInstaCount: (->
+    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query')?.serialize()))
+
+    pats.fail (=>
+      console.log "Failed"
+      _this.set('instaPatient', 0)
+    )
+
+    pats.then ((res)=>
       val = JSON.parse(res).total
       console.log "pats #{val}"
       _this.set('instaPatient', val)
     )
 
+    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query')?.serialize()))
+
+    encounters.fail (=>
+      console.log "Failed"
+      _this.set('instaEncounter', 0)
+    )
+
+    encounters.then ((res)=>
+      val = JSON.parse(res).total
+      console.log "enc #{val}"
+      _this.set('instaEncounter', val)
+    )
+
+
+    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query')?.serialize()))
+
+    conds.fail (=>
+      console.log "Failed"
+      _this.set('instaCondition', 0)
+    )
+
+    conds.then ((res)=>
+      val = JSON.parse(res).total
+      console.log "conds #{val}"
+      _this.set('instaCondition', val)
+    )
   ).observes('query')
 
+  instaPatient: ( ->
+    @get('query')
+    NaN
+  ).property('computeInstaCount')
+
   instaEncounter: ( ->
-    req = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query').serialize()))
-    req.then ((res)->
-      val = JSON.parse(res).total
-      console.log val
-    )
-    Math.random()
-  ).property('query')
+    NaN
+  ).property('computeInstaCount')
 
   instaCondition: ( ->
-    req = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query').serialize()))
-    req.then ((res)->
-      val = JSON.parse(res).total
-      console.log val
-    )
-    Math.random()
-  ).property('query')
+    NaN
+  ).property('computeInstaCount')
 
-  query: (->
+  buildQuery: (->
     items = @get('panes').mapBy('activeParameters').reduce(((prev, cur) -> prev.concat(cur)), [])
     constructedQuery = @store.createRecord("query", {})
     constructedQuery.get('parameter').pushObjects(items)
-    constructedQuery
-  ).property('panes.@each.activeParameters')
+    @set('query',constructedQuery)
+  ).observes('panes.@each.activeParameters')
 
   hasFilterPane: (->
     @get('panes.length') > 0
   ).property('panes.length')
 
-  buildQuery: ->
-    if not @get('query')
-      @set('query', @store.createRecord("query", {}))
-    activeItems = @get("panes").map((pane) -> pane.get("items").filterBy("active", true))
-    for itemSet in activeItems
-      for item in itemSet
-        @get('query.parameter').pushObject(item.get('parameter'))
+
 
   checkboxId: (->
     "checkbox-population-#{@get('id')}"

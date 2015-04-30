@@ -22,7 +22,7 @@ FiltersNewController = Ember.Controller.extend({
   # actions
   actions:
     saveFilter: ->
-      @get('model').buildQuery()
+      # @get('model').buildQuery()
       @get('model').set("name", @get('filterName') || Ember.generateGuid({}, "Population "))
       @get('model').save()
       @transitionTo("filters.index")
