@@ -39,7 +39,7 @@ Filter = DS.Model.extend(SelectableMixin,
 
 
   computeInstaCount: (->
-    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query')?.serialize()))
+    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query')?.serialize()||{}))
 
     pats.fail (=>
       console.log "Failed"
@@ -52,7 +52,7 @@ Filter = DS.Model.extend(SelectableMixin,
       _this.set('instaPatient', val)
     )
 
-    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query')?.serialize()))
+    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query')?.serialize()||{}))
 
     encounters.fail (=>
       console.log "Failed"
@@ -66,7 +66,7 @@ Filter = DS.Model.extend(SelectableMixin,
     )
 
 
-    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query')?.serialize()))
+    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query')?.serialize()||{}))
 
     conds.fail (=>
       console.log "Failed"
@@ -78,19 +78,16 @@ Filter = DS.Model.extend(SelectableMixin,
       console.log "conds #{val}"
       _this.set('instaCondition', val)
     )
-  ).observes('query')
+  ).observes('query').on('init')
 
   instaPatient: ( ->
     @get('query')
-    NaN
   ).property('computeInstaCount')
 
   instaEncounter: ( ->
-    NaN
   ).property('computeInstaCount')
 
   instaCondition: ( ->
-    NaN
   ).property('computeInstaCount')
 
   buildQuery: (->

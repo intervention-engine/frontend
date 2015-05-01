@@ -5,19 +5,19 @@
       <div class="row">
         <div class="count col-sm-3">
           <span class="count-value" id="patient-count">
-            {{content.instaPatient}}
+            {{numeral-format content.instaPatient "0a"}}
           </span><br/>
           <span>patients</span>
         </div>
         <div class="count col-sm-3">
           <span class="count-value" id="condition-count">
-            {{content.instaCondition}}
+            {{numeral-format content.instaCondition "0a"}}
           </span><br/>
           <span>conditions</span>
         </div>
         <div class="count col-sm-3">
           <span class="count-value" id="encounter-count">
-            {{content.instaEncounter}}
+            {{numeral-format content.instaEncounter "0a"}}
           </span><br/>
           <span>encounters</span>
         </div>
