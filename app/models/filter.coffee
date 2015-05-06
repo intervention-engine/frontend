@@ -36,17 +36,66 @@ Filter = DS.Model.extend(SelectableMixin,
   patientsCount: (-> @get('patients').length).property('patients.[]')
   results: DS.attr("number")
 
+
+
+  computeInstaCount: (->
+    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query')?.serialize()||{}))
+
+    pats.fail (=>
+      _this.set('instaPatient', 0)
+    )
+
+    pats.then ((res)=>
+      val = JSON.parse(res).total
+      _this.set('instaPatient', val)
+    )
+
+    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query')?.serialize()||{}))
+
+    encounters.fail (=>
+      _this.set('instaEncounter', 0)
+    )
+
+    encounters.then ((res)=>
+      val = JSON.parse(res).total
+      _this.set('instaEncounter', val)
+    )
+
+
+    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query')?.serialize()||{}))
+
+    conds.fail (=>
+      _this.set('instaCondition', 0)
+    )
+
+    conds.then ((res)=>
+      val = JSON.parse(res).total
+      _this.set('instaCondition', val)
+    )
+  ).observes('query').on('init')
+
+  instaPatient: ( ->
+    @get('query')
+  ).property('computeInstaCount')
+
+  instaEncounter: ( ->
+  ).property('computeInstaCount')
+
+  instaCondition: ( ->
+  ).property('computeInstaCount')
+
+  buildQuery: (->
+    items = @get('panes').mapBy('activeParameters').reduce(((prev, cur) -> prev.concat(cur)), [])
+    constructedQuery = @store.createRecord("query", {})
+    constructedQuery.get('parameter').pushObjects(items)
+    @set('query',constructedQuery)
+  ).observes('panes.@each.activeParameters')
+
   hasFilterPane: (->
     @get('panes.length') > 0
   ).property('panes.length')
 
-  buildQuery: ->
-    if not @get('query')
-      @set('query', @store.createRecord("query", {}))
-    activeItems = @get("panes").map((pane) -> pane.get("items").filterBy("active", true))
-    for itemSet in activeItems
-      for item in itemSet
-        @get('query.parameter').pushObject(item.get('parameter'))
+
 
   checkboxId: (->
     "checkbox-population-#{@get('id')}"

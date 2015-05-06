@@ -30,6 +30,9 @@ EmberItem = DS.Model.extend(
   parameter: DS.belongsTo("extension")
   active: DS.attr("boolean", { defaultValue: false })
   componentName: DS.attr("string")
+  changed: ( ->
+    1
+  ).property("parameter.valueString", "parameter.valueRange.low.value", "parameter.valueRange.high.value", "parameter.valueCodeableConcept.coding.@each.code", "parameter.valueCodeableConcept.coding.@each.system")
 )
 
 `export default EmberItem`
