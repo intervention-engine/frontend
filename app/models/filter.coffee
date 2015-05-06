@@ -42,26 +42,22 @@ Filter = DS.Model.extend(SelectableMixin,
     pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query')?.serialize()||{}))
 
     pats.fail (=>
-      console.log "Failed"
       _this.set('instaPatient', 0)
     )
 
     pats.then ((res)=>
       val = JSON.parse(res).total
-      console.log "pats #{val}"
       _this.set('instaPatient', val)
     )
 
     encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query')?.serialize()||{}))
 
     encounters.fail (=>
-      console.log "Failed"
       _this.set('instaEncounter', 0)
     )
 
     encounters.then ((res)=>
       val = JSON.parse(res).total
-      console.log "enc #{val}"
       _this.set('instaEncounter', val)
     )
 
@@ -69,13 +65,11 @@ Filter = DS.Model.extend(SelectableMixin,
     conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query')?.serialize()||{}))
 
     conds.fail (=>
-      console.log "Failed"
       _this.set('instaCondition', 0)
     )
 
     conds.then ((res)=>
       val = JSON.parse(res).total
-      console.log "conds #{val}"
       _this.set('instaCondition', val)
     )
   ).observes('query').on('init')

@@ -31,7 +31,6 @@ EmberItem = DS.Model.extend(
   active: DS.attr("boolean", { defaultValue: false })
   componentName: DS.attr("string")
   changed: ( ->
-    console.log "Updated Param"
     1
   ).property("parameter.valueString", "parameter.valueRange.low.value", "parameter.valueRange.high.value", "parameter.valueCodeableConcept.coding.@each.code", "parameter.valueCodeableConcept.coding.@each.system")
 )
