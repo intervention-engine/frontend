@@ -40,7 +40,7 @@ VerticalLineChartComponent = Ember.Component.extend
     g = svg.append("g")
       .append("path")
   updateGraph:(->
-    tip = d3.tip().attr('class', 'd3-tip').html((d) -> "Risk #{d3.max(d.values, (v) -> v.value)} <br/> #{moment(d.key).format('LL')}");
+    tip = d3.tip().attr('class', 'd3-tip').html((d) -> "Risk #{d3.max(d.values, (v) -> v.value)} <br/> #{moment(d.key).format('LL')}")
 
     svg = d3.select(@element).select("svg")
     data = this.data.sortBy('effectiveDate')

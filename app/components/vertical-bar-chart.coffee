@@ -63,7 +63,7 @@ VerticalBarChartComponent = Ember.Component.extend
       .data(data)
     gExit = gData.exit()
       .transition()
-      .attr("height", (d) => 0 )
+      .attr("height", (d) -> 0 )
       .remove()
     gEnter = gData.enter()
     gEnter.append("rect")

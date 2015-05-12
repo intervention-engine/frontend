@@ -259,8 +259,7 @@ test 'risk calculation is correct', ->
     Ember.RSVP.allSettled([
         patient.get('conditions'),
         patient.get('medications')
-      ]).then ->
-        events = patient.get('events')
-        risks = patient.get('risks')
-        debugger
-        equal risks.length, 7
+    ]).then ->
+      events = patient.get('events')
+      risks = patient.get('risks')
+      equal risks.length, 6
