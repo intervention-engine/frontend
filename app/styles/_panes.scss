@@ -22,5 +22,25 @@
   .pane-content {
     border: 8px solid $body-bg;
     padding-left: 20px;
+
+    .pointer-bottom {
+      display: block;
+      position: absolute;
+      top: 30px;
+      left: -3px;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-right: 18px solid $body-bg;
+    }
+
+    .pointer-top {
+      display: block;
+      position: absolute;
+      top: 30px;
+      left: 8px;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-right: 18px solid #fff;
+    }
   }
 }
