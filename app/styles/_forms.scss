@@ -103,9 +103,9 @@ input[type=radio].css-checkbox {
 
 input[type=checkbox].css-checkbox + label.css-label,
 input[type=radio].css-checkbox + label.css-label {
-  height: 31px;
   display: inline-block;
-  line-height: 31px;
+  height: 30px;
+  line-height: 30px;
   background-repeat: no-repeat;
   background-position: 0 0;
   vertical-align: middle;
@@ -118,6 +118,7 @@ input[type=radio].css-checkbox:checked + label.css-label {
 }
 
 label.css-label {
+  margin: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
