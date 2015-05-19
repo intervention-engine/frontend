@@ -10,8 +10,9 @@ MedicationStatementSerializer = ApplicationSerializer.extend
     dosage : {embedded: 'always'}
 
   normalize: (type, hash, prop) ->
-    medUrl = new URI(hash.content.Medication.Reference)
+    medUrl = new URI(hash.content.medication.Reference)
     if medUrl?
+      hash.content.medication = null
       (hash.content||hash)["links"] = medication: medUrl.path()
     @_super(type, hash, prop)
 
