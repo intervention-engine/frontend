@@ -69,6 +69,10 @@ ul {
 svg {
   fill:$brand-primary;
   shape-rendering: geometricPrecision;
+
+  .event{
+    stroke: white;
+  }
 }
 
 .active{
