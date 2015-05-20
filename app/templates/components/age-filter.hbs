@@ -13,13 +13,13 @@
   <div class="form-group">
     {{#if item.active}}
       <div class="row selected-filter-details">
-        <!-- <div class="col-xs-1">in</div>
+        <div class="col-xs-1">in</div>
         <div class="col-xs-3">
-          {{view "select" class="input-control" content=item.parameter.timePeriod.value}}
+          {{view "select" class="dropdown input-control" content=timePeriods}}
         </div>
         <div class="col-xs-1">is</div>
-        <div class="col-xs-4">
-          {{input class="input-control" value=item.parameter.comparator.value}}
+        <div class="col-xs-3">
+          {{view "select" class="dropdown input-control" content=comparators}}
         </div>
         <div class="col-xs-1">
           {{input class="input-control" value=item.parameter.valueRange.low.value}}
@@ -27,17 +27,17 @@
         <div class="col-xs-1">and</div>
         <div class="col-xs-1">
           {{input class="input-control" value=item.parameter.valueRange.high.value}}
-        </div> -->
+        </div>
 
 
-        <div class="col-xs-6">
+<!--         <div class="col-xs-6">
           <label class="css-label radio-label" for="male"> between </label>
           {{input class="input-control" value=item.parameter.valueRange.low.value}}
         </div>
         <div class="col-xs-6">
           <label class="css-label radio-label" for="male"> and </label>
           {{input class="input-control" value=item.parameter.valueRange.high.value}}
-        </div>
+        </div> -->
       </div>
     {{/if}}
   </div>
