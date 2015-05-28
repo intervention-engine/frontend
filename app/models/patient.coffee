@@ -90,7 +90,7 @@ Patient = DS.Model.extend(
     riskTotal
   ).property('medications', 'conditions')
 
-  categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', ->
+  categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', 'encounters', ->
     [
       {name: 'medications', title: 'Medications', risk: @get('medications.length'), weight: 1}
       {name: 'conditions', title: 'Conditions', risk: @get('conditions.length'), weight: 2}
@@ -99,6 +99,7 @@ Patient = DS.Model.extend(
       {name: 'utilization', title: 'Utilizations', risk: 5, weight: .5}
       {name: 'social_barriers', title: 'Social Barriers', risk: 2, weight: 1}
       {name: 'falls', title: 'Falls', risk: 1, weight: 1}
+      {name: 'emergencyDepartmentAdmissions', title: 'ER Visits', risk: @get('emergencyDepartmentAdmissions.length'), weight: 1}
     ]
 
   fullName: Ember.computed 'name', ->
@@ -112,19 +113,27 @@ Patient = DS.Model.extend(
       Math.round(Math.random() * (92 - 65) + 65)
 
   activeMedications: Ember.computed.filterBy 'medications', 'active', true
+
   activeConditions: Ember.computed.filterBy 'conditions', 'active', true
 
+  emergencyDepartmentAdmissions: Ember.computed.filter 'encounters', (item) ->
+    item.hasCode('type', {code: "4525004", system:"http://snomed.info/sct"}) and item.inLast('period.start', 60, 'days')
+
   inpatientAdmissions: Ember.computed.filter 'encounters', (item) ->
-    is_inpatient = false
-    item.get('type.firstObject.coding')?.forEach (c, i) ->
-      if c.get('system') == 'http://www.ama-assn.org/go/cpt'
-        is_inpatient = ['99221', '99222', '99223'].contains(c.get('code'))
-    is_inpatient
+    item.hasCode('type', {code: '99221', system: 'http://www.ama-assn.org/go/cpt'}) or
+    item.hasCode('type', {code: '99222', system: 'http://www.ama-assn.org/go/cpt'}) or
+    item.hasCode('type', {code: '99223', system: 'http://www.ama-assn.org/go/cpt'})
+    # is_inpatient = false
+    #
+    # item.get('type.firstObject.coding')?.forEach (c, i) ->
+    #   if c.get('system') == 'http://www.ama-assn.org/go/cpt'
+    #     is_inpatient = ['99221', '99222', '99223'].contains(c.get('code'))
+    # is_inpatient
 
   readmissions: Ember.computed 'inpatientAdmissions', ->
     result = @get('inpatientAdmissions').sortBy('period.end').reduce (previousValue, item, index, enumerable) ->
       if previousValue?
-        previousValue.count++ if ((item.get('period.start') - previousValue.previousAdmission.get('period.end'))/(1000*60*60*24)) <= 30
+        previousValue.count++ if item.sinceDate('period.end', 30, 'days', previousValue.previousAdmission.get('period.end'))
         previousValue.previousAdmission = item
         previousValue
       else

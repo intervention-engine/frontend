@@ -25,8 +25,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 `import DS from 'ember-data'`
+`import CodeableMixin from '../mixins/codeable'`
+`import DateableMixin from '../mixins/dateable'`
 
-Encounter = DS.Model.extend(
+Encounter = DS.Model.extend(CodeableMixin, DateableMixin,
   identifier: DS.hasMany('identifier')
   status: DS.attr('string')
   class: DS.attr('string')
@@ -43,6 +45,7 @@ Encounter = DS.Model.extend(
   location: DS.hasMany('location')
   serviceProvider: DS.belongsTo('resource-reference')
   partOf: DS.belongsTo('resource-reference')
+
 )
 
 `export default Encounter`

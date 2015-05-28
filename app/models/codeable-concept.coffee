@@ -32,6 +32,13 @@ CodeableConcept = DS.Model.extend(
 
   toString: ->
     @get('text')||@get('coding').map((code) -> code.toString()).join()
+
+  hasCode: (code) ->
+    matchedCodes = @get('coding').map (c) ->
+      c.get('system') is code.system and c.get('code') is code.code
+    matchedCodes.any((d) -> d)
+
+
 )
 
 `export default CodeableConcept`
