@@ -5,6 +5,7 @@ PatientsIndexController = Ember.Controller.extend(
   selectedItemsCount: (-> @get('selectedItems.length')).property('selectedItems.[]')
   populations: []
   selectedCategory: null
+  sortedPatients: (-> @get('model.patients').sortBy('serverRisk.risk', 'notificationCount', 'computedAge').reverse()).property('model.risk')
 )
 
 `export default PatientsIndexController`
