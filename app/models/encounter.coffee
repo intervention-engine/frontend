@@ -46,6 +46,13 @@ Encounter = DS.Model.extend(CodeableMixin, DateableMixin,
   serviceProvider: DS.belongsTo('resource-reference')
   partOf: DS.belongsTo('resource-reference')
 
+  text: (->
+    @get('type.firstObject.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||""
+  ).property('type')
+
+  startDate: Em.computed('period.start', -> @get('period.start'))
+  endDate: Em.computed('period.end', -> @get('period.end'))
+
 )
 
 `export default Encounter`
