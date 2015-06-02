@@ -38,52 +38,6 @@ Filter = DS.Model.extend(SelectableMixin,
 
 
 
-  computeInstaCount: (->
-    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query')?.serialize()||{}))
-
-    pats.fail (=>
-      @set('instaPatient', 0)
-    )
-
-    pats.then ((res)=>
-      val = JSON.parse(res).total
-      @set('instaPatient', val)
-    )
-
-    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query')?.serialize()||{}))
-
-    encounters.fail (=>
-      @set('instaEncounter', 0)
-    )
-
-    encounters.then ((res)=>
-      val = JSON.parse(res).total
-      @set('instaEncounter', val)
-    )
-
-
-    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query')?.serialize()||{}))
-
-    conds.fail (=>
-      @set('instaCondition', 0)
-    )
-
-    conds.then ((res)=>
-      val = JSON.parse(res).total
-      @set('instaCondition', val)
-    )
-  ).observes('query').on('init')
-
-  instaPatient: ( ->
-    @get('query')
-  ).property('computeInstaCount')
-
-  instaEncounter: ( ->
-  ).property('computeInstaCount')
-
-  instaCondition: ( ->
-  ).property('computeInstaCount')
-
   buildQuery: (->
     items = @get('panes').mapBy('activeParameters').reduce(((prev, cur) -> prev.concat(cur)), [])
     constructedQuery = @store.createRecord("query", {})
