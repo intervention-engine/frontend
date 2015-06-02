@@ -30,7 +30,7 @@
                   {{/each}}
                 {{/each}}
               {{else}}
-                {{#each patient in content.patients}}
+                {{#each patient in sortedPatients}}
                   {{patient-badge patient=patient currentPatient=currentPatient}}
                 {{/each}}
               {{/if}}

@@ -19,7 +19,7 @@ ApplicationSerializer = DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin,
     # console.log "#{type.typeKey} #{hash.id}"
     # Because FHIR resources have embedded stuff without IDs we're going to generate them
     if hash.content
-      hash.content.id ?= hash.Identifier || Em.generateGuid({}, type.typeKey)
+      hash.content.id ?= hash.id ||hash.Identifier || Em.generateGuid({}, type.typeKey)
       @_super(type, hash.content, prop)
     else
       hash.id ?= hash.Identifier || Em.generateGuid({}, type.typeKey)

@@ -16,7 +16,7 @@ moduleForModel 'patient', 'Patient', {
    'model:resource-reference', 'model:coding', 'serializer:coding',
    'model:location', 'model:quantity',
    'model:participant', 'model:hospitalization',
-   'model:dosage', 'model:medication', 'model:accomodation', 'model:event']
+   'model:dosage', 'model:medication', 'model:accomodation', 'model:event', 'model:risk']
   setup: ->
     server = new Pretender ->
       @get '/Patient/', (request) ->
