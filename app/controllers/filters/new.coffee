@@ -15,7 +15,7 @@ FiltersNewController = Ember.Controller.extend({
   encounterObject: Ember.Object.create({ type: 'encounter' })
 
   computeInstaCount: (->
-    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('query')?.serialize()||{}))
+    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('model.query')?.serialize()||{}))
 
     pats.fail (=>
       @set('instaPatient', 0)
@@ -26,7 +26,7 @@ FiltersNewController = Ember.Controller.extend({
       @set('instaPatient', val)
     )
 
-    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('query')?.serialize()||{}))
+    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('model.query')?.serialize()||{}))
 
     encounters.fail (=>
       @set('instaEncounter', 0)
@@ -38,7 +38,7 @@ FiltersNewController = Ember.Controller.extend({
     )
 
 
-    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('query')?.serialize()||{}))
+    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('model.query')?.serialize()||{}))
 
     conds.fail (=>
       @set('instaCondition', 0)
@@ -51,7 +51,7 @@ FiltersNewController = Ember.Controller.extend({
   ).observes('model.query').on('init')
 
   instaPatient: ( ->
-    @get('query')
+    @get('model.query')
   ).property('computeInstaCount')
 
   instaEncounter: ( ->
