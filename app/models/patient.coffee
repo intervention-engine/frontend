@@ -54,16 +54,17 @@ Patient = DS.Model.extend(
 
   risks: (->
     theRisks = @get('events').map((item, index, enumerable) ->
+      riskItem = null
       if (item.get('type') is 'medication') or (item.get('type') is 'condition')
         riskLevelAdjustment = 0
         if item.get('isEnd')
           riskLevelAdjustment = -1
         else
           riskLevelAdjustment = 1
-        {value: riskLevelAdjustment, effectiveDate: item.get('effectiveDate')}
-      else
-        # Covers birth
-        {value: 0, effectiveDate: item.get('effectiveDate')}
+        riskItem = {value: riskLevelAdjustment, effectiveDate: item.get('effectiveDate')}
+      if item.get('type') is 'birth'
+        riskItem = {value: 0, effectiveDate: item.get('effectiveDate')}
+      riskItem
     ).compact().reverse().reduce((previousValue, item) ->
       if previousValue.length > 0
         last = previousValue[previousValue.length - 1]
@@ -172,10 +173,11 @@ Patient = DS.Model.extend(
 
   patientLocation: 'Home'
 
-  events: Ember.computed 'medications', 'observations', 'conditions', ->
+  events: Ember.computed 'medications', 'observations', 'conditions', 'encounters', ->
     events = Ember.A()
     events.pushObject(@store.createRecord('event', {
-      event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."}
+      event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."},
+      type: "birth"
     }))
     @get("conditions").forEach (ev) =>
       events.pushObject(@store.createRecord('event', {
@@ -184,9 +186,20 @@ Patient = DS.Model.extend(
       }))
       if ev.get('abatementDate')? and (ev.get('abatementDate') >= ev.get('onsetDate'))
         events.pushObject(@store.createRecord('event', {
-          event: ev
+          event: ev,
           isEnd: true,
           type:"condition"
+        }))
+    @get("encounters").forEach (ev) =>
+      events.pushObject(@store.createRecord('event', {
+        event: ev,
+        type: "encounter"
+      }))
+      if ev.get('period.end')? and (ev.get('period.end') >= ev.get('period.start'))
+        events.pushObject(@store.createRecord('event', {
+          event: ev
+          isEnd: true,
+          type:"encounter"
         }))
     @get("medications").forEach (ev) =>
       console.log ev.get('medication')
