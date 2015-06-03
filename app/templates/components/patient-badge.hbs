@@ -3,7 +3,7 @@
     <div class="patient-name">
       {{patient.fullName}}
       {{#if patient.hasNotifications}}
-        <span class="badge">{{patient.notificationCount}}</span>
+        <span class="badge">{{patient.notificationCount.count}}</span>
       {{/if}}
     </div>
     <div class="patient-age-gender">

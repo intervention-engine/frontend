@@ -51,6 +51,7 @@ Patient = DS.Model.extend(
   encounters: DS.hasMany('encounter', async: true)
   medications: DS.hasMany('medicationStatement', async: true)
   serverRisk: DS.belongsTo('risk', asyc: true, inverse:'patient')
+  notificationCount: DS.belongsTo('notification-count', asyc: true, inverse:'patient')
 
   risks: (->
     theRisks = @get('events').map((item, index, enumerable) ->
@@ -166,10 +167,7 @@ Patient = DS.Model.extend(
   riskClassName: Ember.computed 'serverRisk.risk', ->
     "patient-risk-#{@get("serverRisk.risk")}"
 
-  notificationCount: Ember.computed ->
-    Math.round(Math.random() * 6)
-
-  hasNotifications: Ember.computed.gt('notificationCount', 0)
+  hasNotifications: Ember.computed.gt('notificationCount.count', 0)
 
   patientLocation: 'Home'
 
