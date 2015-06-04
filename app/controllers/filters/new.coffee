@@ -14,10 +14,52 @@ FiltersNewController = Ember.Controller.extend({
   conditionObject: Ember.Object.create({ type: 'condition' })
   encounterObject: Ember.Object.create({ type: 'encounter' })
 
-  # counts
-  patientsCount: '49,461'
-  conditionsCount: '1,536'
-  encountersCount: '126,185'
+  computeInstaCount: (->
+    pats = Ember.$.post("/InstaCount/patient",  JSON.stringify(@get('model.query')?.serialize()||{}))
+
+    pats.fail (=>
+      @set('instaPatient', 0)
+    )
+
+    pats.then ((res)=>
+      val = JSON.parse(res).total
+      @set('instaPatient', val)
+    )
+
+    encounters = Ember.$.post("/InstaCount/encounter",  JSON.stringify(@get('model.query')?.serialize()||{}))
+
+    encounters.fail (=>
+      @set('instaEncounter', 0)
+    )
+
+    encounters.then ((res)=>
+      val = JSON.parse(res).total
+      @set('instaEncounter', val)
+    )
+
+
+    conds = Ember.$.post("/InstaCount/condition",  JSON.stringify(@get('model.query')?.serialize()||{}))
+
+    conds.fail (=>
+      @set('instaCondition', 0)
+    )
+
+    conds.then ((res)=>
+      val = JSON.parse(res).total
+      @set('instaCondition', val)
+    )
+  ).observes('model.query').on('init')
+
+  instaPatient: ( ->
+    @get('model.query')
+  ).property('computeInstaCount')
+
+  instaEncounter: ( ->
+  ).property('computeInstaCount')
+
+  instaCondition: ( ->
+  ).property('computeInstaCount')
+
 
   # actions
   actions:
