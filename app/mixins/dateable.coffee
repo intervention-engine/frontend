@@ -3,11 +3,11 @@
 DateableMixin = Ember.Mixin.create
   # Method to check if something has happened in the last val*period
   inLast: (field, val, period) ->
-    sinceDate(field,val, period, new Date())
+    @sinceDate(field,val, period, new Date())
 
   # Method to check if something will happen in the next val*period
   inNext: (field, val, period) ->
-    untilDate(field,val, period, new Date())
+    @untilDate(field,val, period, new Date())
 
   # Checks if something happened in val*period from startDate
   sinceDate: (field, val, period, startDate) ->
