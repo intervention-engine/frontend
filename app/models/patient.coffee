@@ -54,16 +54,17 @@ Patient = DS.Model.extend(
 
   risks: (->
     theRisks = @get('events').map((item, index, enumerable) ->
+      riskItem = null
       if (item.get('type') is 'medication') or (item.get('type') is 'condition')
         riskLevelAdjustment = 0
         if item.get('isEnd')
           riskLevelAdjustment = -1
         else
           riskLevelAdjustment = 1
-        {value: riskLevelAdjustment, effectiveDate: item.get('effectiveDate')}
-      else
-        # Covers birth
-        {value: 0, effectiveDate: item.get('effectiveDate')}
+        riskItem = {value: riskLevelAdjustment, effectiveDate: item.get('effectiveDate')}
+      if item.get('type') is 'birth'
+        riskItem = {value: 0, effectiveDate: item.get('effectiveDate')}
+      riskItem
     ).compact().reverse().reduce((previousValue, item) ->
       if previousValue.length > 0
         last = previousValue[previousValue.length - 1]
@@ -91,7 +92,7 @@ Patient = DS.Model.extend(
     riskTotal
   ).property('medications', 'conditions')
 
-  categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', ->
+  categoryDisplay: Ember.computed 'medications', 'observations', 'conditions', 'encounters', ->
     [
       {name: 'medications', title: 'Medications', risk: @get('medications.length'), weight: 1}
       {name: 'conditions', title: 'Conditions', risk: @get('conditions.length'), weight: 2}
@@ -100,6 +101,7 @@ Patient = DS.Model.extend(
       {name: 'utilization', title: 'Utilizations', risk: 5, weight: .5}
       {name: 'social_barriers', title: 'Social Barriers', risk: 2, weight: 1}
       {name: 'falls', title: 'Falls', risk: 1, weight: 1}
+      {name: 'emergencyDepartmentAdmissions', title: 'ER Visits', risk: @get('emergencyDepartmentAdmissions.length'), weight: 1}
     ]
 
   fullName: Ember.computed 'name', ->
@@ -113,19 +115,27 @@ Patient = DS.Model.extend(
       Math.round(Math.random() * (92 - 65) + 65)
 
   activeMedications: Ember.computed.filterBy 'medications', 'active', true
+
   activeConditions: Ember.computed.filterBy 'conditions', 'active', true
 
+  emergencyDepartmentAdmissions: Ember.computed.filter 'encounters', (item) ->
+    item.hasCode('type', {code: "4525004", system:"http://snomed.info/sct"}) and item.inLast('period.start', 60, 'days')
+
   inpatientAdmissions: Ember.computed.filter 'encounters', (item) ->
-    is_inpatient = false
-    item.get('type.firstObject.coding')?.forEach (c, i) ->
-      if c.get('system') == 'http://www.ama-assn.org/go/cpt'
-        is_inpatient = ['99221', '99222', '99223'].contains(c.get('code'))
-    is_inpatient
+    item.hasCode('type', {code: '99221', system: 'http://www.ama-assn.org/go/cpt'}) or
+    item.hasCode('type', {code: '99222', system: 'http://www.ama-assn.org/go/cpt'}) or
+    item.hasCode('type', {code: '99223', system: 'http://www.ama-assn.org/go/cpt'})
+    # is_inpatient = false
+    #
+    # item.get('type.firstObject.coding')?.forEach (c, i) ->
+    #   if c.get('system') == 'http://www.ama-assn.org/go/cpt'
+    #     is_inpatient = ['99221', '99222', '99223'].contains(c.get('code'))
+    # is_inpatient
 
   readmissions: Ember.computed 'inpatientAdmissions', ->
     result = @get('inpatientAdmissions').sortBy('period.end').reduce (previousValue, item, index, enumerable) ->
       if previousValue?
-        previousValue.count++ if ((item.get('period.start') - previousValue.previousAdmission.get('period.end'))/(1000*60*60*24)) <= 30
+        previousValue.count++ if item.sinceDate('period.end', 30, 'days', previousValue.previousAdmission.get('period.end'))
         previousValue.previousAdmission = item
         previousValue
       else
@@ -163,10 +173,11 @@ Patient = DS.Model.extend(
 
   patientLocation: 'Home'
 
-  events: Ember.computed 'medications', 'observations', 'conditions', ->
+  events: Ember.computed 'medications', 'observations', 'conditions', 'encounters', ->
     events = Ember.A()
     events.pushObject(@store.createRecord('event', {
-      event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."}
+      event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."},
+      type: "birth"
     }))
     @get("conditions").forEach (ev) =>
       events.pushObject(@store.createRecord('event', {
@@ -175,9 +186,20 @@ Patient = DS.Model.extend(
       }))
       if ev.get('abatementDate')? and (ev.get('abatementDate') >= ev.get('onsetDate'))
         events.pushObject(@store.createRecord('event', {
-          event: ev
+          event: ev,
           isEnd: true,
           type:"condition"
+        }))
+    @get("encounters").forEach (ev) =>
+      events.pushObject(@store.createRecord('event', {
+        event: ev,
+        type: "encounter"
+      }))
+      if ev.get('period.end')? and (ev.get('period.end') >= ev.get('period.start'))
+        events.pushObject(@store.createRecord('event', {
+          event: ev
+          isEnd: true,
+          type:"encounter"
         }))
     @get("medications").forEach (ev) =>
       console.log ev.get('medication')
