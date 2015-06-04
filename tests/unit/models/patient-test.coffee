@@ -16,7 +16,8 @@ moduleForModel 'patient', 'Patient', {
    'model:resource-reference', 'model:coding', 'serializer:coding',
    'model:location', 'model:quantity',
    'model:participant', 'model:hospitalization',
-   'model:dosage', 'model:medication', 'model:accomodation', 'model:event', 'model:risk']
+   'model:dosage', 'model:medication', 'model:accomodation', 'model:event', 'model:risk',
+   'model:notification-count']
   setup: ->
     server = new Pretender ->
       @get '/Patient/', (request) ->
@@ -86,8 +87,6 @@ moduleForModel 'patient', 'Patient', {
               ]
               })
         [200, {"Content-Type": "application/json"}, all]
-
-
       @get '/MedicationStatement', (request) ->
         switch request.queryParams['patient:Patient']
           when "1"
@@ -102,6 +101,12 @@ moduleForModel 'patient', 'Patient', {
                 }
               ]
               })
+        [200, {"Content-Type": "application/json"}, all]
+      @get '/NotificationCount', (request) ->
+        all =  JSON.stringify([
+          { patient: "1", count: 7 },
+          { patient: "2", count: 3 }
+        ])
         [200, {"Content-Type": "application/json"}, all]
 
 }
@@ -263,3 +268,18 @@ test 'risk calculation is correct', ->
       events = patient.get('events')
       risks = patient.get('risks')
       equal risks.length, 6
+
+test 'notification count is correct', ->
+  store = @store()
+  patient = null
+  Ember.run ->
+    store.findAll('notificationCount')
+    patient = store.find('patient', 1)
+  patient.then ->
+    Ember.RSVP.allSettled([
+        patient.get('notificationCount'),
+    ]).then ->
+      hasNotifications = patient.get('hasNotifications')
+      notificationCount = patient.get('notificationCount').get("count")
+      equal hasNotifications, true
+      equal notificationCount, 7
