@@ -4,7 +4,7 @@ FROM node:0.10.36
 ADD . /node/ember-on-fhir
 
 WORKDIR /node/ember-on-fhir
-RUN git config -- global url."https://".insteadOf git://
+RUN git config --global url."https://".insteadOf git://
 RUN npm install -g ember-cli
 RUN npm install -g bower
 RUN npm install

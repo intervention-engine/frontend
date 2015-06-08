@@ -1,0 +1,20 @@
+frontend:
+  build: .
+  ports:
+    - "4200:4200"
+  links:
+    - ie
+ie:
+  build: ../ie
+  ports:
+    - "3001:3001"
+  links:
+    - mongodb:mongo
+endpoint:
+  build: ../ie-ccda-endpoint
+  ports:
+    - "3000:3000"
+  links:
+    - ie
+mongodb:
+  image: mongo
