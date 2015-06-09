@@ -1,4 +1,4 @@
-var proxyPath = '/';
+var proxyPath = '/api';
 
 module.exports = function(app) {
   // For options, see:
