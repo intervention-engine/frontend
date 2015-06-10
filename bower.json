@@ -13,6 +13,7 @@
     "ember-qunit": "0.2.8",
     "ember-qunit-notifications": "0.0.7",
     "ember-resolver": "0.1.11",
+    "ember-simple-auth": "0.7.3",
     "fontawesome": "4.2.0",
     "jquery": "1.11.2",
     "loader.js": "ember-cli/loader.js#3.2.0",
