@@ -200,7 +200,6 @@ Patient = DS.Model.extend(
           type:"encounter"
         }))
     @get("medications").forEach (ev) =>
-      console.log ev.get('medication')
       events.pushObject(@store.createRecord('event', {
         event: ev
         isEnd: false,
