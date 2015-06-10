@@ -11,7 +11,6 @@ VerticalBarChartComponent = Ember.Component.extend
     svg.attr("height", @height)
       .attr("viewBox", "0 0 #{@width} #{@height}")
     data = @data.toArray()
-    console.log data.mapBy('valueQuantity.value')
     @barScale = d3.scale.ordinal()
       .domain(d3.range(0, data.length))
       .rangeRoundBands([@padding, @width], (@bandPadding||0))

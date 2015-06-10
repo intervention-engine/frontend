@@ -10,7 +10,6 @@ ApplicationSerializer = DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin,
   extract: (store, type, payload, id, requestType) ->
     return [] if payload == null
     if payload.resourceType == "Bundle"
-      console.log "Bundle came in"
       payload = payload.entry || []
     payload.id ?= id || Em.generateGuid({}, type.typeKey)
     @_super(store, type, payload, id, requestType)
@@ -24,20 +23,7 @@ ApplicationSerializer = DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin,
     else
       hash.id ?= hash.Identifier || Em.generateGuid({}, type.typeKey)
       @_super(type, hash, prop)
-  # serializeAttribute: (record, json, key, attribute) ->
-    # Because of the way FHIR handles values we have to munge the JSON a little
-    # if key =="value"
-    #   value = record.get('value')
-    #   switch typeof value
-    #     when "string"
-    #       json.valuestring = value
-    #     when "number"
-    #       json.value = value
-    #     when "object"
-    #       json.valuerange = value
-    #   console.log json
-    # else
-      # @_super(record, json, key, attribute)
+  
 )
 
 `export default ApplicationSerializer`

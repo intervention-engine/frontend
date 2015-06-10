@@ -26,7 +26,6 @@ PatientViewerComponent = Ember.Component.extend(
     for i in d3.range(0,8)
       randomRisk.push({ name: i, weight: Math.floor(Math.random() * (5)+1), risk: Math.floor(Math.random() * (5)+1) })
 
-    console.debug randomDataLong
 
     @set('randomData', randomData)
     @set('randomRisk', randomRisk)
