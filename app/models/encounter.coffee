@@ -47,7 +47,7 @@ Encounter = DS.Model.extend(CodeableMixin, DateableMixin,
   partOf: DS.belongsTo('resource-reference')
 
   text: (->
-    @get('type.firstObject.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||""
+    @get('type.firstObject.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||@get('code.firstObject.text')
   ).property('type')
 
   startDate: Em.computed('period.start', -> @get('period.start'))

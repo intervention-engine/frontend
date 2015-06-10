@@ -44,7 +44,7 @@ Condition = DS.Model.extend(
   notes: DS.attr('string')
 
   text: (->
-    @get('code.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||""
+    @get('code.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||@get('code.text')
   ).property('code')
 
   startDate: Em.computed('onsetDate', -> @get('onsetDate'))
