@@ -1,7 +1,8 @@
 `import Ember from 'ember'`
+`import Base from 'simple-auth/authenticators/base'`
 
-IEAuthenticator = SimpleAuth.Authenticators.Base.extend({
-  tokenEndpoint: '/v4/session'
+IEAuthenticator = Base.extend({
+  tokenEndpoint: '/login'
   restore: (data) ->
     new (Ember.RSVP.Promise)((resolve, reject) ->
       if !Ember.isEmpty(data.token)

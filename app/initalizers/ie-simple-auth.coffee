@@ -2,9 +2,9 @@
 `import IEAuthenticator from '../authenticators/ie'`
 
 # Takes two parameters: container and app
-initialize = (container) ->
-  container.register('authorizer:ie', IEAuthorizer)
-  container.register('authenticator:ie', IEAuthenticator)
+initialize = (container, application) ->
+  application.register('authorizer:ie', IEAuthorizer)
+  application.register('authenticator:ie', IEAuthenticator)
   return
 
 IESimpleAuthInitializer =

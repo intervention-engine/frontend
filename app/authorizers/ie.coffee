@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import Base from 'simple-auth/authorizers/base';`
 
-IEAuthorizer = SimpleAuth.Authorizers.Base.extend(
+IEAuthorizer = Base.extend(
   authorize: (jqXHR, requestOptions) ->
     if @get('session.isAuthenticated') and !Ember.isEmpty(@get('session.secure.token'))
       jqXHR.setRequestHeader 'Authorization', 'Token: ' + @get('session.secure.token')

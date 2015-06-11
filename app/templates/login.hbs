@@ -6,12 +6,12 @@
           <img {{bind-attr src="logoLargeURL"}} alt="Intervention Engine" />
         </div>
         <div class="panel-body">
-          <form>
+          <form {{action 'authenticate' on='submit'}}>
             <div class="form-group">
               <label class="sr-only" for="login-email">Enter login email</label>
               <div class="input-addon left-addon">
                 <i class="fa fa-envelope fa-fw"></i>
-                {{input type="email" value=identification autofocus="autofocus" classNames="form-control" placeholder="Username"}}
+                {{input type="text" value=identification autofocus="autofocus" classNames="form-control" placeholder="Username"}}
               </div>
             </div>
 
