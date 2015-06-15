@@ -11,7 +11,7 @@
               <label class="sr-only" for="login-email">Enter login email</label>
               <div class="input-addon left-addon">
                 <i class="fa fa-envelope fa-fw"></i>
-                {{input type="text" value=identification autofocus="autofocus" classNames="form-control" placeholder="Username"}}
+                  {{input type="text" value=identification autofocus="autofocus" classNames="form-control" placeholder="Username"}}
               </div>
             </div>
 
@@ -19,7 +19,7 @@
               <label class="sr-only" for="login-password">Enter login password</label>
               <div class="input-addon left-addon">
                 <i class="fa fa-lock fa-fw"></i>
-                {{input type="password" value=password autocomplete="off" classNames="form-control" placeholder="Password"}}
+                  {{input type="password" value=password autocomplete="off" classNames="form-control" placeholder="Password"}}
               </div>
             </div>
 
@@ -27,6 +27,11 @@
               <button class="btn" type="submit" {{bind-attr disabled=loggingIn}}>Log In</button>
             </div>
           </form>
+          {{#if errorMessage}}
+            <div class="alert alert-danger">
+              <strong>Login failed:</strong> {{errorMessage}}
+            </div>
+          {{/if}}
         </div>
 
         <div class="login-footer">

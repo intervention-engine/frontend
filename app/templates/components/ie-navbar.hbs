@@ -21,7 +21,11 @@
       {{#navbar-active-link}}{{#link-to "index"}}<i class="fa fa-users"></i> Populations{{/link-to}}{{/navbar-active-link}}
       {{#navbar-active-link}}{{#link-to "filters.new"}}<i class="fa fa-filter"></i> Filter Builder{{/link-to}}{{/navbar-active-link}}
       {{#navbar-active-link}}{{#link-to utilities}}<i class="fa fa-cogs"></i> Utilities{{/link-to}}{{/navbar-active-link}}
-      <li>{{#link-to logout}}<i class="fa fa-sign-out"></i> Logout{{/link-to}}</li>
+      {{#if session.isAuthenticated}}
+        <a {{ action 'invalidateSession' }} class="btn btn-danger navbar-btn navbar-right">Logout</a>
+      {{else}}
+        {{#link-to 'login' class="btn btn-success navbar-btn navbar-right"}}Login{{/link-to}}
+      {{/if}}
     </ul>
   </div>
 </nav>
