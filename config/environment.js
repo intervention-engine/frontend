@@ -17,11 +17,11 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    
+
     'simple-auth': {
       authorizer: 'authorizer:ie',
       store: 'simple-auth-session-store:local-storage',
-      authenticationRoute: 'users.login'
+      authenticationRoute: 'login'
     }
   };
 
