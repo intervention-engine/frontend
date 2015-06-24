@@ -8,7 +8,7 @@ PatientsIndexRoute = Ember.Route.extend(AuthenticatedRouteMixin,
       patients: @store.findAll('patient'),
       populations: @store.findAll('filter')
       risks: @store.findAll('risk')
-      notificationCounts: @store.findAll('notificationCount')
+      # notificationCounts: @store.findAll('notificationCount')
     )
 )
 
