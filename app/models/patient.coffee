@@ -30,7 +30,7 @@ Patient = DS.Model.extend(
   identifier: DS.hasMany('identifier')
   name: DS.hasMany('human-name')
   telecom: DS.hasMany('contact-point')
-  gender: DS.belongsTo('codeable-concept')
+  gender: DS.attr('string')
   birthDate: DS.attr('date')
   deceasedBoolean: DS.attr('boolean')
   deceasedDateTime: DS.attr('date')
@@ -148,7 +148,7 @@ Patient = DS.Model.extend(
     value = @get('gender')?.toString()
     if value == 'M' then 'male'
     else if value == 'F' then 'female'
-    else 'other'
+    else @get('gender')
 
   isMale: Ember.computed.equal('computedGender', 'male')
   isFemale: Ember.computed.equal('computedGender', 'female')
