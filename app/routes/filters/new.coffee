@@ -1,7 +1,8 @@
 `import Ember from 'ember'`
 `import addFilterPane from '../../utils/add-filter-pane'`
+`import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
 
-FiltersNewRoute = Ember.Route.extend(
+FiltersNewRoute = Ember.Route.extend(AuthenticatedRouteMixin,
   model: ->
     @store.createRecord('filter')
 
