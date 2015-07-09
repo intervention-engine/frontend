@@ -16,7 +16,7 @@
 
   <div class="timeline-events">
     <div class="timeline-line"></div>
-    {{#each event in patient.events}}
+    {{#each event in filteredEvents}}
       {{timeline-event event=event}}
     {{/each}}
   </div>

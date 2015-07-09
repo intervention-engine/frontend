@@ -28,8 +28,8 @@
 
 Query = DS.Model.extend(
   identifier: DS.attr('string')
-  parameter: DS.hasMany('extension')
-  response: DS.belongsTo('response')
+  parameter: DS.hasMany('extension', embedded:'alway')
+  response: DS.belongsTo('response', embedded:'alway')
 )
 
 `export default Query`

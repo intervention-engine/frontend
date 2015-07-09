@@ -27,7 +27,7 @@
 `import DS from 'ember-data'`
 
 EmberItem = DS.Model.extend(
-  parameter: DS.belongsTo("extension")
+  parameter: DS.belongsTo("extension", embedded:'always')
   active: DS.attr("boolean", { defaultValue: false })
   componentName: DS.attr("string")
   changed: ( ->

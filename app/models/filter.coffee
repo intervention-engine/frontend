@@ -30,8 +30,8 @@
 Filter = DS.Model.extend(SelectableMixin,
   name: DS.attr("string")
   description: DS.attr("string")
-  query: DS.belongsTo("query")
-  panes: DS.hasMany("pane")
+  query: DS.belongsTo("query", embedded:'always')
+  panes: DS.hasMany("pane", embedded:'always')
   patients: DS.belongsTo("queryList", { async: true })
   patientsCount: (-> @get('patients').length).property('patients.[]')
   results: DS.attr("number")

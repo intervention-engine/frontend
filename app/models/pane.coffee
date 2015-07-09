@@ -28,7 +28,7 @@
 
 Pane = DS.Model.extend(
   icon: DS.attr("string", {defaultValue: "fa-user"})
-  items: DS.hasMany('ember-item')
+  items: DS.hasMany('ember-item', embedded:'always')
 
   activeItems: (->
     @get('items').filterBy('active', true)
