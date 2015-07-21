@@ -28,20 +28,21 @@
 
 MedicationStatement = DS.Model.extend
   identifier: DS.hasMany('identifier')
-  patient: DS.belongsTo('resource-reference')
+  patient: DS.belongsTo('resource-reference', embedded: true)
   wasNotGiven: DS.attr('boolean')
-  reasonNotGiven: DS.hasMany('codeable-concept')
-  whenGiven: DS.belongsTo('period')
+  reasonNotGiven: DS.hasMany('codeable-concept', embedded: true)
+  effectivePeriod: DS.belongsTo('period', embedded: true)
   medication: DS.belongsTo('medication', async: true)
-  device: DS.hasMany('resource-reference')
-  dosage: DS.hasMany('dosage')
+  device: DS.hasMany('resource-reference', embedded: true)
+  dosage: DS.hasMany('dosage', embedded: true)
+  medicationCodeableConcept: DS.belongsTo('codeable-concept', embedded:true)
 
-  startDate: Ember.computed('whenGiven', -> @get('whenGiven.start'))
-  endDate: Ember.computed('whenGiven', -> @get('whenGiven.end'))
-  text: Ember.computed('medication',  -> @get('medication.text'))
+  startDate: Ember.computed('effectivePeriod', -> @get('effectivePeriod.start'))
+  endDate: Ember.computed('effectivePeriod', -> @get('effectivePeriod.end'))
+  text: Ember.computed('medicationCodeableConcept',  -> @get('medicationCodeableConcept.text'))
 
   active: (->
-    not @get('whenGiven.end')? or (@get('whenGiven.end') > new Date())
-  ).property('whenGiven.end')
+    not @get('effectivePeriod.end')? or (@get('effectivePeriod.end') > new Date())
+  ).property('effectivePeriod.end')
 
 `export default MedicationStatement`

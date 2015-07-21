@@ -27,7 +27,7 @@
 `import DS from 'ember-data'`
 
 CodeableConcept = DS.Model.extend(
-  coding: DS.hasMany('coding')
+  coding: DS.hasMany('coding', embedded: true)
   text: DS.attr('string')
 
   toString: ->

@@ -29,22 +29,25 @@
 `import DateableMixin from '../mixins/dateable'`
 
 Encounter = DS.Model.extend(CodeableMixin, DateableMixin,
-  identifier: DS.hasMany('identifier')
-  status: DS.attr('string')
-  class: DS.attr('string')
-  type: DS.hasMany('codeable-concept')
-  subject: DS.belongsTo('resource-reference')
-  participant: DS.hasMany('participant')
-  fulfills: DS.belongsTo('resource-reference')
-  period: DS.belongsTo('period')
-  length: DS.belongsTo('quantity')
-  reason: DS.belongsTo('codeable-concept')
-  indication: DS.belongsTo('resource-reference')
-  priority: DS.belongsTo('codeable-concept')
-  hospitalization: DS.belongsTo('hospitalization')
-  location: DS.hasMany('location')
-  serviceProvider: DS.belongsTo('resource-reference')
-  partOf: DS.belongsTo('resource-reference')
+  identifier: DS.hasMany('identifier', {embedded: true}),
+  status: DS.attr('string'),
+  "class": DS.attr('string'),
+  type: DS.hasMany('codeable-concept', {embedded: true}),
+  patient: DS.belongsTo('reference', {embedded: true}),
+  participant: DS.hasMany('participant', {embedded: true}),
+  fulfills: DS.belongsTo('reference', {embedded: true}),
+  period: DS.belongsTo('period', {embedded: true}),
+  # length: DS.belongsTo('duration', {embedded: true}),
+  reason: DS.hasMany('codeable-concept', {embedded: true}),
+  indication: DS.hasMany('reference', {embedded: true}),
+  priority: DS.belongsTo('codeable-concept', {embedded: true}),
+  hospitalization: DS.belongsTo('hospitalization', {embedded: true}),
+  location: DS.hasMany('location', {embedded: true}),
+  serviceProvider: DS.belongsTo('reference', {embedded: true}),
+  partOf: DS.belongsTo('resource-reference', {embedded: true}),
+  episodeOfCare: DS.belongsTo('reference', {embedded: true}),
+  incomingReferralRequest: DS.hasMany('reference', {embedded: true}),
+  # statusHistory: DS.hasMany('status-history', {embedded: true})
 
   text: (->
     @get('type.firstObject.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||@get('code.firstObject.text')

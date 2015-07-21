@@ -27,20 +27,20 @@
 `import DS from 'ember-data'`
 
 Condition = DS.Model.extend(
-  identifier: DS.hasMany('identifier')
-  subject: DS.belongsTo('resource-reference')
-  encounter: DS.belongsTo('resource-reference')
-  asserter: DS.belongsTo('resource-reference')
-  dateAsserted: DS.attr('date')
-  code: DS.belongsTo('codeable-concept')
-  category: DS.belongsTo('codeable-concept')
-  status: DS.attr('string')
-  certainty: DS.belongsTo('codeable-concept')
-  severity: DS.belongsTo('codeable-concept')
-  onsetDate: DS.attr('date')
-  abatementDate: DS.attr('date')
-  abatementBoolean: DS.attr('boolean')
-  location: DS.hasMany('location')
+  identifier: DS.hasMany('identifier', {embedded: true}),
+  subject: DS.belongsTo('resource-reference', {embedded: true}),
+  encounter: DS.belongsTo('resource-reference', {embedded: true}),
+  asserter: DS.belongsTo('resource-reference', {embedded: true}),
+  dateAsserted: DS.attr('date'),
+  code: DS.belongsTo('codeable-concept', {embedded: true}),
+  category: DS.belongsTo('codeable-concept', {embedded: true}),
+  status: DS.attr('string'),
+  certainty: DS.belongsTo('codeable-concept', {embedded: true}),
+  severity: DS.belongsTo('codeable-concept', {embedded: true}),
+  onsetDateTime: DS.attr('date'),
+  abatementDateTime: DS.attr('date'),
+  abatementBoolean: DS.attr('boolean'),
+  location: DS.hasMany('location', {embedded: true}),
   notes: DS.attr('string')
 
   text: (->
