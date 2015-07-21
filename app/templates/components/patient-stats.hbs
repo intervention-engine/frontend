@@ -53,8 +53,8 @@
   </div>
   <div class="panel-body">
     {{#each medication in patient.activeMedications}}
-      {{#if medication.medication}}
-        <li>{{medication.medication.text}}</li>
+      {{#if medication.text}}
+        <li>{{medication.text}}</li>
       {{/if}}
     {{/each}}
   </div>

@@ -173,16 +173,16 @@ Patient = DS.Model.extend(
 
   events: Ember.computed 'medications', 'observations', 'conditions', 'encounters', ->
     events = Ember.A()
-    events.pushObject(@store.createRecord('event', {
-      event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."},
-      type: "birth"
-    }))
+    # events.pushObject(@store.createRecord('event', {
+    #   event: {startDate: @get('birthDate'), text: "#{@get('fullName')} born."},
+    #   type: "birth"
+    # }))
     @get("conditions").forEach (ev) =>
       events.pushObject(@store.createRecord('event', {
         event: ev,
         type: "condition"
       }))
-      if ev.get('abatementDate')? and (ev.get('abatementDate') >= ev.get('onsetDate'))
+      if ev.get('endDate')? and (ev.get('endDate') >= ev.get('startDate'))
         events.pushObject(@store.createRecord('event', {
           event: ev,
           isEnd: true,

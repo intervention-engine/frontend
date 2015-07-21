@@ -10,7 +10,6 @@ VerticalLineChartComponent = Ember.Component.extend
   width: 600
   height: 70
   didInsertElement: ->
-
     svg = d3.select(@element).select("svg")
     # data = this.data
     # padding = 5
@@ -56,7 +55,11 @@ VerticalLineChartComponent = Ember.Component.extend
       .range([@height - @offset - @padding , @offset + @padding])
 
     @generator = d3.svg.area()
-      .x((d) => @positionScale(d.effectiveDate))
+      .x((d) =>
+        unless d.effectiveDate instanceof Date
+          d.effectiveDate = new Date(d.effectiveDate)
+        @positionScale(d.effectiveDate)
+      )
       .y0((d) => @height)
       .y1(@height - @offset)
 
@@ -79,8 +82,7 @@ VerticalLineChartComponent = Ember.Component.extend
       .transition()
       .attr("cy", (d) => @heightScale(d3.max(d.values, (v) -> v.value)))
 
-
-
+    window.test=  @data.mapBy('effectiveDate')
 
     ).observes('data', 'offsetTime', 'offsetUnit')
 

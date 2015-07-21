@@ -47,8 +47,8 @@ Condition = DS.Model.extend(
     @get('code.text')?.match(/:\s+([^(]+)\s+\(/)?[1]||@get('code.text')
   ).property('code')
 
-  startDate: Em.computed('onsetDate', -> @get('onsetDate'))
-  endDate: Em.computed('abatementDate', -> @get('abatementDate'))
+  startDate: Em.computed('onsetDateTime', -> @get('onsetDateTime'))
+  endDate: Em.computed('abatementDateTime', -> @get('abatementDateTime'))
 
   active: (->
     not @get('abatementDate')? or (@get('abatementDate') > new Date())
