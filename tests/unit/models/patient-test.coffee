@@ -1,24 +1,40 @@
 `import { test, moduleForModel} from 'ember-qunit'`
+`import patient_1_encounters from '../../fixtures/encounters/patient1'`
+`import patient_1 from '../../fixtures/patients/patient1'`
 `import Pretender from 'pretender'`
 
 server = null
+testData = {}
+
 
 moduleForModel 'patient', 'Patient', {
   # Specify the other units that are required for this test.
-  needs: ['adapter:application', 'serializer:application',
-   'serializer:patient', 'model:identifier', 'model:human-name',
-   'model:contact-point', 'model:address',
-   'model:codeable-concept', 'serializer:codeable-concept', 'model:attachment',
-   'model:contact', 'model:animal', 'model:reference',
-   'model:link', 'model:condition',
-   'model:observation', 'model:encounter', 'serializer:encounter',
-   'model:medicationStatement', 'model:period',
-   'model:resource-reference', 'model:coding', 'serializer:coding',
-   'model:location', 'model:quantity',
-   'model:participant', 'model:hospitalization',
-   'model:dosage', 'model:medication', 'model:accomodation', 'model:event', 'model:risk',
-   'model:notification-count']
+  needs: ['adapter:application', 'serializer:application','model:identifier',
+        'model:human-name',
+        'model:contact-point',
+        'model:address',
+        'model:codeable-concept',
+        'model:attachment',
+        'model:patient-contact-component',
+        'model:patient-animal-component',
+        'model:patient-communication-component',
+        'model:reference',
+        'model:reference',
+        'model:patient-link-component',
+        'model:period',
+        'model:coding',
+        'model:encounter',
+        'model:encounter-status-history-component',
+        'model:encounter-participant-component',
+        'model:quantity',
+        'model:encounter-hospitalization-component',
+        'model:encounter-location-component'
+      ]
   setup: ->
+    # Because for some reason QUnit doesn't seem to let you access variables unless they are set in here...
+    testData = {};
+    testData['patient_1'] = patient_1
+    testData['patient_1_encounters'] = patient_1_encounters
     server = new Pretender ->
       @get '/Patient/', (request) ->
         all =  JSON.stringify({
@@ -27,36 +43,15 @@ moduleForModel 'patient', 'Patient', {
         })
         [200, {"Content-Type": "application/json"}, all]
       @get '/Patient/1', (request) ->
-        all =  JSON.stringify({
-          id: 1,
-          Name: [{ Family: ["A"], Given: ["BH_Adult"]}],
-          Gender: {Coding: [{System: "http://hl7.org/fhir/v3/AdministrativeGender", Code: "M"}]},
-          BirthDate: "1969-12-31"
-        })
+        all =  JSON.stringify(testData.patient_1)
         [200, {"Content-Type": "application/json"}, all]
       @get '/Patient/2', (request) ->
         all =  JSON.stringify({id: 2, Name: [{ Family: ["B"], Given: ["BH_Adult"]}]})
         [200, {"Content-Type": "application/json"}, all]
       @get '/Encounter', (request) ->
-        switch request.queryParams['subject:Patient']
+        switch request.queryParams['patient:Patient']
           when "1"
-            all =  JSON.stringify({
-              resourceType: 'Bundle',
-              entry: [
-                {
-                  content: {id: 1, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99221"}], Text: "Inpatient Encounter"}],
-                  Period: {Start: "2012-10-01T08:00:00-04:00", End: "2012-10-01T09:00:00-04:00"}}
-                },
-                {
-                  content: {id: 2, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99221"}], Text: "Inpatient Readmission Encounter"}],
-                  Period: {Start: "2012-10-03T08:00:00-04:00", End: "2012-10-03T09:00:00-04:00"}}
-                },
-                {
-                  content: {id: 3, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99201"}], Text: "Outpatient Office Visit"}],
-                  Period: {Start: "2012-10-03T08:00:00-04:00", End: "2012-10-03T09:00:00-04:00"}}
-                }
-              ]
-              })
+            all = JSON.stringify(testData.patient_1_encounters)
           when "2"
             all = JSON.stringify({
               resourceType: "Bundle"
@@ -102,13 +97,12 @@ moduleForModel 'patient', 'Patient', {
               ]
               })
         [200, {"Content-Type": "application/json"}, all]
-      @get '/NotificationCount', (request) ->
+      @get '/Notification-count', (request) ->
         all =  JSON.stringify([
           { patient: "1", count: 7 },
           { patient: "2", count: 3 }
         ])
         [200, {"Content-Type": "application/json"}, all]
-
 }
 
 test 'fullName', ->
@@ -117,7 +111,7 @@ test 'fullName', ->
   Ember.run ->
     model = store.find('patient', 1)
   model.then ->
-    equal model.get('fullName'), 'A, BH_Adult', 'Full name is correct'
+    equal model.get('fullName'), 'Donald, Duck', 'Full name is correct'
 
 test 'inpatientAdmissions', ->
   store = @store()
@@ -212,19 +206,6 @@ test 'categoryDisplay data is correct', ->
       equal wheel.filterBy('name', 'inpatientAdmissions')?[0].risk, 2
       equal wheel.filterBy('name', 'readmissions')?[0].risk, 1
 
-test 'computedRisk is correct', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    Ember.RSVP.allSettled([
-        patient.get('conditions'),
-        patient.get('medications'),
-        patient.get('encounters')
-      ]).then ->
-      equal patient.get('computedRisk'), 2
 
 test 'computedGender is correct for males', ->
   store = @store()
@@ -255,19 +236,6 @@ test 'computedAge is correct', ->
     computedAge = moment.duration({to: moment(), from: moment(patient.get('birthDate'))}).years()
     equal patient.get('computedAge'), computedAge
 
-test 'risk calculation is correct', ->
-  store = @store()
-  patient = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    Ember.RSVP.allSettled([
-        patient.get('conditions'),
-        patient.get('medications')
-    ]).then ->
-      events = patient.get('events')
-      risks = patient.get('risks')
-      equal risks.length, 6
 
 test 'notification count is correct', ->
   store = @store()
