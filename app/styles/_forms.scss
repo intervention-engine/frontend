@@ -34,7 +34,7 @@ input.login-input {
   }
 }
 
-/* -------------------------------- INPUT PLACEHOLDERS -------------------------------- */
+/* ------------------------- INPUT PLACEHOLDERS ---------------------------- */
 
 @mixin placeholder {
   color: lighten($brand-secondary, 40%);
@@ -85,7 +85,7 @@ input.login-input {
    @include placeholder-focus;
 }
 
-/* -------------------------------- CHECKBOXES & RADIO BUTTONS -------------------------------- */
+/* ------------------------- CHECKBOXES & RADIO BUTTONS -------------------- */
 
 input[type=checkbox].css-checkbox,
 input[type=radio].css-checkbox {
@@ -142,7 +142,7 @@ label.radio-label {
   padding-left: 35px;
 }
 
-/* -------------------------------- FORM GROUP -------------------------------- */
+/* ------------------------- FORM GROUP ------------------------------------ */
 
 .form-horizontal {
   margin: 0;
@@ -171,4 +171,12 @@ label.radio-label {
   }
 }
 
+/* ------------------------- FORM INPUT ------------------------------------ */
 
+.form-input {
+  border: 1px solid lighten($brand-secondary,30%);
+  border-radius: 0;
+  padding-left: 50px;
+  height: 40px;
+  line-height: 1.5;
+}

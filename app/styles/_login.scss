@@ -1,30 +1,89 @@
-/* -------------------------------- MEDIA -------------------------------- */
+/* ------------------------- MIXINS ---------------------------------------- */
 
-@media (min-width: $screen-md) {
-  .login-content {
-    background: $brand-primary url("/assets/images/desktop-login-background-image.png") 50% 14px no-repeat;
-    background-attachment: scroll;
-    padding-bottom: 130px;
-
-    .panel {
-      background-color: transparent;
-      border: none;
-      box-shadow: none;
-    }
-
-    .login {
-      margin-top: 260px;
-    }
-  }
+@mixin login-background($padding) {
+  background: $brand-primary url("/assets/images/desktop-login-background-image.png") 50% 14px no-repeat;
+  background-attachment: scroll;
+  padding-bottom: $padding;
 }
 
-@media (max-width: $screen-md) {
-  .login-content {
+/* ------------------------- LOGIN ----------------------------------------- */
+
+.login-content {
+  @include respond-to(non-handheld) {
+    @include login-background(130px);
+  }
+
+  @include respond-to(handheld) {
     background-color: $brand-primary;
   }
 
   .login {
-    margin-top: 150px;
+    @include respond-to(non-handheld) {
+      margin-top: 260px;
+    }
+
+    @include respond-to(handheld) {
+      margin-top: 150px;
+    }
+
+    .panel {
+      min-width: 450px;
+
+      @include respond-to(non-handheld) {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        width: 500px;
+      }
+
+      @include respond-to(desktop-wide) {
+        margin: 20px 0 0 -15px;
+      }
+
+      @include respond-to(desktop) {
+        margin: 20px 0 0 15px;
+      }
+    }
+
+    .form-login {
+      margin: 50px 40px 20px 40px;
+
+      .form-group {
+        padding: 5px 0;
+
+        .input-addon {
+          position: relative;
+
+          .glyphicon, .fa {
+            position: absolute;
+            padding: 8px 0 8px 15px;
+            pointer-events: none;
+            line-height: 25px;
+            color: lighten($brand-secondary, 40%);
+          }
+        }
+
+        .left-addon {
+          .glyphicon, .fa {
+            left: 0;
+          }
+
+          input.login-input {
+            padding-left: 40px;
+          }
+        }
+
+        .right-addon {
+          .glyphicon, .fa {
+            right: 0;
+          }
+
+          input.login-input {
+            padding-right: 40px;
+          }
+        }
+      }
+    }
 
     .login-logo {
       background-color: $brand-secondary;
@@ -37,60 +96,22 @@
     }
 
     .login-footer {
-      background-color: $brand-secondary;
-      height: 70px;
-      padding-top: 15px;
-    }
-  }
-}
+      margin: 12px;
 
-/* -------------------------------- LOGIN -------------------------------- */
+      @include respond-to(handheld) {
+        background-color: $brand-secondary;
+        height: 70px;
+        padding-top: 15px;
+      }
 
-.login {
-  background-color: transparent;
-
-  .form-group {
-    padding: 10px 0;
-
-    .input-addon {
-      position: relative;
-
-      .glyphicon, .fa {
-        position: absolute;
-        padding: 10px;
-        pointer-events: none;
-        line-height: 25px;
-        color: lighten($brand-secondary, 40%);
+      .login-footer-right {
+        text-align: right;
       }
     }
 
-    .left-addon {
-      .glyphicon, .fa {
-        left: 0;
-      }
-
-      input.login-input {
-        padding-left: 40px;
-      }
-    }
-
-    .right-addon {
-      .glyphicon, .fa {
-        right: 0;
-      }
-
-      input.login-input {
-        padding-right: 40px;
-      }
-    }
-  }
-
-  .login-footer {
-    color: #fff;
-    margin-top: 12px;
-
-    .login-footer-right {
-      text-align: right;
+    // overwrite background color of Chrome autofill
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px white inset;
     }
   }
 }

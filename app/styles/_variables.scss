@@ -35,9 +35,9 @@ $fa-font-path: '/assets/fontawesome';
 
 // ------------------------- MEDIA QUERIES --------------------------------- //
 
-$break-mobile: $screen-sm;  // mobile and tablet-portrait
-$break-tablet: $screen-md;  // tablet-landscape
-$break-desktop: $screen-lg; // desktop-regular (> desktop-wide)
+$break-mobile: $screen-sm - 1;  // mobile and tablet-portrait
+$break-tablet: $screen-md - 1;  // tablet-landscape
+$break-desktop: $screen-lg - 1; // desktop-regular (> desktop-wide)
 
 @mixin respond-to($media) {
   @if $media == mobile {
@@ -57,6 +57,16 @@ $break-desktop: $screen-lg; // desktop-regular (> desktop-wide)
   }
   @else if $media == desktop-wide {
     @media only screen and (min-width: $break-desktop + 1) {
+      @content;
+    }
+  }
+  @else if $media == handheld {
+    @media only screen and (max-width: $break-tablet) {
+      @content;
+    }
+  }
+  @else if $media == non-handheld {
+    @media only screen and (min-width: $break-tablet +1) {
       @content;
     }
   }

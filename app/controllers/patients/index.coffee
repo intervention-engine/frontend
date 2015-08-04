@@ -18,7 +18,7 @@ PatientsIndexController = Ember.Controller.extend(
   filteredPatients: Em.computed 'sortedPatients', 'patientSearch', ->
     rx = new RegExp(@get("patientSearch"), "gi")
     @get('sortedPatients').filter( (p)->
-        p.get("fullName").toString().match(rx)
+      p.get("fullName").toString().match(rx)
     )
 
 )

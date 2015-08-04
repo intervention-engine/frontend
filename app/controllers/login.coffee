@@ -4,6 +4,10 @@
 LoginController = Ember.Controller.extend(LoginControllerMixin, {
   queryParams: ['registered']
   authenticator: 'authenticator:ie'
+  currentVersion: 'beta'
+  logoLargeURL: 'assets/images/logo-darkbg-lg.png'
+  mitreURL: 'http://www.mitre.org/'
+  interventionEnginURL: 'http://www.interventionengine.org'
 
   identification: null
   password: null
