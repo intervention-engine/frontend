@@ -4,6 +4,8 @@ import Patient from 'ember-fhir-adapter/models/patient';
 
 let IEPatient = Patient.extend({
   encounters: DS.hasMany('encounter', {"async": true}),
+  conditions: DS.hasMany('condition', {"async": true}),
+  medications: DS.hasMany('medicationStatement', {"async": true}),
 
 
 
@@ -27,7 +29,48 @@ let IEPatient = Patient.extend({
     return  item.hasCode('type', {code: '99221', system: 'http://www.ama-assn.org/go/cpt'}) ||
             item.hasCode('type', {code: '99222', system: 'http://www.ama-assn.org/go/cpt'}) ||
             item.hasCode('type', {code: '99223', system: 'http://www.ama-assn.org/go/cpt'});
-  })
+  }),
+
+  events: Ember.computed("encounters", "conditions", "medications", function(){
+    var events =  Ember.A([]);
+    this.get('encounters').map(function(e){
+      let patient_event = e.store.createRecord('patient-event', {event: e, type: "encounter"});
+      events.push(patient_event);
+      if(e.hasOccured('endDate')){
+        let patient_event = e.store.createRecord('patient-event', {event: e, type: "encounter", isEnd: true});
+        events.push(patient_event);
+      }
+    });
+    this.get('conditions').map(function(e){
+      let patient_event = e.store.createRecord('patient-event', {event: e, type: "condition"});
+      events.push(patient_event);
+      if(e.hasOccured('endDate')){
+        let patient_event = e.store.createRecord('patient-event', {event: e, type: "condition", isEnd: true});
+        events.push(patient_event);
+      }
+    });
+    this.get('medications').map(function(e){
+      let patient_event = e.store.createRecord('patient-event', {event: e, type: "medication"});
+      events.push(patient_event);
+      if(e.hasOccured('endDate')){
+        let patient_event = e.store.createRecord('patient-event', {event: e, type: "medication", isEnd: true});
+        events.push(patient_event);
+      }
+    });
+    return events.sortBy('effectiveDate').reverse();
+  }),
+
+  activeMedications: Ember.computed.filter("medications", function(med){
+    return med.isActive('endDate');
+  }),
+
+  activeConditions: Ember.computed.filter("conditions", function(cond){
+    return cond.isActive('endDate');
+  }),
+
+  futureEncounters: Ember.computed.filter("encounters", function(enc){
+    return !enc.hasOccured('startDate');
+  }),
 
 });
 

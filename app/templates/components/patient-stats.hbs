@@ -2,11 +2,15 @@
   <div class="panel-heading-alt">
     <div class="panel-title">
       <i class="fa fa-hospital-o fa-fw"></i>
-      Appointments (1)
+      Appointments ({{patient.futureEncounters.length}})
     </div>
   </div>
   <div class="panel-body">
-    {{!-- TODO --}}
+    <ul>
+      {{#each encounter in patient.futureEncounters}}
+        <li>{{encounter.startDate}}</li>
+      {{/each}}
+    </ul>
   </div>
 
   <div class="panel-heading-alt">

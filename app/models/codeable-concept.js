@@ -6,6 +6,10 @@ let IECodeableConcept = CodeableConcept.extend({
       return c.get('system') === code.system && c.get('code') === code.code;
     });
     return matchedCodes.any(function(d){return d;});
+  },
+
+  toString: function(){
+    return this.get("text");
   }
 });
 

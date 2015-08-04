@@ -28,7 +28,16 @@ moduleForModel 'patient', 'Patient', {
         'model:encounter-participant-component',
         'model:quantity',
         'model:encounter-hospitalization-component',
-        'model:encounter-location-component'
+        'model:encounter-location-component',
+        'model:condition',
+        'model:condition-stage-component',
+        'model:condition-evidence-component',
+        'model:condition-location-component',
+        'model:condition-due-to-component',
+        'model:condition-occurred-following-component',
+        'model:medication-statement',
+        'model:medication-statement-dosage-component',
+        'model:range'
       ]
   setup: ->
     # Because for some reason QUnit doesn't seem to let you access variables unless they are set in here...
