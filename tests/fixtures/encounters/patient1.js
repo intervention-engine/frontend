@@ -39,7 +39,7 @@ var patient1 = {
     {
       "resource":{
       "resourceType": "Encounter",
-      "id": 2,
+      "id": 3,
       "type": [{
         "coding": [{
           "system": "http://www.ama-assn.org/go/cpt",

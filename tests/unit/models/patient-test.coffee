@@ -10,6 +10,7 @@ testData = {}
 moduleForModel 'patient', 'Patient', {
   # Specify the other units that are required for this test.
   needs: ['adapter:application', 'serializer:application','model:identifier',
+        'serializer:patient',
         'model:human-name',
         'model:contact-point',
         'model:address',
@@ -37,7 +38,9 @@ moduleForModel 'patient', 'Patient', {
         'model:condition-occurred-following-component',
         'model:medication-statement',
         'model:medication-statement-dosage-component',
-        'model:range'
+        'model:range',
+        'model:appointment',
+        'model:appointment-participant-component'
       ]
   setup: ->
     # Because for some reason QUnit doesn't seem to let you access variables unless they are set in here...
@@ -66,6 +69,7 @@ moduleForModel 'patient', 'Patient', {
               resourceType: "Bundle"
               entry: []
             })
+        console.log all
         [200, {"Content-Type": "application/json"}, all]
       @get '/Condition', (request) ->
         switch request.queryParams['subject:Patient']
