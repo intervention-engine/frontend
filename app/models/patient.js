@@ -6,7 +6,7 @@ let IEPatient = Patient.extend({
   encounters: DS.hasMany('encounter', {"async": true}),
   conditions: DS.hasMany('condition', {"async": true}),
   medications: DS.hasMany('medicationStatement', {"async": true}),
-
+  appointments: DS.hasMany('appointment', {"async": true}),
 
 
   fullName: Ember.computed("name", function(){
@@ -68,8 +68,8 @@ let IEPatient = Patient.extend({
     return cond.isActive('endDate');
   }),
 
-  futureEncounters: Ember.computed.filter("encounters", function(enc){
-    return !enc.hasOccured('startDate');
+  futureAppointments: Ember.computed.filter("appointments", function(appointment){
+    return !appointment.hasOccured('start');
   }),
 
 });

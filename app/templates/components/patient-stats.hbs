@@ -2,13 +2,13 @@
   <div class="panel-heading-alt">
     <div class="panel-title">
       <i class="fa fa-hospital-o fa-fw"></i>
-      Appointments ({{patient.futureEncounters.length}})
+      Appointments ({{patient.futureAppointments.length}})
     </div>
   </div>
   <div class="panel-body">
     <ul>
-      {{#each encounter in patient.futureEncounters}}
-        <li>{{encounter.startDate}}</li>
+      {{#each appointment in patient.futureAppointments}}
+        <li>{{appointment.startDate}}</li>
       {{/each}}
     </ul>
   </div>
