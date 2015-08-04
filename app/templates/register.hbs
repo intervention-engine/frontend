@@ -1,59 +1,49 @@
-<div class="container login">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-      <div class="panel">
-        <div class="panel-title login-logo visible-sm visible-xs">
-          <img {{bind-attr src="logoLargeURL"}} alt="Intervention Engine" />
-        </div>
-        <div class="panel-body">
-          <form {{action 'register' on='submit'}}>
-            <div class="form-group">
-              <label class="sr-only" for="login-email">Enter email</label>
-              <div class="input-addon left-addon">
-                <i class="fa fa-envelope fa-fw"></i>
-                  {{input type="text" value=identification autofocus="autofocus" classNames="form-control" placeholder="Username"}}
-              </div>
-            </div>
+{{#login-register}}
+  <form {{action "register" on="submit"}}>
+    <div class="form-group">
+      <label class="sr-only" for="login-email">Enter email</label>
+      <div class="input-addon left-addon">
+        <i class="fa fa-envelope fa-fw"></i>
+          {{input type="text" value=identification autofocus="autofocus" classNames="form-control form-input" placeholder="email"}}
+      </div>
+    </div>
 
-            <div class="form-group">
-              <label class="sr-only" for="login-password">Enter password</label>
-              <div class="input-addon left-addon">
-                <i class="fa fa-lock fa-fw"></i>
-                  {{input type="password" value=password autocomplete="off" classNames="form-control" placeholder="Password"}}
-              </div>
-            </div>
+    <div class="form-group">
+      <label class="sr-only" for="login-password">Enter password</label>
+      <div class="input-addon left-addon">
+        <i class="fa fa-lock fa-fw"></i>
+          {{input type="password" value=password autocomplete="off" classNames="form-control form-input" placeholder="password"}}
+      </div>
+    </div>
 
-            <div class="form-group">
-              <label class="sr-only" for="login-password">Enter password confirmation</label>
-              <div class="input-addon left-addon">
-                <i class="fa fa-lock fa-fw"></i>
-                  {{input type="password" value=confirmation autocomplete="off" classNames="form-control" placeholder="Confirmation"}}
-              </div>
-            </div>
+    <div class="form-group">
+      <label class="sr-only" for="login-password">Enter password confirmation</label>
+      <div class="input-addon left-addon">
+        <i class="fa fa-lock fa-fw"></i>
+          {{input type="password" value=confirmation autocomplete="off" classNames="form-control form-input" placeholder="confirm password"}}
+      </div>
+    </div>
 
-            <div class="text-right">
-              <button class="btn" type="submit" {{bind-attr disabled=loggingIn}}>Register</button>
-            </div>
-          </form>
-          {{#if errorMessage}}
-            <div class="alert alert-danger">
-              <strong>Registration failed:</strong> {{errorMessage}}
-            </div>
-          {{/if}}
-        </div>
+    <div class="text-right">
+      <button class="btn btn-lg btn-primary" type="submit" disabled={{disableRegisterBtn}}>Register</button>
+    </div>
+  </form>
 
-        <div class="register-footer">
-          <div class="row">
-            <div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-0">
-              <span class="text-left">
-                <a target="_blank" href="http://www.mitre.org/"><span class="hidden-xs">The</span> MITRE <span class="hidden-xs">Corporation</span></a>
-                <br>
-                v{{currentVersion}}
-              </span>
-            </div>
-          </div>
-        </div>
+  {{#if errorMessage}}
+    <div class="alert alert-danger">
+      <strong>Registration failed:</strong> {{errorMessage}}
+    </div>
+  {{/if}}
+
+  <div class="register-footer">
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-0">
+        <span class="text-left">
+          <a target="_blank" href="http://www.mitre.org/"><span class="hidden-xs">The</span> MITRE <span class="hidden-xs">Corporation</span></a>
+          <br>
+          v{{currentVersion}}
+        </span>
       </div>
     </div>
   </div>
-</div>
+{{/login-register}}

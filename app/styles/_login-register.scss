@@ -1,0 +1,40 @@
+/* ------------------------- LOGIN-REGISTER -------------------------------- */
+
+.login-register {
+  @include respond-to(non-handheld) {
+    margin-top: 260px;
+  }
+
+  @include respond-to(handheld) {
+    margin-top: 150px;
+  }
+
+  .panel {
+    min-width: 450px;
+
+    @include respond-to(non-handheld) {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      width: 500px;
+    }
+
+    @include respond-to(desktop-wide) {
+      margin: 20px 0 0 -15px;
+    }
+
+    @include respond-to(desktop) {
+      margin: 20px 0 0 15px;
+    }
+  }
+
+  .login-register-logo {
+    background-color: $brand-secondary;
+    text-align: center;
+
+    img {
+      padding: 20px;
+      width: 400px;
+    }
+  }
+}

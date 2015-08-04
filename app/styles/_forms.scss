@@ -144,6 +144,42 @@ label.radio-label {
 
 /* ------------------------- FORM GROUP ------------------------------------ */
 
+.form-group {
+  padding: 5px 0;
+
+  .input-addon {
+    position: relative;
+
+    .glyphicon, .fa {
+      position: absolute;
+      padding: 8px 0 8px 15px;
+      pointer-events: none;
+      line-height: 25px;
+      color: lighten($brand-secondary, 40%);
+    }
+  }
+
+  .left-addon {
+    .glyphicon, .fa {
+      left: 0;
+    }
+
+    input.login-input {
+      padding-left: 40px;
+    }
+  }
+
+  .right-addon {
+    .glyphicon, .fa {
+      right: 0;
+    }
+
+    input.login-input {
+      padding-right: 40px;
+    }
+  }
+}
+
 .form-horizontal {
   margin: 0;
 }
@@ -180,3 +216,8 @@ label.radio-label {
   height: 40px;
   line-height: 1.5;
 }
+
+  // overwrite background color of Chrome autofill
+  input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px white inset;
+  }
