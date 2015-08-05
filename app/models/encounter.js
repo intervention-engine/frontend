@@ -5,7 +5,12 @@ import Encounter from 'ember-fhir-adapter/models/encounter';
 
 let IEEncounter = Encounter.extend(CodeableMixin, DateableMixin, {
   text: Ember.computed('type', function(){
-    return this.get('type.firstObject').toString().match(/:\s+([^(]+)\s+\(/)[1]||this.get('type.firstObject').toString();
+    let code = this.get('type.firstObject');
+    if (code) {
+        return code.toString()//.match(/:\s+([^(]+)\s+\(/)[1]||code.toString();
+    }
+    return "unknown";
+
   }),
   endDate: Ember.computed.oneWay('period.end', function(){
     return this.get('period.end');

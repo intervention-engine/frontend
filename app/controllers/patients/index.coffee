@@ -11,7 +11,9 @@ PatientsIndexController = Ember.Controller.extend(
     else
       console.error("This code path is broken until testing with IE server")
       return @get('model.patients')
-  sortedPatients: (-> @get('patients').sortBy('serverRisk.risk', 'notificationCount', 'computedAge').reverse()).property('model.risk', 'patients')
+  sortedPatients: Ember.computed('patients.@each.notifications.count', ()->
+    @get('patients').sortBy('notifications.count', 'computedAge').reverse()
+    )
 
   patientSearch: ''
 

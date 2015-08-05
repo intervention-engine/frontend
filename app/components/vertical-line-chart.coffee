@@ -5,7 +5,7 @@ VerticalLineChartComponent = Ember.Component.extend
   data: []
   offset: 5
   offsetTime: 6
-  offsetUnit: 'months'
+  offsetUnit: 'years'
   padding: 5
   width: 600
   height: 70
@@ -39,32 +39,31 @@ VerticalLineChartComponent = Ember.Component.extend
     g = svg.append("g")
       .append("path")
   updateGraph:(->
-    tip = d3.tip().attr('class', 'd3-tip').html((d) -> "Risk #{d3.max(d.values, (v) -> v.value)} <br/> #{moment(d.key).format('LL')}")
+    tip = d3.tip().attr('class', 'd3-tip').html((d) -> "Risk #{d3.max(d.values, (v) -> v.get('value'))} <br/> #{moment(d.key).format('LL')}")
 
     svg = d3.select(@element).select("svg")
-    data = this.data.sortBy('effectiveDate')
-
+    data = this.data.filterBy('prediction.firstObject.outcome.text', 'Stroke')
     @positionScale = d3.time.scale()
-      # .domain([d3.min(data, (d) -> d.effectiveDate), new Date()])
+      # .domain([d3.min(data, (d) -> new Date(d.get('date'))), new Date()])
       .domain([moment().subtract(@offsetTime,@offsetUnit).toDate(), new Date()])
       .range([@padding, @width-@padding])
     nestedData = d3.nest()
-      .key((d) -> moment(d.effectiveDate).toDate())
+      .key((d) -> moment(d.get('date')).toDate())
     @heightScale = d3.scale.linear()
       .domain([0, 6])
       .range([@height - @offset - @padding , @offset + @padding])
 
     @generator = d3.svg.area()
       .x((d) =>
-        unless d.effectiveDate instanceof Date
-          d.effectiveDate = new Date(d.effectiveDate)
-        @positionScale(d.effectiveDate)
+        unless d.get('date') instanceof Date
+          d.set('date', new Date(d.get('date')))
+        @positionScale(d.get('date'))
       )
       .y0((d) => @height)
       .y1(@height - @offset)
 
     d3.select(@element).select("svg g path").attr("d", @generator(data))
-    @generator.y1((d) => @heightScale(d.value))
+    @generator.y1((d) => @heightScale(d.get('value')))
     d3.select(@element).select("svg g path").attr("d", @generator(data))
 
     svg.call(tip)
@@ -80,9 +79,8 @@ VerticalLineChartComponent = Ember.Component.extend
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
       .transition()
-      .attr("cy", (d) => @heightScale(d3.max(d.values, (v) -> v.value)))
+      .attr("cy", (d) => @heightScale(d3.max(d.values, (v) -> v.get('value'))))
 
-    window.test=  @data.mapBy('effectiveDate')
 
     ).observes('data', 'offsetTime', 'offsetUnit')
 

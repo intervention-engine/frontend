@@ -4,11 +4,12 @@
 PatientsIndexRoute = Ember.Route.extend(AuthenticatedRouteMixin,
 
   model: ->
+    window.store = @store
     Ember.RSVP.hash(
       patients: @store.findAll('patient'),
       # populations: @store.findAll('filter')
       # risks: @store.findAll('risk')
-      # notificationCounts: @store.findAll('notificationCount')
+      notificationCounts: @store.findAll('notificationCount')
     )
 )
 

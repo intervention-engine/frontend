@@ -8,6 +8,7 @@ let IEPatient = Patient.extend({
   medications: DS.hasMany('medicationStatement', {"async": true}),
   appointments: DS.hasMany('appointment', {"async": true}),
   risks: DS.hasMany('riskAssessment', {"async": true}),
+  notifications: DS.belongsTo('notificationCount', {"async": true, inverse: 'patient'}),
 
 
   fullName: Ember.computed("name", function(){
@@ -83,7 +84,20 @@ let IEPatient = Patient.extend({
       return el.get('prediction.firstObject.outcome.text');
     });
     return nest.entries(this.get('sortedRisks'));
+  }),
 
+  currentRisk: Ember.computed('risksByOutcome', function(){
+    return this.get('risksByOutcome').map(function(risk){
+      return {key: risk.key, value:risk.values[risk.values.length - 1 ]};
+    });
+  }),
+
+  computedRisk: Ember.computed('currentRisk', function(){
+    let risks =  this.get('currentRisk');
+    if (risks.length > 0) {
+      return risks[0].value.get('value');
+    }
+    return 0;
   })
 
 });
