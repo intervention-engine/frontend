@@ -1,93 +1,26 @@
-/* -------------------------------- MEDIA -------------------------------- */
+/* ------------------------- LOGIN ----------------------------------------- */
 
-@media (min-width: $screen-md) {
-  .login-content {
+.login-content {
+  @include respond-to(non-handheld) {
     background: $brand-primary url("/assets/images/desktop-login-background-image.png") 50% 14px no-repeat;
     background-attachment: scroll;
     padding-bottom: 130px;
-
-    .panel {
-      background-color: transparent;
-      border: none;
-      box-shadow: none;
-    }
-
-    .login {
-      margin-top: 260px;
-    }
   }
-}
 
-@media (max-width: $screen-md) {
-  .login-content {
+  @include respond-to(handheld) {
     background-color: $brand-primary;
   }
 
-  .login {
-    margin-top: 150px;
+  .form-login {
+    margin: 50px 40px 30px 40px;
+  }
 
-    .login-logo {
-      background-color: $brand-secondary;
-      text-align: center;
-
-      img {
-        padding: 20px;
-        width: 400px;
-      }
-    }
-
-    .login-footer {
+  .login-footer {
+    @include respond-to(handheld) {
       background-color: $brand-secondary;
       height: 70px;
       padding-top: 15px;
     }
-  }
-}
-
-/* -------------------------------- LOGIN -------------------------------- */
-
-.login {
-  background-color: transparent;
-
-  .form-group {
-    padding: 10px 0;
-
-    .input-addon {
-      position: relative;
-
-      .glyphicon, .fa {
-        position: absolute;
-        padding: 10px;
-        pointer-events: none;
-        line-height: 25px;
-        color: lighten($brand-secondary, 40%);
-      }
-    }
-
-    .left-addon {
-      .glyphicon, .fa {
-        left: 0;
-      }
-
-      input.login-input {
-        padding-left: 40px;
-      }
-    }
-
-    .right-addon {
-      .glyphicon, .fa {
-        right: 0;
-      }
-
-      input.login-input {
-        padding-right: 40px;
-      }
-    }
-  }
-
-  .login-footer {
-    color: #fff;
-    margin-top: 12px;
 
     .login-footer-right {
       text-align: right;

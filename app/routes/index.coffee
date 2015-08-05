@@ -3,7 +3,7 @@
 
 IndexRoute = Ember.Route.extend(AuthenticatedRouteMixin,
   beforeModel: ->
-    @transitionTo('patients');
+    @transitionTo('patients')
 
   # model: ->
   #   Ember.RSVP.hash(

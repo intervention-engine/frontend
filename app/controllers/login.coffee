@@ -1,9 +1,10 @@
 `import Ember from 'ember'`
-`import LoginControllerMixin from 'simple-auth/mixins/login-controller-mixin'`
 
-LoginController = Ember.Controller.extend(LoginControllerMixin, {
+LoginController = Ember.Controller.extend({
   queryParams: ['registered']
-  authenticator: 'authenticator:ie'
+  currentVersion: 'beta'
+  mitreURL: 'http://www.mitre.org/'
+  interventionEnginURL: 'http://www.interventionengine.org'
 
   identification: null
   password: null
@@ -12,10 +13,10 @@ LoginController = Ember.Controller.extend(LoginControllerMixin, {
 
   actions: {
     authenticate: ->
-      _this = this
-      credentials = this.getProperties('identification', 'password')
-      this.get('session').authenticate('authenticator:ie', credentials).then(null, (message) ->
-        _this.set('errorMessage', message))
+      credentials = @getProperties('identification', 'password')
+      @get('session').authenticate('authenticator:ie', credentials).then(null, (message) =>
+        @set('errorMessage', message)
+      )
   }
 })
 

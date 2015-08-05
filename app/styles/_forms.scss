@@ -34,7 +34,7 @@ input.login-input {
   }
 }
 
-/* -------------------------------- INPUT PLACEHOLDERS -------------------------------- */
+/* ------------------------- INPUT PLACEHOLDERS ---------------------------- */
 
 @mixin placeholder {
   color: lighten($brand-secondary, 40%);
@@ -85,7 +85,7 @@ input.login-input {
    @include placeholder-focus;
 }
 
-/* -------------------------------- CHECKBOXES & RADIO BUTTONS -------------------------------- */
+/* ------------------------- CHECKBOXES & RADIO BUTTONS -------------------- */
 
 input[type=checkbox].css-checkbox,
 input[type=radio].css-checkbox {
@@ -142,7 +142,43 @@ label.radio-label {
   padding-left: 35px;
 }
 
-/* -------------------------------- FORM GROUP -------------------------------- */
+/* ------------------------- FORM GROUP ------------------------------------ */
+
+.form-group {
+  padding: 5px 0;
+
+  .input-addon {
+    position: relative;
+
+    .glyphicon, .fa {
+      position: absolute;
+      padding: 8px 0 8px 15px;
+      pointer-events: none;
+      line-height: 25px;
+      color: lighten($brand-secondary, 40%);
+    }
+  }
+
+  .left-addon {
+    .glyphicon, .fa {
+      left: 0;
+    }
+
+    input.login-input {
+      padding-left: 40px;
+    }
+  }
+
+  .right-addon {
+    .glyphicon, .fa {
+      right: 0;
+    }
+
+    input.login-input {
+      padding-right: 40px;
+    }
+  }
+}
 
 .form-horizontal {
   margin: 0;
@@ -171,4 +207,17 @@ label.radio-label {
   }
 }
 
+/* ------------------------- FORM INPUT ------------------------------------ */
 
+.form-input {
+  border: 1px solid lighten($brand-secondary,30%);
+  border-radius: 0;
+  padding-left: 50px;
+  height: 40px;
+  line-height: 1.5;
+}
+
+  // overwrite background color of Chrome autofill
+  input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px white inset;
+  }
