@@ -86,7 +86,7 @@ let IEPatient = Patient.extend({
     return nest.entries(this.get('sortedRisks'));
   }),
 
-  currentRisk: Ember.computed('risksByOutcome', function(){
+   currentRisk: Ember.computed('risksByOutcome', function(){
     return this.get('risksByOutcome').map(function(risk){
       return {key: risk.key, value:risk.values[risk.values.length - 1 ]};
     });
@@ -98,6 +98,32 @@ let IEPatient = Patient.extend({
       return risks[0].value.get('value');
     }
     return 0;
+  }),
+
+  slices: Ember.computed('sortedRisks.@each.pie', function(){
+    let risk = this.get('sortedRisks.firstObject');
+    if (risk) {
+      let slices = risk.get('pie').get('slices');
+      debugger;
+      if (slices) {
+        return slices.map(function(slice){
+          return {weight: slice.get('weight'), value: slice.get('value'), name: slice.get('name')};
+        });
+      } else {
+        return [];
+      };
+
+    } else {
+      return [
+      {name: 'medications', title: 'Medications', value: 0, weight: 1},
+      {name: 'conditions', title: 'Conditions', value: 0, weight: 2},
+      {name: 'readmissions', title: 'Readmissions', value: 0, weight: 1},
+      {name: 'utilization', title: 'Utilizations', value: 5, weight: .5},
+      {name: 'social_barriers', title: 'Social Barriers', value: 2, weight: 1},
+      {name: 'falls', title: 'Falls', value: 1, weight: 1}
+      ];
+    };
+
   })
 
 });

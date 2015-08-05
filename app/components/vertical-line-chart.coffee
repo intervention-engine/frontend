@@ -4,7 +4,7 @@
 VerticalLineChartComponent = Ember.Component.extend
   data: []
   offset: 5
-  offsetTime: 6
+  offsetTime: 4
   offsetUnit: 'years'
   padding: 5
   width: 600
