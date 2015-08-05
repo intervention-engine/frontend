@@ -46,7 +46,7 @@ AsterPlotComponent = Ember.Component.extend
       .attr("class", (d) -> "category#{d.data.name} category")
       .classed("inner", true)
       .attr("d", arc)
-      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
       .on("click", (d) =>
         category = @get('patient.categoryDisplay').findBy('name', d.data.name)
         svg.selectAll(".category").classed("active", false)
@@ -60,7 +60,7 @@ AsterPlotComponent = Ember.Component.extend
     gEnter.append("path")
       .attr("class", (d) -> "category#{d.data.name} category outer")
       .attr("d", outerArc)
-      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
 
       .on("click", (d) =>
         category = @get('patient.categoryDisplay').findBy('name', d.data.name)
@@ -102,11 +102,11 @@ AsterPlotComponent = Ember.Component.extend
       .range([.2, 1])
     arc = d3.svg.arc()
       .innerRadius(innerRadius)
-      .outerRadius((d) -> radiusScale(d.data?.risk||0))
+      .outerRadius((d) -> radiusScale(d.data?.value||0))
       .cornerRadius(5)
     path = svg.selectAll('.inner').data(pie(@data))
       .attr("d", arc)
-      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
       .on("click", (d) =>
         category = @get('patient.categoryDisplay').findBy('name', d.data.name)
         svg.selectAll(".category").classed("active", false)
@@ -117,7 +117,7 @@ AsterPlotComponent = Ember.Component.extend
           @set('selectedCategory', category)
       )
     svg.selectAll(".outer").data(pie(@data))
-      .attr("fill-opacity", (d) -> opacityScale(d.data.risk))
+      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
     # return
   ).observes('data')
 

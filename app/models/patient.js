@@ -84,6 +84,31 @@ let IEPatient = Patient.extend({
     });
     return nest.entries(this.get('sortedRisks'));
 
+  }),
+
+  slices: Ember.computed('sortedRisks.@each.pie', function(){
+    let risk = this.get('sortedRisks.firstObject');
+    if (risk) {
+      let slices = risk.get('pie').get('slices')
+      if (slices) {
+        return slices.map(function(slice){
+          return {weight: slice.get('weight'), value: slice.get('value'), name: slice.get('name')}
+        });
+      } else {
+        return [];
+      };
+
+    } else {
+      return [
+      {name: 'medications', title: 'Medications', value: 0, weight: 1},
+      {name: 'conditions', title: 'Conditions', value: 0, weight: 2},
+      {name: 'readmissions', title: 'Readmissions', value: 0, weight: 1},
+      {name: 'utilization', title: 'Utilizations', value: 5, weight: .5},
+      {name: 'social_barriers', title: 'Social Barriers', value: 2, weight: 1},
+      {name: 'falls', title: 'Falls', value: 1, weight: 1}
+      ];
+    };
+
   })
 
 });
