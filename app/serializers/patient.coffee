@@ -8,7 +8,8 @@ PatientSerializer = ApplicationSerializer.extend
       observations: "/Observation#{queryParam}",
       encounters: "/Encounter#{queryParam}",
       medications: "/MedicationStatement#{queryParam}",
-      appointments: "/Appointment#{queryParam}"
+      appointments: "/Appointment#{queryParam}",
+      risks: "/RiskAssessment?subject:Patient=#{hash.id}"
     }
     @_super(type, hash, prop)
 

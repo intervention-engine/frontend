@@ -7,6 +7,7 @@ let IEPatient = Patient.extend({
   conditions: DS.hasMany('condition', {"async": true}),
   medications: DS.hasMany('medicationStatement', {"async": true}),
   appointments: DS.hasMany('appointment', {"async": true}),
+  risks: DS.hasMany('riskAssessment', {"async": true}),
 
 
   fullName: Ember.computed("name", function(){
@@ -71,6 +72,19 @@ let IEPatient = Patient.extend({
   futureAppointments: Ember.computed.filter("appointments", function(appointment){
     return !appointment.hasOccured('start');
   }),
+
+  sortedRisks: Ember.computed('risks', function(){
+    return this.get('risks').sortBy('date');
+  }),
+
+  risksByOutcome: Ember.computed('sortedRisks', function(){
+    let nest = d3.nest();
+    nest.key(function(el){
+      return el.get('prediction.firstObject.outcome.text');
+    });
+    return nest.entries(this.get('sortedRisks'));
+
+  })
 
 });
 
