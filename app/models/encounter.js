@@ -7,7 +7,7 @@ let IEEncounter = Encounter.extend(CodeableMixin, DateableMixin, {
   text: Ember.computed('type', function(){
     let code = this.get('type.firstObject');
     if (code) {
-        return code.toString()//.match(/:\s+([^(]+)\s+\(/)[1]||code.toString();
+        return code.toString();//.match(/:\s+([^(]+)\s+\(/)[1]||code.toString();
     }
     return "unknown";
 
