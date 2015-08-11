@@ -39,12 +39,22 @@
         </div>
 
         <div class="panel-body filter-types">
-          {{#draggable-object content=patientObject}}
+          {{#draggable-object content=patientAgeObject}}
+            <div class="filter-type">
+              <div class="filter-type-icon">
+                <i class="fa fa-birthday-cake fa-fw"></i>
+              </div>
+              Patient Age
+              <i class="fa fa-chevron-right filter-type-chevron"></i>
+            </div>
+          {{/draggable-object}}
+
+          {{#draggable-object content=patientGenderObject}}
             <div class="filter-type">
               <div class="filter-type-icon">
                 <i class="fa fa-user fa-fw"></i>
               </div>
-              Patient
+              Gender
               <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/draggable-object}}
@@ -83,8 +93,8 @@
         <div class="filter-details panel-body">
           {{#draggable-object-target action="addPane" class="drop-area"}}
             {{#if hasFilterPane}}
-              {{#each pane in model.panes}}
-                {{render "filters/_pane" pane}}
+              {{#each characteristic in model.characteristic}}
+                {{partial "filters/_pane"}}
               {{/each}}
               <div class="row save-new-filter">
                 <div class="col-sm-4 col-sm-offset-4">

@@ -2,10 +2,13 @@
 
 CodeableMixin = Ember.Mixin.create
   hasCode: (field, code) ->
-    matchedCodes = @get(field).map( (c) ->
-      c.hasCode(code)
-    )
-    matchedCodes.any((d) -> d)
-
+    thing = @get(field)
+    if thing.isArray
+      matchedCodes = thing.map( (c) ->
+        c.hasCode(code)
+      )
+      return matchedCodes.any((d) -> d)
+    else
+      return thing.hasCode(code)
 
 `export default CodeableMixin`

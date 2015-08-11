@@ -57,9 +57,9 @@
         <div class="panel-body">
           {{#draggable-object-target action="addPane"}}
             {{#if hasFilterPane}}
-              {{#each pane in model.panes}}
-                {{#with pane}}
-                  {{render "filters/_pane" pane}}
+              {{#each characteristic in model.characteristic}}
+                {{#with characteristic}}
+                  {{render "filters/_pane" characteristic}}
                 {{/with}}
               {{/each}}
             {{else}}

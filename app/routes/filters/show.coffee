@@ -4,7 +4,7 @@
 
 FiltersShowRoute = Ember.Route.extend(AuthenticatedRouteMixin,
   model: (params) ->
-    @store.find('filter', params.id)
+    @store.find('group', params.id)
 
   afterModel: (filter) ->
     # query = DS.PromiseObject.create({promise: Ember.$.get(filter.get('url'))})
@@ -15,7 +15,6 @@ FiltersShowRoute = Ember.Route.extend(AuthenticatedRouteMixin,
 
   actions:
     saveFilter: ->
-      @currentModel.buildQuery()
       @currentModel.save()
       @transitionTo("filters.index")
 

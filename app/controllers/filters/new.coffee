@@ -1,46 +1,47 @@
 `import Ember from 'ember'`
-`import { createPane } from '../../utils/add-filter-pane'`
+`import { createGCC } from '../../utils/add-filter-pane'`
 
 FiltersNewController = Ember.Controller.extend({
   filterName: null
 
   # returns true if filter description has at least 1 filter pane and false if not
   hasFilterPane: (->
-    @get('model.panes.length') > 0
-  ).property('model.panes.length')
+    @get('model.characteristic.length') > 0
+  ).property('model.characteristic.length')
 
   # filter-type objects
-  patientObject: Ember.Object.create({ type: 'patient' })
+  patientAgeObject: Ember.Object.create({ type: 'patient-age' })
+  patientGenderObject: Ember.Object.create({ type: 'patient-gender' })
   conditionObject: Ember.Object.create({ type: 'condition' })
   encounterObject: Ember.Object.create({ type: 'encounter' })
 
-  computeInstaCount: (->
-    req = Ember.$.post("/InstaCountAll",  JSON.stringify(@get('model.query')?.serialize()||{}))
+  # computeInstaCount: (->
+  #   req = Ember.$.post("/InstaCountAll",  JSON.stringify(@get('model')?.serialize()||{}))
 
-    req.fail (=>
-      @set('instaPatient', 0)
-      @set('instaCondition', 0)
-      @set('instaEncounter', 0)
+  #   req.fail (=>
+  #     @set('instaPatient', 0)
+  #     @set('instaCondition', 0)
+  #     @set('instaEncounter', 0)
 
-    )
+  #   )
 
-    req.then ((res)=>
-      val = JSON.parse(res)
-      @set('instaPatient', val.patients)
-      @set('instaCondition', val.conditions)
-      @set('instaEncounter', val.encounters)
-    )
-  ).observes('model.query').on('init')
+  #   req.then ((res)=>
+  #     val = JSON.parse(res)
+  #     @set('instaPatient', val.patients)
+  #     @set('instaCondition', val.conditions)
+  #     @set('instaEncounter', val.encounters)
+  #   )
+  # ).observes('model.characteristic').on('init')
 
-  instaPatient: ( ->
-    @get('model.query')
-  ).property('computeInstaCount')
+  # instaPatient: ( ->
+  #   @get('model.characteristic')
+  # ).property('computeInstaCount')
 
-  instaEncounter: ( ->
-  ).property('computeInstaCount')
+  # instaEncounter: ( ->
+  # ).property('computeInstaCount')
 
-  instaCondition: ( ->
-  ).property('computeInstaCount')
+  # instaCondition: ( ->
+  # ).property('computeInstaCount')
 
 
   # actions
@@ -52,11 +53,11 @@ FiltersNewController = Ember.Controller.extend({
       @transitionTo("filters.index")
 
     addPane: (pane) ->
-      paneObject = createPane(@, pane.get('type'))
-      @get('model.panes').pushObject(paneObject)
+      paneObject = createGCC(@, pane.get('type'))
+      @model.get('characteristic').pushObject(paneObject)
 
     removePane: (pane) ->
-      @model.get("panes").removeObject(pane)
+      @model.get("characteristic").removeObject(pane)
 })
 
 `export default FiltersNewController`
