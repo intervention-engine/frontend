@@ -10,13 +10,33 @@ LoginController = Ember.Controller.extend({
   password: null
   registered: false
   loginFailed: false
+  loggingIn: false
+
+  disableLoginBtn: Ember.computed('loggingIn', ->
+    return true if @get('loggingIn')
+    null
+  )
 
   actions: {
     authenticate: ->
+      return if @get('loggingIn')
+
+      @set('loggingIn', true)
       credentials = @getProperties('identification', 'password')
-      @get('session').authenticate('authenticator:ie', credentials).then(null, (message) =>
+
+      successFn = =>
+        @set('loggingIn', false)
+        return
+
+      errorFn = (message) =>
+        @set('loggingIn', false)
         @set('errorMessage', message)
-      )
+        return
+
+
+      @get('session').authenticate('authenticator:ie', credentials).then(successFn, errorFn)
+
+      return
   }
 })
 

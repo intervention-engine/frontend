@@ -1,5 +1,5 @@
 {{#login-register}}
-  <form {{action "register" on="submit"}}>
+  <form {{action "register" on="submit"}} class="form-register">
     <div class="form-group">
       <label class="sr-only" for="login-email">Enter email</label>
       <div class="input-addon left-addon">
@@ -35,13 +35,12 @@
     </div>
   {{/if}}
 
-  <div class="register-footer">
+  <div class="login-register-footer">
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-0">
-        <span class="text-left">
-          <a target="_blank" href="http://www.mitre.org/"><span class="hidden-xs">The</span> MITRE <span class="hidden-xs">Corporation</span></a>
-          <br>
-          v{{currentVersion}}
+      <div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-0"></div>
+      <div class="col-xs-5 col-xs-offset-1 col-lg-6 col-lg-offset-0 login-register-footer-right">
+        <span class="footer-register-login">
+          {{#link-to "login"}}Log in{{/link-to}}
         </span>
       </div>
     </div>

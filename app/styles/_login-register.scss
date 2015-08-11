@@ -1,40 +1,64 @@
 /* ------------------------- LOGIN-REGISTER -------------------------------- */
 
-.login-register {
+.login-register-content {
   @include respond-to(non-handheld) {
-    margin-top: 260px;
+    background: $brand-primary url("/assets/images/desktop-login-background-image.png") 50% 14px no-repeat;
+    background-attachment: scroll;
+    padding-bottom: 130px;
   }
 
   @include respond-to(handheld) {
-    margin-top: 150px;
+    background-color: $brand-primary;
   }
 
-  .panel {
-    min-width: 450px;
-
+  .login-register {
     @include respond-to(non-handheld) {
-      background-color: transparent;
-      border: none;
-      box-shadow: none;
-      width: 500px;
+      margin-top: 260px;
     }
 
-    @include respond-to(desktop-wide) {
-      margin: 20px 0 0 -15px;
+    @include respond-to(handheld) {
+      margin-top: 150px;
     }
 
-    @include respond-to(desktop) {
-      margin: 20px 0 0 15px;
+    .panel {
+      min-width: 450px;
+
+      @include respond-to(non-handheld) {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        width: 500px;
+      }
+
+      @include respond-to(desktop-wide) {
+        margin: 20px 0 0 -15px;
+      }
+
+      @include respond-to(desktop) {
+        margin: 20px 0 0 15px;
+      }
+    }
+
+    .login-register-logo {
+      background-color: $brand-secondary;
+      text-align: center;
+
+      img {
+        padding: 20px;
+        width: 400px;
+      }
     }
   }
 
-  .login-register-logo {
-    background-color: $brand-secondary;
-    text-align: center;
+  .login-register-footer {
+    @include respond-to(handheld) {
+      background-color: $brand-secondary;
+      height: 70px;
+      padding-top: 15px;
+    }
 
-    img {
-      padding: 20px;
-      width: 400px;
+    .login-register-footer-right {
+      text-align: right;
     }
   }
 }

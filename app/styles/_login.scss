@@ -1,29 +1,5 @@
 /* ------------------------- LOGIN ----------------------------------------- */
 
-.login-content {
-  @include respond-to(non-handheld) {
-    background: $brand-primary url("/assets/images/desktop-login-background-image.png") 50% 14px no-repeat;
-    background-attachment: scroll;
-    padding-bottom: 130px;
-  }
-
-  @include respond-to(handheld) {
-    background-color: $brand-primary;
-  }
-
-  .form-login {
-    margin: 50px 40px 30px 40px;
-  }
-
-  .login-footer {
-    @include respond-to(handheld) {
-      background-color: $brand-secondary;
-      height: 70px;
-      padding-top: 15px;
-    }
-
-    .login-footer-right {
-      text-align: right;
-    }
-  }
+.form-login {
+  margin: 50px 40px 33px 40px;
 }
