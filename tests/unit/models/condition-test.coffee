@@ -2,7 +2,7 @@
 
 moduleForModel 'condition', 'Conditon', {
   # Specify the other units that are required for this test.
-  needs: ['model:resource-reference', 'model:identifier', 'model:codeable-concept',
+  needs: ['model:identifier', 'model:codeable-concept',
           'model:location', 'model:period', 'model:coding']
 }
 

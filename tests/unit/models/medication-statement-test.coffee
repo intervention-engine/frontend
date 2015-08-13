@@ -2,8 +2,8 @@
 
 moduleForModel 'medication-statement', 'MedicationStatement', {
   # Specify the other units that are required for this test.
-  needs: ['model:resource-reference', 'model:identifier', 'model:codeable-concept',
-          'model:dosage', 'model:period', 'model:coding', 'model:medication',
+  needs: ['model:identifier', 'model:codeable-concept',
+          'model:period', 'model:coding', 'model:medication',
           'model:quantity']
 }
 

@@ -1,8 +1,8 @@
 `import { test, moduleFor } from 'ember-qunit'`
 
-moduleFor 'controller:filters/new', 'FiltersNewController', {
+moduleFor 'controller:filters/new', {
   # Specify the other units that are required for this test.
-  needs: ['controller:filters.new']
+  # needs: ['controller:foo']
 }
 
 # Replace this with your real tests.
