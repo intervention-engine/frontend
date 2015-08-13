@@ -4,7 +4,6 @@
 PatientsIndexRoute = Ember.Route.extend(AuthenticatedRouteMixin,
 
   model: ->
-    window.store = @store
     Ember.RSVP.hash(
       patients: @store.findAll('patient'),
       # populations: @store.findAll('filter')

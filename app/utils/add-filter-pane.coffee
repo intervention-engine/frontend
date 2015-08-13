@@ -21,7 +21,7 @@ createAgeGCC = (context) ->
   ageGCC = context.store.createRecord("group-characteristic-component", {id: Ember.generateGuid({}, "group-characteristic-component")})
   ageRange = context.store.createRecord('range')
   ageRange.set("low", context.store.createRecord("quantity", {value: 0}))
-  ageRange.set("high", context.store.createRecord("quantity", {value: Infinity}))
+  ageRange.set("high", context.store.createRecord("quantity", {value: 65}))
   ageGCC.set("valueRange", ageRange)
   ageCoding = context.store.createRecord("coding", {code: "21612-7", system: "http://loinc.org"})
   ageCC = context.store.createRecord("codeable-concept")
