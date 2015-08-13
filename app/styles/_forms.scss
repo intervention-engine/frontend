@@ -247,3 +247,7 @@ input:-webkit-autofill:focus {
 .form-control-feedback {
   padding-top: 10px;
 }
+
+.form-control-feedback-clear {
+  pointer-events: auto;
+}

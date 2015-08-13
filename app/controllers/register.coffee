@@ -1,22 +1,7 @@
 `import Ember from 'ember'`
 `import EmberValidations from 'ember-validations'`
-
-validatedClassNames = (field) ->
-  Ember.computed('displayErrors', "errors.#{field}.length", ->
-    classNames = []
-    if @get("errors.#{field}.length") == 0
-      classNames.push('has-success')
-    else if @get('displayErrors')
-      classNames.push('has-error')
-
-    classNames.push('has-feedback') if classNames.length
-    classNames.join(' ')
-  )
-
-displayValidatedError = (field) ->
-  Ember.computed('displayErrors', "errors.#{field}.length", ->
-    @get('displayErrors') && @get("errors.#{field}.length") > 0
-  )
+`import emailRegex from '../utils/email-validation-regex'`
+`import validatedClassNames from '../utils/validation-group-classnames'`
 
 RegisterController = Ember.Controller.extend(EmberValidations, {
   registering: false
@@ -24,33 +9,34 @@ RegisterController = Ember.Controller.extend(EmberValidations, {
   password: null
   passwordConfirmation: null
   displayErrors: false
-  validated: false
 
-  disableRegisterBtn: Ember.computed('registering', ->
-    return true if @get('registering')
+  disableRegisterBtn: Ember.computed('registering', 'displayErrors', 'isValid', ->
+    return true if @get('registering') || (@get('displayErrors') && !@get('isValid'))
     null
   )
 
   validations: {
     identification: {
       presence: true
+      format: {
+        with: emailRegex
+        allowBlank: true
+        message: 'not a valid email'
+      }
     },
     password: {
-      presence: true,
       confirmation: true
+      length: {
+        minimum: 8
+        messages: {
+          tooShort: 'must be at least 8 characters'
+        }
+      }
     },
     passwordConfirmation: {
       presence: true
     }
   }
-
-  displayIdentificationValid: Ember.computed.equal('errors.identification.length', 0)
-  displayPasswordValid: Ember.computed.equal('errors.password.length', 0)
-  displayPasswordConfirmationValid: Ember.computed.equal('errors.passwordConfirmation.length', 0)
-
-  displayIdentificationError: displayValidatedError('identification')
-  displayPasswordError: displayValidatedError('password')
-  displayPasswordConfirmationError: displayValidatedError('passwordConfirmation')
 
   identificationClassNames: validatedClassNames('identification')
   passwordClassNames: validatedClassNames('password')

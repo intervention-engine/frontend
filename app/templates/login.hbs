@@ -1,18 +1,22 @@
 {{#login-register}}
   <form {{action "authenticate" on="submit"}} class="form-login">
-    <div class="form-group">
+    <div class="form-group {{identificationClassNames}}">
       <label class="sr-only" for="login-email">Enter login email</label>
       <div class="input-addon left-addon">
         <i class="fa fa-envelope fa-fw left-addon-icon"></i>
-          {{input type="text" value=identification classNames="form-control form-input" placeholder="email"}}
+        {{input type="email" value=identification classNames="form-control form-input" placeholder="email"}}
+
+        {{form-validation-tooltip errors=errors.identification displayErrors=displayErrors}}
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group {{passwordClassNames}}">
       <label class="sr-only" for="login-password">Enter login password</label>
       <div class="input-addon left-addon">
         <i class="fa fa-lock fa-fw left-addon-icon"></i>
-          {{input type="password" value=password autocomplete="off" classNames="form-control form-input" placeholder="password"}}
+        {{input type="password" value=password autocomplete="off" classNames="form-control form-input" placeholder="password"}}
+
+        {{form-validation-tooltip errors=errors.password displayErrors=displayErrors}}
       </div>
     </div>
 

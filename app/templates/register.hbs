@@ -4,13 +4,9 @@
       <label class="sr-only" for="login-email">Enter email</label>
       <div class="input-addon left-addon">
         <i class="fa fa-envelope fa-fw left-addon-icon"></i>
-        {{input type="text" value=identification autofocus="autofocus" classNames="form-control form-input" placeholder="email"}}
-        {{#if displayIdentificationError}}
-          <i class="fa fa-times form-control-feedback" aria-hidden="true"></i>
-        {{/if}}
-        {{#if displayIdentificationValid}}
-          <i class="fa fa-check form-control-feedback" aria-hidden="true"></i>
-        {{/if}}
+        {{input type="email" value=identification autofocus="autofocus" classNames="form-control form-input" placeholder="email"}}
+
+        {{form-validation-tooltip errors=errors.identification displayErrors=displayErrors}}
       </div>
     </div>
 
@@ -19,12 +15,8 @@
       <div class="input-addon left-addon">
         <i class="fa fa-lock fa-fw left-addon-icon"></i>
         {{input type="password" value=password autocomplete="off" classNames="form-control form-input" placeholder="password"}}
-        {{#if displayPasswordError}}
-          <i class="fa fa-times form-control-feedback" aria-hidden="true"></i>
-        {{/if}}
-        {{#if displayPasswordValid}}
-          <i class="fa fa-check form-control-feedback" aria-hidden="true"></i>
-        {{/if}}
+
+        {{form-validation-tooltip errors=errors.password displayErrors=displayErrors}}
       </div>
     </div>
 
@@ -33,12 +25,8 @@
       <div class="input-addon left-addon">
         <i class="fa fa-lock fa-fw left-addon-icon"></i>
         {{input type="password" value=passwordConfirmation autocomplete="off" classNames="form-control form-input" placeholder="confirm password"}}
-        {{#if displayPasswordConfirmationError}}
-          <i class="fa fa-times form-control-feedback" aria-hidden="true"></i>
-        {{/if}}
-        {{#if displayPasswordConfirmationValid}}
-          <i class="fa fa-check form-control-feedback" aria-hidden="true"></i>
-        {{/if}}
+
+        {{form-validation-tooltip errors=errors.passwordConfirmation displayErrors=displayErrors}}
       </div>
     </div>
 
