@@ -15,6 +15,7 @@ LoginController = Ember.Controller.extend(EmberValidations, {
   loginFailed: false
   loggingIn: false
   displayErrors: false
+  registered: false
 
   disableLoginBtn: Ember.computed('loggingIn', 'displayErrors', 'isValid', ->
     return true if @get('loggingIn') || (@get('displayErrors') && !@get('isValid'))
@@ -69,6 +70,12 @@ LoginController = Ember.Controller.extend(EmberValidations, {
       )
 
       return
+
+    clearErrors: ->
+      @set('errorMessage', null)
+
+    clearRegistered: ->
+      @set('registered', false)
   }
 })
 

@@ -1,5 +1,4 @@
 /* ------------------------- LOGIN-REGISTER -------------------------------- */
-
 .login-register-content {
   @include respond-to(non-handheld) {
     background: $brand-primary url("/assets/images/desktop-login-background-image.png") 50% 14px no-repeat;
@@ -57,8 +56,17 @@
       padding-top: 15px;
     }
 
+    a {
+      color: lighten($brand-primary, 10%);
+    }
+
+    .login-register-footer-left {
+      padding-left: 40px;
+    }
+
     .login-register-footer-right {
       text-align: right;
+      padding-right: 40px;
     }
   }
 }

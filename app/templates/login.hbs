@@ -1,10 +1,28 @@
 {{#login-register}}
+  {{#if errorMessage}}
+    <div class="alert alert-danger">
+      <strong>Login failed:</strong> {{errorMessage}}
+      <button type="button" class="close" {{action "clearErrors"}} aria-label="Close">
+        <i aria-hidden="true" class="fa fa-times"></i>
+      </button>
+    </div>
+  {{/if}}
+
+  {{#if registered}}
+    <div class="alert alert-success">
+      <strong>Registration successful:</strong> Please log in
+      <button type="button" class="close" {{action "clearRegistered"}} aria-label="Close">
+        <i aria-hidden="true" class="fa fa-times"></i>
+      </button>
+    </div>
+  {{/if}}
+
   <form {{action "authenticate" on="submit"}} class="form-login">
     <div class="form-group {{identificationClassNames}}">
       <label class="sr-only" for="login-email">Enter login email</label>
       <div class="input-addon left-addon">
         <i class="fa fa-envelope fa-fw left-addon-icon"></i>
-        {{input type="email" value=identification classNames="form-control form-input" placeholder="email"}}
+        {{input type="text" value=identification classNames="form-control form-input" placeholder="email"}}
 
         {{form-validation-tooltip errors=errors.identification displayErrors=displayErrors}}
       </div>
@@ -25,24 +43,19 @@
     </div>
   </form>
 
-  {{#if errorMessage}}
-    <div class="alert alert-danger">
-      <strong>Login failed:</strong> {{errorMessage}}
-    </div>
-  {{/if}}
-
   <div class="login-register-footer">
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-0">
+      <div class="col-xs-6 login-register-footer-left">
         <span class="text-left">
           <a target="_blank" href={{mitreURL}}><span class="hidden-xs">The</span> MITRE <span class="hidden-xs">Corporation</span></a>
           <br>
           <a target="_blank" href={{interventionEnginURL}}>v {{currentVersion}}</a>
         </span>
       </div>
-      <div class="col-xs-5 col-xs-offset-1 col-lg-6 col-lg-offset-0 login-register-footer-right">
+
+      <div class="col-xs-6 login-register-footer-right">
         <span>
-          {{#link-to "forgotPassword"}}Forgot Password{{/link-to}}<br>{{#link-to "register"}}Register{{/link-to}}
+          {{#link-to "register"}}Register{{/link-to}}<br>{{#link-to "forgotPassword"}}Forgot Password{{/link-to}}
         </span>
       </div>
     </div>

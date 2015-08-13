@@ -244,10 +244,64 @@ input:-webkit-autofill:focus {
   @include validation-styles;
 }
 
+.has-error {
+  .form-control-feedback {
+    color: $brand-alert;
+  }
+}
+
+.has-success {
+  .form-control-feedback {
+    color: $brand-primary;
+  }
+}
+
 .form-control-feedback {
   padding-top: 10px;
 }
 
 .form-control-feedback-clear {
   pointer-events: auto;
+}
+
+.alert {
+  margin: auto;
+  border-radius: 0;
+  padding: 10px;
+  text-align: center;
+
+  @include respond-to('desktop-wide') {
+    position: absolute;
+    top: 9px;
+    left: -3px;
+    width: 495px;
+  }
+
+  @include respond-to('desktop') {
+    position: absolute;
+    top: 9px;
+    left: 28px;
+    width: 495px;
+  }
+
+  @include respond-to('tablet') {
+    width: 100%;
+  }
+
+  @include respond-to('mobile') {
+    min-width: 448px;
+    width: 100%;
+  }
+
+  &.alert-danger {
+    background-color: lighten($brand-alert, 35%);
+    color: $brand-alert;
+    border: none;
+  }
+
+  &.alert-success {
+    background-color: lighten($brand-primary, 35%);
+    color: $brand-primary;
+    border: none;
+  }
 }

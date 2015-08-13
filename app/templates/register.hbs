@@ -1,10 +1,19 @@
 {{#login-register}}
+  {{#if errorMessage}}
+    <div class="alert alert-danger">
+      <strong>Registration failed:</strong> {{errorMessage}}
+      <button type="button" class="close" {{action "clearErrors"}} aria-label="Close">
+        <i aria-hidden="true" class="fa fa-times"></i>
+      </button>
+    </div>
+  {{/if}}
+
   <form {{action "register" on="submit"}} class="form-register">
     <div class="form-group {{identificationClassNames}}">
       <label class="sr-only" for="login-email">Enter email</label>
       <div class="input-addon left-addon">
         <i class="fa fa-envelope fa-fw left-addon-icon"></i>
-        {{input type="email" value=identification autofocus="autofocus" classNames="form-control form-input" placeholder="email"}}
+        {{input type="text" value=identification classNames="form-control form-input" placeholder="email"}}
 
         {{form-validation-tooltip errors=errors.identification displayErrors=displayErrors}}
       </div>
@@ -35,19 +44,11 @@
     </div>
   </form>
 
-  {{#if errorMessage}}
-    <div class="alert alert-danger">
-      <strong>Registration failed:</strong> {{errorMessage}}
-    </div>
-  {{/if}}
-
   <div class="login-register-footer">
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-0"></div>
-      <div class="col-xs-5 col-xs-offset-1 col-lg-6 col-lg-offset-0 login-register-footer-right">
-        <span class="footer-register-login">
-          {{#link-to "login"}}Log in{{/link-to}}
-        </span>
+      <div class="col-xs-5 col-xs-offset-1 login-register-footer-left"></div>
+      <div class="col-xs-5 col-xs-offset-1 login-register-footer-right">
+        {{#link-to "login"}}Log in{{/link-to}}
       </div>
     </div>
   </div>

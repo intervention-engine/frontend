@@ -9,6 +9,7 @@ RegisterController = Ember.Controller.extend(EmberValidations, {
   password: null
   passwordConfirmation: null
   displayErrors: false
+  errorMessage: null
 
   disableRegisterBtn: Ember.computed('registering', 'displayErrors', 'isValid', ->
     return true if @get('registering') || (@get('displayErrors') && !@get('isValid'))
@@ -51,7 +52,11 @@ RegisterController = Ember.Controller.extend(EmberValidations, {
       @validate().then(=>
         @set('registering', true)
 
-        credentials = @getProperties('identification', 'password', 'passwordConfirmation')
+        credentials = {
+          identification: @get('identification')
+          password: @get('password')
+          confirmation: @get('passwordConfirmation')
+        }
 
         ajaxParams = {
           url: '/register',
@@ -61,13 +66,7 @@ RegisterController = Ember.Controller.extend(EmberValidations, {
         }
 
         successFn = =>
-          Ember.run(=>
-            @get('session').authenticate('authenticator:ie', {
-              identification: credentials.identification,
-              password: credentials.password
-            })
-            @set('registering', false)
-          )
+          @transitionTo('login', { queryParams: { registered: true } })
 
         errorFn = (xhr) =>
           Ember.run(=>
@@ -81,6 +80,9 @@ RegisterController = Ember.Controller.extend(EmberValidations, {
       )
 
       return
+
+    clearErrors: ->
+      @set('errorMessage', null)
   }
 })
 

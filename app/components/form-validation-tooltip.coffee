@@ -13,6 +13,7 @@ FormValidationTooltipComponent = Ember.Component.extend(
   displayErrors: false
 
   iconClassNames: Ember.computed('displayErrors', 'errors.length', ->
+    console.debug(@get('errors'))
     classNames = []
 
     if @get('errors').length == 0
@@ -33,7 +34,10 @@ FormValidationTooltipComponent = Ember.Component.extend(
     @$().tooltip({
       container: document.body
       placement: 'right'
-      title: => @get('errorMessages')
+      title: =>
+        return '' unless @get('displayErrors')
+
+        @get('errorMessages')
     })
   )
 
