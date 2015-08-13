@@ -36,6 +36,12 @@ FormValidationTooltipComponent = Ember.Component.extend(
       title: => @get('errorMessages')
     })
   )
+
+  _teardown: Ember.on('willDestroyElement', ->
+    return if @isDestroyed
+
+    @$().tooltip('destroy')
+  )
 )
 
 `export default FormValidationTooltipComponent`
