@@ -19,13 +19,10 @@ moduleForModel 'patient', 'Patient', {
         'model:patient-contact-component',
         'model:patient-animal-component',
         'model:patient-communication-component',
-        'model:reference',
-        'model:reference',
         'model:patient-link-component',
         'model:period',
         'model:coding',
         'model:encounter',
-        'model:encounter-status-history-component',
         'model:encounter-participant-component',
         'model:quantity',
         'model:encounter-hospitalization-component',
@@ -38,13 +35,14 @@ moduleForModel 'patient', 'Patient', {
         'model:condition-occurred-following-component',
         'model:medication-statement',
         'model:medication-statement-dosage-component',
+        'model:notification-count',
         'model:range',
         'model:appointment',
         'model:appointment-participant-component'
       ]
   setup: ->
     # Because for some reason QUnit doesn't seem to let you access variables unless they are set in here...
-    testData = {};
+    testData = {}
     testData['patient_1'] = patient_1
     testData['patient_1_encounters'] = patient_1_encounters
     server = new Pretender ->

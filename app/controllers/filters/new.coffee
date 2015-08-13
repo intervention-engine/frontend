@@ -19,17 +19,20 @@ FiltersNewController = Ember.Controller.extend({
     req = Ember.$.post("/InstaCountAll",  JSON.stringify(@get('model')?.serialize()||{}))
 
     req.fail (=>
-      @set('instaPatient', 0)
-      @set('instaCondition', 0)
-      @set('instaEncounter', 0)
-
+      Ember.run(=>
+        @set('instaPatient', 0)
+        @set('instaCondition', 0)
+        @set('instaEncounter', 0)
+      )
     )
 
     req.then ((res)=>
       val = JSON.parse(res)
-      @set('instaPatient', val.patients)
-      @set('instaCondition', val.conditions)
-      @set('instaEncounter', val.encounters)
+      Ember.run(=>
+        @set('instaPatient', val.patients)
+        @set('instaCondition', val.conditions)
+        @set('instaEncounter', val.encounters)
+      )
     )
   ).observes('model.characteristic').on('init')
 
