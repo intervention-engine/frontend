@@ -1,16 +1,14 @@
 <div class="row pane">
   <div class="col-xs-2 pane-icon">
-    <i {{bind-attr class=":fa :fa-fw icon"}}></i>
+    <i class="fa fa-fw {{characteristic.icon}}"></i>
   </div>
 
   <div class="col-xs-10">
     <div class="row pane-content">
       <div class="col-xs-11">
-        {{#each item in items}}
-          <div class="row">
-            {{dynamic-component type=item.componentName item=item}}
-          </div>
-        {{/each}}
+        <div class="row">
+          {{component characteristic.filter model=characteristic}}
+        </div>
       </div>
 
       <div class="col-xs-1">

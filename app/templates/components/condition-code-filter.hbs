@@ -1,31 +1,18 @@
 <form class="form-horizontal">
   <div class="form-group">
-    {{input type="checkbox" name=active checked=item.active id="checkbox-condition-code" class="css-checkbox"}}
-    <label for="checkbox-condition-code" class="css-label css-label-box checkbox-label">
-      {{#if item.active}}
-        Condition code is
-      {{else}}
-        Condition Code
-      {{/if}}
-    </label>
-  </div>
-
-  <div class="form-group">
-    {{#if item.active}}
-      <div class="row selected-filter-details">
-        <div class="col-sm-12">
-            {{#each code in item.parameter.valueCodeableConcept.coding}}
-              <div class="formgroup">
-                <label >System</label>
-                {{view "select" value=code.system content=codingSystems optionValuePath="content.url" optionLabelPath="content.system" class="form-control"}}
-              </div>
-              <div class="formgroup">
-                <label>Code</label>
-                {{input classNames="input-control condition" placeholder="input condition code" value=code.code}}
-              </div>
-            {{/each}}
-        </div>
+    <div class="row selected-filter-details">
+      <div class="col-sm-12">
+          {{#each code in model.valueCodeableConcept.coding}}
+            <div class="formgroup">
+              <label >System</label>
+              {{view "select" value=code.system content=codingSystems optionValuePath="content.url" optionLabelPath="content.system" class="form-control"}}
+            </div>
+            <div class="formgroup">
+              <label>Code</label>
+              {{input classNames="input-control condition" placeholder="input condition code" value=code.code}}
+            </div>
+          {{/each}}
       </div>
-    {{/if}}
+    </div>
   </div>
 </form>

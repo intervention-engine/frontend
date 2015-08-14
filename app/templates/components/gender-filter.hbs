@@ -1,35 +1,10 @@
 <form class="form-horizontal">
   <div class="form-group">
-    {{input type="checkbox" name=active checked=item.active id="checkbox-patient-gender" class="css-checkbox"}}
-    <label for="checkbox-patient-gender" class="css-label css-label-box checkbox-label">
-      {{#if item.active}}
-      Patient gender is
-      {{else}}
-      Patient Gender
-      {{/if}}
-    </label>
-  </div>
-
-  <div class="form-group">
-    {{#if item.active}}
-      <div class="row selected-filter-details">
-        <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="male" name=item.parameter.valueString value="M"}}
-          <label class="css-label css-label-circle radio-label" for="male">male</label>
-        </div>
-        <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="female" name=item.parameter.valueString value="F"}}
-          <label class="css-label css-label-circle radio-label" for="female">female</label>
-        </div>
-        <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="other" name=item.parameter.valueString value="O"}}
-          <label class="css-label css-label-circle radio-label" for="other">other</label>
-        </div>
-        <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="unknown" name=item.parameter.valueString value="U"}}
-          <label class="css-label css-label-circle radio-label" for="unknown">unknown</label>
-        </div>
+    <div class="row selected-filter-details">
+      Patient Gender is
+      <div class="formgroup">
+        {{view "select" value=model.valueCodeableConcept.coding.firstObject.code content=genders class="form-control"}}
       </div>
-    {{/if}}
+    </div>
   </div>
 </form>
