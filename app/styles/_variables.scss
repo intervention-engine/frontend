@@ -22,6 +22,10 @@ $screen-sm: 768px;
 $screen-md: 1200px;
 $screen-lg: 1600px;
 
+$container-sm: $screen-sm;
+$container-md: $screen-md;
+$container-lg: $screen-lg;
+
 $grid-float-breakpoint: $screen-md;
 $grid-gutter-width: 30px;
 $container-tablet: $screen-sm + $grid-gutter-width;

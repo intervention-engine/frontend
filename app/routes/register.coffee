@@ -1,14 +1,14 @@
 `import Ember from 'ember'`
 
 RegisterRoute = Ember.Route.extend(
-
-  activate: ->
-    @controllerFor("application").set("displayNavbar", false)
-    Ember.$("body").addClass("login-content")
-
-  deactivate: ->
-    @controllerFor("application").set("displayNavbar", true)
-    Ember.$("body").removeClass("login-content")
+  resetController: (controller, isExiting) ->
+    if isExiting
+      controller.set('identification', null)
+      controller.set('password', null)
+      controller.set('passwordConfirmation', null)
+      controller.set('displayErrors', false)
+      controller.set('errorMessage', null)
+      controller.set('disableRegisterBtn', null)
 )
 
 `export default RegisterRoute`

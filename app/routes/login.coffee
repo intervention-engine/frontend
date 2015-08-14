@@ -1,14 +1,13 @@
 `import Ember from 'ember'`
 
 LoginRoute = Ember.Route.extend(
-
-  activate: ->
-    @controllerFor("application").set("displayNavbar", false)
-    Ember.$("body").addClass("login-content")
-
-  deactivate: ->
-    @controllerFor("application").set("displayNavbar", true)
-    Ember.$("body").removeClass("login-content")
+  resetController: (controller, isExiting) ->
+    if isExiting
+      controller.set('identification', null)
+      controller.set('password', null)
+      controller.set('displayErrors', false)
+      controller.set('errorMessage', null)
+      controller.set('disableLoginBtn', null)
 )
 
 `export default LoginRoute`
