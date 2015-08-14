@@ -5,20 +5,20 @@ import GroupCharacteristicComponent from 'ember-fhir-adapter/models/group-charac
 let IEGroupCharacteristicComponent = GroupCharacteristicComponent.extend(CodeableMixin, {
   filter: Ember.computed('code', function() {
     if (this.hasCode("code", {code: "21612-7", system: "http://loinc.org"})) {
-      return "age-filter"
-    };
+      return "age-filter";
+    }
 
     if (this.hasCode("code", {code: "21840-4", system: "http://loinc.org"})) {
-      return "gender-filter"
-    };
+      return "gender-filter";
+    }
 
     if (this.hasCode("code", {code: "11450-4", system: "http://loinc.org"})) {
-      return "condition-code-filter"
-    };
+      return "condition-code-filter";
+    }
 
     if (this.hasCode("code", {code: "46240-8", system: "http://loinc.org"})) {
-      return "encounter-code-filter"
-    };
+      return "encounter-code-filter";
+    }
   }),
 
   icon: Ember.computed('filter', function() {

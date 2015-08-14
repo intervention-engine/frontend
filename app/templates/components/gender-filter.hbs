@@ -2,22 +2,8 @@
   <div class="form-group">
     <div class="row selected-filter-details">
       Patient Gender is
-      <div class="col-xs-3">
-      {{debugger}}
-        {{radio-button class="input-control css-checkbox" id="male" value=model.valueCodeableConcept.coding.firstObject.code name="male"}}
-        <label class="css-label css-label-circle radio-label" for="male">male</label>
-      </div>
-      <div class="col-xs-3">
-        {{radio-button class="input-control css-checkbox" id="female" value=model.valueCodeableConcept.coding.firstObject.code name="female"}}
-        <label class="css-label css-label-circle radio-label" for="female">female</label>
-      </div>
-      <div class="col-xs-3">
-        {{radio-button class="input-control css-checkbox" id="other" value=model.valueCodeableConcept.coding.firstObject.code name="other"}}
-        <label class="css-label css-label-circle radio-label" for="other">other</label>
-      </div>
-      <div class="col-xs-3">
-        {{radio-button class="input-control css-checkbox" id="unknown" value=model.valueCodeableConcept.coding.firstObject.code name="unknown"}}
-        <label class="css-label css-label-circle radio-label" for="unknown">unknown</label>
+      <div class="formgroup">
+        {{view "select" value=model.valueCodeableConcept.coding.firstObject.code content=genders class="form-control"}}
       </div>
     </div>
   </div>

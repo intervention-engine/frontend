@@ -15,33 +15,33 @@ FiltersNewController = Ember.Controller.extend({
   conditionObject: Ember.Object.create({ type: 'condition' })
   encounterObject: Ember.Object.create({ type: 'encounter' })
 
-  # computeInstaCount: (->
-  #   req = Ember.$.post("/InstaCountAll",  JSON.stringify(@get('model')?.serialize()||{}))
+  computeInstaCount: (->
+    req = Ember.$.post("/InstaCountAll",  JSON.stringify(@get('model')?.serialize()||{}))
 
-  #   req.fail (=>
-  #     @set('instaPatient', 0)
-  #     @set('instaCondition', 0)
-  #     @set('instaEncounter', 0)
+    req.fail (=>
+      @set('instaPatient', 0)
+      @set('instaCondition', 0)
+      @set('instaEncounter', 0)
 
-  #   )
+    )
 
-  #   req.then ((res)=>
-  #     val = JSON.parse(res)
-  #     @set('instaPatient', val.patients)
-  #     @set('instaCondition', val.conditions)
-  #     @set('instaEncounter', val.encounters)
-  #   )
-  # ).observes('model.characteristic').on('init')
+    req.then ((res)=>
+      val = JSON.parse(res)
+      @set('instaPatient', val.patients)
+      @set('instaCondition', val.conditions)
+      @set('instaEncounter', val.encounters)
+    )
+  ).observes('model.characteristic').on('init')
 
-  # instaPatient: ( ->
-  #   @get('model.characteristic')
-  # ).property('computeInstaCount')
+  instaPatient: ( ->
+    @get('model.characteristic')
+  ).property('computeInstaCount')
 
-  # instaEncounter: ( ->
-  # ).property('computeInstaCount')
+  instaEncounter: ( ->
+  ).property('computeInstaCount')
 
-  # instaCondition: ( ->
-  # ).property('computeInstaCount')
+  instaCondition: ( ->
+  ).property('computeInstaCount')
 
 
   # actions
@@ -53,7 +53,8 @@ FiltersNewController = Ember.Controller.extend({
       @transitionTo("filters.index")
 
     addPane: (pane) ->
-      paneObject = createGCC(@, pane.get('type'))
+      paneObject = createGCC(@, pane.get('type'), =>
+        @.computeInstaCount())
       @model.get('characteristic').pushObject(paneObject)
 
     removePane: (pane) ->
