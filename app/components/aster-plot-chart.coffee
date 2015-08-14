@@ -17,35 +17,38 @@ AsterPlotComponent = Ember.Component.extend
 
   updateChart: (->
     svg = d3.select(@element).select("svg")
-    return unless svg?
+    return unless svg? and @get('data')
     data = @get('data')
     width = height = @get('size') - 2 * @get('padding')
     tip = d3.tip()
       .attr('class', 'd3-tip')
-      .html((d) -> "#{d.data.name} - #{d.data.value}")
+      .html((d) -> "#{d.data.name} : #{d.data.value}")
     svg.call(tip)
+    maxValue = d3.max(data, (d) -> d.value)
     outerRadius = d3.min([width, height])/2
     radius = outerRadius *.80
     innerRadius = .17* radius
+    minRadius = 0.34 * radius
+    maxSliceRadius = 0.8 * radius
+    outerArcRadius = 0.83 * radius
+
     pie = d3.layout.pie()
       .padAngle(.03)
       .sort(null)
       .value((d) -> d.weight)
+
     radiusScale = d3.scale.linear()
-      .domain([0,6])
-      .range([innerRadius + 3*@padding, radius - 3*@padding])
+      .domain([0,1])
+      .range([minRadius, maxSliceRadius])
       .clamp(true)
+
     opacityScale = d3.scale.linear()
-      .domain([0,6])
+      .domain([0,1])
       .range([.4, 1])
 
-    arc = d3.svg.arc()
-      .innerRadius(innerRadius)
-      .outerRadius((d) -> radiusScale(d.data?.value||0))
-      .cornerRadius(5)
 
     outerArc = d3.svg.arc()
-      .innerRadius(radius-3*@padding)
+      .innerRadius(outerArcRadius)
       .outerRadius(radius)
       .cornerRadius(5)
     outerpath = svg.select('g').select(".outer")
@@ -55,11 +58,17 @@ AsterPlotComponent = Ember.Component.extend
       .append('path')
     outerpath.exit()
       .remove()
-
     outerpath
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
       .attr("d", outerArc)
+      .attr("fill-opacity", (d) -> opacityScale(d3.max([d.data.value, 0])/(d.data.maxValue || maxValue)))    # return
+
+    arc = d3.svg.arc()
+      .innerRadius(innerRadius)
+      .outerRadius((d) -> radiusScale(d3.max([d.data.value, 0])/(d.data.maxValue || maxValue)))
+      .cornerRadius(5)
+
     pathingData = svg.select('g').select(".inner")
       .selectAll("path")
       .data(pie(data))
@@ -71,7 +80,7 @@ AsterPlotComponent = Ember.Component.extend
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
       .attr("d", arc)
-      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
+      .attr("fill-opacity", (d) -> opacityScale(d3.max([d.data.value, 0])/(d.data.maxValue || maxValue)))
       .on("click", (d) =>
         category = @get('patient.categoryDisplay').findBy('name', d.data.name)
         svg.selectAll(".category").classed("active", false)
@@ -81,9 +90,7 @@ AsterPlotComponent = Ember.Component.extend
           svg.selectAll(".category#{d.data.name}").classed("active", true)
           @set('selectedCategory', category)
       )
-    svg.selectAll(".outer").data(pie(@data))
-      .attr("fill-opacity", (d) -> opacityScale(d.data.value))
-    # return
+
   ).observes('data')
 
 `export default AsterPlotComponent`
