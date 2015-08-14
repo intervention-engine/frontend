@@ -10,6 +10,7 @@ ie:
     - "3001:3001"
   links:
     - mongodb:mongo
+    - riskservice:riskservice
 endpoint:
   build: ../ie-ccda-endpoint
   ports:
@@ -18,3 +19,9 @@ endpoint:
     - ie
 mongodb:
   image: mongo
+riskservice:
+  build: ../riskservice
+  ports:
+    - "9000:9000"
+  links:
+    - mongodb:mongo

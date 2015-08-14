@@ -1,27 +1,14 @@
 <form class="form-horizontal">
   <div class="form-group">
-    {{input type="checkbox" name=active checked=item.active id="checkbox-patient-age" class="css-checkbox"}}
-    <label for="checkbox-patient-age" class="css-label css-label-box checkbox-label">
-      {{#if item.active}}
-      Patient age is
-      {{else}}
-      Patient Age
-      {{/if}}
-    </label>
-  </div>
-
-  <div class="form-group">
-    {{#if item.active}}
-      <div class="row selected-filter-details">
-        <div class="col-xs-6">
-          <label class="css-label radio-label" for="male">is between </label>
-          {{input class="input-control" value=item.parameter.valueRange.low.value}}
-        </div>
-        <div class="col-xs-6">
-          <label class="css-label radio-label" for="male"> and </label>
-          {{input class="input-control" value=item.parameter.valueRange.high.value}}
-        </div>
+    <div class="row selected-filter-details">
+      <div class="col-xs-6">
+        <label class="css-label radio-label" for="male">Patient age is between </label>
+        {{input class="input-control" value=model.valueRange.low.value}}
       </div>
-    {{/if}}
+      <div class="col-xs-6">
+        <label class="css-label radio-label" for="male"> and </label>
+        {{input class="input-control" value=model.valueRange.high.value}}
+      </div>
+    </div>
   </div>
 </form>

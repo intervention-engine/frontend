@@ -4,7 +4,7 @@
 
 FiltersIndexRoute = Ember.Route.extend(AuthenticatedRouteMixin,
   model: ->
-    @store.findAll("filter")#.filterBy("isNew", false)
+    @store.findAll("group")#.filterBy("isNew", false)
 )
 
 `export default FiltersIndexRoute`
