@@ -39,7 +39,7 @@
             <div class="patients-striped">
               {{#if selectedItems}}
                 {{#each item in selectedItems}}
-                  {{#each patient in item.patients.patientids}}
+                  {{#each patient in item.groupList.patientids}}
                     {{patient-badge patient=patient currentPatient=currentPatient}}
                   {{/each}}
                 {{/each}}

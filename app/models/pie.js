@@ -6,7 +6,7 @@ let Pie = DS.Model.extend({
 
   sliceArray: Ember.computed('slices', function() {
     return this.get('slices').map(function(slice) {
-      return {weight: slice.get('weight'), value: slice.get('value'), name: slice.get('name')};
+      return {weight: slice.get('weight'), value: slice.get('value'), name: slice.get('name'), maxValue: slice.get('maxValue')};
     });
   })
 });
