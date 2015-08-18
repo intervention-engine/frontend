@@ -95,7 +95,7 @@ let IEPatient = Patient.extend({
   computedRisk: Ember.computed('currentRisk', function(){
     let risks =  this.get('currentRisk');
     if (risks.length > 0) {
-      return risks[0].value.get('value');
+      return risks.filterBy('key', 'Stroke')[0].value.get('value');
     }
     return 0;
   }),
