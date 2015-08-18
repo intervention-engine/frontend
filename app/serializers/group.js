@@ -1,4 +1,4 @@
-import Group from 'ember-fhir-adapter/serializers/patient';
+import Group from 'ember-fhir-adapter/serializers/group';
 
 
 let GroupSerializer = Group.extend({
