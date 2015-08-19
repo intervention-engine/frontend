@@ -24,7 +24,12 @@ let IEPatient = Patient.extend({
   }),
 
   computedGender: Ember.computed("gender", function(){
-    return this.get('gender').capitalize();
+    let gender = this.get('gender');
+    if (gender !== undefined) {
+      return gender.capitalize();
+    } else {
+      return "";
+    }
   }),
 
   inpatientAdmissions: Ember.computed.filter("encounters", function(item){
