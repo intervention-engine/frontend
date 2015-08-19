@@ -101,7 +101,7 @@ let IEPatient = Patient.extend({
   }),
 
   risksWithBirthdayStart: Ember.computed('sortedRisks', 'birthDate', function(){
-    let birthRisk = this.get('store').createRecord("risk-assessment", {date: this.get('birthDate')})
+    let birthRisk = this.get('store').createRecord("risk-assessment", {date: this.get('birthDate')});
     let riskCode = this.get('store').createRecord("codeable-concept", {text: "Stroke"});
     let rapc = this.get('store').createRecord("risk-assessment-prediction-component", {probabilityDecimal: 0});
     rapc.set('outcome', riskCode);
