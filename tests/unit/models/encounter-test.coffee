@@ -2,7 +2,12 @@
 
 moduleForModel 'encounter', 'Encounter', {
   # Specify the other units that are required for this test.
-  needs: ['model:identifier', 'model:codeable-concept', 'model:period', 'model:quantity', 'model:location', 'model:coding']
+  needs: ['model:identifier', 'model:codeable-concept',
+  'model:period', 'model:quantity', 'model:location',
+  'model:coding', 'model:encounter-status-history-component',
+  'model:reference', 'model:encounter-participant-component',
+  'model:encounter-hospitalization-component',
+  'model:encounter-location-component']
 }
 
 test 'it exists', ->
