@@ -3,7 +3,7 @@
 CodeableMixin = Ember.Mixin.create
   hasCode: (field, code) ->
     thing = @get(field)
-    if thing.isArray
+    if Ember.isArray(thing)
       matchedCodes = thing.map( (c) ->
         c.hasCode(code)
       )
