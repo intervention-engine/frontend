@@ -1,17 +1,17 @@
 <form class="form-horizontal filter-item">
   <div class="form-group">
-    {{input type="checkbox" name=active checked=item.active id="checkbox-patient-age" class="css-checkbox"}}
-    <label for="checkbox-patient-age" class="css-label css-label-box checkbox-label">
-      {{#if item.active}}
-      Patient age is
+    <input type="checkbox" id={{checkboxName}} name="checkbox-patient-age" class="css-checkbox" checked={{checkboxChecked}} {{action 'toggle' on='change'}}>
+    <label for={{checkboxName}} class="css-label css-label-box checkbox-label">
+      {{#if active}}
+        Patient age is
       {{else}}
-      Patient Age
+        Patient Age
       {{/if}}
     </label>
   </div>
 
   <div class="form-group">
-    {{#if item.active}}
+    {{#if active}}
       <div class="row selected-filter-details">
         <div class="col-xs-1">in</div>
         <div class="col-xs-3">
@@ -22,11 +22,11 @@
           {{view "select" class="dropdown input-control" content=comparators}}
         </div>
         <div class="col-xs-1">
-          {{input class="input-control" value=item.parameter.valueRange.low.value}}
+          {{input class="input-control" value=characteristic.valueRange.low.value}}
         </div>
         <div class="col-xs-1">and</div>
         <div class="col-xs-1">
-          {{input class="input-control" value=item.parameter.valueRange.high.value}}
+          {{input class="input-control" value=characteristic.valueRange.high.value}}
         </div>
 
 

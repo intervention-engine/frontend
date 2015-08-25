@@ -13,7 +13,6 @@ FormValidationTooltipComponent = Ember.Component.extend(
   displayErrors: false
 
   iconClassNames: Ember.computed('displayErrors', 'errors.length', ->
-    console.debug(@get('errors'))
     classNames = []
 
     if @get('errors').length == 0

@@ -1,17 +1,17 @@
 <form class="form-horizontal filter-item">
   <div class="form-group">
-    {{input type="checkbox" name=active checked=item.active id="checkbox-patient-gender" class="css-checkbox"}}
-    <label for="checkbox-patient-gender" class="css-label css-label-box checkbox-label">
-      {{#if item.active}}
-      Patient gender is
+    <input type="checkbox" id={{checkboxName}} name="checkbox-patient-gender" class="css-checkbox" checked={{checkboxChecked}} {{action 'toggle' on='change'}}>
+    <label for={{checkboxName}} class="css-label css-label-box checkbox-label">
+      {{#if active}}
+        Patient gender is
       {{else}}
-      Patient Gender
+        Patient Gender
       {{/if}}
     </label>
   </div>
 
   <div class="form-group">
-    {{#if item.active}}
+    {{#if active}}
       <div class="row selected-filter-details">
         <div class="col-xs-3">
           {{radio-button class="input-control css-checkbox" id="male" name=item.parameter.valueString value="M"}}
