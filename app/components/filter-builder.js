@@ -12,6 +12,14 @@ export default Ember.Component.extend({
   conditionObject: { type: 'condition-code-filter' },
   encounterObject: { type: 'encounter-code-filter' },
 
+  canAddAgeFilter: Ember.computed('panes.@each.type', function() {
+    return !this.get('panes').mapBy('type').contains('age-filter');
+  }),
+
+  canAddGenderFilter: Ember.computed('panes.@each.type', function() {
+    return !this.get('panes').mapBy('type').contains('gender-filter');
+  }),
+
   init() {
     this.set('panes', Ember.A());
     this._super(...arguments);
@@ -27,13 +35,10 @@ export default Ember.Component.extend({
 
     addPane: function(pane) {
       this.get('panes').addObject(Ember.Object.create(pane));
-      // let paneObject = createGCC(this, pane.get('type'));
-      // this.get('group.characteristic').pushObject(paneObject);
     },
 
     removePane: function(pane) {
       this.get('panes').removeObject(pane);
-      // this.group.get("characteristic").removeObject(pane);
     }
   }
 });

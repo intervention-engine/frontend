@@ -14,19 +14,19 @@
     {{#if active}}
       <div class="row selected-filter-details">
         <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="male" name=item.parameter.valueString value="M"}}
+          {{radio-button radioClass="input-control css-checkbox" radioId="male" groupValue=genderValue value="male"}}
           <label class="css-label css-label-circle radio-label" for="male">male</label>
         </div>
         <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="female" name=item.parameter.valueString value="F"}}
+          {{radio-button radioClass="input-control css-checkbox" radioId="female" groupValue=genderValue value="female"}}
           <label class="css-label css-label-circle radio-label" for="female">female</label>
         </div>
         <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="other" name=item.parameter.valueString value="O"}}
+          {{radio-button radioClass="input-control css-checkbox" radioId="other" groupValue=genderValue value="other"}}
           <label class="css-label css-label-circle radio-label" for="other">other</label>
         </div>
         <div class="col-xs-3">
-          {{radio-button class="input-control css-checkbox" id="unknown" name=item.parameter.valueString value="U"}}
+          {{radio-button radioClass="input-control css-checkbox" radioId="unknown" groupValue=genderValue value="unknown"}}
           <label class="css-label css-label-circle radio-label" for="unknown">unknown</label>
         </div>
       </div>

@@ -40,7 +40,8 @@
 
 .filter-types {
 
-  .filter-type {
+  .filter-type,
+  .filter-type-disabled {
     height: 60px;
     line-height: 60px;
     font-size: 2em;
@@ -69,6 +70,14 @@
       line-height: inherit;
       padding-right: 5px;
       font-size: 0.8em;
+    }
+  }
+
+  .filter-type-disabled {
+    cursor: default;
+    &:hover {
+      background-color: $body-bg;
+      color: inherit;
     }
   }
 }

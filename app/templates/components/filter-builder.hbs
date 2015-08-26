@@ -14,8 +14,8 @@
         </div>
 
         <div class="panel-body filter-types">
-          {{#draggable-object content=patientAgeObject}}
-            <div class="filter-type">
+          {{#draggable-object content=patientAgeObject isDraggable=canAddAgeFilter}}
+            <div class={{if canAddAgeFilter 'filter-type' 'filter-type-disabled'}}>
               <div class="filter-type-icon">
                 <i class="fa fa-birthday-cake fa-fw"></i>
               </div>
@@ -24,8 +24,8 @@
             </div>
           {{/draggable-object}}
 
-          {{#draggable-object content=patientGenderObject}}
-            <div class="filter-type">
+          {{#draggable-object content=patientGenderObject isDraggable=canAddGenderFilter}}
+            <div class={{if canAddGenderFilter 'filter-type' 'filter-type-disabled'}}>
               <div class="filter-type-icon">
                 <i class="fa fa-user fa-fw"></i>
               </div>
