@@ -45,15 +45,16 @@ test 'fullName', ->
   patient = null
   Ember.run ->
     patient = store.createRecord('patient', {})
-    patient.get('name').pushObject(store.createRecord('human-name',   {
-        "use": "official",
-        "family": [
-          "Donald"
-        ],
-        "given": [
-          "Duck"
-        ]
-      }))
+    patient.get('name').pushObject(store.createRecord('human-name',
+    {
+      "use": "official",
+      "family": [
+        "Donald"
+      ],
+      "given": [
+        "Duck"
+      ]
+    }))
     equal patient.get('fullName'), 'Donald, Duck', 'Full name is correct'
 
 
