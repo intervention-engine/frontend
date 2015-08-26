@@ -145,19 +145,3 @@ test 'correctly identify active conditions', ->
 
     equal patient.get('conditions.length'), 2
     equal patient.get('activeConditions.length'), 1
-
-#
-# test 'notification count is correct', ->
-#   store = @store()
-#   patient = null
-#   Ember.run ->
-#     store.findAll('notificationCount')
-#     patient = store.find('patient', 1)
-#   patient.then ->
-#     Ember.RSVP.allSettled([
-#         patient.get('notificationCount'),
-#     ]).then ->
-#       hasNotifications = patient.get('hasNotifications')
-#       notificationCount = patient.get('notificationCount').get("count")
-#       equal hasNotifications, true
-#       equal notificationCount, 7
