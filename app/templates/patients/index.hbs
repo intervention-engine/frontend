@@ -66,7 +66,7 @@
 
         <div class="panel-body">
           {{#if currentPatient}}
-            {{patient-viewer patient=currentPatient}}
+            {{patient-viewer patient=currentPatient action="switchAssessment"}}
           {{else}}
             <div class="select-patient sub-text">
               Please select patient.

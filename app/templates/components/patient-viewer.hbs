@@ -1,7 +1,7 @@
 {{!------------------------- PATIENT SUMMARY --------------------------------}}
 
 <div class="col-reset">
-  {{patient-summary patientPhoto=patientPhoto patient=patient}}
+  {{patient-summary patientPhoto=patientPhoto patient=patient action="switchAssessment"}}
 </div>
 
 {{!------------------------- PATIENT STATS ----------------------------------}}
@@ -16,7 +16,7 @@
     {{!--------------------- ASTER PLOT -------------------------------------}}
     <div class="col-lg-6">
       <div class="col-lg-12 col-md-6">
-        {{aster-plot-chart patient=patient data=patient.slices selectedCategory=selectedCategory}}
+        {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory}}
       </div>
 
       {{!------------------- CATEGORY DETAILS -------------------------------}}
