@@ -24,7 +24,7 @@ DateableMixin = Ember.Mixin.create
     new Date(@get(field)) <= new Date()
 
   isActive: (field) ->
-    @get(field) is undefined or not @hasOccured(@get(field))
+    @get(field) is undefined or not @hasOccured(field)
 
 
 `export default DateableMixin`
