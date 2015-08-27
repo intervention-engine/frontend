@@ -40,9 +40,3 @@ moduleFor 'controller:filters/new', {
 test 'it exists', ->
   controller = @subject()
   ok controller
-
-test 'it updates hasFilterPane appropriately', ->
-  controller = @subject()
-  Ember.run ->
-    controller.set('model', controller.get('store').createRecord('group'))
-  ok false == controller.get('hasFilterPane')

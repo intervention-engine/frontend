@@ -1,8 +1,8 @@
 <form class="form-horizontal filter-item">
   <div class="form-group">
-    {{input type="checkbox" name=active checked=item.active id="checkbox-encounter-code" class="css-checkbox"}}
-    <label for="checkbox-encounter-code" class="css-label css-label-box checkbox-label">
-      {{#if item.active}}
+    <input type="checkbox" id={{checkboxName}} name="checkbox-encounter-code" class="css-checkbox" checked={{checkboxChecked}} {{action 'toggle' on='change'}}>
+    <label for={{checkboxName}} class="css-label css-label-box checkbox-label">
+      {{#if active}}
         Encounter code is
       {{else}}
         Encounter Code
@@ -11,10 +11,10 @@
   </div>
 
   <div class="form-group">
-    {{#if item.active}}
+    {{#if active}}
       <div class="row selected-filter-details">
         <div class="col-sm-12">
-          {{input classNames="input-control encounter" placeholder="input encounter name or code" value=item.parameter.valueCodeableConcept.text}}
+          {{input classNames="input-control encounter" placeholder="input encounter name or code" value=encounterValues}}
         </div>
       </div>
     {{/if}}
