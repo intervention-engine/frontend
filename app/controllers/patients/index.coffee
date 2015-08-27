@@ -5,7 +5,24 @@ PatientsIndexController = Ember.Controller.extend(
   selectedItemsCount: (-> @get('selectedItems.length')).property('selectedItems.[]')
   populations: []
   selectedCategory: null
-  sortedPatients: (-> @get('model.patients').sortBy('serverRisk.risk', 'notificationCount', 'computedAge').reverse()).property('model.risk')
+  patients: Em.computed 'selectedItems.@each', ->
+    if @get('selectedItemsCount') == 0
+      return @get('model.patients')
+    else
+      console.error("This code path is broken until testing with IE server")
+      return @get('model.patients')
+  sortedPatients: Ember.computed('patients.@each.notifications.count', ()->
+    @get('patients').sortBy('notifications.count', 'computedAge').reverse()
+    )
+
+  patientSearch: ''
+
+  filteredPatients: Em.computed 'sortedPatients', 'patientSearch', ->
+    rx = new RegExp(@get("patientSearch"), "gi")
+    @get('sortedPatients').filter( (p)->
+      p.get("fullName").toString().match(rx)
+    )
+
 )
 
 `export default PatientsIndexController`

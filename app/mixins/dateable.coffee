@@ -12,16 +12,19 @@ DateableMixin = Ember.Mixin.create
   # Checks if something happened in val*period from startDate
   sinceDate: (field, val, period, startDate) ->
     periodAgo = moment(startDate).subtract(val, period).toDate()
-    @get(field) > periodAgo
+    new Date(@get(field)) > periodAgo
 
   untilDate: (field, val, period, startDate) ->
     periodTo = moment(startDate).add(val, period).toDate()
-    @get(field) < periodTo
+    new Date(@get(field)) < periodTo
 
 
   # Check if something has occured, ie the date isn't in the future
   hasOccured: (field) ->
-    @get(field) < new Date()
+    new Date(@get(field)) <= new Date()
+
+  isActive: (field) ->
+    @get(field) is undefined or not @hasOccured(field)
 
 
 `export default DateableMixin`

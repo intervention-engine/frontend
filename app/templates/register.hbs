@@ -1,0 +1,55 @@
+{{#login-register}}
+  {{#if errorMessage}}
+    <div class="alert alert-danger">
+      <strong>Registration failed:</strong> {{errorMessage}}
+      <button type="button" class="close" {{action "clearErrors"}} aria-label="Close">
+        <i aria-hidden="true" class="fa fa-times"></i>
+      </button>
+    </div>
+  {{/if}}
+
+  <form {{action "register" on="submit"}} class="form-register">
+    <div class="form-group {{identificationClassNames}}">
+      <label class="sr-only" for="login-email">Enter email</label>
+      <div class="input-addon left-addon">
+        <i class="fa fa-envelope fa-fw left-addon-icon"></i>
+        {{input type="text" value=identification classNames="form-control form-input" placeholder="email"}}
+
+        {{form-validation-tooltip errors=errors.identification displayErrors=displayErrors}}
+      </div>
+    </div>
+
+    <div class="form-group {{passwordClassNames}}">
+      <label class="sr-only" for="login-password">Enter password</label>
+      <div class="input-addon left-addon">
+        <i class="fa fa-lock fa-fw left-addon-icon"></i>
+        {{input type="password" value=password autocomplete="off" classNames="form-control form-input" placeholder="password"}}
+
+        {{form-validation-tooltip errors=errors.password displayErrors=displayErrors}}
+      </div>
+    </div>
+
+    <div class="form-group {{passwordConfirmationClassNames}}">
+      <label class="sr-only" for="login-password">Enter password confirmation</label>
+      <div class="input-addon left-addon">
+        <i class="fa fa-lock fa-fw left-addon-icon"></i>
+        {{input type="password" value=passwordConfirmation autocomplete="off" classNames="form-control form-input" placeholder="confirm password"}}
+
+        {{form-validation-tooltip errors=errors.passwordConfirmation displayErrors=displayErrors}}
+      </div>
+    </div>
+
+    <div class="text-right">
+      <button class="btn btn-lg btn-primary" type="submit" disabled={{disableRegisterBtn}}>Register</button>
+    </div>
+  </form>
+
+  <div class="login-register-footer">
+    <div class="row">
+      <div class="col-xs-5 col-xs-offset-1 login-register-footer-left"></div>
+      <div class="col-xs-5 col-xs-offset-1 login-register-footer-right">
+        {{#link-to "login"}}Log in{{/link-to}}
+      </div>
+    </div>
+  </div>
+{{/login-register}}

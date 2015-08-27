@@ -1,285 +1,147 @@
 `import { test, moduleForModel} from 'ember-qunit'`
-`import Pretender from 'pretender'`
-
-server = null
 
 moduleForModel 'patient', 'Patient', {
   # Specify the other units that are required for this test.
-  needs: ['adapter:application', 'serializer:application',
-   'serializer:patient', 'model:identifier', 'model:human-name',
-   'model:contact-point', 'model:address',
-   'model:codeable-concept', 'serializer:codeable-concept', 'model:attachment',
-   'model:contact', 'model:animal', 'model:reference',
-   'model:link', 'model:condition',
-   'model:observation', 'model:encounter', 'serializer:encounter',
-   'model:medicationStatement', 'model:period',
-   'model:resource-reference', 'model:coding', 'serializer:coding',
-   'model:location', 'model:quantity',
-   'model:participant', 'model:hospitalization',
-   'model:dosage', 'model:medication', 'model:accomodation', 'model:event', 'model:risk',
-   'model:notification-count']
-  setup: ->
-    server = new Pretender ->
-      @get '/Patient/', (request) ->
-        all =  JSON.stringify({
-          resourceType: 'Bundle',
-          entry: [{content: {id: 1, Name: [{ Family: ["A"], Given: ["BH_Adult"]}]}}]
-        })
-        [200, {"Content-Type": "application/json"}, all]
-      @get '/Patient/1', (request) ->
-        all =  JSON.stringify({
-          id: 1,
-          Name: [{ Family: ["A"], Given: ["BH_Adult"]}],
-          Gender: {Coding: [{System: "http://hl7.org/fhir/v3/AdministrativeGender", Code: "M"}]},
-          BirthDate: "1969-12-31"
-        })
-        [200, {"Content-Type": "application/json"}, all]
-      @get '/Patient/2', (request) ->
-        all =  JSON.stringify({id: 2, Name: [{ Family: ["B"], Given: ["BH_Adult"]}]})
-        [200, {"Content-Type": "application/json"}, all]
-      @get '/Encounter', (request) ->
-        switch request.queryParams['subject:Patient']
-          when "1"
-            all =  JSON.stringify({
-              resourceType: 'Bundle',
-              entry: [
-                {
-                  content: {id: 1, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99221"}], Text: "Inpatient Encounter"}],
-                  Period: {Start: "2012-10-01T08:00:00-04:00", End: "2012-10-01T09:00:00-04:00"}}
-                },
-                {
-                  content: {id: 2, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99221"}], Text: "Inpatient Readmission Encounter"}],
-                  Period: {Start: "2012-10-03T08:00:00-04:00", End: "2012-10-03T09:00:00-04:00"}}
-                },
-                {
-                  content: {id: 3, Type: [{Coding: [{System: "http://www.ama-assn.org/go/cpt", Code: "99201"}], Text: "Outpatient Office Visit"}],
-                  Period: {Start: "2012-10-03T08:00:00-04:00", End: "2012-10-03T09:00:00-04:00"}}
-                }
-              ]
-              })
-          when "2"
-            all = JSON.stringify({
-              resourceType: "Bundle"
-              entry: []
-            })
-        [200, {"Content-Type": "application/json"}, all]
-      @get '/Condition', (request) ->
-        switch request.queryParams['subject:Patient']
-          when "1"
-            all =  JSON.stringify({
-              resourceType: 'Bundle',
-              entry: [
-                {
-                  content: {
-                    id: 1
-                    Code: [{Coding: [{System: "http://hl7.org/fhir/sid/icd-9", Code: "305.00"}], Text: "Diagnosis, Active: Alcohol and Drug Dependence"}]
-                    OnsetDate: "2012-10-03T08:00:00-04:00"
-                  }
-                },
-                {
-                  content: {
-                    id: 2
-                    Code: [{Coding: [{System: "http://hl7.org/fhir/sid/icd-9", Code: "305.00"}], Text: "Diagnosis, Active: Alcohol and Drug Dependence"}]
-                    OnsetDate: "2012-10-03T08:00:00-04:00",
-                    AbatementDate: "2012-11-03T08:00:00-04:00"
-                  }
-                }
-              ]
-              })
-        [200, {"Content-Type": "application/json"}, all]
-      @get '/MedicationStatement', (request) ->
-        switch request.queryParams['patient:Patient']
-          when "1"
-            all =  JSON.stringify({
-              resourceType: 'Bundle',
-              entry: [
-                {
-                  content: {
-                    id: 1
-                    WhenGiven: {Start: "2012-10-03T08:00:00-04:00", End: "2012-10-03T09:00:00-04:00"}
-                  }
-                }
-              ]
-              })
-        [200, {"Content-Type": "application/json"}, all]
-      @get '/NotificationCount', (request) ->
-        all =  JSON.stringify([
-          { patient: "1", count: 7 },
-          { patient: "2", count: 3 }
-        ])
-        [200, {"Content-Type": "application/json"}, all]
-
+  needs: ['adapter:application', 'serializer:application','model:identifier',
+        'serializer:patient',
+        'model:human-name',
+        'model:contact-point',
+        'model:address',
+        'model:codeable-concept',
+        'model:attachment',
+        'model:patient-contact-component',
+        'model:patient-animal-component',
+        'model:patient-communication-component',
+        'model:patient-link-component',
+        'model:period',
+        'model:coding',
+        'model:encounter',
+        'model:encounter-participant-component',
+        'model:quantity',
+        'model:encounter-hospitalization-component',
+        'model:encounter-location-component',
+        'model:condition',
+        'model:condition-stage-component',
+        'model:condition-evidence-component',
+        'model:condition-location-component',
+        'model:condition-due-to-component',
+        'model:condition-occurred-following-component',
+        'model:medication-statement',
+        'model:medication-statement-dosage-component',
+        'model:notification-count',
+        'model:range',
+        'model:appointment',
+        'model:appointment-participant-component',
+        'model:risk-assessment',
+        'model:reference',
+        'model:encounter-status-history-component',
+        'model:pie',
+        'model:risk-assessment-prediction-component'
+      ]
 }
 
 test 'fullName', ->
   store = @store()
-  model = null
-  Ember.run ->
-    model = store.find('patient', 1)
-  model.then ->
-    equal model.get('fullName'), 'A, BH_Adult', 'Full name is correct'
-
-test 'inpatientAdmissions', ->
-  store = @store()
   patient = null
-  admissions = null
   Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    patient.get('encounters').then ->
-      ia = patient.get('inpatientAdmissions')
-      equal ia.get('length'), 2, 'Two inpatient encounters are returned'
+    patient = store.createRecord('patient', {})
+    patient.get('name').pushObject(store.createRecord('human-name',
+    {
+      "use": "official",
+      "family": [
+        "Donald"
+      ],
+      "given": [
+        "Duck"
+      ]
+    }))
+    equal patient.get('fullName'), 'Donald, Duck', 'Full name is correct'
 
-test 'readmissions', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    patient.get('encounters').then ->
-      readmissions = patient.get('readmissions')
-      equal readmissions, 1, '1 readmission'
 
-test 'readmissions empty', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 2)
-  patient.then ->
-    patient.get('encounters').then ->
-      readmissions = patient.get('readmissions')
-      equal readmissions, 0, '0 readmissions'
+test 'computedGender is correct for males', ->
+  patient = @subject({'gender':'male'})
+  equal patient.get('computedGender'), "Male"
+
+test 'computedGender is correct for females', ->
+  patient = @subject({'gender':'female'})
+  equal patient.get('computedGender'), "Female"
+
+test 'computedAge is correct', ->
+  patient = @subject({'birthDate':'6/9/1934'})
+  computedAge = moment.duration({to: moment(), from: moment(patient.get('birthDate'))}).years()
+  equal patient.get('computedAge'), computedAge
 
 test 'inpatientAdmissions empty', ->
   store = @store()
   patient = null
   admissions = null
   Ember.run ->
-    patient = store.find('patient', 2)
-  patient.then ->
-    patient.get('encounters').then ->
-      ia = patient.get('inpatientAdmissions')
-      equal ia.get('length'), 0, '0 Inpatient Admissions are returned'
+    patient = store.createRecord('patient', {})
+    # Create an Inpatient Admission
+    encounter = store.createRecord('encounter', {})
+    codeableConcept = store.createRecord('codeable-concept', {})
+    coding = store.createRecord('coding', {
+      "system": "http://www.ama-assn.org/go/cpt",
+      "code": "99201",
+      "display": "Outpatient Encounter"
+    })
+    codeableConcept.get('coding').pushObject(coding)
+    encounter.get('type').pushObject(codeableConcept)
+    patient.get('encounters').pushObject(encounter)
 
-test 'conditions load', ->
+    equal patient.get('inpatientAdmissions.length'), 0, '0 Inpatient Admissions are returned'
+
+test 'correctly computes inpatient admissions', ->
   store = @store()
   patient = null
   admissions = null
   Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    patient.get('conditions').then ->
-      equal patient.get('conditions.length'), 2
+    patient = store.createRecord('patient', {})
+    # Create an Inpatient Admission
+    encounter = store.createRecord('encounter', {})
+    codeableConcept = store.createRecord('codeable-concept', {})
+    coding = store.createRecord('coding', {
+      "system": "http://www.ama-assn.org/go/cpt",
+      "code": "99221",
+      "display": "Inpatient Encounter"
+    })
+    codeableConcept.get('coding').pushObject(coding)
+    encounter.get('type').pushObject(codeableConcept)
+    patient.get('encounters').pushObject(encounter)
 
-test 'medications load', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    patient.get('medications').then ->
-      equal patient.get('medications.length'), 1
+    ia = patient.get('inpatientAdmissions')
+    equal ia.get('length'), 1, 'One inpatient encounters are returned'
 
-test 'active conditions', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    patient.get('conditions').then ->
-      equal patient.get('conditions.length'), 2
-      equal patient.get('activeConditions.length'), 1
-
-test 'categoryDisplay data is correct', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    Ember.RSVP.allSettled([
-        patient.get('conditions'),
-        patient.get('medications'),
-        patient.get('encounters')
-      ]).then ->
-      wheel = patient.get('categoryDisplay')
-      equal wheel.filterBy('name', 'conditions')?[0].risk, 2
-      equal wheel.filterBy('name', 'medications')?[0].risk, 1
-      equal wheel.filterBy('name', 'inpatientAdmissions')?[0].risk, 2
-      equal wheel.filterBy('name', 'readmissions')?[0].risk, 1
-
-test 'computedRisk is correct', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    Ember.RSVP.allSettled([
-        patient.get('conditions'),
-        patient.get('medications'),
-        patient.get('encounters')
-      ]).then ->
-      equal patient.get('computedRisk'), 2
-
-test 'computedGender is correct for males', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    equal patient.get('computedGender'), "male"
-
-test 'computedGender is correct for other', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 2)
-  patient.then ->
-    equal patient.get('computedGender'), "other"
-
-test 'computedAge is correct', ->
-  store = @store()
-  patient = null
-  admissions = null
-  Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    # We're doing this so that this test doesn't break when the patient gets older
-    computedAge = moment.duration({to: moment(), from: moment(patient.get('birthDate'))}).years()
-    equal patient.get('computedAge'), computedAge
-
-test 'risk calculation is correct', ->
+test 'correctly identify active conditions', ->
   store = @store()
   patient = null
   Ember.run ->
-    patient = store.find('patient', 1)
-  patient.then ->
-    Ember.RSVP.allSettled([
-        patient.get('conditions'),
-        patient.get('medications')
-    ]).then ->
-      events = patient.get('events')
-      risks = patient.get('risks')
-      equal risks.length, 6
+    patient = store.createRecord('patient', {})
+    # Create an Inpatient Admission
+    condition = store.createRecord('condition', {})
+    codeableConcept = store.createRecord('codeable-concept', {})
+    coding = store.createRecord('coding', {
+      "system": "http://hl7.org/fhir/sid/icd-9",
+      "code": "305.00",
+      "text": "Diagnosis, Active: Alcohol and Drug Dependence"
+    })
+    codeableConcept.get('coding').pushObject(coding)
+    condition.set('code', codeableConcept)
+    condition.set("onsetDate", "2012-10-03T08:00:00-04:00")
+    patient.get('conditions').pushObject(condition)
 
-test 'notification count is correct', ->
-  store = @store()
-  patient = null
-  Ember.run ->
-    store.findAll('notificationCount')
-    patient = store.find('patient', 1)
-  patient.then ->
-    Ember.RSVP.allSettled([
-        patient.get('notificationCount'),
-    ]).then ->
-      hasNotifications = patient.get('hasNotifications')
-      notificationCount = patient.get('notificationCount').get("count")
-      equal hasNotifications, true
-      equal notificationCount, 7
+    condition = store.createRecord('condition', {})
+    codeableConcept = store.createRecord('codeable-concept', {})
+    coding = store.createRecord('coding', {
+      "system": "http://hl7.org/fhir/sid/icd-9",
+      "code": "305.00",
+      "text": "Diagnosis, Active: Alcohol and Drug Dependence"
+    })
+    codeableConcept.get('coding').pushObject(coding)
+    condition.set('code', codeableConcept)
+    condition.set("onsetDate", "2012-10-03T08:00:00-04:00")
+    condition.set("abatementDate", "2013-10-03T08:00:00-04:00")
+    patient.get('conditions').pushObject(condition)
+
+    equal patient.get('conditions.length'), 2
+    equal patient.get('activeConditions.length'), 1

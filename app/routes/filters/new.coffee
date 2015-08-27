@@ -4,7 +4,7 @@
 
 FiltersNewRoute = Ember.Route.extend(AuthenticatedRouteMixin,
   model: ->
-    @store.createRecord('filter')
+    @store.createRecord('group')
 
 
   # resets the controller upon exiting route

@@ -2,8 +2,8 @@
   <div class="patient-info">
     <div class="patient-name">
       {{patient.fullName}}
-      {{#if patient.hasNotifications}}
-        <span class="badge">{{patient.notificationCount.count}}</span>
+      {{#if patient.notifications.count}}
+        <span class="badge">{{patient.notifications.count}}</span>
       {{/if}}
     </div>
     <div class="patient-age-gender">

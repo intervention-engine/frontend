@@ -1,51 +1,77 @@
 `import Ember from 'ember'`
 
-addFilterPane = (context, pane) ->
-  paneObject = createPane(context, pane)
-  context.currentModel.get('panes').pushObject(paneObject)
+addFilterPane = (context, gcc) ->
+  gccObject = createGCC(context, gcc)
+  context.currentModel.get('characteristic').pushObject(gccObject)
 
-createPane = (context, pane) ->
+createGCC = (context, pane, observ) ->
   switch pane
-    when "patient"
-      createPatientPane(context)
+    when "patient-age"
+      createAgeGCC(context, observ)
+    when "patient-gender"
+      createGenderGCC(context, observ)
     when "encounter"
-      createEncounterPane(context)
+      createEncounterGCC(context, observ)
     when "condition"
-      createConditionPane(context)
+      createConditionGCC(context, observ)
     else
       return
 
-createPatientPane = (context) ->
-  newPane = context.store.createRecord("pane", {id: Ember.generateGuid({}, "pane")})
+createAgeGCC = (context, observ) ->
+  ageGCC = context.store.createRecord("group-characteristic-component", {id: Ember.generateGuid({}, "group-characteristic-component")})
   ageRange = context.store.createRecord('range')
   ageRange.set("low", context.store.createRecord("quantity", {value: 0}))
-  ageRange.set("high", context.store.createRecord("quantity", {value: Infinity}))
-  ageParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/patientage", valueRange: ageRange})
-  ageFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({}, "ember-item"), parameter: ageParam, componentName: "age-filter"})
-  genderParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/patientgender", valueString: "M"})
-  genderFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({}, "ember-item"), parameter: genderParam, componentName: "gender-filter"})
-  newPane.get('items').pushObjects([genderFilter, ageFilter])
-  newPane
+  ageRange.set("high", context.store.createRecord("quantity", {value: 65}))
+  ageGCC.set("valueRange", ageRange)
+  ageRange.addObserver("low.value", observ)
+  ageRange.addObserver("high.value", observ)
+  ageCoding = context.store.createRecord("coding", {code: "21612-7", system: "http://loinc.org"})
+  ageCC = context.store.createRecord("codeable-concept")
+  ageCC.get("coding").pushObject(ageCoding)
+  ageGCC.set("code", ageCC)
+  ageGCC
 
-createEncounterPane = (context) ->
-  newPane = context.store.createRecord("pane", {id: Ember.generateGuid({}, "pane"), icon:"fa-hospital-o"})
-  codeParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/encountercode"})
-  codeFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({}, "ember-item"), parameter: codeParam, componentName: "encounter-code-filter"})
-  newPane.get('items').pushObjects([codeFilter])
-  newPane
+createGenderGCC = (context, observ) ->
+  genderGCC = context.store.createRecord("group-characteristic-component", {id: Ember.generateGuid({}, "group-characteristic-component")})
+  genderCoding = context.store.createRecord("coding", {code: "21840-4", system: "http://loinc.org"})
+  genderCC = context.store.createRecord("codeable-concept")
+  genderCC.get("coding").pushObject(genderCoding)
+  genderGCC.set("code", genderCC)
+  genderFilterCoding = context.store.createRecord("coding", {code: "male", system: "http://hl7.org/fhir/administrative-gender"})
+  genderFilterCoding.addObserver("code", observ)
+  genderFilterCoding.addObserver("system", observ)
+  genderFilter = context.store.createRecord("codeable-concept", {id: Ember.generateGuid({}, "codeable-concept")})
+  genderFilter.get("coding").pushObject(genderFilterCoding)
+  genderGCC.set("valueCodeableConcept", genderFilter)
+  genderGCC
 
-createConditionPane = (context) ->
-  newPane = context.store.createRecord("pane", {id: Ember.generateGuid({}, "pane"), icon:"icon-med-clipboard"})
-  codeParam = context.store.createRecord("extension", {id: Ember.generateGuid({}, "extension"), url: "http://interventionengine.org/conditioncode"})
-  code = context.store.createRecord("codeableConcept")
-  code.get("coding").pushObject(context.store.createRecord("coding"))
+createEncounterGCC = (context, observ) ->
+  encounterGCC = context.store.createRecord("group-characteristic-component", {id: Ember.generateGuid({}, "group-characteristic-component")})
+  encounterCoding = context.store.createRecord("coding", {code: "46240-8", system: "http://loinc.org"})
+  encounterCC = context.store.createRecord("codeable-concept")
+  encounterCC.get("coding").pushObject(encounterCoding)
+  encounterGCC.set("code", encounterCC)
+  valueCoding = context.store.createRecord("coding")
+  valueCoding.addObserver("code", observ)
+  valueCoding.addObserver("system", observ)
+  valueCC = context.store.createRecord("codeable-concept")
+  valueCC.get("coding").pushObject(valueCoding)
+  encounterGCC.set('valueCodeableConcept', valueCC)
+  encounterGCC
 
-  codeParam.set('valueCodeableConcept', code)
-  codeFilter = context.store.createRecord("ember-item", {id: Ember.generateGuid({}, "ember-item"), parameter: codeParam, componentName: "condition-code-filter"})
+createConditionGCC = (context, observ) ->
+  conditionGCC = context.store.createRecord("group-characteristic-component", {id: Ember.generateGuid({}, "group-characteristic-component")})
+  conditionCoding = context.store.createRecord("coding", {code: "11450-4", system: "http://loinc.org"})
+  conditionCC = context.store.createRecord("codeable-concept")
+  conditionCC.get("coding").pushObject(conditionCoding)
+  conditionGCC.set("code", conditionCC)
+  valueCoding = context.store.createRecord("coding")
+  valueCoding.addObserver("code", observ)
+  valueCoding.addObserver("system", observ)
+  valueCC = context.store.createRecord("codeable-concept")
+  valueCC.get("coding").pushObject(valueCoding)
+  conditionGCC.set('valueCodeableConcept', valueCC)
+  conditionGCC
 
-  newPane.get('items').pushObjects([codeFilter])
-  newPane
-
-
-`export { addFilterPane, createPane }`
+`export { addFilterPane, createGCC }`
 `export default addFilterPane`

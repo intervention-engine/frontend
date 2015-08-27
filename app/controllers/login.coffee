@@ -1,21 +1,80 @@
 `import Ember from 'ember'`
-`import LoginControllerMixin from 'simple-auth/mixins/login-controller-mixin'`
+`import EmberValidations from 'ember-validations'`
+`import emailRegex from '../utils/email-validation-regex'`
+`import validatedClassNames from '../utils/validation-group-classnames'`
 
-LoginController = Ember.Controller.extend(LoginControllerMixin, {
+LoginController = Ember.Controller.extend(EmberValidations, {
   queryParams: ['registered']
-  authenticator: 'authenticator:ie'
+  currentVersion: 'beta'
+  mitreURL: 'http://www.mitre.org/'
+  interventionEnginURL: 'http://www.interventionengine.org'
 
   identification: null
   password: null
   registered: false
   loginFailed: false
+  loggingIn: false
+  displayErrors: false
+
+  disableLoginBtn: Ember.computed('loggingIn', 'displayErrors', 'isValid', ->
+    return true if @get('loggingIn') || (@get('displayErrors') && !@get('isValid'))
+    null
+  )
+
+  validations: {
+    identification: {
+      presence: true
+      format: {
+        with: emailRegex
+        allowBlank: true
+        message: 'not a valid email'
+      }
+    },
+    password: {
+      length: {
+        minimum: 8
+        messages: {
+          tooShort: 'must be at least 8 characters'
+        }
+      }
+    }
+  }
+
+  identificationClassNames: validatedClassNames('identification')
+  passwordClassNames: validatedClassNames('password')
 
   actions: {
     authenticate: ->
-      _this = this
-      credentials = this.getProperties('identification', 'password')
-      this.get('session').authenticate('authenticator:ie', credentials).then(null, (message) ->
-        _this.set('errorMessage', message))
+      return if @get('loggingIn')
+
+      @set('displayErrors', true)
+
+      @validate().then(=>
+        @set('loggingIn', true)
+        credentials = @getProperties('identification', 'password')
+
+        successFn = =>
+          @set('loggingIn', false)
+          return
+
+        errorFn = (message) =>
+          @set('loggingIn', false)
+          @set('errorMessage', message)
+          return
+
+
+        @get('session').authenticate('authenticator:ie', credentials).then(successFn, errorFn)
+
+        return
+      )
+
+      return
+
+    clearErrors: ->
+      @set('errorMessage', null)
+
+    clearRegistered: ->
+      @set('registered', false)
   }
 })
 

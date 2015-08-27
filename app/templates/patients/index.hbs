@@ -21,16 +21,30 @@
         </div>
 
         <div class="panel-body patient-list">
+          <div class="timeline-icon-search">
+            <i class="fa fa-user timeline-icon"></i>
+
+            <div class="row timeline-search">
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                  </span>
+                  {{input type="text" class="form-control" value=patientSearch placeholder="Search patients..."}}
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="collapse in" id="choosePatient">
             <div class="patients-striped">
               {{#if selectedItems}}
                 {{#each item in selectedItems}}
-                  {{#each patient in item.patients.patientids}}
+                  {{#each patient in item.groupList.patientids}}
                     {{patient-badge patient=patient currentPatient=currentPatient}}
                   {{/each}}
                 {{/each}}
               {{else}}
-                {{#each patient in sortedPatients}}
+                {{#each patient in filteredPatients}}
                   {{patient-badge patient=patient currentPatient=currentPatient}}
                 {{/each}}
               {{/if}}

@@ -2,11 +2,8 @@
 `import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
 
 IndexRoute = Ember.Route.extend(AuthenticatedRouteMixin,
-  model: ->
-    Ember.RSVP.hash(
-      populations: @store.findAll('filter')
-    )
-    # dashboard: @store.createRecord("dashboard", {id: Ember.generateGuid({}, "dashboard")})
+  beforeModel: ->
+    @transitionTo('patients')
 )
 
 `export default IndexRoute`
