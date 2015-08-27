@@ -5,8 +5,8 @@ let PatientSummaryComponent = Ember.Component.extend({
   currentAssessment: "Stroke",
 
   risksWithBirthdayStart: Ember.computed('patient.sortedRisks', 'patient.birthDate', 'currentAssessment', function(){
-    let birthRisk = this.get('patient.store').createRecord("risk-assessment", {date: this.get('patient.birthDate')})
-    let riskCode = this.get('patient.store').createRecord("codeable-concept", {text: "Stroke"});
+    let birthRisk = this.get('patient.store').createRecord("risk-assessment", {date: this.get('patient.birthDate')});
+    let riskCode = this.get('patient.store').createRecord("codeable-concept", {text: this.get("currentAssessment")});
     let rapc = this.get('patient.store').createRecord("risk-assessment-prediction-component", {probabilityDecimal: 0});
     rapc.set('outcome', riskCode);
     birthRisk.get('prediction').pushObject(rapc);
@@ -15,12 +15,13 @@ let PatientSummaryComponent = Ember.Component.extend({
     return risks.filterBy('prediction.firstObject.outcome.text', this.get("currentAssessment"));
   }),
 
-  actions: {
-    switchAssessment: function() {
-      this.set("currentAssessment", "Negative Outcome");
-      this.sendAction();
-    }
-  }
+  assessments: Ember.computed('patient.risks', function() {
+    return this.get('patient.risksByOutcome').mapBy('key');
+  }),
+
+  changeAssessment: function() {
+    this.sendAction("action", this.get("currentAssessment"));
+  }.observes("currentAssessment")
 });
 
 export default PatientSummaryComponent;

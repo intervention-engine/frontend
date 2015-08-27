@@ -21,9 +21,8 @@ let PatientViewerComponent = Ember.Component.extend({
   }),
 
   actions: {
-    switchAssessment: function() {
-      console.log("Bubble");
-      this.set("currentAssessment", "Negative Outcome");
+    switchAssessment: function(assessment) {
+      this.set("currentAssessment", assessment);
     }
   }
 });
