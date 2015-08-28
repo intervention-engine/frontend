@@ -105,17 +105,6 @@ let IEPatient = Patient.extend({
     return 0;
   }),
 
-  risksWithBirthdayStart: Ember.computed('sortedRisks', 'birthDate', function(){
-    let birthRisk = this.get('store').createRecord("risk-assessment", {date: this.get('birthDate')});
-    let riskCode = this.get('store').createRecord("codeable-concept", {text: "Stroke"});
-    let rapc = this.get('store').createRecord("risk-assessment-prediction-component", {probabilityDecimal: 0});
-    rapc.set('outcome', riskCode);
-    birthRisk.get('prediction').pushObject(rapc);
-    let risks = [birthRisk];
-    risks.pushObjects(this.get('sortedRisks'));
-    return risks.filterBy('prediction.firstObject.outcome.text', "Stroke");
-  }),
-
   slices: Ember.computed('sortedRisks.@each.pie', function(){
     let risk = this.get('sortedRisks').filterBy('prediction.firstObject.outcome.text', "Stroke").get('lastObject');
     if (risk) {
