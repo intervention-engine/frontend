@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let PatientViewerComponent = Ember.Component.extend({
+export default Ember.Component.extend({
   patient: null,
   currentAssessment: "Stroke",
 
@@ -26,5 +26,3 @@ let PatientViewerComponent = Ember.Component.extend({
     }
   }
 });
-
-export default PatientViewerComponent;

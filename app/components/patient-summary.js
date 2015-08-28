@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let PatientSummaryComponent = Ember.Component.extend({
+export default Ember.Component.extend({
   patient: null,
   currentAssessment: "Stroke",
 
@@ -23,5 +23,3 @@ let PatientSummaryComponent = Ember.Component.extend({
     this.sendAction("action", this.get("currentAssessment"));
   }.observes("currentAssessment")
 });
-
-export default PatientSummaryComponent;
