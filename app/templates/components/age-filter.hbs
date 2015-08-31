@@ -3,7 +3,7 @@
     <input type="checkbox" id={{checkboxName}} name="checkbox-patient-age" class="css-checkbox" checked={{checkboxChecked}} {{action 'toggle' on='change'}}>
     <label for={{checkboxName}} class="css-label css-label-box checkbox-label">
       {{#if active}}
-        Patient age is
+        Patient age
       {{else}}
         Patient Age
       {{/if}}
@@ -12,22 +12,24 @@
 
   <div class="form-group">
     {{#if active}}
-      <div class="row selected-filter-details">
-        <div class="col-xs-1">in</div>
-        <div class="col-xs-3">
-          {{view "select" class="dropdown input-control" content=timePeriods}}
-        </div>
-        <div class="col-xs-1">is</div>
-        <div class="col-xs-3">
-          {{view "select" class="dropdown input-control" content=comparators}}
-        </div>
-        <div class="col-xs-1">
+      <div class="selected-filter-details">
+        <span class="pane-inner-label">in</span>
+        <span class="pane-select">
+          {{select-fx options=timePeriods value=selectedTimePeriod onChange="selectTimePeriod"}}
+        </span>
+        <span class="pane-inner-label">is</span>
+        <span class="pane-select">
+          {{select-fx options=comparators value=selectedComparator onChange="selectComparator"}}
+        </span>
+        <span class="pane-input">
           {{input class="input-control" value=characteristic.valueRange.low.value}}
-        </div>
-        <div class="col-xs-1">and</div>
-        <div class="col-xs-1">
-          {{input class="input-control" value=characteristic.valueRange.high.value}}
-        </div>
+        </span>
+        {{#if highValueExists}}
+          <span class="pane-inner-label">and</span>
+          <span class="pane-input">
+            {{input class="input-control" value=characteristic.valueRange.high.value}}
+          </span>
+        {{/if}}
       </div>
     {{/if}}
   </div>

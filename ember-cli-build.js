@@ -30,6 +30,8 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/moment/moment.js');
   app.import(app.bowerDirectory + '/numeraljs/numeral.js');
   app.import(app.bowerDirectory + '/uri.js/src/URI.js');
+  app.import('vendor/classie.js');
+  app.import('vendor/selectFx.js');
 
   // bootstrap fonts
   var bootstrapFonts = new Funnel(app.bowerDirectory + '/bootstrap-sass-official/assets/fonts/bootstrap', {
