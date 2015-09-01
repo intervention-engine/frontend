@@ -12,10 +12,8 @@
 
   <div class="form-group">
     {{#if active}}
-      <div class="row selected-filter-details">
-        <div class="col-sm-12">
-          {{input classNames="input-control encounter" placeholder="input encounter name or code" value=encounterValues}}
-        </div>
+      <div class="selected-filter-details">
+        {{input classNames="input-control encounter" placeholder="encounter code" value=encounterValues}}
       </div>
     {{/if}}
   </div>

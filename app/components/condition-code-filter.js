@@ -16,8 +16,29 @@ export default Ember.Component.extend(FilterComponentMixin, {
     { url: "urn:std:iso:11073:10101", system: "ISO 11073-10101" }
   ],
 
+  selectedCodingSystem: null,
+
   codeValue: codingComputedProperty('code'),
-  system: codingComputedProperty('system')
+  system: codingComputedProperty('system'),
+
+  // since we're not using 2 way binding on the select-fx component, the only way
+  // to set the default value to ICD-9 is to use an observer
+  _onActivate: Ember.observer('active', function() {
+    if (!this.get('active')) {
+      return;
+    }
+
+    this.send('selectCodingSystem', this.get('codingSystems.firstObject.system'));
+  }),
+
+  actions: {
+    selectCodingSystem(codeSystem) {
+      let codingSystem = this.get('codingSystems').findBy('system', codeSystem);
+
+      this.set('selectedCodingSystem', codingSystem);
+      this.set('system', codingSystem.url);
+    }
+  }
 });
 
 function codingComputedProperty(propertyName) {

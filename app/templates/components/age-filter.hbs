@@ -22,12 +22,12 @@
           {{select-fx options=comparators value=selectedComparator onChange="selectComparator"}}
         </span>
         <span class="pane-input">
-          {{input class="input-control" value=characteristic.valueRange.low.value}}
+          {{input class="input-control age" value=characteristic.valueRange.low.value}}
         </span>
         {{#if highValueExists}}
           <span class="pane-inner-label">and</span>
           <span class="pane-input">
-            {{input class="input-control" value=characteristic.valueRange.high.value}}
+            {{input class="input-control age" value=characteristic.valueRange.high.value}}
           </span>
         {{/if}}
       </div>

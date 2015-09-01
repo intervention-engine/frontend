@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import $ from 'jquery';
 
-const { isNone } = Ember;
+const { isNone, get: get } = Ember;
 const { SelectFx } = window;
 
 export default Ember.Component.extend({
@@ -9,20 +9,27 @@ export default Ember.Component.extend({
   placeholder: null,
   options: null,
   value: null,
+  valuePath: null,
   _selectFx: null,
 
-  proxiedOptions: Ember.computed('options.[]', 'value', function() {
-    let value = this.get('value');
+  proxiedOptions: Ember.computed('options.[]', 'value', 'valuePath', function() {
+    let valuePath = this.get('valuePath');
+    let value = valuePath? this.get(`value.${valuePath}`) : this.get('value');
+
     return this.get('options').map(function(currentValue) {
+      let optionValue = valuePath ? get(currentValue, valuePath) : currentValue;
       return {
-        value: currentValue,
-        selected: value === currentValue ? true : null
+        value: optionValue,
+        selected: value === optionValue ? true : null
       };
     });
   }),
 
-  placeholderSelected: Ember.computed('placeholder', 'value', function() {
-    if (isNone(this.get('value'))) {
+  placeholderSelected: Ember.computed('placeholder', 'value', 'valuePath', function() {
+    let valuePath = this.get('valuePath');
+    let value = valuePath? this.get(`value.${valuePath}`) : this.get('value');
+
+    if (isNone(value)) {
       return true;
     }
     return null;

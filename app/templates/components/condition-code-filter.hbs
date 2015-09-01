@@ -3,7 +3,7 @@
     <input type="checkbox" id={{checkboxName}} name="checkbox-condition-code" class="css-checkbox" checked={{checkboxChecked}} {{action 'toggle' on='change'}}>
     <label for={{checkboxName}} class="css-label css-label-box checkbox-label">
       {{#if active}}
-        Condition code is
+        Condition code
       {{else}}
         Condition Code
       {{/if}}
@@ -12,17 +12,15 @@
 
   <div class="form-group">
     {{#if active}}
-      <div class="row selected-filter-details">
-        <div class="col-sm-12">
-          <div class="formgroup">
-            <label>System</label>
-            {{view "select" value=system content=codingSystems optionValuePath="content.url" optionLabelPath="content.system" class="form-control"}}
-          </div>
-          <div class="formgroup">
-            <label>Code</label>
-            {{input classNames="input-control condition" placeholder="input condition code" value=codeValue}}
-          </div>
-        </div>
+      <div class="selected-filter-details">
+        <span class="pane-inner-label">for system</span>
+        <span class="pane-select">
+          {{select-fx options=codingSystems value=selectedCodingSystem valuePath="system" onChange="selectCodingSystem"}}
+        </span>
+        <span class="pane-inner-label">is</span>
+        <span class="pane-input">
+          {{input class="input-control condition" placeholder="condition code" value=codeValue}}
+        </span>
       </div>
     {{/if}}
   </div>
