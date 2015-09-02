@@ -96,12 +96,18 @@
   }
 
   .save-new-filter {
-    text-align: right;
-    padding: 10px;
+    float: right;
+    padding: 10px 0;
 
-    input {
+    .pane-input input {
+      padding-left: 10px;
       height: 45px;
       width: 325px;
+      font-size: 20px;
+    }
+
+    button {
+      margin: 0 1px 5px 10px;
     }
   }
 }

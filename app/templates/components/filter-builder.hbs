@@ -71,13 +71,11 @@
               {{#each panes as |pane|}}
                 {{filter-pane pane=pane group=group removePane="removePane"}}
               {{/each}}
-              <div class="row save-new-filter">
-                <div class="col-sm-4 col-sm-offset-4">
+              <div class="save-new-filter">
+                <span class="pane-input">
                   {{input type="text" value=filterName placeholder="name of filter"}}
-                </div>
-                <div class="col-sm-4">
-                  <button class="btn btn-lg btn-primary" {{action "saveFilter"}}>Save Filter</button>
-                </div>
+                </span>
+                <button class="btn btn-lg btn-primary" {{action "saveFilter"}}>Save Filter</button>
               </div>
             {{else}}
               <span class="sub-text">

@@ -20,8 +20,12 @@
   }
 
   .pane-content {
+    float: right;
     padding: 0;
-    margin-left: 20px;
+
+    @include respond-to(desktop-wide) { width: 88%; }
+    @include respond-to(desktop) { width: 84%; }
+    @include respond-to(mobile) { width: 74%; }
 
     .pane-outline {
       margin-bottom: 10px;
