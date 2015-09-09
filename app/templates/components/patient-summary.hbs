@@ -14,6 +14,7 @@
     <div>
       {{view "select" value=currentAssessment content=assessments class="form-control" selection="Stroke"}}
     </div>
+
     {{vertical-line-chart data=risksWithBirthdayStart height=70 area=true interpolate='none' offset=10}}
 
     {{!--------------------- PATIENT RISK -----------------------------------}}

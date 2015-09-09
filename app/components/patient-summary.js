@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   patient: null,
-  currentAssessment: "Stroke",
+  // currentAssessment: "Stroke",
 
   risksWithBirthdayStart: Ember.computed('patient.sortedRisks', 'patient.birthDate', 'currentAssessment', function(){
     let birthRisk = this.get('patient.store').createRecord("risk-assessment", {date: this.get('patient.birthDate')});
@@ -15,9 +15,9 @@ export default Ember.Component.extend({
     return risks.filterBy('prediction.firstObject.outcome.text', this.get("currentAssessment"));
   }),
 
-  assessments: Ember.computed('patient.risks', function() {
-    return this.get('patient.risksByOutcome').mapBy('key');
-  }),
+  // assessments: Ember.computed('patient.risks', function() {  // moved to patients/index.js
+  //   return this.get('patient.risksByOutcome').mapBy('key');
+  // }),
 
   changeAssessment: function() {
     this.sendAction("action", this.get("currentAssessment"));

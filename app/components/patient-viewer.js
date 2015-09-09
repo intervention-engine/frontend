@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   patient: null,
-  currentAssessment: "Stroke",
+  // currentAssessment: "Stroke", // moved to patients/index.js
 
   slices: Ember.computed('currentAssessment', 'patient.sortedRisks.@each.pie', function(){
     let risk = this.get('patient.sortedRisks').filterBy('prediction.firstObject.outcome.text', this.get('currentAssessment')).get('lastObject');
@@ -18,11 +18,5 @@ export default Ember.Component.extend({
       {name: 'falls', title: 'Falls', value: 1, weight: 1}
       ];
     }
-  }),
-
-  actions: {
-    switchAssessment: function(assessment) {
-      this.set("currentAssessment", assessment);
-    }
-  }
+  })
 });

@@ -79,11 +79,11 @@ let IEPatient = Patient.extend({
     return !appointment.hasOccured('start');
   }),
 
-  sortedRisks: Ember.computed('risks', function(){
+  sortedRisks: Ember.computed('risks.[]', function(){
     return this.get('risks').sortBy('date');
   }),
 
-  risksByOutcome: Ember.computed('sortedRisks', function(){
+  risksByOutcome: Ember.computed('sortedRisks.[]', function(){
     let nest = d3.nest();
     nest.key(function(el){
       return el.get('prediction.firstObject.outcome.text');

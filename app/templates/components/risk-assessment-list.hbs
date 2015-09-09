@@ -1,0 +1,26 @@
+<div class="panel populations-panel">
+  <div class="panel-heading">
+    <div class="collapse-panel-title">
+      <a data-toggle="collapse" href="#chooseRiskAssessment" aria-expanded="true" aria-controls="collapseOne">
+        Choose Risk Assessment
+        <i class="fa fa-chevron-down pull-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div class="collapse in" id="chooseRiskAssessment">
+      <form class="form-horizontal form-group-striped">
+        {{#each riskAssessment in riskAssessments}}
+          {{#if riskAssessment.name}}
+            <div class="form-group">
+              {{input type="checkbox" action="riskAssessmentChecked" checked=riskAssessment.selected elementId=riskAssessment.id class="css-checkbox"}}
+              <label {{bind-attr for="riskAssessment.id"}} class="css-label css-label-box checkbox-label">{{riskAssessment.name}}</label>
+              <i class="fa fa-edit pull-right"></i>
+            </div>
+          {{/if}}
+        {{/each}}
+      </form>
+    </div>
+  </div>
+</div>
