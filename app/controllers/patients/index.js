@@ -1,7 +1,5 @@
 import Ember from 'ember';
 
-const { isNone } = Ember;
-
 export default Ember.Controller.extend({
   populations: [],
   currentAssessment: "Stroke", // default
@@ -10,13 +8,18 @@ export default Ember.Controller.extend({
 
   currentPatient: null,
 
-  riskAssessments: Ember.computed('currentPatient.risksByOutcome.[]', function() {
-    if (isNone(this.get('currentPatient.risksByOutcome'))) {
-      return [];
-    }
-
-    return this.get('currentPatient.risksByOutcome').mapBy('key');
+  riskAssessments: Ember.computed(function() {
+    // TODO: get this list from the backend
+    return ['Stroke', 'Negative Outcome'];
   }),
+
+  // riskAssessments: Ember.computed('currentPatient.risksByOutcome.[]', function() {
+  //   if (Ember.isNone(this.get('currentPatient.risksByOutcome'))) {
+  //     return [];
+  //   }
+
+  //   return this.get('currentPatient.risksByOutcome').mapBy('key');
+  // }),
 
   selectedItems: Ember.computed.filterBy('model.populations', 'selected', true),
     selectedItemsCount: (function() {
@@ -44,7 +47,7 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    switchAssessment: function(assessment) {
+    selectRiskAssessment: function(assessment) {
       this.set("currentAssessment", assessment);
     },
 

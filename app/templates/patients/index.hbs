@@ -12,7 +12,7 @@
 
       {{!------------------- CHOOSE RISK ASSESSMENT -------------------------}}
 
-      {{risk-assessment-list riskAssessments=riskAssessments}}
+      {{risk-assessment-list riskAssessments=riskAssessments currentAssessment=currentAssessment selectRiskAssessment="selectRiskAssessment"}}
 
       {{!------------------- CHOOSE PATIENT ---------------------------------}}
 
@@ -67,7 +67,7 @@
 
         <div class="panel-body">
           {{#if currentPatient}}
-            {{patient-viewer patient=currentPatient}}
+            {{patient-viewer patient=currentPatient currentAssessment=currentAssessment}}
           {{else}}
             <div class="select-patient sub-text">
               Please select patient.

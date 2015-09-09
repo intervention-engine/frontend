@@ -11,16 +11,12 @@
   </div>
 
   <div class="col-lg-10 col-sm-9 patient-risk-info">
-    <div>
-      {{view "select" value=currentAssessment content=assessments class="form-control" selection="Stroke"}}
-    </div>
-
     {{vertical-line-chart data=risksWithBirthdayStart height=70 area=true interpolate='none' offset=10}}
 
     {{!--------------------- PATIENT RISK -----------------------------------}}
 
     <div class="patient-risk">
-      {{patient.computedRisk}}
+      {{computedRisk}}
     </div>
 
     {{!--------------------- PATIENT INFO -----------------------------------}}
