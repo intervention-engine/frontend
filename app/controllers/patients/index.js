@@ -13,14 +13,6 @@ export default Ember.Controller.extend({
     return ['Stroke', 'Negative Outcome'];
   }),
 
-  // riskAssessments: Ember.computed('currentPatient.risksByOutcome.[]', function() {
-  //   if (Ember.isNone(this.get('currentPatient.risksByOutcome'))) {
-  //     return [];
-  //   }
-
-  //   return this.get('currentPatient.risksByOutcome').mapBy('key');
-  // }),
-
   selectedItems: Ember.computed.filterBy('model.populations', 'selected', true),
     selectedItemsCount: (function() {
     return this.get('selectedItems.length');
