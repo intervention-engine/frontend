@@ -4,7 +4,13 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // allows easier browser debugging
-    sourcemaps: ['js']
+    sourcemaps: ['js'],
+    emberHighCharts: {
+      includeHighCharts: true,
+      includeHighStock: false,
+      includeHighMaps: false,
+      includeHighChartsMore: false
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated

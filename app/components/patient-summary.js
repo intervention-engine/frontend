@@ -29,5 +29,7 @@ export default Ember.Component.extend({
     }
 
     return 0;
-  })
+  }),
+
+  patientPhoto: Ember.computed('patient.photo')
 });

@@ -151,55 +151,59 @@
         text-align: center;
       }
 
-      .patient-risk-info {
-        position: relative;
-        height: 100px;
-        margin-top: 85px;
+      .patient-risk-info-chart {
         padding: 0;
 
-        .patient-risk {
-          position: absolute;
-          top: -85px;
-          left: -35px;
-          font-size: 42px;
-          line-height: 55px;
-          border: 5px solid $brand-secondary;
-          border-radius: 50%;
-          width: 70px;
-          height: 70px;
-          text-align: center;
+        .patient-risk-info {
+          position: relative;
+          padding: 0;
+
+          .patient-risk {
+            position: absolute;
+            top: 0;
+            left: -35px;
+            font-size: 42px;
+            line-height: 55px;
+            border: 5px solid $brand-secondary;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            text-align: center;
+          }
+
+          .patient-info {
+            // margin-left: 50px;
+            text-align: left;
+            padding: 10px 20px 0 0;
+
+            .patient-name {
+              color: $brand-secondary;
+              font-size: 24px;
+            }
+
+            .patient-age-gender-location {
+              font-size: 14px;
+              color: lighten($brand-secondary, 20%);
+
+              i {
+                color: lighten($brand-secondary, 40%);
+              }
+
+              .patient-age,
+              .patient-gender {
+                margin-right: 20px;
+              }
+            }
+
+            .patient-location {
+              font-size: 14px;
+              color: lighten($brand-secondary, 20%);
+            }
+          }
         }
 
-        .patient-info {
-          position: absolute;
-          top: -90px;
-          left: 50px;
-          text-align: left;
-          padding: 10px 20px 0 0;
-
-          .patient-name {
-            color: $brand-secondary;
-            font-size: 24px;
-          }
-
-          .patient-age-gender-location {
-            font-size: 14px;
-            color: lighten($brand-secondary, 20%);
-
-            i {
-              color: lighten($brand-secondary, 40%);
-            }
-
-            .patient-age,
-            .patient-gender {
-              margin-right: 20px;
-            }
-          }
-
-          .patient-location {
-            font-size: 14px;
-            color: lighten($brand-secondary, 20%);
-          }
+        .patient-risk-chart {
+          padding: 0;
         }
       }
     }
@@ -213,10 +217,6 @@
     // ------------------------- PATIENT INTERVENTIONS ------------------------- //
 
     .completed-interventions {
-      position: absolute;
-      top: -75px;
-      right: 0;
-
       .completed-interventions-value {
         float: right;
         margin-right: 20px;
@@ -233,7 +233,9 @@
 
       .completed-interventions-text {
         font-size: 18px;
-        text-align: right;
+
+        @include respond-to(non-handheld) { text-align: right; }
+        @include respond-to(handheld) { text-align: center; }
       }
     }
 
