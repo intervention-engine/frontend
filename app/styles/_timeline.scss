@@ -69,11 +69,10 @@
         border: 8px solid $body-bg;
         background-color: #fff;
 
-        .icon-med-clipboard {
-          position: absolute;
+        i {
           font-size: 25px;
-          top: -4px;
-          left: 2px;
+          line-height: 28px;
+          margin-left: 5px;
         }
       }
 
