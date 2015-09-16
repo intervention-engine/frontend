@@ -3,7 +3,12 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   patient: null,
   currentAssessment: null,
+  currentPatient: null,
   maxRisk: 6, // TODO: get max risk for currentAssessment from Risk Assessment Service
+
+  active: Ember.computed('patient', 'currentPatient', function() {
+    return this.get('patient') === this.get('currentPatient');
+  }),
 
   genderIconClassName: Ember.computed('patient.computedGender', function() {
     let gender = this.get('patient.computedGender');

@@ -3,10 +3,10 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   populations: [],
   currentAssessment: "Stroke", // default
-  selectedCategory: null,
   patientSearch: '',
 
   currentPatient: null,
+  selectedCategory: null,
 
   riskAssessments: Ember.computed(function() {
     // TODO: get this list from the backend
@@ -39,12 +39,18 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    selectRiskAssessment: function(assessment) {
+    selectRiskAssessment(assessment) {
       this.set("currentAssessment", assessment);
+      this.set('selectedCategory', null);
     },
 
     selectPatient(patient) {
       this.set('currentPatient', patient);
+      this.set('selectedCategory', null);
+    },
+
+    selectCategory(category) {
+      this.set('selectedCategory', category);
     }
   }
 });

@@ -41,12 +41,12 @@
               {{#if selectedItems}}
                 {{#each selectedItems as |item|}}
                   {{#each item.groupList.patientids as |patient|}}
-                    {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment}}
+                    {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
                   {{/each}}
                 {{/each}}
               {{else}}
                 {{#each filteredPatients as |patient|}}
-                  {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment}}
+                  {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
                 {{/each}}
               {{/if}}
             </div>
@@ -67,7 +67,7 @@
 
         <div class="panel-body">
           {{#if currentPatient}}
-            {{patient-viewer patient=currentPatient currentAssessment=currentAssessment}}
+            {{patient-viewer patient=currentPatient currentAssessment=currentAssessment selectedCategory=selectedCategory selectCategory="selectCategory"}}
           {{else}}
             <div class="select-patient sub-text">
               Please select patient.

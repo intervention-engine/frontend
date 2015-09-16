@@ -3,16 +3,21 @@ import CodeableMixin from '../mixins/codeable';
 import DateableMixin from '../mixins/dateable';
 import Condition from 'ember-fhir-adapter/models/condition';
 
+const displayNameRegex = /^[^:]+:\s*(.*)\s*\(Code List:.*\)$/;
+
 let IECondition = Condition.extend(CodeableMixin, DateableMixin, {
-  text: Ember.computed.oneWay('code', function(){
-    return this.get('code').toString().match(/:\s+([^(]+)\s+\(/)[1]||this.get('code').toString();
+  text: Ember.computed('code', function(){
+    let code = this.get('code').toString();
+    let matches = code.match(displayNameRegex);
+
+    if (!Ember.isNone(matches) && matches[1]) {
+      return matches[1];
+    }
+
+    return code;
   }),
-  endDate: Ember.computed.oneWay('abatementDate', function(){
-    return this.get('abatementDate');
-  }),
-  startDate: Ember.computed.oneWay('onsetDateTime', function(){
-    return this.get('onsetDateTime');
-  })
+  endDate: Ember.computed.reads('abatementDate'),
+  startDate: Ember.computed.reads('onsetDateTime')
 });
 
 export default IECondition;

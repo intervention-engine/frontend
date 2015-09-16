@@ -6,6 +6,9 @@ export default EmberHighChartsComponent.extend({
   offsetUnit: 'years',  // default time offset unit
   height: 70,           // default height of chart
 
+  yMin: null,
+  yMax: null,
+
   data: Ember.computed(function() { return []; }),
 
   chartOptions: Ember.computed(function() {
@@ -54,7 +57,9 @@ export default EmberHighChartsComponent.extend({
         gridLineColor: 'transparent',
         title: {
           text: null
-        }
+        },
+        min: this.get('yMin'),
+        max: this.get('yMax')
       }
     };
   }),

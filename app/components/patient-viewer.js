@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   patient: null,
   currentAssessment: null,
+  selectedCategory: null,
 
   slices: Ember.computed('currentAssessment', 'patient.sortedRisks.@each.pie', function(){
     let currentAssessment = this.get('currentAssessment');
@@ -21,5 +22,22 @@ export default Ember.Component.extend({
       {name: 'social_barriers', title: 'Social Barriers', value: 2, weight: 1},
       {name: 'falls', title: 'Falls', value: 1, weight: 1}
     ];
-  })
+  }),
+
+  computedRisk: Ember.computed('patient.currentRisk', 'currentAssessment', function() {
+    let currentAssessment = this.get('currentAssessment');
+    let risks = this.get('patient.currentRisk');
+
+    if (currentAssessment && risks.length > 0) {
+      return risks.filterBy('key', currentAssessment)[0].value.get('value');
+    }
+
+    return 0;
+  }),
+
+  actions: {
+    selectCategory(category) {
+      this.sendAction('selectCategory', category);
+    }
+  }
 });

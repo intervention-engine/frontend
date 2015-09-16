@@ -16,14 +16,39 @@
     {{!--------------------- ASTER PLOT -------------------------------------}}
     <div class="col-lg-6">
       <div class="col-lg-12 col-md-6">
-        {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory}}
+        {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory="selectCategory"}}
       </div>
 
       {{!------------------- CATEGORY DETAILS -------------------------------}}
 
       <div class="col-lg-12 col-md-6">
         {{#if selectedCategory}}
-          {{category-details selectedCategory=selectedCategory}}
+          {{category-details category=selectedCategory}}
+        {{else}}
+          <div class="row category-details">
+            <div class="col-xs-12 category-name">
+              Risk Assessment
+            </div>
+
+            <div class="category-stat">
+              <div class="col-lg-3 col-md-4 col-xs-3">
+                {{currentAssessment}}:
+              </div>
+              <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
+                {{computedRisk}}
+              </div>
+              <div class="col-lg-7 hidden-md col-xs-7">
+                {{horizontal-bar-chart max=6 width=200 height=5 value=computedRisk}}
+              </div>
+              <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
+                {{horizontal-bar-chart max=6 width=100 height=5 value=computedRisk}}
+              </div>
+            </div>
+
+            <div class="sub-text">
+              Choose category for more detail.
+            </div>
+          </div>
         {{/if}}
       </div>
     </div>
