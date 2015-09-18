@@ -22,6 +22,10 @@ module.exports = function(environment) {
       authorizer: 'authorizer:ie',
       store: 'simple-auth-session-store:local-storage',
       authenticationRoute: 'login'
+    },
+
+    contentSecurityPolicy: {
+      'style-src': "'self' 'unsafe-inline'"
     }
   };
 
