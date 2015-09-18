@@ -29,7 +29,7 @@ export default Ember.Component.extend({
     saveFilter: function() {
       this.get('group').set("name", this.get('filterName') || Ember.generateGuid({}, "Population "));
       this.get('group').save().then(() => {
-        this.transitionTo("filters.index");
+        this.sendAction('onSave');
       });
     },
 
