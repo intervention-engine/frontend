@@ -1,25 +1,16 @@
 form {
   margin: 10px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 200;
 }
 
 label {
-  font-weight: 200;
+  font-weight: 400;
   font-size: 20px;
 }
 
 input {
   padding-left: 15px;
-}
-
-input.condition,
-input.encounter {
-  width: 100%;
-  border: 1px solid $brand-secondary;
-  height: 45px;
-  margin-top: -10px;
-  padding-left: 20px;
 }
 
 input.login-input {
@@ -40,9 +31,9 @@ input.login-input {
   color: lighten($brand-secondary, 40%);
   font-style: italic;
   font-size: 16px;
-  line-height: 18px;
   font-weight: 200;
-  padding: 2px;
+  padding: 0;
+  text-align: left;
 }
 
 @mixin placeholder-focus {
@@ -103,9 +94,9 @@ input[type=radio].css-checkbox {
 
 input[type=checkbox].css-checkbox + label.css-label,
 input[type=radio].css-checkbox + label.css-label {
-  height: 31px;
   display: inline-block;
-  line-height: 31px;
+  height: 30px;
+  line-height: 30px;
   background-repeat: no-repeat;
   background-position: 0 0;
   vertical-align: middle;
@@ -118,6 +109,7 @@ input[type=radio].css-checkbox:checked + label.css-label {
 }
 
 label.css-label {
+  margin: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;

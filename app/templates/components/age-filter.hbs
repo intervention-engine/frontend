@@ -1,14 +1,36 @@
-<form class="form-horizontal">
+<form class="form-horizontal filter-item">
   <div class="form-group">
-    <div class="row selected-filter-details">
-      <div class="col-xs-6">
-        <label class="css-label radio-label" for="male">Patient age is between </label>
-        {{input class="input-control" value=model.valueRange.low.value}}
+    <input type="checkbox" id={{checkboxName}} name="checkbox-patient-age" class="css-checkbox" checked={{checkboxChecked}} {{action 'toggle' on='change'}}>
+    <label for={{checkboxName}} class="css-label css-label-box checkbox-label">
+      {{#if active}}
+        Patient age
+      {{else}}
+        Patient Age
+      {{/if}}
+    </label>
+  </div>
+
+  <div class="form-group">
+    {{#if active}}
+      <div class="selected-filter-details">
+        <span class="pane-inner-label">in</span>
+        <span class="pane-select">
+          {{select-fx options=timePeriods value=selectedTimePeriod onChange="selectTimePeriod"}}
+        </span>
+        <span class="pane-inner-label">is</span>
+        <span class="pane-select">
+          {{select-fx options=comparators value=selectedComparator onChange="selectComparator"}}
+        </span>
+        <span class="pane-input">
+          {{input class="input-control age" value=characteristic.valueRange.low.value}}
+        </span>
+        {{#if highValueExists}}
+          <span class="pane-inner-label">and</span>
+          <span class="pane-input">
+            {{input class="input-control age" value=characteristic.valueRange.high.value}}
+          </span>
+        {{/if}}
       </div>
-      <div class="col-xs-6">
-        <label class="css-label radio-label" for="male"> and </label>
-        {{input class="input-control" value=model.valueRange.high.value}}
-      </div>
-    </div>
+    {{/if}}
   </div>
 </form>

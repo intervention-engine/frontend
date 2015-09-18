@@ -4,11 +4,17 @@
   </div>
 
   <div class="row">
-
-    {{!--------------------- PATIENT LIST -----------------------------------}}
-
     <div class="col-sm-3 patient-populations-list">
-      {{populations-list populations=content.populations}}
+
+      {{!------------------- CHOOSE POPULATIONS -----------------------------}}
+
+      {{populations-list populations=model.populations}}
+
+      {{!------------------- CHOOSE RISK ASSESSMENT -------------------------}}
+
+      {{risk-assessment-list riskAssessments=riskAssessments currentAssessment=currentAssessment selectRiskAssessment="selectRiskAssessment"}}
+
+      {{!------------------- CHOOSE PATIENT ---------------------------------}}
 
       <div class="panel patients-panel">
         <div class="panel-heading">
@@ -21,31 +27,26 @@
         </div>
 
         <div class="panel-body patient-list">
-          <div class="timeline-icon-search">
-            <i class="fa fa-user timeline-icon"></i>
-
-            <div class="row timeline-search">
-              <div class="col-lg-6">
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                  </span>
-                  {{input type="text" class="form-control" value=patientSearch placeholder="Search patients..."}}
-                </div>
-              </div>
+          <div class="search search-panel">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+              </span>
+              {{input type="text" class="form-control" value=patientSearch placeholder="Search patients..."}}
             </div>
           </div>
+
           <div class="collapse in" id="choosePatient">
             <div class="patients-striped">
               {{#if selectedItems}}
-                {{#each item in selectedItems}}
-                  {{#each patient in item.groupList.patientids}}
-                    {{patient-badge patient=patient currentPatient=currentPatient}}
+                {{#each selectedItems as |item|}}
+                  {{#each item.groupList.patientids as |patient|}}
+                    {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
                   {{/each}}
                 {{/each}}
               {{else}}
-                {{#each patient in filteredPatients}}
-                  {{patient-badge patient=patient currentPatient=currentPatient}}
+                {{#each filteredPatients as |patient|}}
+                  {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
                 {{/each}}
               {{/if}}
             </div>
@@ -66,7 +67,7 @@
 
         <div class="panel-body">
           {{#if currentPatient}}
-            {{patient-viewer patient=currentPatient action="switchAssessment"}}
+            {{patient-viewer patient=currentPatient currentAssessment=currentAssessment selectedCategory=selectedCategory selectCategory="selectCategory"}}
           {{else}}
             <div class="select-patient sub-text">
               Please select patient.

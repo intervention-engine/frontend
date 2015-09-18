@@ -1,8 +1,10 @@
 .patients {
 
-  // ----------------------- PATIENT POPULATION LIST ----------------------- //
+  // ----------------------- PATIENT LIST ---------------------------------- //
 
   .patient-populations-list {
+    font-weight: 400;
+
     @include respond-to(tablet) {
       position: absolute;
       left: 10px;
@@ -11,24 +13,53 @@
 
     .patient-list {
       .patients-striped {
-        > .patient:nth-child(odd) {
+        > .ember-view:nth-child(odd) {
           background-color: $table-bg-accent;
         }
 
+        > .ember-view:first-child {
+          border-top: 1px solid $body-bg;
+        }
+
         .patient {
+          position: relative;
           margin: 0;
-          padding: 5px 2px 2px 15px;
+          padding: 15px 0 15px 15px;
           border-bottom: 1px solid $body-bg;
           font-size: 16px;
-          height: 80px;
+          min-height: 80px;
+
+          &:hover, &.active {
+            background-color: $brand-primary;
+
+            .patient-info .patient-name,
+            .patient-info .patient-age-gender,
+            .patient-info .patient-age-gender i {
+              color: $body-bg-inverse;
+            }
+
+            .patient-info .patient-risk-bar-container .patient-risk-bar {
+              color: $brand-primary;
+              background-color: $body-bg-inverse;
+            }
+          }
 
           .patient-info {
-            padding-top: 10px;
             position: relative;
+            cursor: pointer;
 
             .patient-name {
+              overflow: hidden;
+              text-overflow: ellipsis;
               color: $brand-primary;
-              font-size: 18px;
+
+              @include respond-to(non-handheld) { font-size: 18px; }
+              @include respond-to(tablet) { font-size: 16px; }
+              @include respond-to(mobile) { font-size: 20px; }
+
+              @include respond-to(desktop-wide) { max-width: 175px; }
+              @include respond-to(desktop) { max-width: 120px; }
+              @include respond-to(tablet) { max-width: 80px; }
 
               .badge {
                 display: inline-block;
@@ -37,39 +68,58 @@
                 height: 15px;
                 padding: 0 2px;
                 line-height: 1.4;
+                margin-bottom: 10px;
               }
             }
 
             .patient-age-gender {
-              font-size: 14px;
-              color: lighten($brand-secondary, 40%);
+              line-height: 0;
+              color: lighten($brand-secondary, 28%);
+
+              @include respond-to(non-handheld) { font-size: 14px; }
+              @include respond-to(tablet) { font-size: 10px; }
+              @include respond-to(mobile) { font-size: 16px; }
 
               i {
-                color: lighten($brand-secondary, 55%);
+                color: lighten($brand-secondary, 50%);
+
+                @include respond-to(non-handheld) { font-size: 20px; }
+                @include respond-to(tablet) { font-size: 16px; }
+                @include respond-to(mobile) { font-size: 20px; }
               }
 
               .patient-age {
-                margin-right: 20px;
+                margin-right: 15px;
+              }
+
+              .patient-gender i {
+                @include respond-to(non-handheld) { font-size: 18px; }
+                @include respond-to(tablet) { font-size: 14px; }
+                @include respond-to(mobile) { font-size: 18px; }
               }
             }
 
-            .patient-risk {
+            .patient-risk-bar-container {
               position: absolute;
-              top: 50%;
+              top: 38%;
               right: -2px;
+              height: 15px;
 
-              background-color: $brand-primary;
-              font-size: 12px;
-              color: #fff;
-              padding: 0 3px 0 2px;
+              @include respond-to(desktop-wide) { width: 150px; }
+              @include respond-to(desktop) { width: 100px; }
+              @include respond-to(tablet) { width: 85px; }
+              @include respond-to(mobile) { width: 250px; }
+
+              .patient-risk-bar {
+                float: right;
+                height: 15px;
+                background-color: $brand-primary;
+                font-size: 12px;
+                line-height: 12px;
+                color: #fff;
+                padding: 2px;
+              }
             }
-
-            .patient-risk-1 { width: 20px; }
-            .patient-risk-2 { width: 30px; }
-            .patient-risk-3 { width: 40px; }
-            .patient-risk-4 { width: 50px; }
-            .patient-risk-5 { width: 60px; }
-            .patient-risk-6 { width: 70px; }
           }
         }
       }
@@ -101,55 +151,59 @@
         text-align: center;
       }
 
-      .patient-risk-info {
-        position: relative;
-        height: 100px;
-        margin-top: 85px;
+      .patient-risk-info-chart {
         padding: 0;
 
-        .patient-risk {
-          position: absolute;
-          top: -85px;
-          left: -35px;
-          font-size: 42px;
-          line-height: 55px;
-          border: 5px solid $brand-secondary;
-          border-radius: 50%;
-          width: 70px;
-          height: 70px;
-          text-align: center;
+        .patient-risk-info {
+          position: relative;
+          padding: 0;
+
+          .patient-risk {
+            position: absolute;
+            top: 0;
+            left: -35px;
+            font-size: 38px;
+            line-height: 55px;
+            border: 5px solid $brand-secondary;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            text-align: center;
+          }
+
+          .patient-info {
+            // margin-left: 50px;
+            text-align: left;
+            padding: 10px 20px 0 0;
+
+            .patient-name {
+              color: $brand-secondary;
+              font-size: 24px;
+            }
+
+            .patient-age-gender-location {
+              font-size: 14px;
+              color: lighten($brand-secondary, 20%);
+
+              i {
+                color: lighten($brand-secondary, 40%);
+              }
+
+              .patient-age,
+              .patient-gender {
+                margin-right: 20px;
+              }
+            }
+
+            .patient-location {
+              font-size: 14px;
+              color: lighten($brand-secondary, 20%);
+            }
+          }
         }
 
-        .patient-info {
-          position: absolute;
-          top: -90px;
-          left: 50px;
-          text-align: left;
-          padding: 10px 20px 0 0;
-
-          .patient-name {
-            color: $brand-secondary;
-            font-size: 24px;
-          }
-
-          .patient-age-gender-location {
-            font-size: 14px;
-            color: lighten($brand-secondary, 20%);
-
-            i {
-              color: lighten($brand-secondary, 40%);
-            }
-
-            .patient-age,
-            .patient-gender {
-              margin-right: 20px;
-            }
-          }
-
-          .patient-location {
-            font-size: 14px;
-            color: lighten($brand-secondary, 20%);
-          }
+        .patient-risk-chart {
+          padding: 0;
         }
       }
     }
@@ -163,10 +217,6 @@
     // ------------------------- PATIENT INTERVENTIONS ------------------------- //
 
     .completed-interventions {
-      position: absolute;
-      top: -75px;
-      right: 0;
-
       .completed-interventions-value {
         float: right;
         margin-right: 20px;
@@ -183,7 +233,9 @@
 
       .completed-interventions-text {
         font-size: 18px;
-        text-align: right;
+
+        @include respond-to(non-handheld) { text-align: right; }
+        @include respond-to(handheld) { text-align: center; }
       }
     }
 
@@ -194,6 +246,10 @@
       padding: 20px;
       @include respond-to(desktop) { padding: 20px 5px; }
       @include respond-to(tablet) { width: 400px; }
+
+      .category {
+        cursor: pointer;
+      }
     }
 
     .category-details {
@@ -206,13 +262,18 @@
       }
 
       .category-name {
-        font-size: 2em;
+        font-size: 1.7em;
         text-align: center;
         padding: 10px;
       }
 
       .category-stat-value {
         font-weight: 500;
+      }
+
+      .sub-text {
+        font-size: 0.9em;
+        text-align: center;
       }
     }
   }

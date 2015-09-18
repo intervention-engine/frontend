@@ -1,7 +1,10 @@
 import Ember from 'ember';
+import FilterComponentMixin from '../mixins/filter-component';
 
-let GenderFilterComponent = Ember.Component.extend({
-  genders: ["male", "female", "unknown", "other"]
+export default Ember.Component.extend(FilterComponentMixin, {
+  checkboxBaseName: 'gender-filter',
+
+  genders: ["male", "female", "unknown", "other"],
+
+  genderValue: Ember.computed.alias('characteristic.valueCodeableConcept.coding.firstObject.code')
 });
-
-export default GenderFilterComponent;

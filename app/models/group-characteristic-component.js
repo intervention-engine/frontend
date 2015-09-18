@@ -40,7 +40,29 @@ let IEGroupCharacteristicComponent = GroupCharacteristicComponent.extend(Codeabl
       icon = 'fa-user';
     }
     return icon;
-  })
+  }),
+
+  // `countableRollup` is used to trigger the update in the filter counts component since Ember does not support nested
+  // @each listeners (such as group.characteristic.@each.valueRange.low.value, etc)
+  countableRollup: Ember.computed(
+    'valueRange.low.value',
+    'valueRange.high.value',
+    'valueCodeableConcept.coding.@each.code',
+    'valueCodeableConcept.coding.@each.system',
+    function() {
+      let coding = this.get('valueCodeableConcept.coding') || [];
+      let codes = coding.mapBy('code').join('_');
+      let systems = coding.mapBy('system').join('_');
+
+      return `${this.get('valueRange.low.value')}-${this.get('valueRange.high.value')}-${codes}-${systems}`;
+    }
+  ),
+
+  // http://guides.emberjs.com/v1.10.0/object-model/observers/#toc_unconsumed-computed-properties-do-not-trigger-observers
+  // > If you need to observe a computed property but aren't currently retrieving it, just get it in your init method.
+  countableRollupObserver: Ember.observer('countableRollup', function() {
+    this.get('countableRollup');
+  }).on('init')
 });
 
 export default IEGroupCharacteristicComponent;

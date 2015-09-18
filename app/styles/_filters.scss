@@ -40,7 +40,8 @@
 
 .filter-types {
 
-  .filter-type {
+  .filter-type,
+  .filter-type-disabled {
     height: 60px;
     line-height: 60px;
     font-size: 2em;
@@ -71,6 +72,14 @@
       font-size: 0.8em;
     }
   }
+
+  .filter-type-disabled {
+    cursor: default;
+    &:hover {
+      background-color: $body-bg;
+      color: inherit;
+    }
+  }
 }
 
 /* -------------------------------- FILTER DETAILS -------------------------------- */
@@ -87,18 +96,25 @@
   }
 
   .save-new-filter {
-    text-align: right;
-    padding: 10px;
+    float: right;
+    padding: 10px 0;
 
-    input {
+    .pane-input input {
+      padding-left: 10px;
       height: 45px;
       width: 325px;
+      font-size: 20px;
+    }
+
+    button {
+      margin: 0 1px 5px 10px;
     }
   }
 }
 
 .selected-filter-details {
-  margin-left: 25px;
+  margin-left: 35px;
+  line-height: 40px;
 }
 
 .add-new-filter {
@@ -107,3 +123,14 @@
   margin: 10px;
 }
 
+/* -------------------------------- FILTER ITEM -------------------------------- */
+
+.filter-item {
+  .form-group {
+    margin: 0 0 0 -15px;
+  }
+
+  label {
+    font-weight: 200;
+  }
+}

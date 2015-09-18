@@ -54,6 +54,7 @@ test("risksWithBirthdayStart should add a risk assessment at birth", function(as
     risk.get('prediction').pushObject(rapc);
     patient.get('risks').pushObject(risk);
     component.set('patient', patient);
+    component.set('currentAssessment', 'Stroke');
     assert.equal(patient.get("risks.length"), 1);
     let rwbs = component.get("risksWithBirthdayStart");
     assert.equal(rwbs.get('length'), 2);

@@ -1,6 +1,6 @@
 <div class="row category-details">
   <div class="col-xs-12 category-name">
-    {{selectedCategory.title}}
+    {{category.name}}
   </div>
 
   <div class="category-stat">
@@ -8,13 +8,13 @@
       Risk:
     </div>
     <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
-      {{selectedCategory.risk}}
+      {{category.value}}
     </div>
     <div class="col-lg-7 hidden-md col-xs-7">
-      {{horizontal-bar-chart max=6 width=200 height=5 value=selectedCategory.risk}}
+      {{horizontal-bar-chart max=category.maxValue width=200 height=5 value=category.value}}
     </div>
     <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
-      {{horizontal-bar-chart max=6 width=100 height=5 value=selectedCategory.risk}}
+      {{horizontal-bar-chart max=category.maxValue width=100 height=5 value=category.value}}
     </div>
   </div>
 
@@ -23,13 +23,13 @@
       Weight:
     </div>
     <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
-      {{selectedCategory.weight}}
+      {{category.weight}}
     </div>
     <div class="col-lg-7 hidden-md col-xs-7">
-      {{horizontal-bar-chart max=3 width=200 height=5 value=selectedCategory.weight}}
+      {{horizontal-bar-chart max=category.maxWeight width=200 height=5 value=category.weight}}
     </div>
     <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
-      {{horizontal-bar-chart max=3 width=100 height=5 value=selectedCategory.weight}}
+      {{horizontal-bar-chart max=category.maxWeight width=100 height=5 value=category.weight}}
     </div>
   </div>
 </div>

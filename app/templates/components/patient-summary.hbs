@@ -10,47 +10,56 @@
     {{/if}}
   </div>
 
-  <div class="col-lg-10 col-sm-9 patient-risk-info">
-    <div>
-      {{view "select" value=currentAssessment content=assessments class="form-control" selection="Stroke"}}
-    </div>
-    {{vertical-line-chart data=risksWithBirthdayStart height=70 area=true interpolate='none' offset=10}}
+  <div class="col-lg-10 col-sm-9 patient-risk-info-chart">
+    <div class="row">
+      <div class="col-sm-12 patient-risk-info">
 
-    {{!--------------------- PATIENT RISK -----------------------------------}}
+        {{!--------------------- PATIENT RISK -----------------------------------}}
 
-    <div class="patient-risk">
-      {{patient.computedRisk}}
-    </div>
+        <div class="patient-risk">
+          {{computedRisk}}
+        </div>
 
-    {{!--------------------- PATIENT INFO -----------------------------------}}
+        <div class="row">
 
-    <div class="patient-info">
-      <div class="patient-name">{{patient.fullName}}</div>
-      <div class="patient-age-gender-location">
-        <span class="patient-age">
-          <i class="fa fa-birthday-cake"></i>
-          {{patient.computedAge}} yrs
-        </span>
-        <span class="patient-gender">
-          <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
-          {{patient.computedGender}}
-        </span>
-        <span class="patient-location">
-          <i class="fa fa-home"></i>
-          {{patient.patientLocation}}
-        </span>
+          {{!--------------------- PATIENT INFO -----------------------------------}}
+
+          <div class="col-lg-7 col-sm-5 col-sm-offset-1 patient-info">
+            <div class="patient-name">{{patient.fullName}}</div>
+            <div class="patient-age-gender-location">
+              <span class="patient-age">
+                <i class={{ageIconClassName}}></i>
+                {{patient.computedAge}} yrs
+              </span>
+              <span class="patient-gender">
+                <i class="fa {{genderIconClassName}}"></i>
+                {{patient.computedGender}}
+              </span>
+              <span class="patient-location">
+                <i class="fa fa-home"></i>
+                {{patient.location}}
+              </span>
+            </div>
+          </div>
+
+          {{!--------------------- COMPLETED INTERVENTIONS ------------------------}}
+
+          <div class="col-lg-4 col-sm-6 completed-interventions">
+            <div class="completed-interventions-value">19</div>
+            <div class="completed-interventions-stars">
+              <i class="fa fa-star fa-fw"></i>
+              <i class="fa fa-star fa-fw"></i>
+              <i class="fa fa-star-o fa-fw"></i>
+              <div class="completed-interventions-text">Completed Interventions</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    {{!--------------------- COMPLETED INTERVENTIONS ------------------------}}
+      {{!----------------------- PATIENT RISK CHART -----------------------------}}
 
-    <div class="completed-interventions">
-      <div class="completed-interventions-value">19</div>
-      <div class="completed-interventions-stars">
-        <i class="fa fa-star fa-fw"></i>
-        <i class="fa fa-star fa-fw"></i>
-        <i class="fa fa-star-o fa-fw"></i>
-        <div class="completed-interventions-text">Completed Interventions</div>
+      <div class="col-sm-12 patient-risk-chart">
+        {{vertical-line-chart data=risksWithBirthdayStart height=120 yMin=0 yMax=6}}
       </div>
     </div>
   </div>

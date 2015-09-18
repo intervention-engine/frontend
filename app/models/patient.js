@@ -9,7 +9,7 @@ let IEPatient = Patient.extend({
   appointments: DS.hasMany('appointment', {"async": true}),
   risks: DS.hasMany('riskAssessment', {"async": true}),
   notifications: DS.belongsTo('notificationCount', {"async": true, inverse: 'patient'}),
-
+  location: 'Home', // TODO: hook up
 
   fullName: Ember.computed("name", function(){
     let firstHumanName = this.get("name");
@@ -79,11 +79,11 @@ let IEPatient = Patient.extend({
     return !appointment.hasOccured('start');
   }),
 
-  sortedRisks: Ember.computed('risks', function(){
+  sortedRisks: Ember.computed('risks.[]', function(){
     return this.get('risks').sortBy('date');
   }),
 
-  risksByOutcome: Ember.computed('sortedRisks', function(){
+  risksByOutcome: Ember.computed('sortedRisks.[]', function(){
     let nest = d3.nest();
     nest.key(function(el){
       return el.get('prediction.firstObject.outcome.text');
@@ -91,34 +91,10 @@ let IEPatient = Patient.extend({
     return nest.entries(this.get('sortedRisks'));
   }),
 
-   currentRisk: Ember.computed('risksByOutcome', function(){
+  currentRisk: Ember.computed('risksByOutcome', function(){
     return this.get('risksByOutcome').map(function(risk){
       return {key: risk.key, value:risk.values[risk.values.length - 1 ]};
     });
-  }),
-
-  computedRisk: Ember.computed('currentRisk', function(){
-    let risks =  this.get('currentRisk');
-    if (risks.length > 0) {
-      return risks.filterBy('key', 'Stroke')[0].value.get('value');
-    }
-    return 0;
-  }),
-
-  slices: Ember.computed('sortedRisks.@each.pie', function(){
-    let risk = this.get('sortedRisks').filterBy('prediction.firstObject.outcome.text', "Stroke").get('lastObject');
-    if (risk) {
-      return risk.get('pie').get('sliceArray');
-    } else {
-      return [
-      {name: 'medications', title: 'Medications', value: 0, weight: 1},
-      {name: 'conditions', title: 'Conditions', value: 0, weight: 2},
-      {name: 'readmissions', title: 'Readmissions', value: 0, weight: 1},
-      {name: 'utilization', title: 'Utilizations', value: 5, weight: 0.5},
-      {name: 'social_barriers', title: 'Social Barriers', value: 2, weight: 1},
-      {name: 'falls', title: 'Falls', value: 1, weight: 1}
-      ];
-    }
   })
 });
 

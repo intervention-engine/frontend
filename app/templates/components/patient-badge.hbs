@@ -1,4 +1,4 @@
-<div {{action "showPatient" patient}} class="patient">
+<div {{action "selectPatient"}} class="patient {{if active 'active'}}">
   <div class="patient-info">
     <div class="patient-name">
       {{patient.fullName}}
@@ -8,16 +8,20 @@
     </div>
     <div class="patient-age-gender">
       <span class="patient-age">
-        <i class="fa fa-birthday-cake"></i>
+        <i class={{ageIconClassName}}></i>
         {{patient.computedAge}} yrs
       </span>
       <span class="patient-gender">
-        <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+        <i class="fa {{genderIconClassName}}"></i>
         {{patient.computedGender}}
       </span>
     </div>
-    <div {{bind-attr class=":patient-risk patient.riskClassName"}}>
-      {{patient.serverRisk.risk}}
+    <div class="patient-risk-bar-container">
+      <div class="patient-risk-bar">
+        {{#if inputRisk}}
+          <span class="patient-risk">{{computedRisk}}</span>
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

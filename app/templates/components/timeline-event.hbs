@@ -1,13 +1,4 @@
-<div {{bind-attr class=":timeline-event eventClass"}}>
-  <div class="timeline-event-icon">
-    {{#if isCondition}}
-      <i class="icon-med-clipboard"></i>
-    {{/if}}
-    {{#if isMedication}}
-      <i class="icon-medication"></i>
-    {{/if}}
-  </div>
-
+<div class="timeline-event {{eventClass}}">
   <div class="timeline-event-text">
     {{event.event.text}}
   </div>
@@ -16,16 +7,10 @@
     {{date-format event.effectiveDate}}
   </div>
 
-  {{#if isCondition}}
-    <div class="timeline-event-type-icon">
-      <i class="icon-med-clipboard"></i>
-    </div>
-  {{/if}}
-  {{#if isMedication}}
-    <div class="timeline-event-icon">
-      <i class="icon-medication"></i>
-    </div>
-  {{/if}}
+  <div class="timeline-event-icon">
+    <i class="{{iconClass}}"></i>
+  </div>
+
   <span class="pointer-bottom"></span>
   <span class="pointer-top"></span>
 </div>

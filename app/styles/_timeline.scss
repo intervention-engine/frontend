@@ -11,36 +11,6 @@
       font-size: 48px;
       color: $brand-primary;
     }
-
-    // --------------------- TIMELINE SEARCH ------------------------------- //
-
-    .timeline-search {
-      display: inline-block;
-      margin-left: 35px;
-      border: 1px solid lighten($brand-secondary, 60%);
-      border-radius: 15px;
-      height: 28px;
-      font-size: 16px;
-      width: 380px;
-
-      .form-control,
-      .btn {
-        border: none;
-        box-shadow: none;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        background-color: transparent;
-        padding: 0;
-        margin: 0;
-        color: lighten($brand-secondary, 40%);
-      }
-
-      .form-control {
-        height: 25px;
-        width: 180px;
-        padding-left: 10px;
-      }
-    }
   }
 
   // ----------------------- TIMELINE EVENTS ------------------------------- //
@@ -66,7 +36,7 @@
       width: 380px;
       border: 8px solid $body-bg;
       margin: 10px 0 10px 70px;
-      padding: 5px;
+      padding: 10px;
 
       .pointer-bottom {
         display: block;
@@ -99,16 +69,16 @@
         border: 8px solid $body-bg;
         background-color: #fff;
 
-        .icon-med-clipboard {
-          position: absolute;
+        i {
           font-size: 25px;
-          top: -4px;
-          left: 2px;
+          line-height: 28px;
+          margin-left: 5px;
         }
       }
 
       .timeline-event-text {
         font-size: 20px;
+        font-weight: 500;
       }
 
       .timeline-event-start-date {
