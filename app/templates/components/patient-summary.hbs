@@ -28,16 +28,16 @@
             <div class="patient-name">{{patient.fullName}}</div>
             <div class="patient-age-gender-location">
               <span class="patient-age">
-                <i class="fa fa-birthday-cake"></i>
+                <i class={{ageIconClassName}}></i>
                 {{patient.computedAge}} yrs
               </span>
               <span class="patient-gender">
-                <i {{bind-attr class=":fa patient.isMale:fa-male patient.isFemale:fa-female patient.isOtherGender:fa-user"}}></i>
+                <i class="fa {{genderIconClassName}}"></i>
                 {{patient.computedGender}}
               </span>
               <span class="patient-location">
                 <i class="fa fa-home"></i>
-                {{patient.patientLocation}}
+                {{patient.location}}
               </span>
             </div>
           </div>

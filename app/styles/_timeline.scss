@@ -36,7 +36,7 @@
       width: 380px;
       border: 8px solid $body-bg;
       margin: 10px 0 10px 70px;
-      padding: 5px;
+      padding: 10px;
 
       .pointer-bottom {
         display: block;
@@ -78,6 +78,7 @@
 
       .timeline-event-text {
         font-size: 20px;
+        font-weight: 500;
       }
 
       .timeline-event-start-date {

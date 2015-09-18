@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import PatientIconClassNames from '../mixins/patient-icon-class-names';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(PatientIconClassNames, {
   patient: null,
   currentAssessment: null,
   currentPatient: null,
@@ -8,34 +9,6 @@ export default Ember.Component.extend({
 
   active: Ember.computed('patient', 'currentPatient', function() {
     return this.get('patient') === this.get('currentPatient');
-  }),
-
-  genderIconClassName: Ember.computed('patient.computedGender', function() {
-    let gender = this.get('patient.computedGender');
-
-    if (gender === 'Male') {
-      return 'fa-male';
-    } else if (gender === 'Female') {
-      return 'fa-female';
-    }
-
-    return 'fa-user';
-  }),
-
-  ageIconClassName: Ember.computed('patient.computedAge', function() {
-    let age = this.get('patient.computedAge');
-
-    if (age <= 3) {
-      return 'icon-baby';
-    } else if (age <= 17) {
-      return 'icon-child';
-    } else if (age <= 64) {
-      return 'icon-adult';
-    } else if (age >= 65) {
-      return 'icon-elderly';
-    }
-
-    return 'fa fa-birthday-cake';
   }),
 
   computedRisk: Ember.computed('patient.currentRisk', 'currentAssessment', function() {

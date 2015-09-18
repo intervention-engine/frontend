@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import PatientIconClassNames from '../mixins/patient-icon-class-names';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(PatientIconClassNames, {
   patient: null,
   currentAssessment: null,
 

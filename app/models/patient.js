@@ -9,7 +9,7 @@ let IEPatient = Patient.extend({
   appointments: DS.hasMany('appointment', {"async": true}),
   risks: DS.hasMany('riskAssessment', {"async": true}),
   notifications: DS.belongsTo('notificationCount', {"async": true, inverse: 'patient'}),
-
+  location: 'Home', // TODO: hook up
 
   fullName: Ember.computed("name", function(){
     let firstHumanName = this.get("name");
