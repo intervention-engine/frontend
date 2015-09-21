@@ -13,7 +13,14 @@
   <div class="form-group">
     {{#if active}}
       <div class="selected-filter-details">
-        {{input classNames="input-control encounter" placeholder="encounter code" value=encounterValues}}
+        <span class="pane-inner-label">for system</span>
+        <span class="pane-select">
+          {{select-fx options=codingSystems value=selectedCodingSystem valuePath="system" onChange="selectCodingSystem"}}
+        </span>
+        <span class="pane-inner-label">is</span>
+        <span class="pane-input">
+          {{input class="input-control encounter" placeholder="encounter code" value=codeValue}}
+        </span>
       </div>
     {{/if}}
   </div>
