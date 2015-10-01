@@ -16,7 +16,7 @@ let IECondition = Condition.extend(CodeableMixin, DateableMixin, {
 
     return code;
   }),
-  endDate: Ember.computed.reads('abatementDate'),
+  endDate: Ember.computed.reads('abatementDateTime'),
   startDate: Ember.computed.reads('onsetDateTime')
 });
 

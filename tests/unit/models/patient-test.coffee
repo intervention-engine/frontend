@@ -23,9 +23,6 @@ moduleForModel 'patient', 'Patient', {
         'model:condition',
         'model:condition-stage-component',
         'model:condition-evidence-component',
-        'model:condition-location-component',
-        'model:condition-due-to-component',
-        'model:condition-occurred-following-component',
         'model:medication-statement',
         'model:medication-statement-dosage-component',
         'model:notification-count',
@@ -140,7 +137,7 @@ test 'correctly identify active conditions', ->
     codeableConcept.get('coding').pushObject(coding)
     condition.set('code', codeableConcept)
     condition.set("onsetDate", "2012-10-03T08:00:00-04:00")
-    condition.set("abatementDate", "2013-10-03T08:00:00-04:00")
+    condition.set("abatementDateTime", "2013-10-03T08:00:00-04:00")
     patient.get('conditions').pushObject(condition)
 
     equal patient.get('conditions.length'), 2
