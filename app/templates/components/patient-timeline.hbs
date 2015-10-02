@@ -14,7 +14,7 @@
 
   <div class="timeline-events">
     <div class="timeline-line"></div>
-    {{#each event in filteredEvents}}
+    {{#each filteredEvents as |event|}}
       {{timeline-event event=event}}
     {{/each}}
   </div>

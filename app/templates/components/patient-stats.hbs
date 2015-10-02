@@ -7,7 +7,7 @@
   </div>
   <div class="panel-body">
     <ul>
-      {{#each appointment in patient.futureAppointments}}
+      {{#each patient.futureAppointments as |appointment|}}
         <li>{{appointment.startDate}}</li>
       {{/each}}
     </ul>
@@ -31,7 +31,7 @@
   </div>
   <div class="panel-body">
     <ul>
-    {{#each condition in patient.activeConditions}}
+    {{#each patient.activeConditions as |condition|}}
       {{#if condition.code}}
         <li>{{condition.text}}</li>
       {{/if}}
@@ -56,7 +56,7 @@
     </div>
   </div>
   <div class="panel-body">
-    {{#each medication in patient.activeMedications}}
+    {{#each patient.activeMedications as |medication|}}
       {{#if medication.text}}
         <li>{{medication.text}}</li>
       {{/if}}

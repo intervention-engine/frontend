@@ -1,7 +1,7 @@
 <div class="container">
   <h1>My Filters</h1>
   <ul class="filterList">
-    {{#each filter in content}}
+    {{#each content as |filter|}}
       {{#if filter.isNew}}
         {{!-- --}}
       {{else}}

@@ -11,11 +11,11 @@
   <div class="panel-body">
     <div class="collapse in" id="choosePopulation">
       <form class="form-horizontal form-group-striped">
-        {{#each population in populations}}
+        {{#each populations as |population|}}
           {{#if population.name}}
             <div class="form-group">
               {{input type="checkbox" checked=population.selected elementId=population.id class="css-checkbox"}}
-              <label {{bind-attr for="population.id"}} class="css-label css-label-box checkbox-label">
+              <label for={{population.id}} class="css-label css-label-box checkbox-label">
                 {{population.name}}
               </label>
               <i class="fa fa-edit pull-right"></i>
