@@ -6,7 +6,7 @@ moduleForModel 'medication-statement', 'MedicationStatement', {
           'model:period', 'model:coding', 'model:medication',
           'model:quantity', 'model:reference',
           'model:medication-statement-dosage-component',
-          'model:timing', 'model:ratio']
+          'model:timing', 'model:ratio', 'model:range']
 }
 
 test 'a medication statement without an period end has not occured', ->
