@@ -31,7 +31,7 @@ export default Ember.Component.extend(PatientIconClassNames, {
 
     let width = Math.floor(this.get('computedRisk') * this.get('maxRisk') * 3);
     this.element.querySelector('.patient-risk-bar').style.width = `${width}%`;
-  }),
+  }).on('didRender'),
 
   actions: {
     selectPatient() {
