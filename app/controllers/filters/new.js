@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     onSave() {
-      this.transitionTo('filters.index');
+      this.transitionTo('patients.index');
     }
   }
 });
