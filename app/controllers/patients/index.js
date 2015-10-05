@@ -6,11 +6,14 @@ export default Ember.Controller.extend({
   patientSearch: '',
   currentPatient: null,
   selectedCategory: null,
-  sortByTypeInput: "notifications", // default
+  sortByTypeInput: "name", // default
 
   sortByType: Ember.computed('sortByTypeInput', function() {
     if (this.get('sortByTypeInput') === 'notifications') {
       return ['notifications.count', 'computedAge'];
+    }
+    if (this.get('sortByTypeInput') === 'name') {
+      return ['fullName'];
     }
   }),
 
@@ -45,7 +48,7 @@ export default Ember.Controller.extend({
   }),
 
   sortedPatients: Ember.computed('filteredPatients.[]', 'sortByType', function() {
-    return this.get('filteredPatients').sortBy(...this.get('sortByType')).reverse();
+    return this.get('filteredPatients').sortBy(...this.get('sortByType'));
   }),
 
   actions: {
