@@ -58,9 +58,10 @@ AsterPlotComponent = Ember.Component.extend
       .range([.4, 1])
 
     outerArc = d3.svg.arc()
-      .innerRadius(outerArcRadius)
+      .innerRadius(200)
       .outerRadius(radius)
       .cornerRadius(5)
+
 
     outerpath = svg.select('g').select(".outer")
       .selectAll("path")
@@ -79,7 +80,6 @@ AsterPlotComponent = Ember.Component.extend
       .attr("fill-opacity", (d) -> opacityScale(d3.max([d.data.value, 0])/(d.data.maxValue || maxValue)))
       .attr("class", (d) -> "category category#{d.data.name.camelize().capitalize()}")
       .on("click", selectCategory)
-
     arc = d3.svg.arc()
       .innerRadius(innerRadius)
       .outerRadius((d) -> radiusScale(d3.max([d.data.value, 0])/(d.data.maxValue || maxValue)))
