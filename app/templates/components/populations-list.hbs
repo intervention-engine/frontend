@@ -14,8 +14,10 @@
         {{#each population in populations}}
           {{#if population.name}}
             <div class="form-group">
-              {{input type="checkbox" action="populationChecked" checked=population.selected elementId=population.id class="css-checkbox"}}
-              <label {{bind-attr for="population.id"}} class="css-label css-label-box checkbox-label">{{population.name}}</label>
+              {{input type="checkbox" checked=population.selected elementId=population.id class="css-checkbox"}}
+              <label {{bind-attr for="population.id"}} class="css-label css-label-box checkbox-label">
+                {{population.name}}
+              </label>
               <i class="fa fa-edit pull-right"></i>
             </div>
           {{/if}}

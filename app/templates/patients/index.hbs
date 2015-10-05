@@ -21,6 +21,7 @@
           <div class="collapse-panel-title">
             <a data-toggle="collapse" href="#choosePatient" aria-expanded="true" aria-controls="collapseOne">
               Choose Patient
+              <span class="badge count">{{sortedPatients.length}}</span>
               <i class="fa fa-chevron-down pull-right"></i>
             </a>
           </div>
@@ -38,17 +39,9 @@
 
           <div class="collapse in" id="choosePatient">
             <div class="patients-striped">
-              {{#if selectedItems}}
-                {{#each selectedItems as |item|}}
-                  {{#each item.groupList.patientids as |patient|}}
-                    {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
-                  {{/each}}
-                {{/each}}
-              {{else}}
-                {{#each filteredPatients as |patient|}}
-                  {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
-                {{/each}}
-              {{/if}}
+              {{#each sortedPatients as |patient|}}
+                {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
+              {{/each}}
             </div>
           </div>
         </div>

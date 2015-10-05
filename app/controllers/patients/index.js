@@ -4,38 +4,48 @@ export default Ember.Controller.extend({
   populations: [],
   currentAssessment: "Stroke", // default
   patientSearch: '',
-
   currentPatient: null,
   selectedCategory: null,
+  sortByTypeInput: "notifications", // default
+
+  sortByType: Ember.computed('sortByTypeInput', function() {
+    if (this.get('sortByTypeInput') === 'notifications') {
+      return ['notifications.count', 'computedAge'];
+    }
+  }),
+
+  selectedPopulations: Ember.computed.filterBy('model.populations', 'selected', true),
 
   riskAssessments: Ember.computed(function() {
     // TODO: get this list from the backend
     return ['Stroke', 'Negative Outcome'];
   }),
 
-  selectedItems: Ember.computed.filterBy('model.populations', 'selected', true),
-    selectedItemsCount: (function() {
-    return this.get('selectedItems.length');
-  }).property('selectedItems.[]'),
-
-  patients: Ember.computed('selectedItems.@each', function() {
-    if (this.get('selectedItemsCount') === 0) {
-      return this.get('model.patients');
-    } else {
-      console.error("This code path is broken until testing with IE server");
+  populationPatients: Ember.computed('selectedPopulations.[]', function() {
+    let selectedPopulations = this.get('selectedPopulations');
+    if (selectedPopulations.length === 0) {
       return this.get('model.patients');
     }
+
+    let patients = Ember.A();
+    selectedPopulations.forEach(function(population) {
+      population.get('groupList').then((groupList) => {
+        patients.addObjects(groupList.get('patientids'));
+      });
+    });
+
+    return patients;
   }),
 
-  sortedPatients: Ember.computed('patients.@each.notifications.count', function() {
-    return this.get('patients').sortBy('notifications.count', 'computedAge').reverse();
-  }),
-
-  filteredPatients: Ember.computed('sortedPatients', 'patientSearch', function() {
+  filteredPatients: Ember.computed('populationPatients.[]', 'patientSearch', function() {
     let rx = new RegExp(this.get("patientSearch"), "gi");
-    return this.get('sortedPatients').filter(function(p) {
+    return this.get('populationPatients').filter(function(p) {
       return p.get("fullName").toString().match(rx);
     });
+  }),
+
+  sortedPatients: Ember.computed('filteredPatients.[]', 'sortByType', function() {
+    return this.get('filteredPatients').sortBy(...this.get('sortByType')).reverse();
   }),
 
   actions: {
