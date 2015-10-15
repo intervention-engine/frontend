@@ -30,9 +30,7 @@ module.exports = function(defaults) {
   var gzipFiles = require('broccoli-gzip');
 
   app.import(app.bowerDirectory + '/bootstrap-sass-official/assets/javascripts/bootstrap.js');
-  app.import(app.bowerDirectory + '/d3/d3.js');
   app.import(app.bowerDirectory + '/d3-tip/index.js');
-  app.import(app.bowerDirectory + '/crossfilter/crossfilter.js');
   app.import(app.bowerDirectory + '/moment/moment.js');
   app.import(app.bowerDirectory + '/numeraljs/numeral.js');
   app.import(app.bowerDirectory + '/uri.js/src/URI.js');

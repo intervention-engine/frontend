@@ -1,4 +1,7 @@
 .d3-tip {
+  position: absolute;
+  display: inline-block;
+  min-width: 5em;
   line-height: 1;
   font-weight: bold;
   padding: 12px;
@@ -7,6 +10,7 @@
   border-radius: 2px;
   pointer-events: none;
   text-align: center;
+  z-index: 1;
 }
 
 /* Creates a small triangle extender for the tooltip */
