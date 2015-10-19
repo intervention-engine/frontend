@@ -86,6 +86,11 @@ export default C3Chart.extend({
         size: {
           height: this.get('height')
         },
+        spline: {
+          interpolation: {
+            type: 'linear'
+          }
+        },
         tooltip: {
           format: {
             name(name) {
