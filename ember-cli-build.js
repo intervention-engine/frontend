@@ -34,6 +34,7 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/moment/moment.js');
   app.import(app.bowerDirectory + '/numeraljs/numeral.js');
   app.import(app.bowerDirectory + '/uri.js/src/URI.js');
+  app.import(app.bowerDirectory + '/bootstrap3-typeahead/bootstrap3-typeahead.js');
   app.import('vendor/classie.js');
   app.import('vendor/selectFx.js');
 
