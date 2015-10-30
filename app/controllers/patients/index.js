@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
   currentPatient: null,
   selectedCategory: null,
   sortByTypeInput: "name", // default
+  showAddInterventionModal: false,
 
   sortByType: Ember.computed('sortByTypeInput', function() {
     if (this.get('sortByTypeInput') === 'notifications') {
@@ -64,6 +65,16 @@ export default Ember.Controller.extend({
 
     selectCategory(category) {
       this.set('selectedCategory', category);
+    },
+
+    openAddInterventionModal() {
+      this.toggleProperty('showAddInterventionModal');
+      return;
+    },
+
+    hideAddInterventionModal() {
+      this.set('showAddInterventionModal', false);
+      return;
     }
   }
 });
