@@ -52,6 +52,15 @@ ul {
   }
 }
 
+.btn-primary {
+  width: 200px;
+  height: 45px;
+  background-color: $brand-primary;
+  border-color: darker($brand-primary, 10%);
+  border-radius: 0;
+  font-size: 20px;
+}
+
 /* -------------------------------- OTHER -------------------------------- */
 
 .sub-text {

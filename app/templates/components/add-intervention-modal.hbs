@@ -1,0 +1,12 @@
+{{#bootstrap-modal title="Add Intervention" onOpen=attrs.onOpen onClose=attrs.onClose}}
+  <div class="modal-body">
+    <div class="intervention-list-group">
+      {{#each interventionTypes as |interventionType|}}
+        {{add-intervention-modal/intervention-detail intervention=interventionType registerDetailItem=(action 'registerDetailItem') expand=(action 'expandItem')}}
+      {{/each}}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" disabled={{saveBtnDisabled}} {{action 'save'}}>Save</button>
+  </div>
+{{/bootstrap-modal}}

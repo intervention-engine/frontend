@@ -1,35 +1,88 @@
 import Ember from 'ember';
-import trueNullProperty from '../utils/true-null-property';
+import $ from 'jquery';
+import ModalDialog from 'ember-modal-dialog/components/modal-dialog';
+import layout from '../templates/components/bootstrap-modal';
 
-export default Ember.Component.extend({
-  classNames: ['modal'],
-  classNameBindings: ['fade'],
-  fade: false,
-  title: null,
-  okBtnTitle: 'Close',
-  submitBtnTitle: null,
-  formClass: '',
-  submitBtnClass: 'btn-primary',
-  disableSubmitBtn: false,
-  submitBtnDisabled: trueNullProperty('disableSubmitBtn'),
-  displaySubmitBtn: Ember.computed.notEmpty('submitBtnTitle'),
-  displayCloseBtn: Ember.computed.notEmpty('okBtnTitle'),
+const { computed } = Ember;
+const next = Ember.run.next;
 
-  _setup: Ember.on('didInsertElement', function() {
-    this.$().modal().one('hidden.bs.modal', (function(_this) {
-      return function() {
-        _this.sendAction('close');
-      };
-    })(this));
-  }),
+export default ModalDialog.extend({
+  layout,
+
+  hasOverlay: true,
+  clickOutsideToClose: true,
+  containerClassNames: ['modal', 'fade'],
+  overlayClassNames: ['modal-backdrop', 'fade'],
+  extraClasses: '',
+  disableClickToClose: false,
+  showCloseButton: true,
+  targetAttachment: null,
+
+  title: '',
+  hasNoTitle: computed.empty('title'),
+
+  didInsertElement() {
+    this._registerClickHandler();
+    this._addEscListener();
+    next(this, animateModalIn);
+
+    $(document.body).addClass('modal-open');
+
+    callAttrFunction(this.attrs.onOpen);
+  },
+
+  willDestroyElement() {
+    this._removeEscListener();
+    $(document.body).removeClass('modal-open');
+    this._super(...arguments);
+  },
+
+  _addEscListener() {
+    $(document.body).on('keyup.modal-dialog', (event) => {
+      if (this.get('disableClickToClose')) {
+        return;
+      }
+
+      if (event.keyCode === 27) {
+        this.send('close');
+      }
+    });
+  },
+
+  _removeEscListener() {
+    $(document.body).off('keyup.modal-dialog');
+  },
+
+  _registerClickHandler() {
+    let handleClick = (event) => {
+      if (!this.get('clickOutsideToClose') || this.get('disableClickToClose')) {
+        return;
+      }
+
+      if (!$(event.target).closest('.modal-dialog').length) {
+        this.send('close');
+      }
+    };
+    let registerClick = () => $(document).on('click.ember-modal-dialog', handleClick);
+
+    // setTimeout needed or else the click handler will catch the click that spawned this modal dialog
+    setTimeout(registerClick);
+  },
 
   actions: {
-    close: function() {
-      this.$().modal('hide');
-    },
-
-    submit: function() {
-      this.sendAction('submit');
+    close() {
+      callAttrFunction(this.attrs.onClose);
     }
   }
 });
+
+function animateModalIn() {
+  $('.modal').addClass('in');
+  $('.modal-backdrop').addClass('in');
+}
+
+function callAttrFunction(fn) {
+  if (fn && $.isFunction(fn)) {
+    fn();
+  }
+}

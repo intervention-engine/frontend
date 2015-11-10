@@ -56,7 +56,9 @@
           <div class="panel-title">
             View Results
             {{#if currentPatient}}
-              <i class="icon-add-intervention add-intervention-icon pull-right" {{action "openAddInterventionModal"}}></i>
+              {{#bootstrap-tooltip tooltip='Add Intervention' classNames='pull-right'}}
+                <i class="icon-add-intervention add-intervention-icon" {{action "openAddInterventionModal"}}></i>
+              {{/bootstrap-tooltip}}
             {{/if}}
           </div>
         </div>
@@ -76,7 +78,5 @@
 </div>
 
 {{#if showAddInterventionModal}}
-  {{#bootstrap-modal title="Add Intervention" okBtnTitle="Save" close="hideAddInterventionModal" fade=true}}
-    {{!---TODO---}}
-  {{/bootstrap-modal}}
+  {{add-intervention-modal onClose=(action 'hideAddInterventionModal')}}
 {{/if}}

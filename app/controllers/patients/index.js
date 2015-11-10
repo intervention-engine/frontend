@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
   selectedCategory: null,
   sortByTypeInput: "name", // default
   showAddInterventionModal: false,
+  interventionTypes: [],
 
   sortByType: Ember.computed('sortByTypeInput', function() {
     if (this.get('sortByTypeInput') === 'notifications') {
@@ -69,12 +70,10 @@ export default Ember.Controller.extend({
 
     openAddInterventionModal() {
       this.toggleProperty('showAddInterventionModal');
-      return;
     },
 
     hideAddInterventionModal() {
       this.set('showAddInterventionModal', false);
-      return;
     }
   }
 });

@@ -48,6 +48,7 @@
     "ember-drag-drop": "0.1.6",
     "ember-export-application-global": "1.0.3",
     "ember-fhir-adapter": "0.0.11",
+    "ember-modal-dialog": "0.8.2",
     "ember-radio-button": "1.0.7",
     "ember-validations": "2.0.0-alpha.4",
     "express": "4.13.3",
