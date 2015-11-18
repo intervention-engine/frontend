@@ -21,7 +21,7 @@ export default Ember.Component.extend({
   }),
 
   init() {
-    this.set('panes', Ember.A());
+    this.set('panes', this.get('group.characteristic').map(function(el){ return {type: el.get('filter'), characteristic: el}; }));
     this._super(...arguments);
   },
 

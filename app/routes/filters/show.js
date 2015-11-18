@@ -3,12 +3,12 @@ import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixi
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model: function(params){
-    return this.store.find('group', params.id)
-  },
-
-  renderTemplate: function(){
-    this.render("filters.new");
+    return this.store.find('group', params.id);
   }
+  //
+  // renderTemplate: function(){
+  //   this.render("filters.new");
+  // }
 
 
   //
