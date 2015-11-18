@@ -1,14 +1,14 @@
 // ------------------------- COLORS ---------------------------------------- //
 
 $brand-primary: #5D8FAE;    // blue
-$brand-secondary: #454545;  // custom - dark gray
+$brand-secondary: #5C5C5C;  // custom - dark gray
 $brand-alert: #E2495C;      // custom - red
 $body-bg: #EEEEEE;          // light gray
 $body-bg-inverse: #FFFFFF;  // white
 $headings-color: $brand-secondary;
 $btn-default-bg: $brand-primary;
 $navbar-inverse-bg: $brand-secondary;
-$navbar-inverse-color: #ffffff;
+$navbar-inverse-color: $body-bg-inverse;
 $navbar-inverse-link-color: $navbar-inverse-color;
 
 // ------------------------- BOOTSTRAP VARIABLES --------------------------- //

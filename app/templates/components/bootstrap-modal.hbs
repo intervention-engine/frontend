@@ -1,0 +1,34 @@
+{{#ember-wormhole to=destinationElementId renderInPlace=renderInPlace}}
+  {{#if hasOverlay}}
+    <div class="{{overlayClassNamesString}} {{if translucentOverlay 'translucent'}}" {{action 'close'}}></div>
+  {{/if}}
+
+  {{#ember-modal-dialog-positioned-container
+    classNameBindings="containerClassNamesString targetAttachmentClass container-class"
+    targetAttachment=targetAttachment
+    target=target
+  }}
+    <div class="modal-dialog {{extraClasses}}">
+      <div class="modal-content">
+        {{#unless hasNoTitle}}
+          <div class="modal-header">
+            {{#if showCloseButton}}
+              <button class="close" type="button" {{action 'close'}}>
+                <i class="fa fa-times"></i>
+              </button>
+            {{/if}}
+
+            <h4 class="modal-title">
+              {{title}}
+              {{#if subTitle}}
+                <small>{{subTitle}}</small>
+              {{/if}}
+            </h4>
+          </div>
+        {{/unless}}
+
+        {{yield}}
+      </div>
+    </div>
+  {{/ember-modal-dialog-positioned-container}}
+{{/ember-wormhole}}

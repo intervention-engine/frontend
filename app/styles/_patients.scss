@@ -140,6 +140,16 @@
 
     .patient-panel {
       min-height: 800px;
+
+      .add-intervention-icon {
+        font-size: 1.5em;
+        color: $brand-primary;
+        cursor: pointer;
+
+        &:hover {
+          color: darken($brand-primary, 10%);
+        }
+      }
     }
 
     // --------------------- PATIENT SUMMARY ------------------------------- //

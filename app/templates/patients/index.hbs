@@ -55,6 +55,11 @@
         <div class="panel-heading">
           <div class="panel-title">
             View Results
+            {{#if currentPatient}}
+              {{#bootstrap-tooltip tooltip='Add Intervention' classNames='pull-right'}}
+                <i class="icon-add-intervention add-intervention-icon" {{action "openAddInterventionModal"}}></i>
+              {{/bootstrap-tooltip}}
+            {{/if}}
           </div>
         </div>
 
@@ -71,3 +76,7 @@
     </div>
   </div>
 </div>
+
+{{#if showAddInterventionModal}}
+  {{add-intervention-modal onClose=(action 'hideAddInterventionModal')}}
+{{/if}}

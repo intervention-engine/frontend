@@ -1,0 +1,71 @@
+.intervention-list-group {
+  cursor: pointer;
+
+  > .intervention-list-group-item:nth-child(odd) {
+    background-color: $table-bg-accent;
+
+    .intervention-icon,
+    .ember-text-area {
+      background-color: #fff;
+    }
+  }
+
+  .fa-check-circle {
+    color: lighten($brand-secondary, 50%);
+    font-size: 30px;
+    line-height: 1.4;
+  }
+
+  .active .fa-check-circle {
+    color: $brand-success;
+  }
+
+  .intervention-list-group-item {
+    padding: 20px 30px;
+
+    &:hover {
+      .fa-check-circle {
+        color: lighten($brand-secondary, 30%);
+      }
+    }
+
+    &.active:hover {
+      .fa-check-circle {
+        color: $brand-success;
+      }
+    }
+  }
+
+  header {
+    font-size: 24px;
+    line-height: 26px;
+    color: $brand-secondary;
+  }
+
+  .intervention-icon {
+    background-color: $table-bg-accent;
+    display: inline-block;
+    margin-right: 15px;
+    border-radius: 50%;
+    text-align: center;
+    height: 45px;
+    width: 45px;
+    font-size: 30px;
+    line-height: 1.5;
+  }
+
+  .intervention-name {
+    line-height: 1.8;
+    display: inline-block;
+  }
+
+  .ember-text-area {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: $table-bg-accent;
+    border: none;
+    font-size: 20px;
+    color: $brand-secondary;
+  }
+}

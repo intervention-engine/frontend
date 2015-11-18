@@ -4,11 +4,11 @@
 
 @font-face {
   font-family: "fontcustom";
-  src: url("/assets/fontcustom/fontcustom_77142137930e340dc07c7a54adcb1c14.eot");
-  src: url("/assets/fontcustom/fontcustom_77142137930e340dc07c7a54adcb1c14.eot?#iefix") format("embedded-opentype"),
-       url("/assets/fontcustom/fontcustom_77142137930e340dc07c7a54adcb1c14.woff") format("woff"),
-       url("/assets/fontcustom/fontcustom_77142137930e340dc07c7a54adcb1c14.ttf") format("truetype"),
-       url("/assets/fontcustom/fontcustom_77142137930e340dc07c7a54adcb1c14.svg#fontcustom") format("svg");
+  src: url("/assets/fontcustom/fontcustom_1c40c050befdfdb6cb0849c544be6ecc.eot");
+  src: url("/assets/fontcustom/fontcustom_1c40c050befdfdb6cb0849c544be6ecc.eot?#iefix") format("embedded-opentype"),
+       url("/assets/fontcustom/fontcustom_1c40c050befdfdb6cb0849c544be6ecc.woff") format("woff"),
+       url("/assets/fontcustom/fontcustom_1c40c050befdfdb6cb0849c544be6ecc.ttf") format("truetype"),
+       url("/assets/fontcustom/fontcustom_1c40c050befdfdb6cb0849c544be6ecc.svg#fontcustom") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -16,13 +16,14 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: "fontcustom";
-    src: url("/assets/fontcustom/fontcustom_77142137930e340dc07c7a54adcb1c14.svg#fontcustom") format("svg");
+    src: url("/assets/fontcustom/fontcustom_1c40c050befdfdb6cb0849c544be6ecc.svg#fontcustom") format("svg");
   }
 }
 
 [data-icon]:before { content: attr(data-icon); }
 
 [data-icon]:before,
+.icon-add-intervention:before,
 .icon-adult:before,
 .icon-baby:before,
 .icon-caregiver:before,
@@ -45,20 +46,22 @@
   font-smoothing: antialiased;
 }
 
-.icon-adult:before { content: "\f100"; }
-.icon-baby:before { content: "\f101"; }
-.icon-caregiver:before { content: "\f102"; }
-.icon-child:before { content: "\f103"; }
-.icon-elderly:before { content: "\f104"; }
-.icon-med-clipboard:before { content: "\f105"; }
-.icon-medication:before { content: "\f106"; }
-.icon-running:before { content: "\f107"; }
+.icon-add-intervention:before { content: "\f100"; }
+.icon-adult:before { content: "\f101"; }
+.icon-baby:before { content: "\f102"; }
+.icon-caregiver:before { content: "\f103"; }
+.icon-child:before { content: "\f104"; }
+.icon-elderly:before { content: "\f105"; }
+.icon-med-clipboard:before { content: "\f106"; }
+.icon-medication:before { content: "\f107"; }
+.icon-running:before { content: "\f108"; }
 
-$font-fontcustom-adult: "\f100";
-$font-fontcustom-baby: "\f101";
-$font-fontcustom-caregiver: "\f102";
-$font-fontcustom-child: "\f103";
-$font-fontcustom-elderly: "\f104";
-$font-fontcustom-med-clipboard: "\f105";
-$font-fontcustom-medication: "\f106";
-$font-fontcustom-running: "\f107";
+$font-fontcustom-add-intervention: "\f100";
+$font-fontcustom-adult: "\f101";
+$font-fontcustom-baby: "\f102";
+$font-fontcustom-caregiver: "\f103";
+$font-fontcustom-child: "\f104";
+$font-fontcustom-elderly: "\f105";
+$font-fontcustom-med-clipboard: "\f106";
+$font-fontcustom-medication: "\f107";
+$font-fontcustom-running: "\f108";
