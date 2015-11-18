@@ -29,7 +29,7 @@ export default Ember.Component.extend({
   actions: {
     createCharacteristic() {
       let characteristic = createGCC(this, this.get('filterType'));
-      this.set('characteristic', characteristic);
+      this.set('pane.characteristic', characteristic);
       this.get('group.characteristic').addObject(characteristic);
     },
 

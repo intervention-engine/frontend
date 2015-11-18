@@ -1,3 +1,5 @@
+{{log pane.characteristic}}
+
 <div class="col-xs-2 pane-icon">
   <i class="fa fa-fw {{icon}}"></i>
 </div>
@@ -6,7 +8,7 @@
   <div class="row pane-outline">
     <div class="col-xs-11">
       <div class="row">
-        {{component filterType characteristic=characteristic createCharacteristic="createCharacteristic" destroyCharacteristic="destroyCharacteristic"}}
+        {{component filterType characteristic=pane.characteristic createCharacteristic="createCharacteristic" destroyCharacteristic="destroyCharacteristic"}}
       </div>
     </div>
 
