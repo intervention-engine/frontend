@@ -18,7 +18,9 @@
               <label for={{population.id}} class="css-label css-label-box checkbox-label">
                 {{population.name}}
               </label>
-              <i class="fa fa-edit pull-right"></i>
+              {{#link-to 'filters.show' population}}
+                <i class="fa fa-edit pull-right"></i>
+              {{/link-to}}
             </div>
           {{/if}}
         {{/each}}
