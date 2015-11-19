@@ -103,3 +103,11 @@ svg {
   margin: 0;
   padding: 0;
 }
+
+.pagination-centered {
+  text-align: center;
+
+  .pagination > li > a {
+    border-radius: 0;
+  }
+}
