@@ -42,6 +42,7 @@
               {{#each sortedPatients as |patient|}}
                 {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
               {{/each}}
+              {{page-numbers content=content.patients}}
             </div>
           </div>
         </div>
