@@ -17,9 +17,14 @@ export default Ember.Component.extend({
   }).on('init'),
 
   _updateCounts() {
+    if (this.isDestroyed) {
+      return;
+    }
+
     this.set('loading', true);
 
     let group = this.get('group');
+
     let request = Ember.$.post("/InstaCountAll", JSON.stringify(group ? group.serialize() : {}));
     request.then((res) => {
       let response = JSON.parse(res);

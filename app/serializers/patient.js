@@ -1,13 +1,12 @@
-import Patient from 'ember-fhir-adapter/serializers/patient';
+import PatientSerializer from 'ember-fhir-adapter/serializers/patient';
 
-
-let PatientSerializer = Patient.extend({
-  extract: function(store, type, payload, id, requestType){
-    store.setMetadataFor(type,{total: payload.total});
+export default PatientSerializer.extend({
+  extract(store, type, payload, id, requestType) {
+    store.setMetadataFor(type.modelName, { total: payload.total });
     return this._super(store, type, payload, id, requestType);
   },
 
-  normalize: function(type, hash, prop){
+  normalize(type, hash, prop) {
     let queryParam = `?patient:Patient=${hash.id}`;
     (hash.content||hash)["links"] = {
       conditions: `/Condition${queryParam}`,
@@ -20,5 +19,3 @@ let PatientSerializer = Patient.extend({
     return this._super(type, hash, prop);
   }
 });
-
-export default PatientSerializer;
