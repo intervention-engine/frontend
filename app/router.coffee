@@ -15,7 +15,8 @@ Router.map(->
   )
   @route('login')
   @route('utilities')
-  @route('register')
+  #Registration is currently disabled
+  #@route('register')
   @route('forgotPassword')
 )
 
