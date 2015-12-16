@@ -1,6 +1,9 @@
 <div class="timeline-event {{eventClass}}">
   <div class="timeline-event-text">
     {{event.event.text}}
+    {{#if event.isEnd}}
+    (End)
+    {{/if}}
   </div>
 
   <div class="timeline-event-start-date">
