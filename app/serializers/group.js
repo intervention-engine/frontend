@@ -1,13 +1,11 @@
-import Group from 'ember-fhir-adapter/serializers/group';
+import GroupSerializer from 'ember-fhir-adapter/serializers/group';
 
-
-let GroupSerializer = Group.extend({
-  normalize: function(type, hash, prop){
-    (hash.content||hash)["links"] = {
+export default GroupSerializer.extend({
+  normalize(type, hash){
+    (hash.content || hash)["links"] = {
       groupList: `/GroupList/${hash.id}`
     };
-    return this._super(type, hash, prop);
+    hash.type = hash.type || "unknown";
+    return this._super(...arguments);
   }
 });
-
-export default GroupSerializer;

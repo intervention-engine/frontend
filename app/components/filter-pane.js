@@ -1,18 +1,20 @@
 import Ember from 'ember';
 import createGCC from '../utils/group-characteristic-generator';
 
+const { computed } = Ember;
+
 export default Ember.Component.extend({
   store: Ember.inject.service(),
 
   classNames: ['row', 'pane'],
 
   pane: null,
-  characteristic: null,
+  characteristic: computed.alias('pane.characteristic'),
   group: null,
 
-  filterType: Ember.computed.reads('pane.type'),
+  filterType: computed.reads('pane.type'),
 
-  icon: Ember.computed('filterType', function() {
+  icon: computed('filterType', function() {
     let filterType = this.get('filterType');
 
     if (filterType === 'age-filter') {
