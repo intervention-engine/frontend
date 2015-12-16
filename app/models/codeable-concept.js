@@ -9,7 +9,7 @@ let IECodeableConcept = CodeableConcept.extend({
   },
 
   toString: function(){
-    return this.get("text");
+    return this.get("text")||this.get('coding.firstObject.display')||`${this.get('coding.firstObject.system')}-${this.get('coding.firstObject.code')}`;
   }
 });
 
