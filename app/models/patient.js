@@ -49,11 +49,13 @@ let IEPatient = Patient.extend({
       }
     });
     this.get('conditions').map(function(e){
-      let patient_event = e.store.createRecord('patient-event', {event: e, type: "condition"});
-      events.push(patient_event);
-      if(e.hasOccured('endDate')){
-        let patient_event = e.store.createRecord('patient-event', {event: e, type: "condition", isEnd: true});
+      if (e.get('verificationStatus') === 'confirmed') {
+        let patient_event = e.store.createRecord('patient-event', {event: e, type: "condition"});
         events.push(patient_event);
+        if(e.hasOccured('endDate')){
+          let patient_event = e.store.createRecord('patient-event', {event: e, type: "condition", isEnd: true});
+          events.push(patient_event);
+        }
       }
     });
     this.get('medications').map(function(e){
@@ -72,7 +74,7 @@ let IEPatient = Patient.extend({
   }),
 
   activeConditions: Ember.computed.filter("conditions", function(cond){
-    return cond.isActive('endDate');
+    return cond.isActive('endDate') && cond.get('verificationStatus') === 'confirmed' ;
   }),
 
   futureAppointments: Ember.computed.filter("appointments", function(appointment){

@@ -125,6 +125,7 @@ test 'correctly identify active conditions', ->
     codeableConcept.get('coding').pushObject(coding)
     condition.set('code', codeableConcept)
     condition.set("onsetDate", "2012-10-03T08:00:00-04:00")
+    condition.set("verificationStatus", "confirmed")
     patient.get('conditions').pushObject(condition)
 
     condition = store.createRecord('condition', {})
@@ -138,6 +139,7 @@ test 'correctly identify active conditions', ->
     condition.set('code', codeableConcept)
     condition.set("onsetDate", "2012-10-03T08:00:00-04:00")
     condition.set("abatementDateTime", "2013-10-03T08:00:00-04:00")
+    condition.set("verificationStatus", "confirmed")
     patient.get('conditions').pushObject(condition)
 
     equal patient.get('conditions.length'), 2
