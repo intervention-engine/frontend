@@ -47,7 +47,11 @@ export default Ember.Mixin.create({
           limit: AUTOCOMPLETE_ITEM_MAX
         };
 
-        $.post("/CodeLookup", JSON.stringify(queryParams)).then((results) => {
+        let request = $.ajax({url: "/CodeLookup",
+                          type: "POST",
+                          data: JSON.stringify(queryParams),
+                          contentType: "application/json"});
+        request.then((results) => {
           process(results.map((result) => {
             return { name: result.Name, code: result.Code };
           }));

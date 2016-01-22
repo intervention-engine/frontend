@@ -25,12 +25,14 @@ export default Ember.Component.extend({
 
     let group = this.get('group');
 
-    let request = Ember.$.post("/InstaCountAll", JSON.stringify(group ? group.serialize() : {}));
+    let request = Ember.$.ajax({url: "/InstaCountAll",
+                                type: "POST",
+                                data: JSON.stringify(group ? group.serialize() : {}),
+                                contentType: "application/json"});
     request.then((res) => {
-      let response = JSON.parse(res);
-      this.set('patientCount', response.patients);
-      this.set('conditionCount', response.conditions);
-      this.set('encounterCount', response.encounters);
+      this.set('patientCount', res.patients);
+      this.set('conditionCount', res.conditions);
+      this.set('encounterCount', res.encounters);
       this.set('loading', false);
     }, () => {
       this.set('patientCount', 0);
