@@ -5,8 +5,8 @@ import Condition from 'ember-fhir-adapter/models/condition';
 
 const displayNameRegex = /^[^:]+:\s*(.*)\s*\(Code List:.*\)$/;
 
-let IECondition = Condition.extend(CodeableMixin, DateableMixin, {
-  text: Ember.computed('code', function(){
+export default Condition.extend(CodeableMixin, DateableMixin, {
+  text: Ember.computed('code', function() {
     let code = this.get('code').toString();
     let matches = code.match(displayNameRegex);
 
@@ -16,8 +16,7 @@ let IECondition = Condition.extend(CodeableMixin, DateableMixin, {
 
     return code;
   }),
+
   endDate: Ember.computed.reads('abatementDateTime'),
   startDate: Ember.computed.reads('onsetDateTime')
 });
-
-export default IECondition;

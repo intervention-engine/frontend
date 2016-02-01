@@ -5,7 +5,7 @@ import MedicationStatement from 'ember-fhir-adapter/models/medication-statement'
 
 const displayNameRegex = /^[^:]+:\s*(.*)\s*\(Code List:.*\)$/;
 
-let IEMedicationStatement = MedicationStatement.extend(CodeableMixin, DateableMixin, {
+export default MedicationStatement.extend(CodeableMixin, DateableMixin, {
   text: Ember.computed('medicationCodeableConcept', function() {
     let text = this.get('medicationCodeableConcept').toString();
     let matches = text.match(displayNameRegex);
@@ -20,5 +20,3 @@ let IEMedicationStatement = MedicationStatement.extend(CodeableMixin, DateableMi
   endDate: Ember.computed.reads('effectivePeriod.end'),
   startDate: Ember.computed.reads('effectivePeriod.start')
 });
-
-export default IEMedicationStatement;

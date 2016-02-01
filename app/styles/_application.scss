@@ -35,6 +35,12 @@ ul {
   }
 }
 
+@media (max-width: $grid-float-breakpoint) {
+  .nav {
+    padding-right: 0;
+  }
+}
+
 /* -------------------------------- BUTTONS -------------------------------- */
 
 .btn-circle {
@@ -63,6 +69,16 @@ ul {
 
 /* -------------------------------- OTHER -------------------------------- */
 
+
+#ember-fhir {
+  overflow-x: hidden;
+}
+
+.spin-box {
+  height: 200px;
+  position: relative;
+}
+
 .sub-text {
   color: lighten($brand-secondary, 40%);
   font-style: italic;
@@ -70,17 +86,16 @@ ul {
   padding: 10px;
 }
 
-
 svg {
-  fill:$brand-primary;
+  fill: $brand-primary;
   shape-rendering: geometricPrecision;
 
-  .event{
+  .event {
     stroke: white;
   }
 }
 
-.active{
+.active {
   stroke: black;
   stroke-width: 4px;
 }

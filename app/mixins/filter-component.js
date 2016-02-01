@@ -17,12 +17,18 @@ export default Ember.Mixin.create({
     return null;
   }),
 
+  onToggle(/* active */) {
+    // no-op
+  },
+
   actions: {
     toggle() {
       if (this.get('active')) {
-        this.sendAction('destroyCharacteristic');
+        this.attrs.destroyCharacteristic();
+        this.onToggle(false);
       } else {
-        this.sendAction('createCharacteristic');
+        this.attrs.createCharacteristic();
+        this.onToggle(true);
       }
     }
   }

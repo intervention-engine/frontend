@@ -4,24 +4,23 @@ export default PagedRemoteArray.extend({
   page: 1,
   totalPages: 0,
 
-  getPage: function(){
+  getPage() {
     return (this.get('page') - 1 || 0) * this.get('perPage');
   },
 
-  totalPagesBinding: "total",
+  totalPagesBinding: 'total',
 
-  rawFindFromStore: function() {
-    var store = this.get('store');
-    var modelName = this.get('modelName');
-    var ops = this.get('paramsForBackend');
-    var res = store.findQuery(modelName, ops);
+  rawFindFromStore() {
+    let store = this.get('store');
+    let modelName = this.get('modelName');
+    let ops = this.get('paramsForBackend');
+    let res = store.query(modelName, ops);
     let perPage = this.get('perPage');
-    let self = this;
-    res.then(function(rows){
-      self.set('totalPages', Math.ceil(rows.meta['total']/perPage));
+
+    return res.then((rows) => {
+      this.set('totalPages', Math.ceil(rows.meta.total / perPage));
+
+      return rows;
     });
-    return res;
-},
-
-
+  }
 });

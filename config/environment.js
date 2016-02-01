@@ -19,8 +19,6 @@ module.exports = function(environment) {
     },
 
     'simple-auth': {
-      authorizer: 'authorizer:ie',
-      store: 'simple-auth-session-store:local-storage',
       authenticationRoute: 'login'
     },
 

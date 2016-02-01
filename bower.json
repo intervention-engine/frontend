@@ -1,32 +1,30 @@
 {
   "name": "ember-on-fhir",
   "dependencies": {
-    "bootstrap-sass-official": "3.3.5",
-    "bootstrap3-typeahead": "bassjobsen/Bootstrap-3-Typeahead#master",
+    "bootstrap-sass-official": "3.3.6",
+    "bootstrap3-typeahead": "4.0.0",
     "c3": "0.4.11-rc4",
     "crossfilter": "1.3.12",
     "d3": "3.5.6",
     "d3-tip": "0.6.7",
-    "ember": "1.13.10",
-    "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
-    "ember-cli-test-loader": "ember-cli-test-loader#0.1.3",
-    "ember-data": "1.0.0-beta.19.2",
-    "ember-load-initializers": "ember-cli/ember-load-initializers#0.1.5",
-    "ember-qunit": "0.4.9",
-    "ember-qunit-notifications": "0.0.7",
-    "ember-resolver": "0.1.18",
-    "ember-simple-auth": "0.8.0",
-    "fontawesome": "4.4.0",
-    "jquery": "^1.11.1",
-    "loader.js": "ember-cli/loader.js#3.2.1",
+    "ember": "2.3.0",
+    "ember-cli-shims": "0.1.0",
+    "ember-cli-test-loader": "0.2.2",
+    "ember-load-initializers": "0.1.7",
+    "ember-qunit-notifications": "0.1.0",
+    "fontawesome": "4.5.0",
+    "jquery": "1.12.0",
+    "loader.js": "ember-cli/loader.js#3.6.1",
     "moment": "2.9.0",
     "numeraljs": "~1.5.3",
-    "pretender": "0.1.0",
-    "qunit": "1.18.0",
+    "pretender": "0.12.0",
+    "qunit": "1.20.0",
+    "seiyria-bootstrap-slider": "6.0.10",
     "spin.js": "2.3.2",
     "uri.js": "1.15.0"
   },
   "resolutions": {
-    "d3": "3.5.6"
+    "d3": "3.5.6",
+    "ember": "2.3.0"
   }
 }

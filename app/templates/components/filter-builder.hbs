@@ -69,7 +69,7 @@
           {{#draggable-object-target action="addPane" class="drop-area"}}
             {{#if hasFilterPane}}
               {{#each panes as |pane|}}
-                {{filter-pane pane=pane group=group removePane="removePane"}}
+                {{filter-pane pane=pane group=group onChange=(action "updateCounts") removePane=(action "removePane")}}
               {{/each}}
               <div class="save-new-filter">
                 <span class="pane-input">

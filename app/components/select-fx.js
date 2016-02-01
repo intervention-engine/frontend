@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import $ from 'jquery';
 
-const { isNone, get: get } = Ember;
+const { isNone, get } = Ember;
 const { SelectFx } = window;
 
 export default Ember.Component.extend({
@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 
   proxiedOptions: Ember.computed('options.[]', 'value', 'valuePath', function() {
     let valuePath = this.get('valuePath');
-    let value = valuePath? this.get(`value.${valuePath}`) : this.get('value');
+    let value = valuePath ? this.get(`value.${valuePath}`) : this.get('value');
 
     return this.get('options').map(function(currentValue) {
       let optionValue = valuePath ? get(currentValue, valuePath) : currentValue;
@@ -27,7 +27,7 @@ export default Ember.Component.extend({
 
   placeholderSelected: Ember.computed('placeholder', 'value', 'valuePath', function() {
     let valuePath = this.get('valuePath');
-    let value = valuePath? this.get(`value.${valuePath}`) : this.get('value');
+    let value = valuePath ? this.get(`value.${valuePath}`) : this.get('value');
 
     if (isNone(value)) {
       return true;
@@ -35,12 +35,14 @@ export default Ember.Component.extend({
     return null;
   }),
 
-  _setup: Ember.on('didInsertElement', function() {
-    let element = $(this.element).find('select')[0];
+  didInsertElement() {
+    this._super(...arguments);
+
+    let [element] = $(this.element).find('select');
     this._selectFx = new SelectFx(element, {
       onChange: (value) => {
-        this.sendAction('onChange', value);
+        this.attrs.onChange(value);
       }
     });
-  })
+  }
 });

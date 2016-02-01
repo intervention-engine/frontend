@@ -3,12 +3,12 @@ import trueNullProperty from 'ember-on-fhir/utils/true-null-property';
 
 const { computed } = Ember;
 const interventionTypes = [
-  {'iconClassnames': 'fa fa-calendar', 'name': 'Schedule Appointment'},
-  {'iconClassnames': 'fa fa-home', 'name': 'Home Visit'},
-  {'iconClassnames': 'fa fa-phone', 'name': 'Phone Call'},
-  {'iconClassnames': 'icon-medication', 'name': 'Medication'},
-  {'iconClassnames': 'fa fa-cutlery', 'name': 'Diet'},
-  {'iconClassnames': 'fa fa-heartbeat', 'name': 'Exercise'}
+  { 'iconClassnames': 'fa fa-calendar', 'name': 'Schedule Appointment' },
+  { 'iconClassnames': 'fa fa-home', 'name': 'Home Visit' },
+  { 'iconClassnames': 'fa fa-phone', 'name': 'Phone Call' },
+  { 'iconClassnames': 'icon-medication', 'name': 'Medication' },
+  { 'iconClassnames': 'fa fa-cutlery', 'name': 'Diet' },
+  { 'iconClassnames': 'fa fa-heartbeat', 'name': 'Exercise' }
 ];
 
 export default Ember.Component.extend({

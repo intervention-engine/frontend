@@ -3,7 +3,6 @@
     "document",
     "window",
     "-Promise",
-    "moment",
     "d3"
   ],
   "browser": true,

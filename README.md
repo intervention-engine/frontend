@@ -1,4 +1,4 @@
-Intervention Engine Frontend [![Build Status](https://travis-ci.org/intervention-engine/frontend.svg?branch=master)](https://travis-ci.org/intervention-engine/frontend)
+Intervention Engine Frontend [![Build Status](https://api.travis-ci.org/intervention-engine/frontend.svg)](https://travis-ci.org/intervention-engine/frontend)
 ========================================================================================================================================================================
 
 The [Intervention Engine](https://github.com/intervention-engine/ie) project provides a web-application for *data-driven team huddles*. Many care teams use team huddles to improve patient outcomes via efficient team communications and a holistic view of patients (due to the interdisciplinary nature of team huddles). Intervention Engine leverages electronic clinical records and clinical risk assessments to assist care teams in selecting patients for their huddles and providing the tools necessary to promote effective discussions and interventions.

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import C3Chart from 'ember-cli-c3/components/c3-chart';
+import moment from 'moment';
 
 const { computed } = Ember;
 
@@ -19,7 +20,7 @@ export default C3Chart.extend({
 
     // group data by dates
     let nestedData = d3.nest()
-      .key(function(d) { return moment(d.get('date')).toDate(); })
+      .key((d) =>moment(d.get('date')).toDate())
       .entries(data);
 
     let labels = nestedData.map((value) => {

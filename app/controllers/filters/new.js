@@ -1,9 +1,3 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  actions: {
-    onSave() {
-      this.transitionTo('patients.index');
-    }
-  }
-});
+export default Ember.Controller;

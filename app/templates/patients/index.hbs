@@ -5,79 +5,42 @@
 
   <div class="row">
     <div class="col-sm-3 patient-populations-list">
-
-      {{!------------------- CHOOSE POPULATIONS -----------------------------}}
-
-      {{populations-list populations=model.populations}}
-
-      {{!------------------- CHOOSE RISK ASSESSMENT -------------------------}}
-
-      {{risk-assessment-list riskAssessments=riskAssessments currentAssessment=currentAssessment selectRiskAssessment="selectRiskAssessment"}}
-
-      {{!------------------- CHOOSE PATIENT ---------------------------------}}
-
-      <div class="panel patients-panel">
-        <div class="panel-heading">
-          <div class="collapse-panel-title">
-            <a data-toggle="collapse" href="#choosePatient" aria-expanded="true" aria-controls="collapseOne">
-              Choose Patient
-              <span class="badge count">{{sortedPatients.length}}</span>
-              <i class="fa fa-chevron-down pull-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <div class="panel-body patient-list">
-          <div class="search search-panel">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-              </span>
-              {{input type="text" class="form-control" value=patientSearch placeholder="Search patients..."}}
-            </div>
-          </div>
-
-          <div class="collapse in" id="choosePatient">
-            <div class="patients-striped">
-              {{#each sortedPatients as |patient|}}
-                {{patient-badge patient=patient selectPatient="selectPatient" currentAssessment=currentAssessment currentPatient=currentPatient}}
-              {{/each}}
-              {{page-numbers content=content.patients}}
-            </div>
-          </div>
-        </div>
-      </div>
+      {{#nested-panel panelName="Choose Risk Assessment" panelId="chooseRiskAssessment"}}
+        {{patient-search/risk-assessment riskAssessments=riskAssessments currentAssessment=currentAssessment selectRiskAssessment=(action "selectRiskAssessment")}}
+      {{/nested-panel}}
+      {{#nested-panel panelName="Choose Filters" panelId="chooseFilters"}}
+        {{patient-search/population-filter populations=model.populations selectedPopulations=selectedPopulations togglePopulation=(action "togglePopulation")}}
+        {{patient-search/risk-score lowValue=riskLowValue highValue=riskHighValue onChange=(action "setRiskScore")}}
+        {{patient-search/huddle-list}}
+      {{/nested-panel}}
+      {{#nested-panel panelName="Choose Sort By" panelId="chooseSortBy"}}
+        {{patient-search/sort-by sortBy=sortBy sortDescending=sortDescending selectSortBy=(action "selectSortBy")}}
+      {{/nested-panel}}
     </div>
-
-    {{!--------------------- PATIENT SUMMARY --------------------------------}}
-
     <div class="col-sm-9 patient-results">
       <div class="panel patient-panel">
         <div class="panel-heading">
-          <div class="panel-title">
-            View Results
-            {{#if currentPatient}}
-              {{#bootstrap-tooltip tooltip='Add Intervention' classNames='pull-right'}}
-                <i class="icon-add-intervention add-intervention-icon" {{action "openAddInterventionModal"}}></i>
-              {{/bootstrap-tooltip}}
-            {{/if}}
+          <div class="collapse-panel-title">
+            Choose Patient ({{totalPatients}})
+
+            <div class="pull-right">
+              <div class="sliding-search-container">
+                <i class="fa fa-search fa-fw"></i>
+                <input
+                  type="search"
+                  class="sliding-search {{if patientSearch 'expanded'}}"
+                  onchange={{action (mut patientSearch) value="target.value"}}>
+              </div>
+            </div>
           </div>
         </div>
-
         <div class="panel-body">
-          {{#if currentPatient}}
-            {{patient-viewer patient=currentPatient currentAssessment=currentAssessment selectedCategory=selectedCategory selectCategory="selectCategory"}}
-          {{else}}
-            <div class="select-patient sub-text">
-              Please select patient.
-            </div>
-          {{/if}}
+          {{#each sortedPatients as |patient|}}
+            {{patient}}
+          {{/each}}
+          {{page-numbers content=content.patients action=(action 'setPage')}}
         </div>
       </div>
     </div>
   </div>
 </div>
-
-{{#if showAddInterventionModal}}
-  {{add-intervention-modal onClose=(action 'hideAddInterventionModal')}}
-{{/if}}

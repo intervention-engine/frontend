@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-let Pie = DS.Model.extend({
-  slices: DS.hasMany('slices', {embedded: true}),
+export default DS.Model.extend({
+  slices: DS.hasMany('slices', { embedded: true }),
 
   sliceArray: Ember.computed('slices.[]', function() {
     let maxWeight = Math.max.apply(Math, this.get('slices').mapBy('weight'));
@@ -18,5 +18,3 @@ let Pie = DS.Model.extend({
     });
   })
 });
-
-export default Pie;
