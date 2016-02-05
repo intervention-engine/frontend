@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="patient-panel">
+      <div class="patient-panel-header">
+        {{#link-to 'patients.index'}}<i class="fa fa-chevron-left"></i>  Back to Patient List{{/link-to}}
+        <div class="pull-right">
+          1 / 18 <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+      <div class="patient-panel-body clearfix">
+        {{patient-viewer riskAssessments=riskAssessments patient=model currentAssessment=currentAssessment setRiskAssessment=(action "setRiskAssessment")}}
+      </div>
+    </div>
+  </div>
+</div>

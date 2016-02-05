@@ -1,43 +1,40 @@
-<div class="container patients">
-  <div class="title-panel">
-    <span class="title-text">Patients</span>
+<div class="row">
+  <div class="col-sm-3 patient-populations-list">
+    {{#nested-panel panelName="Choose Risk Assessment" panelId="chooseRiskAssessment"}}
+      {{patient-search/risk-assessment riskAssessments=riskAssessments currentAssessment=currentAssessment selectRiskAssessment=(action "selectRiskAssessment")}}
+    {{/nested-panel}}
+    {{#nested-panel panelName="Choose Filters" panelId="chooseFilters"}}
+      {{patient-search/population-filter populations=model.populations selectedPopulations=selectedPopulations togglePopulation=(action "togglePopulation")}}
+      {{patient-search/risk-score lowValue=riskLowValue highValue=riskHighValue onChange=(action "setRiskScore")}}
+      {{patient-search/huddle-list}}
+    {{/nested-panel}}
+    {{#nested-panel panelName="Choose Sort By" panelId="chooseSortBy"}}
+      {{patient-search/sort-by sortBy=sortBy sortDescending=sortDescending selectSortBy=(action "selectSortBy")}}
+    {{/nested-panel}}
   </div>
+  <div class="col-sm-9 patient-results">
+    <div class="panel patient-panel">
+      <div class="panel-heading">
+        <div class="collapse-panel-title">
+          Choose Patient ({{totalPatients}})
 
-  <div class="row">
-    <div class="col-sm-3 patient-populations-list">
-      {{#nested-panel panelName="Choose Risk Assessment" panelId="chooseRiskAssessment"}}
-        {{patient-search/risk-assessment riskAssessments=riskAssessments currentAssessment=currentAssessment selectRiskAssessment=(action "selectRiskAssessment")}}
-      {{/nested-panel}}
-      {{#nested-panel panelName="Choose Filters" panelId="chooseFilters"}}
-        {{patient-search/population-filter populations=model.populations selectedPopulations=selectedPopulations togglePopulation=(action "togglePopulation")}}
-        {{patient-search/risk-score lowValue=riskLowValue highValue=riskHighValue onChange=(action "setRiskScore")}}
-        {{patient-search/huddle-list}}
-      {{/nested-panel}}
-      {{#nested-panel panelName="Choose Sort By" panelId="chooseSortBy"}}
-        {{patient-search/sort-by sortBy=sortBy sortDescending=sortDescending selectSortBy=(action "selectSortBy")}}
-      {{/nested-panel}}
-    </div>
-    <div class="col-sm-9 patient-results">
-      <div class="panel patient-panel">
-        <div class="panel-heading">
-          <div class="collapse-panel-title">
-            Choose Patient ({{totalPatients}})
-
-            <div class="pull-right">
-              <div class="sliding-search-container">
-                <i class="fa fa-search fa-fw"></i>
-                <input
-                  type="search"
-                  class="sliding-search {{if patientSearch 'expanded'}}"
-                  onchange={{action (mut patientSearch) value="target.value"}}>
-              </div>
+          <div class="pull-right">
+            <div class="sliding-search-container">
+              <i class="fa fa-search fa-fw"></i>
+              <input
+                type="search"
+                class="sliding-search {{if patientSearch 'expanded'}}"
+                onchange={{action (mut patientSearch) value="target.value"}}>
             </div>
           </div>
         </div>
-        <div class="panel-body">
+      </div>
+      <div class="panel-body">
+        <div class="patients-list">
           {{#each sortedPatients as |patient|}}
-            {{patient}}
+            {{patient-badge patient=patient assessment=currentAssessment}}
           {{/each}}
+
           {{page-numbers content=content.patients action=(action 'setPage')}}
         </div>
       </div>

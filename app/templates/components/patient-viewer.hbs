@@ -1,20 +1,64 @@
-{{!------------------------- PATIENT SUMMARY --------------------------------}}
+{{patient-summary patient=patient currentAssessment=currentAssessment}}
 
-<div class="col-reset">
-  {{patient-summary patientPhoto=patientPhoto patient=patient currentAssessment=currentAssessment}}
-</div>
+{{!------------------------- PATIENT SUMMARY --------------------------------}}
 
 {{!------------------------- PATIENT STATS ----------------------------------}}
 
 <div class="col-lg-2 col-sm-3 col-reset">
-  {{patient-stats patient=patient}}
+  <div class="panel">
+    <div class="panel-heading">
+      <div class="collapse-panel-title">
+        <a data-toggle="collapse" href="#chooseRiskAssessment" aria-expanded="true" aria-controls="collapseOne">
+          Choose Risk Assessment
+          <i class="fa fa-chevron-down pull-right"></i>
+        </a>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="collapse in" id="chooseRiskAssessment">
+        <form class="form-horizontal form-group-striped">
+          {{#each riskAssessments as |riskAssessment index|}}
+            {{#if riskAssessment}}
+              <div class="form-group">
+                <input type="radio"
+                  name="risk-assessment-selection"
+                  value={{riskAssessment}}
+                  id={{concat riskAssessment index}}
+                  class="css-checkbox"
+                  checked={{eq currentAssessment riskAssessment}}
+                  onchange={{action attrs.setRiskAssessment value="target.value"}}>
+                <label for={{concat riskAssessment index}} class="css-label css-label-circle checkbox-label">{{riskAssessment}}</label>
+                <i class="fa fa-edit pull-right"></i>
+              </div>
+            {{/if}}
+          {{/each}}
+        </form>
+      </div>
+    </div>
+    <div class="panel-heading">
+      <div class="collapse-panel-title">
+        <a data-toggle="collapse" href="#huddleList" aria-expanded="true" aria-controls="collapseOne">
+          <i class="fa fa-users fa-fw"></i>
+          Huddle
+          <i class="fa fa-chevron-down pull-right"></i>
+        </a>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="collapse in" id="huddleList">
+
+      </div>
+    </div>
+
+    {{patient-stats patient=patient}}
+  </div>
 </div>
 
 <div class="col-lg-10 col-sm-9">
   <div class="row">
 
     {{!--------------------- ASTER PLOT -------------------------------------}}
-    <div class="col-lg-6">
+    <div class="col-lg-8">
       <div class="col-lg-12 col-md-6">
         {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory="selectCategory"}}
       </div>
@@ -55,7 +99,7 @@
 
     {{!--------------------- PATIENT TIMELINE -------------------------------}}
 
-    <div class="col-lg-6 col-md-12">
+    <div class="col-lg-4 col-md-12">
       {{patient-timeline patient=patient}}
     </div>
   </div>

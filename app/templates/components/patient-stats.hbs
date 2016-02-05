@@ -1,35 +1,48 @@
-<div class="panel patient-stats">
-  <div class="panel-heading-alt">
-    <div class="panel-title">
+<div class="panel-heading">
+  <div class="collapse-panel-title">
+    <a data-toggle="collapse" href="#appointments" aria-expanded="true" aria-controls="collapseOne">
       <i class="fa fa-hospital-o fa-fw"></i>
       Appointments ({{patient.futureAppointments.length}})
-    </div>
+      <i class="fa fa-chevron-down pull-right"></i>
+    </a>
   </div>
-  <div class="panel-body">
+</div>
+<div class="panel-body">
+  <div class="collapse in" id="appointments">
     <ul>
       {{#each patient.futureAppointments as |appointment|}}
         <li>{{appointment.startDate}}</li>
       {{/each}}
     </ul>
   </div>
+</div>
 
-  <div class="panel-heading-alt">
-    <div class="panel-title">
+<div class="panel-heading">
+  <div class="collapse-panel-title">
+    <a data-toggle="collapse" href="#interventions" aria-expanded="true" aria-controls="collapseOne">
       <i class="fa fa-user-md fa-fw"></i>
       Inverventions (0)
-    </div>
+      <i class="fa fa-chevron-down pull-right"></i>
+    </a>
   </div>
-  <div class="panel-body">
+</div>
+<div class="panel-body">
+  <div class="collapse in" id="interventions">
     {{!-- TODO --}}
   </div>
+</div>
 
-  <div class="panel-heading-alt">
-    <div class="panel-title">
+<div class="panel-heading">
+  <div class="collapse-panel-title">
+    <a data-toggle="collapse" href="#conditions" aria-expanded="true" aria-controls="collapseOne">
       <i class="icon-med-clipboard"></i>
       Conditions ({{patient.activeConditions.length}})
-    </div>
+      <i class="fa fa-chevron-down pull-right"></i>
+    </a>
   </div>
-  <div class="panel-body">
+</div>
+<div class="panel-body">
+  <div class="collapse in" id="conditions">
     <ul>
     {{#each patient.activeConditions as |condition|}}
       {{#if condition.code}}
@@ -38,29 +51,38 @@
     {{/each}}
     </ul>
   </div>
+</div>
 
-  <div class="panel-heading-alt">
-    <div class="panel-title">
-      <i class="fa fa-pagelines fa-fw"></i>
-      Allergies (0)
-    </div>
-  </div>
-  <div class="panel-body">
-    {{!-- TODO --}}
-  </div>
-
-  <div class="panel-heading-alt">
-    <div class="panel-title">
+<div class="panel-heading">
+  <div class="collapse-panel-title">
+    <a data-toggle="collapse" href="#medications" aria-expanded="true" aria-controls="collapseOne">
       <i class="icon-medication"></i>
       Medications ({{patient.activeMedications.length}})
-    </div>
+      <i class="fa fa-chevron-down pull-right"></i>
+    </a>
   </div>
-  <div class="panel-body">
+</div>
+<div class="panel-body">
+  <div class="collapse in" id="medications">
     {{#each patient.activeMedications as |medication|}}
       {{#if medication.text}}
         <li>{{medication.text}}</li>
       {{/if}}
     {{/each}}
   </div>
+</div>
 
+<div class="panel-heading">
+  <div class="collapse-panel-title">
+    <a data-toggle="collapse" href="#allergies" aria-expanded="true" aria-controls="collapseOne">
+      <i class="fa fa-pagelines fa-fw"></i>
+      Allergies (0)
+      <i class="fa fa-chevron-down pull-right"></i>
+    </a>
+  </div>
+</div>
+<div class="panel-body">
+  <div class="collapse in" id="allergies">
+    {{!-- TODO --}}
+  </div>
 </div>

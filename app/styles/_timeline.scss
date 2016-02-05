@@ -5,9 +5,9 @@
   @include respond-to(tablet) { margin: 20px 0 0 80px; }
 
   .timeline-icon-search {
-
     .timeline-icon {
       margin-left: -15px;
+      float: left;
       font-size: 48px;
       color: $brand-primary;
     }
@@ -16,9 +16,7 @@
   // ----------------------- TIMELINE EVENTS ------------------------------- //
 
   .timeline-events {
-    margin: -4px 0 0 -25px;
-    overflow-y: scroll;
-    width: 500px;
+    margin: 0 0 0 -25px;
 
     .timeline-line {
       display: block;
@@ -33,9 +31,8 @@
       position: relative;
       left: 20px;
       min-height: 100px;
-      width: 380px;
       border: 8px solid $body-bg;
-      margin: 10px 0 10px 70px;
+      margin: 10px 10px 10px 70px;
       padding: 10px;
 
       .pointer-bottom {

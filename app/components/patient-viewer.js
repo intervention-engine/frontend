@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   patient: null,
+  riskAssessments: null,
   currentAssessment: null,
   selectedCategory: null,
 

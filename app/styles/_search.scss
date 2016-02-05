@@ -1,5 +1,5 @@
 .search {
-  display: inline-block;
+  // display: inline-block;
   margin: 15px auto;
   padding: 0 10px;
   border: 1px solid lighten($brand-secondary, 60%);
@@ -21,7 +21,7 @@
 
   .form-control {
     height: 25px;
-    width: 180px;
+    // width: 180px;
     padding-left: 10px;
     color: $brand-secondary;
   }
@@ -32,7 +32,7 @@
   }
 
   &.search-timeline {
-    width: 85%;
+    // width: 85%;
     margin-left: 35px;
   }
 }

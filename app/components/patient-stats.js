@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNames: ['patient-stats'],
+
   condition: null,
 
-  conditionText: Ember.computed('condition.text', function() {
-    return this.get('condition.text');
-  })
+  conditionText: Ember.computed.reads('condition.text')
 });

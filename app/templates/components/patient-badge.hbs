@@ -1,25 +1,46 @@
-<div {{action "selectPatient"}} class="patient {{if active 'active'}}">
-  <div class="patient-info">
-    <div class="patient-name">
-      {{patient.fullName}}
-      {{#if patient.notifications.count}}
-        <span class="badge">{{patient.notifications.count}}</span>
-      {{/if}}
+<div class="patient-info">
+  <div class="media">
+    <div class="media-left media-middle">
+      <i class="fa fa-user media-object"></i>
     </div>
-    <div class="patient-age-gender">
-      <span class="patient-age">
-        <i class={{ageIconClassName}}></i>
-        {{patient.computedAge}} yrs
-      </span>
-      <span class="patient-gender">
-        <i class="fa {{genderIconClassName}}"></i>
-        {{patient.computedGender}}
-      </span>
-    </div>
-    <div class="patient-risk-bar-container">
-      <div class="patient-risk-bar">
-        {{#if inputRisk}}
-          <span class="patient-risk">{{computedRisk}}</span>
+    <div class="media-body">
+      <div class="row">
+        <div class="patient-name col-xs-12">
+          {{patient.fullName}}
+          {{#if patient.notifications.count}}
+            <span class="badge">{{patient.notifications.count}}</span>
+          {{/if}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="patient-age-gender">
+            <span class="patient-age">
+              <i class={{ageIconClassName}}></i>
+              {{patient.computedAge}} yrs
+            </span>
+            <span class="patient-gender">
+              <i class="fa {{genderIconClassName}}"></i>
+              {{patient.computedGender}}
+            </span>
+            <span class="patient-location">
+              <i class="fa fa-map-marker"></i>
+              {{patient.location}}
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <span class="patient-last-intervention">
+            <i class="fa fa-users"></i>
+            {{date-format lastIntervention 'll'}}
+          </span>
+        </div>
+      </div>
+      <div class="patient-risk-bar-container">
+        {{#if displayRiskScore}}
+          <div class="patient-risk-bar">
+            <span class="patient-risk">{{computedRisk}}</span>
+          </div>
         {{/if}}
       </div>
     </div>

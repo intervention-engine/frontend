@@ -1,65 +1,42 @@
-<div class="row patient-summary">
-
-  {{!----------------------- PATIENT PHOTO ----------------------------------}}
-
-  <div class="col-lg-2 col-sm-3 col-reset patient-photo">
+<div class="media">
+  <div class="media-left media-middle">
     {{#if patientPhoto}}
-      {{patient.photo}}
+      {{patientPhoto}}
     {{else}}
-      <i class="fa fa-user"></i>
+      <i class="fa fa-user media-object"></i>
     {{/if}}
   </div>
-
-  <div class="col-lg-10 col-sm-9 patient-risk-info-chart">
+  <div class="media-body media-middle">
     <div class="row">
-      <div class="col-sm-12 patient-risk-info">
-
-        {{!--------------------- PATIENT RISK -----------------------------------}}
-
-        <div class="patient-risk">
-          {{computedRisk}}
+      <div class="col-xs-6">
+        <div class="patient-name">
+          {{patient.fullName}}
+          {{#if patient.notifications.count}}
+            <span class="badge">{{patient.notifications.count}}</span>
+          {{/if}}
         </div>
-
-        <div class="row">
-
-          {{!--------------------- PATIENT INFO -----------------------------------}}
-
-          <div class="col-lg-7 col-sm-5 col-sm-offset-1 patient-info">
-            <div class="patient-name">{{patient.fullName}}</div>
-            <div class="patient-age-gender-location">
-              <span class="patient-age">
-                <i class={{ageIconClassName}}></i>
-                {{patient.computedAge}} yrs
-              </span>
-              <span class="patient-gender">
-                <i class="fa {{genderIconClassName}}"></i>
-                {{patient.computedGender}}
-              </span>
-              <span class="patient-location">
-                <i class="fa fa-home"></i>
-                {{patient.location}}
-              </span>
-            </div>
-          </div>
-
-          {{!--------------------- COMPLETED INTERVENTIONS ------------------------}}
-
-          <div class="col-lg-4 col-sm-6 completed-interventions">
-            <div class="completed-interventions-value">19</div>
-            <div class="completed-interventions-stars">
-              <i class="fa fa-star fa-fw"></i>
-              <i class="fa fa-star fa-fw"></i>
-              <i class="fa fa-star-o fa-fw"></i>
-              <div class="completed-interventions-text">Completed Interventions</div>
-            </div>
-          </div>
-        </div>
+        <span class="patient-age">
+          <i class={{ageIconClassName}}></i>
+          {{patient.computedAge}} yrs
+        </span>
+        <span class="patient-gender">
+          <i class="fa {{genderIconClassName}}"></i>
+          {{patient.computedGender}}
+        </span>
+        <span class="patient-location">
+          <i class="fa fa-map-marker"></i>
+          {{patient.location}}
+        </span>
+        <span class="patient-last-intervention">
+          <i class="fa fa-users"></i>
+          {{date-format lastIntervention 'll'}}
+        </span>
       </div>
-
-      {{!----------------------- PATIENT RISK CHART -----------------------------}}
-
-      <div class="col-sm-12 patient-risk-chart">
+      <div class="col-xs-5 patient-risk-chart">
         {{patient-risk-chart chartData=risksWithBirthdayStart}}
+      </div>
+      <div class="col-xs-1">
+        <div class="patient-risk">{{computedRisk}}</div>
       </div>
     </div>
   </div>

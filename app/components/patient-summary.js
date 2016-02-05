@@ -3,6 +3,7 @@ import service from 'ember-service/inject';
 import PatientIconClassNames from '../mixins/patient-icon-class-names';
 
 export default Ember.Component.extend(PatientIconClassNames, {
+  classNames: ['patient-summary'],
   store: service(),
 
   patient: null,
