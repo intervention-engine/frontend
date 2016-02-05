@@ -14,7 +14,7 @@
       </div>
       <div class="row">
         <div class="col-xs-6">
-          <div class="patient-age-gender">
+          <div class="patient-age-gender-location">
             <span class="patient-age">
               <i class={{ageIconClassName}}></i>
               {{patient.computedAge}} yrs
@@ -30,9 +30,9 @@
           </div>
         </div>
         <div class="col-xs-6">
-          <span class="patient-last-intervention">
+          <span class="patient-next-huddle">
             <i class="fa fa-users"></i>
-            {{date-format lastIntervention 'll'}}
+            {{date-format nextHuddle 'll'}}
           </span>
         </div>
       </div>

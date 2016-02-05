@@ -13,7 +13,7 @@ export default Component.extend(PatientIconClassNames, {
   assessment: null,
   maxRisk: 4, // TODO: get max risk for currentAssessment from Risk Assessment Service
 
-  lastIntervention: computed({
+  nextHuddle: computed({
     get() {
       return moment().subtract(1, 'week');
     }

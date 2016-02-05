@@ -1,135 +1,42 @@
-.patients-list {
-  .patient-badge:nth-child(odd) {
-    background-color: #f9f9f9;
-
-    &:hover {
-      @extend .patient-badge:hover;
-    }
-  }
-}
-
-.patient-badge {
-  display: block;
-  position: relative;
-  margin: 0;
-  padding: 15px 0 15px 15px;
-  border-bottom: 1px solid #eee;
-  font-size: 16px;
-  min-height: 80px;
-  cursor: pointer;
-
-  &:hover {
-    color: #fff;
-    background-color: $brand-primary;
-  }
-
-  i.media-object {
-    color: #e6e6e6;
-    font-size: 64px;
-  }
-
-  .media-left {
-    padding-right: 1em;
-  }
-
-  .patient-name {
-    font-size: 24px;
-  }
-
-  .patient-age,
-  .patient-gender,
-  .patient-location {
-    margin-right: 1em;
-  }
-
-  .patient-risk-bar-container {
-    position: absolute;
-    top: 38%;
-    right: -2px;
-    height: 15px;
-
-    @include respond-to(desktop-wide) { width: 150px; }
-    @include respond-to(desktop) { width: 100px; }
-    @include respond-to(tablet) { width: 85px; }
-    @include respond-to(mobile) { width: 250px; }
-
-    .patient-risk-bar {
-      float: right;
-      height: 15px;
-      background-color: $brand-primary;
-      font-size: 12px;
-      line-height: 12px;
-      color: #fff;
-      padding: 2px;
-    }
-  }
-}
-
-.patient-panel {
-  .patient-panel-header {
-    color: #fff;
-    padding: 10px 15px;
-    background-color: $navbar-inverse-bg;
-
-    a {
-      color: #fff;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-
-  .patient-panel-body {
-    background-color: #fff;
-  }
-}
-
-.patient-summary {
-  .media {
-    background-color: $brand-primary;
-    padding: 6px 0 6px 12px;
-    color: #fff;
-  }
-
-  .media-object {
-    font-size: 64px;
-  }
-
-  .media .patient-risk {
-    @extend .pull-right;
-    font-size: 48px;
-    line-height: 48px;
-  }
-
-  .patient-name {
-    font-size: 24px;
-  }
-
-  .patient-age,
-  .patient-gender,
-  .patient-location {
-    margin-right: 1em;
-  }
-}
-
-.patient-stats {
-  .icon-med-clipboard {
-    display: inline-block;
-    padding: 0 4px 0 5px;
-  }
-
-  .icon-medication {
-    display: inline-block;
-    padding: 0 4px;
-  }
-}
-
 .patients {
 
-  // ----------------------- PATIENT LIST ---------------------------------- //
+  // ----------------------- PATIENT PANELS -------------------------------- //
 
-  .patient-populations-list {
+  .patient-panel {
+    .patient-panel-header {
+      color: #fff;
+      padding: 10px 15px;
+      background-color: $navbar-inverse-bg;
+
+      a {
+        color: #fff;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .patient-panel-body {
+      background-color: #fff;
+    }
+  }
+
+  // .patient-stats {
+  //   .icon-med-clipboard {
+  //     display: inline-block;
+  //     padding: 0 4px 0 5px;
+  //   }
+
+  //   .icon-medication {
+  //     display: inline-block;
+  //     padding: 0 4px;
+  //   }
+  // }
+
+  // ----------------------- PATIENT LIST FILTERS -------------------------- //
+
+  .patient-list-filters {
     font-weight: 400;
 
     @include respond-to(tablet) {
@@ -138,128 +45,128 @@
       padding: 0;
     }
 
-    .patient-list {
-      .patients-striped {
-        > .ember-view:nth-child(odd) {
-          background-color: $table-bg-accent;
-        }
+    // .patient-list {
+    //   .patients-striped {
+    //     > .ember-view:nth-child(odd) {
+    //       background-color: $table-bg-accent;
+    //     }
 
-        > .ember-view:first-child {
-          border-top: 1px solid $body-bg;
-        }
+    //     > .ember-view:first-child {
+    //       border-top: 1px solid $body-bg;
+    //     }
 
-        .patient {
-          position: relative;
-          margin: 0;
-          padding: 15px 0 15px 15px;
-          border-bottom: 1px solid $body-bg;
-          font-size: 16px;
-          min-height: 80px;
+    //     .patient {
+    //       position: relative;
+    //       margin: 0;
+    //       padding: 15px 0 15px 15px;
+    //       border-bottom: 1px solid $body-bg;
+    //       font-size: 16px;
+    //       min-height: 80px;
 
-          &:hover, &.active {
-            background-color: $brand-primary;
+    //       &:hover, &.active {
+    //         background-color: $brand-primary;
 
-            .patient-info .patient-name,
-            .patient-info .patient-age-gender,
-            .patient-info .patient-age-gender i {
-              color: $body-bg-inverse;
-            }
+    //         .patient-info .patient-name,
+    //         .patient-info .patient-age-gender,
+    //         .patient-info .patient-age-gender i {
+    //           color: $body-bg-inverse;
+    //         }
 
-            .patient-info .patient-risk-bar-container .patient-risk-bar {
-              color: $brand-primary;
-              background-color: $body-bg-inverse;
-            }
-          }
+    //         .patient-info .patient-risk-bar-container .patient-risk-bar {
+    //           color: $brand-primary;
+    //           background-color: $body-bg-inverse;
+    //         }
+    //       }
 
-          .patient-info {
-            position: relative;
-            cursor: pointer;
+    //       .patient-info {
+    //         position: relative;
+    //         cursor: pointer;
 
-            .patient-name {
-              overflow: hidden;
-              text-overflow: ellipsis;
-              color: $brand-primary;
+    //         .patient-name {
+    //           overflow: hidden;
+    //           text-overflow: ellipsis;
+    //           color: $brand-primary;
 
-              @include respond-to(non-handheld) { font-size: 18px; }
-              @include respond-to(tablet) { font-size: 16px; }
-              @include respond-to(mobile) { font-size: 20px; }
+    //           @include respond-to(non-handheld) { font-size: 18px; }
+    //           @include respond-to(tablet) { font-size: 16px; }
+    //           @include respond-to(mobile) { font-size: 20px; }
 
-              @include respond-to(desktop-wide) { max-width: 175px; }
-              @include respond-to(desktop) { max-width: 120px; }
-              @include respond-to(tablet) { max-width: 80px; }
+    //           @include respond-to(desktop-wide) { max-width: 175px; }
+    //           @include respond-to(desktop) { max-width: 120px; }
+    //           @include respond-to(tablet) { max-width: 80px; }
 
-              .badge {
-                display: inline-block;
-                background-color: $brand-alert;
-                width: 15px;
-                height: 15px;
-                padding: 0 2px;
-                line-height: 1.4;
-                margin-bottom: 10px;
-              }
-            }
+    //           .badge {
+    //             display: inline-block;
+    //             background-color: $brand-alert;
+    //             width: 15px;
+    //             height: 15px;
+    //             padding: 0 2px;
+    //             line-height: 1.4;
+    //             margin-bottom: 10px;
+    //           }
+    //         }
 
-            .patient-age-gender {
-              line-height: 0;
-              color: lighten($brand-secondary, 28%);
+    //         .patient-age-gender {
+    //           line-height: 0;
+    //           color: lighten($brand-secondary, 28%);
 
-              @include respond-to(non-handheld) { font-size: 14px; }
-              @include respond-to(tablet) { font-size: 10px; }
-              @include respond-to(mobile) { font-size: 16px; }
+    //           @include respond-to(non-handheld) { font-size: 14px; }
+    //           @include respond-to(tablet) { font-size: 10px; }
+    //           @include respond-to(mobile) { font-size: 16px; }
 
-              i {
-                color: lighten($brand-secondary, 50%);
+    //           i {
+    //             color: lighten($brand-secondary, 50%);
 
-                @include respond-to(non-handheld) { font-size: 20px; }
-                @include respond-to(tablet) { font-size: 16px; }
-                @include respond-to(mobile) { font-size: 20px; }
-              }
+    //             @include respond-to(non-handheld) { font-size: 20px; }
+    //             @include respond-to(tablet) { font-size: 16px; }
+    //             @include respond-to(mobile) { font-size: 20px; }
+    //           }
 
-              .patient-age {
-                margin-right: 15px;
-              }
+    //           .patient-age {
+    //             margin-right: 15px;
+    //           }
 
-              .patient-gender i {
-                @include respond-to(non-handheld) { font-size: 18px; }
-                @include respond-to(tablet) { font-size: 14px; }
-                @include respond-to(mobile) { font-size: 18px; }
-              }
-            }
+    //           .patient-gender i {
+    //             @include respond-to(non-handheld) { font-size: 18px; }
+    //             @include respond-to(tablet) { font-size: 14px; }
+    //             @include respond-to(mobile) { font-size: 18px; }
+    //           }
+    //         }
 
-            .patient-risk-bar-container {
-              position: absolute;
-              top: 38%;
-              right: -2px;
-              height: 15px;
+    //         .patient-risk-bar-container {
+    //           position: absolute;
+    //           top: 38%;
+    //           right: -2px;
+    //           height: 15px;
 
-              @include respond-to(desktop-wide) { width: 150px; }
-              @include respond-to(desktop) { width: 100px; }
-              @include respond-to(tablet) { width: 85px; }
-              @include respond-to(mobile) { width: 250px; }
+    //           @include respond-to(desktop-wide) { width: 150px; }
+    //           @include respond-to(desktop) { width: 100px; }
+    //           @include respond-to(tablet) { width: 85px; }
+    //           @include respond-to(mobile) { width: 250px; }
 
-              .patient-risk-bar {
-                float: right;
-                height: 15px;
-                background-color: $brand-primary;
-                font-size: 12px;
-                line-height: 12px;
-                color: #fff;
-                padding: 2px;
-              }
-            }
-          }
-        }
-      }
-    }
+    //           .patient-risk-bar {
+    //             float: right;
+    //             height: 15px;
+    //             background-color: $brand-primary;
+    //             font-size: 12px;
+    //             line-height: 12px;
+    //             color: #fff;
+    //             padding: 2px;
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
-    .select-patient {
-      min-height: 500px;
-    }
+    // .select-patient {
+    //   min-height: 500px;
+    // }
   }
 
-  // ----------------------- PATIENT RESULTS ------------------------------- //
+  // ----------------------- PATIENT LIST RESULTS -------------------------- //
 
-  .patient-results {
+  .patient-list-results {
     @include respond-to(tablet) {
       position: absolute;
       right: -5px;
@@ -268,150 +175,255 @@
     .patient-panel {
       min-height: 800px;
 
-      .add-intervention-icon {
-        font-size: 1.5em;
-        color: $brand-primary;
-        cursor: pointer;
+      .patient-list {
+        .patient-badge {
+          display: block;
+          position: relative;
+          margin: 0;
+          padding: 10px 10px 0 10px;
+          border-bottom: 1px solid #eee;
+          font-size: 16px;
+          min-height: 80px;
+          cursor: pointer;
 
-        &:hover {
-          color: darken($brand-primary, 10%);
+          i.media-object {
+            color: #e6e6e6;
+            font-size: 64px;
+          }
+
+          .media-left {
+            padding-right: 1em;
+          }
+
+          .patient-name {
+            font-size: 24px;
+          }
+
+          .patient-age-gender-location,
+          .patient-next-huddle {
+            color: lighten($brand-secondary, 20%);
+
+            .patient-age,
+            .patient-gender,
+            .patient-location {
+              margin-right: 1em;
+            }
+          }
+
+          .patient-risk-bar-container {
+            position: absolute;
+            top: 38%;
+            right: -2px;
+            height: 15px;
+
+            @include respond-to(desktop-wide) { width: 150px; }
+            @include respond-to(desktop) { width: 100px; }
+            @include respond-to(tablet) { width: 85px; }
+            @include respond-to(mobile) { width: 250px; }
+
+            .patient-risk-bar {
+              float: right;
+              height: 15px;
+              background-color: $brand-primary;
+              font-size: 12px;
+              line-height: 12px;
+              color: #fff;
+              padding: 2px;
+            }
+          }
+
+          &:hover {
+            color: #fff;
+            background-color: $brand-primary;
+
+            .patient-age-gender-location,
+            .patient-next-huddle,
+            i.media-object {
+              color: #fff;
+            }
+
+          }
+
+          &:nth-child(odd) {
+            background-color: #f9f9f9;
+
+            &:hover {
+              @extend .patient-badge:hover;
+            }
+          }
         }
       }
+
+      // .add-intervention-icon {
+      //   font-size: 1.5em;
+      //   color: $brand-primary;
+      //   cursor: pointer;
+
+      //   &:hover {
+      //     color: darken($brand-primary, 10%);
+      //   }
+      // }
+    }
+  }
+
+  // ----------------------- PATIENT SUMMARY ------------------------------- //
+
+  .patient-summary {
+    .media {
+      background-color: $brand-primary;
+      padding: 6px 0 6px 12px;
+      color: #fff;
     }
 
-    // --------------------- PATIENT SUMMARY ------------------------------- //
+    .media-object {
+      font-size: 64px;
+    }
 
-    .patient-summary {
-      .patient-photo {
-        font-size: 130px;
-        color: $body-bg;
-        text-align: center;
-      }
+    .media .patient-risk {
+      @extend .pull-right;
+      font-size: 48px;
+      line-height: 48px;
+    }
 
-      .patient-risk-info-chart {
+    .patient-name {
+      font-size: 24px;
+    }
+
+    .patient-age,
+    .patient-gender,
+    .patient-location {
+      margin-right: 1em;
+    }
+
+    .patient-photo {
+      font-size: 130px;
+      color: $body-bg;
+      text-align: center;
+    }
+
+    .patient-risk-info-chart {
+      padding: 0;
+
+      .patient-risk-info {
+        position: relative;
         padding: 0;
 
-        .patient-risk-info {
-          position: relative;
-          padding: 0;
-
-          .patient-risk {
-            position: absolute;
-            top: 0;
-            left: -35px;
-            font-size: 38px;
-            line-height: 55px;
-            border: 5px solid $brand-secondary;
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
-            text-align: center;
-          }
-
-          .patient-info {
-            // margin-left: 50px;
-            text-align: left;
-            padding: 10px 20px 0 0;
-
-            .patient-name {
-              color: $brand-secondary;
-              font-size: 24px;
-            }
-
-            .patient-age-gender-location {
-              font-size: 14px;
-              color: lighten($brand-secondary, 20%);
-
-              i {
-                color: lighten($brand-secondary, 40%);
-              }
-
-              .patient-age,
-              .patient-gender {
-                margin-right: 20px;
-              }
-            }
-
-            .patient-location {
-              font-size: 14px;
-              color: lighten($brand-secondary, 20%);
-            }
-          }
+        .patient-risk {
+          position: absolute;
+          top: 0;
+          left: -35px;
+          font-size: 38px;
+          line-height: 55px;
+          border: 5px solid $brand-secondary;
+          border-radius: 50%;
+          width: 70px;
+          height: 70px;
+          text-align: center;
         }
 
-        .patient-risk-chart {
-          padding: 0;
+        .patient-info {
+          // margin-left: 50px;
+          text-align: left;
+          padding: 10px 20px 0 0;
+
+          .patient-name {
+            color: $brand-secondary;
+            font-size: 24px;
+          }
+
+          .patient-age-gender-location {
+            font-size: 14px;
+            color: lighten($brand-secondary, 20%);
+
+            i {
+              color: lighten($brand-secondary, 40%);
+            }
+
+            .patient-age,
+            .patient-gender {
+              margin-right: 20px;
+            }
+          }
+
+          .patient-location {
+            font-size: 14px;
+            color: lighten($brand-secondary, 20%);
+          }
         }
       }
-    }
 
-    // ------------------------- PATIENT STATS --------------------------------- //
-
-    .patient-stats {
-      padding: 0;
-    }
-
-    // ------------------------- PATIENT INTERVENTIONS ------------------------- //
-
-    .completed-interventions {
-      .completed-interventions-value {
-        float: right;
-        margin-right: 20px;
-        line-height: 50px;
-        font-size: 64px;
-        text-align: left;
-      }
-
-      .completed-interventions-stars {
-        float: left;
-        font-size: 20px;
-        text-align: right;
-      }
-
-      .completed-interventions-text {
-        font-size: 18px;
-
-        @include respond-to(non-handheld) { text-align: right; }
-        @include respond-to(handheld) { text-align: center; }
+      .patient-risk-chart {
+        padding: 0;
       }
     }
+  }
 
-    // ------------------------- PATIENT CATEGORIES ---------------------------- //
+  // ----------------------- PATIENT STATS --------------------------------- //
 
-    .aster-plot {
-      margin: 0 auto;
-      padding: 20px;
-      @include respond-to(desktop) { padding: 20px 5px; }
-      @include respond-to(tablet) { width: 400px; }
+  .patient-stats {
+    padding: 0;
+  }
 
-      .category {
-        cursor: pointer;
-      }
+  // ----------------------- PATIENT INTERVENTIONS ------------------------- //
+
+  .completed-interventions {
+    .completed-interventions-value {
+      float: right;
+      margin-right: 20px;
+      line-height: 50px;
+      font-size: 64px;
+      text-align: left;
     }
 
-    .category-details {
+    .completed-interventions-stars {
+      float: left;
+      font-size: 20px;
+      text-align: right;
+    }
+
+    .completed-interventions-text {
       font-size: 18px;
-      @include respond-to(desktop-wide) { width: 450px; }
-      @include respond-to(desktop) { margin-top: 80px; }
-      @include respond-to(tablet) {
-        width: 400px;
-        margin: 0 auto 30px auto;
-      }
 
-      .category-name {
-        font-size: 1.7em;
-        text-align: center;
-        padding: 10px;
-      }
+      @include respond-to(non-handheld) { text-align: right; }
+      @include respond-to(handheld) { text-align: center; }
+    }
+  }
 
-      .category-stat-value {
-        font-weight: 500;
-      }
+  // ----------------------- PATIENT CATEGORIES ---------------------------- //
 
-      .sub-text {
-        font-size: 0.9em;
-        text-align: center;
-      }
+  .aster-plot {
+    margin: 0 auto;
+    padding: 20px;
+    @include respond-to(desktop) { padding: 20px 5px; }
+    @include respond-to(tablet) { width: 400px; }
+
+    .category {
+      cursor: pointer;
+    }
+  }
+
+  .category-details {
+    font-size: 18px;
+    @include respond-to(desktop-wide) { width: 450px; }
+    @include respond-to(desktop) { margin-top: 80px; }
+    @include respond-to(tablet) {
+      width: 400px;
+      margin: 0 auto 30px auto;
+    }
+
+    .category-name {
+      font-size: 1.7em;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .category-stat-value {
+      font-weight: 500;
+    }
+
+    .sub-text {
+      font-size: 0.9em;
+      text-align: center;
     }
   }
 }

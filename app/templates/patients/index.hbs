@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-3 patient-populations-list">
+  <div class="col-sm-3 patient-list-filters">
     {{#nested-panel panelName="Choose Risk Assessment" panelId="chooseRiskAssessment"}}
       {{patient-search/risk-assessment riskAssessments=riskAssessments currentAssessment=currentAssessment selectRiskAssessment=(action "selectRiskAssessment")}}
     {{/nested-panel}}
@@ -12,7 +12,7 @@
       {{patient-search/sort-by sortBy=sortBy sortDescending=sortDescending selectSortBy=(action "selectSortBy")}}
     {{/nested-panel}}
   </div>
-  <div class="col-sm-9 patient-results">
+  <div class="col-sm-9 patient-list-results">
     <div class="panel patient-panel">
       <div class="panel-heading">
         <div class="collapse-panel-title">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="panel-body">
-        <div class="patients-list">
+        <div class="patient-list">
           {{#each sortedPatients as |patient|}}
             {{patient-badge patient=patient assessment=currentAssessment}}
           {{/each}}
