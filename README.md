@@ -1,53 +1,55 @@
-# Ember-on-fhir
+Intervention Engine Frontend [![Build Status](https://travis-ci.org/intervention-engine/frontend.svg?branch=master)](https://travis-ci.org/intervention-engine/frontend)
+========================================================================================================================================================================
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+The [Intervention Engine](https://github.com/intervention-engine/ie) project provides a web-application for *data-driven team huddles*. Many care teams use team huddles to improve patient outcomes via efficient team communications and a holistic view of patients (due to the interdisciplinary nature of team huddles). Intervention Engine leverages electronic clinical records and clinical risk assessments to assist care teams in selecting patients for their huddles and providing the tools necessary to promote effective discussions and interventions.
 
-## Prerequisites
+Intervention Engine is a work in progress. Current Intervention Engine features:
 
-You will need the following things properly installed on your computer.
+-	custom population filters based on age, gender, conditions, and encounter types
+-	clinical risk assessment integration via an open API
+	-	prototype stroke risk calculation service (based on CHA2DS2-VASc)
+	-	prototype "negative outcomes" risk calculation service (condition count + medication count)
+-	patient views w/ summary data, risk trends, and risk component visualization
+-	FHIR-based REST server
+-	C-CDA import
 
-* [Git](http://git-scm.com/)
-* [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://www.ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+Still to come:
 
-## Installation
+-	Near term: huddle management (scheduling, viewing, progressing)
+-	Near term: automated patient selection for huddles
+-	Longer term: intervention planning & tracking
+-	Longer term: population views and visualizations
 
-* `git clone <repository-url>` this repository
-* change into the new directory
-* `npm install`
-* `bower install`
+The frontend Repository
+-----------------------
 
-## Running / Development
+The *frontend* repository contains the source code for the Ember Intervention Engine web application. This application communicates with the [ie](https://github.com/intervention-engine/ie) server and [riskservice](https://github.com/intervention-engine/riskservice) server to provide the Intervention Engine browser-based user interface.
 
-* `ember server --proxy http://localhost:3001`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+Building and Running frontend Locally
+-------------------------------------
 
-### Code Generators
+Intervention Engine is a stack of tools and technologies. For information on installing and running the full stack, please see [Building and Running the Intervention Engine Stack in a Development Environment](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md).
 
-Make use of the many generators for code, try `ember help generate` for more details
+In order for the *frontend* to work correctly, it is assumed that the [ie](https://github.com/intervention-engine/ie) and [riskservice](https://github.com/intervention-engine/riskservice) servers are already running.
 
-### Running Tests
+For information related specifically to building and running the code in this repository (*frontend*), please refer to the following sections in the above guide:
 
-* `ember test`
-* `ember test --server`
+-	(Prerequisite) [Install Git](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#install-git)
+-	(Prerequisite) [Install Node.js](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#install-nodejs)
+-	(Prerequisite) [Install Bower](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#install-bower)
+-	(Prerequisite for testing) [Install PhantomJS](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#install-phantomjs)
+-	[Clone frontend Repository](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#clone-frontend-repository)
+-	[Build and Run Frontend Ember Server](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#build-and-run-frontend-ember-server)
+-	(Optional) [Create Intervention Engine User](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#create-intervention-engine-user)
+-	(Optional) [Generate and Upload Synthetic Patient Data](https://github.com/intervention-engine/ie/blob/master/docs/dev_install.md#generate-and-upload-synthetic-patient-data)
 
-### Building
+License
+-------
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+Copyright 2016 The MITRE Corporation
 
-### Deploying
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-Specify what it takes to deploy your app.
+http://www.apache.org/licenses/LICENSE-2.0
 
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://www.ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
