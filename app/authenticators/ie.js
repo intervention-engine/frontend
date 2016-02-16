@@ -1,10 +1,11 @@
+import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 import service from 'ember-service/inject';
 import run from 'ember-runloop';
-import RSVP from 'rsvp';
+// import RSVP from 'rsvp';
 import { isEmpty } from 'ember-utils';
 
-const { Promise } = RSVP;
+const { RSVP: { Promise } } = Ember;
 
 export default Base.extend({
   ajax: service(),

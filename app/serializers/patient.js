@@ -1,11 +1,17 @@
 import PatientSerializer from 'ember-fhir-adapter/serializers/patient';
 
 export default PatientSerializer.extend({
-  normalizeResponse(store, primaryModelClass, payload) {
-    let value = this._super(...arguments);
-    value.meta = { total: payload.total };
-    return value;
+  extract(store, type, payload/*, id, requestType*/) {
+    store.setMetadataFor(type.modelName, { total: payload.total });
+    return this._super(...arguments);
   },
+
+  // Ember Data 2+
+  // normalizeResponse(store, primaryModelClass, payload) {
+  //   let value = this._super(...arguments);
+  //   value.meta = { total: payload.total };
+  //   return value;
+  // },
 
   normalize(type, hash, prop) {
     let queryParam = `?patient:Patient=${hash.id}`;

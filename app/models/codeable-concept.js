@@ -6,9 +6,5 @@ export default CodeableConcept.extend({
       return c.get('system') === code.system && c.get('code') === code.code;
     });
     return matchedCodes.any((d) => d);
-  },
-
-  toString() {
-    return this.get('text') || this.get('coding.firstObject.display') || `${this.get('coding.firstObject.system')}-${this.get('coding.firstObject.code')}`;
   }
 });

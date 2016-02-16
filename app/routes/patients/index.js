@@ -1,9 +1,12 @@
+import Ember from 'ember';
 import Route from 'ember-route';
 import service from 'ember-service/inject';
-import RSVP from 'rsvp';
+// import RSVP from 'rsvp';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import PaginatedRouteMixin from 'ember-cli-pagination/remote/route-mixin';
 import FHIRPagedRemoteArray from '../../utils/fhir-paged-remote-array';
+
+const { RSVP } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
   store: service(),

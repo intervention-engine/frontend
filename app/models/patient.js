@@ -8,9 +8,9 @@ export default Patient.extend({
   conditions: DS.hasMany('condition', { 'async': true }),
   medications: DS.hasMany('medicationStatement', { 'async': true }),
   appointments: DS.hasMany('appointment', { 'async': true }),
-  risks: DS.hasMany('riskAssessment', { 'async': true }),
-  name: DS.hasMany('human-name', { embedded: true, async: false }),
-  notifications: DS.belongsTo('notificationCount', { 'async': true, inverse: 'patient' }),
+  risks: DS.hasMany('risk-assessment', { 'async': true }),
+  name: DS.hasMany('human-name', { async: false }),
+  notifications: DS.belongsTo('notification-count', { 'async': true, inverse: 'patient' }),
   location: 'Home', // TODO: hook up
 
   fullName: Ember.computed('name', function() {
@@ -84,6 +84,9 @@ export default Patient.extend({
   }),
 
   sortedRisks: Ember.computed('risks.[]', function() {
+    // console.debug('sortedRisks called')
+    // console.debug(this.get('risks'))
+    // return [];
     return this.get('risks').sortBy('date');
   }),
 
