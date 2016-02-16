@@ -29,7 +29,9 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
         store,
         page: params.page || 1,
         perPage,
-        paramMapping
+        paramMapping,
+        sortBy: params.sortBy,
+        sortDescending: params.sortDescending
       }),
       populations: store.findAll('group')
       // risks: store.findAll('risk'),

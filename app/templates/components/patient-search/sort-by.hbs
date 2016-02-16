@@ -13,14 +13,14 @@
         <div class="btn-group pull-right">
           <button
             type="button"
-            class="btn {{if sortDescending 'btn-default' 'btn-active'}}"
-            onclick={{action attrs.selectSortBy sortOption.sortKey false}}>
+            class="btn {{if (sort-descending sortDescending sortOption.invert) 'btn-default' 'btn-active'}}"
+            onclick={{action attrs.selectSortBy sortOption.sortKey (if sortOption.invert true false)}}>
             <i class="fa fa-sort-{{sortOption.sortIcon}}-asc fa-fw"></i>
           </button>
           <button
             type="button"
-            class="btn {{if sortDescending 'btn-active' 'btn-default'}}"
-            onclick={{action attrs.selectSortBy sortOption.sortKey true}}>
+            class="btn {{if (sort-descending sortDescending sortOption.invert) 'btn-active' 'btn-default'}}"
+            onclick={{action attrs.selectSortBy sortOption.sortKey (if sortOption.invert false true)}}>
             <i class="fa fa-sort-{{sortOption.sortIcon}}-desc fa-fw"></i>
           </button>
         </div>

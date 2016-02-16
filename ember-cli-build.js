@@ -5,6 +5,9 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // allows easier browser debugging
     sourcemaps: ['js'],
+    babel: {
+      includePolyfill: true
+    },
     emberHighCharts: {
       includeHighCharts: true,
       includeHighStock: false,

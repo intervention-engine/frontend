@@ -1,9 +1,10 @@
 import Controller from 'ember-controller';
 import computed from 'ember-computed';
+import run from 'ember-runloop';
 import { A } from 'ember-array/utils';
 
 export default Controller.extend({
-  queryParams: ['page', { currentAssessment: 'risk_assessment' }],
+  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending'],
 
   page: 1,
 
@@ -12,26 +13,14 @@ export default Controller.extend({
   patientSearch: '',
   currentPatient: null,
   selectedCategory: null,
-  sortBy: 'riskScore',
-  sortDescending: true,
-  sortByTypeInput: 'name', // default
+  sortBy: 'family',
+  sortDescending: false,
   showAddInterventionModal: false,
   riskLowValue: 1,
   riskHighValue: 4,
   interventionTypes: [],
 
   totalPatients: computed.reads('model.patients.meta.total'),
-
-  sortByType: computed('sortByTypeInput', {
-    get() {
-      if (this.get('sortByTypeInput') === 'notifications') {
-        return ['notifications.count', 'computedAge'];
-      }
-      if (this.get('sortByTypeInput') === 'name') {
-        return ['fullName'];
-      }
-    }
-  }),
 
   selectedPopulations: computed({
     get() {
@@ -73,12 +62,6 @@ export default Controller.extend({
     }
   }),
 
-  sortedPatients: computed('filteredPatients.[]', 'sortByType', {
-    get() {
-      return this.get('filteredPatients').sortBy(...this.get('sortByType'));
-    }
-  }),
-
   actions: {
     selectRiskAssessment(assessment) {
       this.set('currentAssessment', assessment);
@@ -108,8 +91,26 @@ export default Controller.extend({
     },
 
     selectSortBy(sortBy, sortDescending) {
-      this.set('sortBy', sortBy);
-      this.set('sortDescending', sortDescending);
+      let currentSortBy = this.get('sortBy');
+      let currentSortDesc = this.get('sortDescending');
+
+      // do nothing if nothing has changed
+      if (currentSortBy === sortBy && currentSortDesc === sortDescending) {
+        return;
+      }
+
+      run(() => {
+        let patientsRemoteArray = this.get('model.patients');
+
+        this.set('sortBy', sortBy);
+        this.set('sortDescending', sortDescending);
+        this.set('page', 1);
+
+        patientsRemoteArray.set('sortBy', sortBy);
+        patientsRemoteArray.set('sortDescending', sortDescending);
+        patientsRemoteArray.set('page', 1);
+        patientsRemoteArray.pageChanged();
+      });
     },
 
     openAddInterventionModal() {

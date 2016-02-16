@@ -84,9 +84,6 @@ export default Patient.extend({
   }),
 
   sortedRisks: Ember.computed('risks.[]', function() {
-    // console.debug('sortedRisks called')
-    // console.debug(this.get('risks'))
-    // return [];
     return this.get('risks').sortBy('date');
   }),
 

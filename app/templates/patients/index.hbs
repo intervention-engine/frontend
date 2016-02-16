@@ -31,7 +31,7 @@
       </div>
       <div class="panel-body">
         <div class="patient-list">
-          {{#each sortedPatients as |patient|}}
+          {{#each filteredPatients as |patient|}}
             {{patient-badge patient=patient assessment=currentAssessment}}
           {{/each}}
 
