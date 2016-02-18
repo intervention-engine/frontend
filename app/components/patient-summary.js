@@ -24,7 +24,7 @@ export default Ember.Component.extend(PatientIconClassNames, {
     birthRisk.get('prediction').pushObject(rapc);
     let risks = [birthRisk];
     risks.pushObjects(this.get('patient.sortedRisks'));
-    return risks.filterBy('prediction.firstObject.outcome.text', currentAssessment);
+    return risks.filterBy('prediction.firstObject.outcome.displayText', currentAssessment);
   }),
 
   computedRisk: Ember.computed('patient.currentRisk', 'currentAssessment', function() {

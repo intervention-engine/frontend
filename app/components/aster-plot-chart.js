@@ -26,11 +26,11 @@ export default Component.extend({
 
     g.append('g').classed('outer', true);
     g.append('g').classed('inner', true);
+
+    this.updateChart();
   },
 
   updateChart: observer('data', function updateChart() {
-    // var arc, data, height, innerRadius, maxSliceRadius, maxValue, minRadius, opacityScale, outerArc, outerArcRadius, outerRadius, outerpath, pathingData, pie, radius, radiusScale, selectCategory, svg, tip, width;
-
     let svg = d3.select(this.element).select('svg');
     if (svg == null || !this.get('data')) {
       return;
@@ -51,10 +51,10 @@ export default Component.extend({
     let selectCategory = (d) => {
       svg.selectAll('.category').classed('active', false);
       if (this.get('selectedCategory') === d.data) {
-        this.sendAction('selectCategory', null);
+        this.attrs.selectCategory(null);
       } else {
         svg.selectAll(`.category${d.data.name.camelize().capitalize()}`).classed('active', true);
-        this.sendAction('selectCategory', d.data);
+        this.attrs.selectCategory(d.data);
       }
     };
 

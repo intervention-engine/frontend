@@ -7,5 +7,10 @@
   .c3-circle {
     stroke-width: 1px;
     stroke: white;
+    fill: $brand-primary !important;
+  }
+
+  .c3-tooltip {
+    color: #333;
   }
 }

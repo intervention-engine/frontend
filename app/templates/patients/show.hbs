@@ -8,8 +8,12 @@
         </div>
       </div>
       <div class="patient-panel-body clearfix">
-        {{patient-viewer riskAssessments=riskAssessments patient=model currentAssessment=currentAssessment setRiskAssessment=(action "setRiskAssessment")}}
+        {{patient-viewer riskAssessments=riskAssessments patient=model currentAssessment=currentAssessment selectedCategory=selectedCategory setRiskAssessment=(action "setRiskAssessment") selectCategory=(action "selectCategory") openAddInterventionModal=(action 'openAddInterventionModal')}}
       </div>
     </div>
   </div>
 </div>
+
+{{#if showAddInterventionModal}}
+  {{add-intervention-modal onClose=(action 'hideAddInterventionModal')}}
+{{/if}}

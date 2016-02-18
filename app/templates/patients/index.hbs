@@ -24,6 +24,7 @@
               <input
                 type="search"
                 class="sliding-search {{if patientSearch 'expanded'}}"
+                onkeyup={{action (mut patientSearch) value="target.value"}}
                 onchange={{action (mut patientSearch) value="target.value"}}>
             </div>
           </div>
@@ -31,11 +32,13 @@
       </div>
       <div class="panel-body">
         <div class="patient-list">
-          {{#each filteredPatients as |patient|}}
+          {{#each sortedPatients as |patient|}}
             {{patient-badge patient=patient assessment=currentAssessment}}
           {{/each}}
 
-          {{page-numbers content=content.patients action=(action 'setPage')}}
+          {{#if (eq selectedPopulations.length 0)}}
+            {{page-numbers content=content.patients action=(action 'setPage')}}
+          {{/if}}
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   slices: Ember.computed('currentAssessment', 'patient.sortedRisks.@each.pie', function() {
     let currentAssessment = this.get('currentAssessment');
     if (currentAssessment) {
-      let risk = this.get('patient.sortedRisks').filterBy('prediction.firstObject.outcome.text', this.get('currentAssessment')).get('lastObject');
+      let risk = this.get('patient.sortedRisks').filterBy('prediction.firstObject.outcome.displayText', this.get('currentAssessment')).get('lastObject');
       if (risk) {
         return risk.get('pie').get('sliceArray');
       }
@@ -34,11 +34,5 @@ export default Ember.Component.extend({
     }
 
     return 0;
-  }),
-
-  actions: {
-    selectCategory(category) {
-      this.sendAction('selectCategory', category);
-    }
-  }
+  })
 });

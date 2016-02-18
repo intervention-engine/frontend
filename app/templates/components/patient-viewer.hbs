@@ -3,104 +3,107 @@
 {{!------------------------- PATIENT SUMMARY --------------------------------}}
 
 {{!------------------------- PATIENT STATS ----------------------------------}}
-
-<div class="col-lg-2 col-sm-3 col-reset">
-  <div class="panel">
-    <div class="panel-heading">
-      <div class="collapse-panel-title">
-        <a data-toggle="collapse" href="#chooseRiskAssessment" aria-expanded="true" aria-controls="collapseOne">
-          Choose Risk Assessment
-          <i class="fa fa-chevron-down pull-right"></i>
-        </a>
+<div class="row">
+  <div class="col-lg-2 col-sm-3 col-reset">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="collapse-panel-title">
+          <a data-toggle="collapse" href="#chooseRiskAssessment" aria-expanded="true" aria-controls="collapseOne">
+            Choose Risk Assessment
+            <i class="fa fa-chevron-down pull-right"></i>
+          </a>
+        </div>
       </div>
+      <div class="panel-body">
+        <div class="collapse in" id="chooseRiskAssessment">
+          <form class="form-horizontal form-group-striped">
+            {{#each riskAssessments as |riskAssessment index|}}
+              {{#if riskAssessment}}
+                <div class="form-group">
+                  <input type="radio"
+                    name="risk-assessment-selection"
+                    value={{riskAssessment}}
+                    id={{concat riskAssessment index}}
+                    class="css-checkbox"
+                    checked={{eq currentAssessment riskAssessment}}
+                    onchange={{action attrs.setRiskAssessment value="target.value"}}>
+                  <label for={{concat riskAssessment index}} class="css-label css-label-circle checkbox-label">{{riskAssessment}}</label>
+                  <i class="fa fa-edit pull-right"></i>
+                </div>
+              {{/if}}
+            {{/each}}
+          </form>
+        </div>
+      </div>
+      <div class="panel-heading">
+        <div class="collapse-panel-title">
+          <a data-toggle="collapse" href="#huddleList" aria-expanded="true" aria-controls="collapseOne">
+            <i class="fa fa-users fa-fw"></i>
+            Huddle
+            <i class="fa fa-chevron-down pull-right"></i>
+          </a>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="collapse in" id="huddleList">
+
+        </div>
+      </div>
+
+      {{patient-stats patient=patient openAddInterventionModal=(action attrs.openAddInterventionModal)}}
     </div>
-    <div class="panel-body">
-      <div class="collapse in" id="chooseRiskAssessment">
-        <form class="form-horizontal form-group-striped">
-          {{#each riskAssessments as |riskAssessment index|}}
-            {{#if riskAssessment}}
-              <div class="form-group">
-                <input type="radio"
-                  name="risk-assessment-selection"
-                  value={{riskAssessment}}
-                  id={{concat riskAssessment index}}
-                  class="css-checkbox"
-                  checked={{eq currentAssessment riskAssessment}}
-                  onchange={{action attrs.setRiskAssessment value="target.value"}}>
-                <label for={{concat riskAssessment index}} class="css-label css-label-circle checkbox-label">{{riskAssessment}}</label>
-                <i class="fa fa-edit pull-right"></i>
+  </div>
+
+  <div class="col-lg-10 col-sm-9">
+    <div class="row">
+
+      {{!--------------------- ASTER PLOT -------------------------------------}}
+      <div class="col-lg-8 col-md-6">
+        <div class="row">
+          <div class="col-lg-12 col-xs-12">
+            {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory=(action attrs.selectCategory)}}
+          </div>
+
+          {{!------------------- CATEGORY DETAILS -------------------------------}}
+
+          <div class="col-lg-12 col-xs-12">
+            {{#if selectedCategory}}
+              {{category-details category=selectedCategory}}
+            {{else}}
+              <div class="row category-details">
+                <div class="col-xs-12 category-name">
+                  Risk Assessment
+                </div>
+
+                <div class="category-stat">
+                  <div class="col-lg-3 col-md-4 col-xs-3">
+                    {{currentAssessment}}:
+                  </div>
+                  <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
+                    {{computedRisk}}
+                  </div>
+                  <div class="col-lg-7 hidden-md col-xs-7">
+                    {{horizontal-bar-chart max=6 width=200 height=5 value=computedRisk}}
+                  </div>
+                  <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
+                    {{horizontal-bar-chart max=6 width=100 height=5 value=computedRisk}}
+                  </div>
+                </div>
+
+                <div class="sub-text">
+                  Choose category for more detail.
+                </div>
               </div>
             {{/if}}
-          {{/each}}
-        </form>
-      </div>
-    </div>
-    <div class="panel-heading">
-      <div class="collapse-panel-title">
-        <a data-toggle="collapse" href="#huddleList" aria-expanded="true" aria-controls="collapseOne">
-          <i class="fa fa-users fa-fw"></i>
-          Huddle
-          <i class="fa fa-chevron-down pull-right"></i>
-        </a>
-      </div>
-    </div>
-    <div class="panel-body">
-      <div class="collapse in" id="huddleList">
-
-      </div>
-    </div>
-
-    {{patient-stats patient=patient}}
-  </div>
-</div>
-
-<div class="col-lg-10 col-sm-9">
-  <div class="row">
-
-    {{!--------------------- ASTER PLOT -------------------------------------}}
-    <div class="col-lg-8">
-      <div class="col-lg-12 col-md-6">
-        {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory="selectCategory"}}
-      </div>
-
-      {{!------------------- CATEGORY DETAILS -------------------------------}}
-
-      <div class="col-lg-12 col-md-6">
-        {{#if selectedCategory}}
-          {{category-details category=selectedCategory}}
-        {{else}}
-          <div class="row category-details">
-            <div class="col-xs-12 category-name">
-              Risk Assessment
-            </div>
-
-            <div class="category-stat">
-              <div class="col-lg-3 col-md-4 col-xs-3">
-                {{currentAssessment}}:
-              </div>
-              <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
-                {{computedRisk}}
-              </div>
-              <div class="col-lg-7 hidden-md col-xs-7">
-                {{horizontal-bar-chart max=6 width=200 height=5 value=computedRisk}}
-              </div>
-              <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
-                {{horizontal-bar-chart max=6 width=100 height=5 value=computedRisk}}
-              </div>
-            </div>
-
-            <div class="sub-text">
-              Choose category for more detail.
-            </div>
           </div>
-        {{/if}}
+        </div>
       </div>
-    </div>
 
-    {{!--------------------- PATIENT TIMELINE -------------------------------}}
+      {{!--------------------- PATIENT TIMELINE -------------------------------}}
 
-    <div class="col-lg-4 col-md-12">
-      {{patient-timeline patient=patient}}
+      <div class="col-lg-4 col-md-6">
+        {{patient-timeline patient=patient}}
+      </div>
     </div>
   </div>
 </div>

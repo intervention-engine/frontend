@@ -12,15 +12,20 @@ export default Controller.extend({
   currentAssessment: 'Stroke', // default
   patientSearch: '',
   currentPatient: null,
-  selectedCategory: null,
   sortBy: 'family',
   sortDescending: false,
-  showAddInterventionModal: false,
   riskLowValue: 1,
   riskHighValue: 4,
   interventionTypes: [],
 
-  totalPatients: computed.reads('model.patients.meta.total'),
+  totalPatients: computed('model.patients.meta.total', 'selectedPopulations.length', 'populationPatients.length', function totalPatients() {
+    let selectedPopulationsCount = this.get('selectedPopulations.length');
+    if (selectedPopulationsCount === 0) {
+      return this.get('model.patients.meta.total');
+    }
+
+    return this.get('populationPatients.length');
+  }),
 
   selectedPopulations: computed({
     get() {
@@ -53,6 +58,14 @@ export default Controller.extend({
     }
   }),
 
+  sortedPatients: computed('selectedPopulations.length', 'filteredPatients.@each.fullName', function sortedPatients() {
+    if (this.get('selectedPopulations.length') === 0) {
+      return this.get('filteredPatients');
+    }
+
+    return this.get('filteredPatients').sortBy('fullName');
+  }),
+
   filteredPatients: computed('populationPatients.[]', 'patientSearch', {
     get() {
       let rx = new RegExp(this.get('patientSearch'), 'gi');
@@ -65,7 +78,6 @@ export default Controller.extend({
   actions: {
     selectRiskAssessment(assessment) {
       this.set('currentAssessment', assessment);
-      this.set('selectedCategory', null);
     },
 
     togglePopulation(population, active) {
@@ -74,15 +86,6 @@ export default Controller.extend({
       } else {
         this.get('selectedPopulations').removeObject(population);
       }
-    },
-
-    selectPatient(patient) {
-      this.set('currentPatient', patient);
-      this.set('selectedCategory', null);
-    },
-
-    selectCategory(category) {
-      this.set('selectedCategory', category);
     },
 
     setRiskScore(lowValue, highValue) {
@@ -111,14 +114,6 @@ export default Controller.extend({
         patientsRemoteArray.set('page', 1);
         patientsRemoteArray.pageChanged();
       });
-    },
-
-    openAddInterventionModal() {
-      this.toggleProperty('showAddInterventionModal');
-    },
-
-    hideAddInterventionModal() {
-      this.set('showAddInterventionModal', false);
     },
 
     setPage(page) {

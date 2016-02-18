@@ -29,6 +29,11 @@
 <div class="panel-body">
   <div class="collapse in" id="interventions">
     {{!-- TODO --}}
+    <div class="add-new-filter-lg">
+      <button type="button" class="btn btn-link" onclick={{action attrs.openAddInterventionModal}}>
+        <i class="fa fa-plus-circle"></i> add new
+      </button>
+    </div>
   </div>
 </div>
 
@@ -44,11 +49,11 @@
 <div class="panel-body">
   <div class="collapse in" id="conditions">
     <ul>
-    {{#each patient.activeConditions as |condition|}}
-      {{#if condition.code}}
-        <li>{{condition.text}}</li>
-      {{/if}}
-    {{/each}}
+      {{#each patient.activeConditions as |condition|}}
+        {{#if condition.code}}
+          <li>{{condition.code.displayText}}</li>
+        {{/if}}
+      {{/each}}
     </ul>
   </div>
 </div>
@@ -64,11 +69,13 @@
 </div>
 <div class="panel-body">
   <div class="collapse in" id="medications">
-    {{#each patient.activeMedications as |medication|}}
-      {{#if medication.text}}
-        <li>{{medication.text}}</li>
-      {{/if}}
-    {{/each}}
+    <ul>
+      {{#each patient.activeMedications as |medication|}}
+        {{#if medication.displayText}}
+          <li>{{medication.displayText}}</li>
+        {{/if}}
+      {{/each}}
+    </ul>
   </div>
 </div>
 

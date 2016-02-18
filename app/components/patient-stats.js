@@ -5,5 +5,5 @@ export default Ember.Component.extend({
 
   condition: null,
 
-  conditionText: Ember.computed.reads('condition.text')
+  conditionText: Ember.computed.reads('condition.displayText')
 });

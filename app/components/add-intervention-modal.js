@@ -43,7 +43,10 @@ export default Ember.Component.extend({
       item.slideDown();
     },
 
-    save() {
+    save(event) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
       let selectedItem = this.get('_selectedItem');
       if (!selectedItem) {
         return;

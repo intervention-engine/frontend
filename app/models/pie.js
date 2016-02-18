@@ -2,7 +2,7 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  slices: DS.hasMany('slice', { embedded: true }),
+  slices: DS.hasMany('slice', { embedded: true, async: false }),
 
   sliceArray: Ember.computed('slices.[]', function() {
     let maxWeight = Math.max.apply(Math, this.get('slices').mapBy('weight'));

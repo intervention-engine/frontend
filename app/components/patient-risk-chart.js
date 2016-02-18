@@ -62,7 +62,7 @@ export default C3Chart.extend({
           }
         },
         color: {
-          pattern: ['#5D8FAE']
+          pattern: ['#FFFFFF']
         },
         grid: {
           focus: {

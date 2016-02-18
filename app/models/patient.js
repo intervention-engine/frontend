@@ -6,7 +6,7 @@ import moment from 'moment';
 export default Patient.extend({
   encounters: DS.hasMany('encounter', { 'async': true }),
   conditions: DS.hasMany('condition', { 'async': true }),
-  medications: DS.hasMany('medicationStatement', { 'async': true }),
+  medications: DS.hasMany('medication-statement', { 'async': true }),
   appointments: DS.hasMany('appointment', { 'async': true }),
   risks: DS.hasMany('risk-assessment', { 'async': true }),
   name: DS.hasMany('human-name', { async: false }),
@@ -40,7 +40,7 @@ export default Patient.extend({
            item.hasCode('type', { code: '99223', system: 'http://www.ama-assn.org/go/cpt' });
   }),
 
-  events: Ember.computed('encounters', 'conditions', 'medications', function() {
+  events: Ember.computed('encounters.[]', 'conditions.[]', 'medications.[]', function() {
     let events =  Ember.A([]);
     this.get('encounters').map(function(e) {
       let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'encounter' });
@@ -90,7 +90,7 @@ export default Patient.extend({
   risksByOutcome: Ember.computed('sortedRisks.[]', function() {
     let nest = d3.nest();
     nest.key(function(el) {
-      return el.get('prediction.firstObject.outcome.text');
+      return el.get('prediction.firstObject.outcome.displayText');
     });
     return nest.entries(this.get('sortedRisks'));
   }),

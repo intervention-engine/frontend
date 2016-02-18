@@ -6,11 +6,9 @@ import Encounter from 'ember-fhir-adapter/models/encounter';
 const codeListRegex = /^(.+)\(Code List:.*\)$/;
 
 export default Encounter.extend(CodeableMixin, DateableMixin, {
-  text: Ember.computed('type', function() {
-    let code = this.get('type.firstObject');
+  displayText: Ember.computed('type.firstObject.displayText', function() {
+    let code = this.get('type.firstObject.displayText');
     if (code) {
-      code = code.toString();
-
       let matches = code.match(codeListRegex);
       if (!Ember.isNone(matches) && matches[1]) {
         return matches[1];

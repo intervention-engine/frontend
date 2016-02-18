@@ -212,23 +212,24 @@
 
           .patient-risk-bar-container {
             position: absolute;
-            top: 38%;
-            right: -2px;
-            height: 15px;
+            top: 34%;
+            right: 0;
+            height: 24px;
 
-            @include respond-to(desktop-wide) { width: 150px; }
-            @include respond-to(desktop) { width: 100px; }
+            @include respond-to(desktop-wide) { width: 175px; }
+            @include respond-to(desktop) { width: 175px; }
             @include respond-to(tablet) { width: 85px; }
             @include respond-to(mobile) { width: 250px; }
 
             .patient-risk-bar {
               float: right;
-              height: 15px;
+              height: 24px;
               background-color: $brand-primary;
-              font-size: 12px;
-              line-height: 12px;
+              font-size: 14px;
+              line-height: 24px;
               color: #fff;
-              padding: 2px;
+              padding: 0 6px;
+              min-width: 32px;
             }
           }
 
@@ -242,6 +243,9 @@
               color: #fff;
             }
 
+            .patient-risk-bar-container .patient-risk-bar {
+              background-color: darken($brand-primary, 20%);
+            }
           }
 
           &:nth-child(odd) {
