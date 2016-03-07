@@ -1,10 +1,8 @@
-import Ember from 'ember';
 import $ from 'jquery';
 import ModalDialog from 'ember-modal-dialog/components/modal-dialog';
 import layout from '../templates/components/bootstrap-modal';
-
-const { computed } = Ember;
-const next = Ember.run.next;
+import computed from 'ember-computed';
+import { next } from 'ember-runloop';
 
 export default ModalDialog.extend({
   layout,

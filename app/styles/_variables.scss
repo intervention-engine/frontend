@@ -7,13 +7,15 @@ $body-bg: #EEEEEE;          // light gray
 $body-bg-inverse: #FFFFFF;  // white
 $headings-color: $brand-secondary;
 $btn-default-bg: $brand-primary;
-$navbar-inverse-bg: $brand-secondary;
+// $navbar-inverse-bg: $brand-secondary;
+$navbar-inverse-bg: #454545;
 $navbar-inverse-color: $body-bg-inverse;
 $navbar-inverse-link-color: $navbar-inverse-color;
+$navbar-inverse-link-active-bg: #595959;
 
 // ------------------------- BOOTSTRAP VARIABLES --------------------------- //
 
-$navbar-height: 83px;
+$navbar-height: 80px;
 $panel-border-radius: 0px;
 $border-radius-large: 0px;
 $headings-font-weight: 200;

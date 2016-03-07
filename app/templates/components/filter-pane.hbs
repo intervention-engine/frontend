@@ -6,12 +6,16 @@
   <div class="row pane-outline">
     <div class="col-xs-11">
       <div class="row">
-        {{component filterType characteristic=characteristic createCharacteristic="createCharacteristic" destroyCharacteristic="destroyCharacteristic"}}
+        {{component filterType
+          characteristic=characteristic
+          createCharacteristic=(action "createCharacteristic")
+          destroyCharacteristic=(action "destroyCharacteristic")
+          onChange=(action this.attrs.onChange)}}
       </div>
     </div>
 
     <div class="col-xs-1 pane-close">
-      <button type="button" class="close" {{action "removePane"}} aria-label="Close">
+      <button type="button" class="close" onclick={{action "removePane"}} aria-label="Close">
         <span aria-hidden="true"><i class="fa fa-times"></i></span>
       </button>
     </div>

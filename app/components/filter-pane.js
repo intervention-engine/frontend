@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import run from 'ember-runloop';
 import createGCC from '../utils/group-characteristic-generator';
 
 const { computed } = Ember;
@@ -30,9 +31,12 @@ export default Ember.Component.extend({
 
   actions: {
     createCharacteristic() {
-      let characteristic = createGCC(this, this.get('filterType'));
-      this.set('characteristic', characteristic);
-      this.get('group.characteristic').addObject(characteristic);
+      run(() => {
+        let characteristic = createGCC(this, this.get('filterType'));
+        this.set('characteristic', characteristic);
+        this.get('group.characteristic').addObject(characteristic);
+      });
+      this.attrs.onChange();
     },
 
     destroyCharacteristic() {
@@ -40,13 +44,16 @@ export default Ember.Component.extend({
         return;
       }
 
-      this.get('group.characteristic').removeObject(this.get('characteristic'));
-      this.set('characteristic', null);
+      run(() => {
+        this.get('group.characteristic').removeObject(this.get('characteristic'));
+        this.set('characteristic', null);
+      });
+      this.attrs.onChange();
     },
 
     removePane() {
       this.send('destroyCharacteristic');
-      this.sendAction('removePane', this.get('pane'));
+      this.attrs.removePane(this.get('pane'));
     }
   }
 });

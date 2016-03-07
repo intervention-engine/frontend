@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
   <div class="navbar-header">
     <button type="button"
             class="navbar-toggle"
@@ -11,7 +11,7 @@
     </button>
 
     {{#link-to 'index' class='navbar-brand'}}
-      <img class="logo" src={{logoURL}} alt="Intervention Engine" />
+      <img class="logo" src="/assets/images/logo.png" alt="Intervention Engine" />
     {{/link-to}}
   </div>
 
@@ -22,9 +22,9 @@
       {{#navbar-active-link}}{{#link-to "filters.new"}}<i class="fa fa-filter"></i> Filter Builder{{/link-to}}{{/navbar-active-link}}
       {{#navbar-active-link}}{{#link-to utilities}}<i class="fa fa-cogs"></i> Utilities{{/link-to}}{{/navbar-active-link}}
       {{#if session.isAuthenticated}}
-        <a {{ action 'invalidateSession' }} class="btn btn-danger navbar-btn navbar-right">Logout</a>
+        <li><a href="#" onclick={{action 'invalidateSession'}} class="navbar-right"><i class="fa fa-sign-out"></i> Logout</a></li>
       {{else}}
-        {{#link-to 'login' class="btn btn-success navbar-btn navbar-right"}}Login{{/link-to}}
+        <li>{{#link-to 'login' class="navbar-right"}}<i class="fa fa-sign-in"></i> Log In{{/link-to}}</li>
       {{/if}}
     </ul>
   </div>

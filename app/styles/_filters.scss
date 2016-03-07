@@ -123,6 +123,15 @@
   margin: 10px;
 }
 
+.add-new-filter-lg {
+  @extend .add-new-filter;
+  font-size: 1em;
+
+  .btn-link {
+    padding: 0;
+  }
+}
+
 /* -------------------------------- FILTER ITEM -------------------------------- */
 
 .filter-item {

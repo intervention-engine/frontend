@@ -1,79 +1,123 @@
-import Ember from 'ember';
+import Controller from 'ember-controller';
+import computed from 'ember-computed';
+import run from 'ember-runloop';
+import { A } from 'ember-array/utils';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
+  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending'],
+
+  page: 1,
+
   populations: [],
-  currentAssessment: "Stroke", // default
+  currentAssessment: 'Stroke', // default
   patientSearch: '',
   currentPatient: null,
-  selectedCategory: null,
-  sortByTypeInput: "name", // default
-  showAddInterventionModal: false,
+  sortBy: 'family',
+  sortDescending: false,
+  riskLowValue: 1,
+  riskHighValue: 4,
   interventionTypes: [],
 
-  sortByType: Ember.computed('sortByTypeInput', function() {
-    if (this.get('sortByTypeInput') === 'notifications') {
-      return ['notifications.count', 'computedAge'];
+  totalPatients: computed('model.patients.meta.total', 'selectedPopulations.length', 'populationPatients.length', function totalPatients() {
+    let selectedPopulationsCount = this.get('selectedPopulations.length');
+    if (selectedPopulationsCount === 0) {
+      return this.get('model.patients.meta.total');
     }
-    if (this.get('sortByTypeInput') === 'name') {
-      return ['fullName'];
+
+    return this.get('populationPatients.length');
+  }),
+
+  selectedPopulations: computed({
+    get() {
+      return [];
     }
   }),
 
-  selectedPopulations: Ember.computed.filterBy('model.populations', 'selected', true),
-
-  riskAssessments: Ember.computed(function() {
-    // TODO: get this list from the backend
-    return ['Stroke', 'Negative Outcome'];
+  riskAssessments: computed({
+    get() {
+      // TODO: get this list from the backend
+      return ['Stroke', 'Negative Outcome'];
+    }
   }),
 
-  populationPatients: Ember.computed('selectedPopulations.[]', function() {
-    let selectedPopulations = this.get('selectedPopulations');
-    if (selectedPopulations.length === 0) {
-      return this.get('model.patients');
-    }
+  populationPatients: computed('selectedPopulations.[]', {
+    get() {
+      let selectedPopulations = this.get('selectedPopulations');
+      if (selectedPopulations.length === 0) {
+        return this.get('model.patients');
+      }
 
-    let patients = Ember.A();
-    selectedPopulations.forEach(function(population) {
-      population.get('groupList').then((groupList) => {
-        patients.addObjects(groupList.get('patientids'));
+      let patients = new A([]);
+      selectedPopulations.forEach(function(population) {
+        population.get('groupList').then((groupList) => {
+          patients.addObjects(groupList.get('patientids'));
+        });
       });
-    });
 
-    return patients;
+      return patients;
+    }
   }),
 
-  filteredPatients: Ember.computed('populationPatients.[]', 'patientSearch', function() {
-    let rx = new RegExp(this.get("patientSearch"), "gi");
-    return this.get('populationPatients').filter(function(p) {
-      return p.get("fullName").toString().match(rx);
-    });
+  sortedPatients: computed('selectedPopulations.length', 'filteredPatients.@each.fullName', function sortedPatients() {
+    if (this.get('selectedPopulations.length') === 0) {
+      return this.get('filteredPatients');
+    }
+
+    return this.get('filteredPatients').sortBy('fullName');
   }),
 
-  sortedPatients: Ember.computed('filteredPatients.[]', 'sortByType', function() {
-    return this.get('filteredPatients').sortBy(...this.get('sortByType'));
+  filteredPatients: computed('populationPatients.[]', 'patientSearch', {
+    get() {
+      let rx = new RegExp(this.get('patientSearch'), 'gi');
+      return this.get('populationPatients').filter(function(p) {
+        return p.get('fullName').toString().match(rx);
+      });
+    }
   }),
 
   actions: {
     selectRiskAssessment(assessment) {
-      this.set("currentAssessment", assessment);
-      this.set('selectedCategory', null);
+      this.set('currentAssessment', assessment);
     },
 
-    selectPatient(patient) {
-      this.set('currentPatient', patient);
-      this.set('selectedCategory', null);
+    togglePopulation(population, active) {
+      if (active) {
+        this.get('selectedPopulations').pushObject(population);
+      } else {
+        this.get('selectedPopulations').removeObject(population);
+      }
     },
 
-    selectCategory(category) {
-      this.set('selectedCategory', category);
+    setRiskScore(lowValue, highValue) {
+      this.set('riskLowValue', lowValue);
+      this.set('riskHighValue', highValue);
     },
 
-    openAddInterventionModal() {
-      this.toggleProperty('showAddInterventionModal');
+    selectSortBy(sortBy, sortDescending) {
+      let currentSortBy = this.get('sortBy');
+      let currentSortDesc = this.get('sortDescending');
+
+      // do nothing if nothing has changed
+      if (currentSortBy === sortBy && currentSortDesc === sortDescending) {
+        return;
+      }
+
+      run(() => {
+        let patientsRemoteArray = this.get('model.patients');
+
+        this.set('sortBy', sortBy);
+        this.set('sortDescending', sortDescending);
+        this.set('page', 1);
+
+        patientsRemoteArray.set('sortBy', sortBy);
+        patientsRemoteArray.set('sortDescending', sortDescending);
+        patientsRemoteArray.set('page', 1);
+        patientsRemoteArray.pageChanged();
+      });
     },
 
-    hideAddInterventionModal() {
-      this.set('showAddInterventionModal', false);
+    setPage(page) {
+      this.set('page', page);
     }
   }
 });

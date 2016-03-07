@@ -5,12 +5,10 @@ import Encounter from 'ember-fhir-adapter/models/encounter';
 
 const codeListRegex = /^(.+)\(Code List:.*\)$/;
 
-let IEEncounter = Encounter.extend(CodeableMixin, DateableMixin, {
-  text: Ember.computed('type', function(){
-    let code = this.get('type.firstObject');
+export default Encounter.extend(CodeableMixin, DateableMixin, {
+  displayText: Ember.computed('type.firstObject.displayText', function() {
+    let code = this.get('type.firstObject.displayText');
     if (code) {
-      code = code.toString();
-
       let matches = code.match(codeListRegex);
       if (!Ember.isNone(matches) && matches[1]) {
         return matches[1];
@@ -19,11 +17,9 @@ let IEEncounter = Encounter.extend(CodeableMixin, DateableMixin, {
       return code;
     }
 
-    return "unknown";
+    return 'unknown';
   }),
 
   endDate: Ember.computed.reads('period.end'),
   startDate: Ember.computed.reads('period.start')
 });
-
-export default IEEncounter;

@@ -34,7 +34,8 @@
     }
 
     .collapse-panel-title {
-      background-color: $brand-primary;
+      color: #fff;
+      background-color: $navbar-inverse-bg;
 
       a {
         display: block;
@@ -67,5 +68,79 @@
   .panel-body {
     margin: 0;
     padding: 0;
+  }
+}
+
+.has-nested-panel {
+  & > .panel-heading {
+    border-bottom: 0;
+  }
+
+  & > .panel-body {
+    border-left: 10px solid $navbar-inverse-bg;
+  }
+
+  .panel {
+    border: 0;
+
+    .panel-heading {
+      border-bottom: 1px solid $navbar-inverse-bg;
+
+      .collapse-panel-title {
+        background-color: $navbar-inverse-link-active-bg;
+      }
+    }
+  }
+}
+
+#chooseRiskScore {
+  padding: 16px;
+
+  .slider-horizontal {
+    width: 160px;
+  }
+
+  .slider-selection {
+    background: #65a1c6;
+  }
+
+  .low-value,
+  .high-value {
+    display: inline-block;
+  }
+
+  .low-value {
+    margin-right: 15px;
+  }
+
+  .high-value {
+    margin-left: 15px;
+  }
+}
+
+#chooseSortBy {
+  .btn-group {
+    margin-right: 4px;
+  }
+
+  .btn {
+    .fa {
+      color: $text-color;
+      padding: 0;
+    }
+
+    padding: 4px;
+  }
+
+  .btn-default {
+    background-color: #fff;
+  }
+
+  .btn-active {
+    background-color: #65a1c6;
+
+    .fa {
+      color: #fff;
+    }
   }
 }

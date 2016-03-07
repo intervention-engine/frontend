@@ -1,8 +1,11 @@
-import Ember from 'ember';
-import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin';
+import Route from 'ember-route';
+import service from 'ember-service/inject';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend(AuthenticatedRouteMixin, {
+  store: service(),
+
   model(params) {
-    return this.store.find('group', params.id);
+    return this.get('store').find('group', params.id);
   }
 });

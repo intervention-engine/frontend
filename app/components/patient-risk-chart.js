@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import C3Chart from 'ember-cli-c3/components/c3-chart';
+import moment from 'moment';
 
 const { computed } = Ember;
 
@@ -8,7 +9,7 @@ export default C3Chart.extend({
 
   offsetTime: 4,        // default time offset numeral
   offsetUnit: 'years',  // default time offset unit
-  height: 120,          // default height of chart
+  height: 54,          // default height of chart
 
   data: computed('chartData.[]', 'offsetTime', 'offsetUnit', function() {
     let startDate = moment().subtract(this.get('offsetTime'), this.get('offsetUnit'));
@@ -19,7 +20,7 @@ export default C3Chart.extend({
 
     // group data by dates
     let nestedData = d3.nest()
-      .key(function(d) { return moment(d.get('date')).toDate(); })
+      .key((d) =>moment(d.get('date')).toDate())
       .entries(data);
 
     let labels = nestedData.map((value) => {
@@ -61,7 +62,7 @@ export default C3Chart.extend({
           }
         },
         color: {
-          pattern: ['#5D8FAE']
+          pattern: ['#FFFFFF']
         },
         grid: {
           focus: {

@@ -1,19 +1,22 @@
 import Ember from 'ember';
-import $ from 'jquery';
+import run from 'ember-runloop';
+import service from 'ember-service/inject';
 
 const AUTOCOMPLETE_ITEM_MAX = 10;
 
 export default Ember.Mixin.create({
+  ajax: service(),
+
   codingSystems: [
-    { url: "http://hl7.org/fhir/sid/icd-9", system: "ICD-9" },
-    { url: "http://hl7.org/fhir/sid/icd-10", system: "ICD-10" },
-    { url: "http://snomed.info/sct", system: "SNOMED CT" },
-    { url: "http://loinc.org", system: "LOINC" },
-    { url: "http://www.hl7.org/FHIR/valueset-dicom-dcim.html", system: "DCM" },
-    { url: "http://unitsofmeasure.org", system: "UCUM" },
-    { url: "http://www.radlex.org/", system: "RadLex" },
-    { url: "http://www.whocc.no/atc", system: "WHO" },
-    { url: "urn:std:iso:11073:10101", system: "ISO 11073-10101" }
+    { url: 'http://hl7.org/fhir/sid/icd-9', system: 'ICD-9' },
+    { url: 'http://hl7.org/fhir/sid/icd-10', system: 'ICD-10' },
+    { url: 'http://snomed.info/sct', system: 'SNOMED CT' },
+    { url: 'http://loinc.org', system: 'LOINC' },
+    { url: 'http://www.hl7.org/FHIR/valueset-dicom-dcim.html', system: 'DCM' },
+    { url: 'http://unitsofmeasure.org', system: 'UCUM' },
+    { url: 'http://www.radlex.org/', system: 'RadLex' },
+    { url: 'http://www.whocc.no/atc', system: 'WHO' },
+    { url: 'urn:std:iso:11073:10101', system: 'ISO 11073-10101' }
   ],
 
   selectedCodingSystem: null,
@@ -23,23 +26,28 @@ export default Ember.Mixin.create({
 
   // since we're not using 2 way binding on the select-fx component, the only way
   // to set the default value to ICD-9 is to use an observer
-  _onActivate: Ember.observer('active', function() {
-    if (!this.get('active')) {
-      return;
+  onToggle(active) {
+    this._super(active);
+
+    if (active) {
+      this.send('selectCodingSystem', this.get('codingSystems.firstObject.system'));
     }
+  },
 
-    this.send('selectCodingSystem', this.get('codingSystems.firstObject.system'));
-  }),
+  didRender() {
+    this._super(...arguments);
 
-  _setupTypeahead: Ember.on('didRender', function _setupTypeahead() {
     let self = this;
 
     this.$('.typeahead').typeahead({
       delay: 750,
       items: AUTOCOMPLETE_ITEM_MAX,
-      displayText(item) { return `${item.code}: ${item.name}`; },
-      matcher() { return true; },
-
+      displayText(item) {
+        return `${item.code}: ${item.name}`;
+      },
+      matcher() {
+        return true;
+      },
       source(query, process) {
         let queryParams = {
           codesystem: self.get('selectedCodingSystem.system'),
@@ -47,10 +55,12 @@ export default Ember.Mixin.create({
           limit: AUTOCOMPLETE_ITEM_MAX
         };
 
-        let request = $.ajax({url: "/CodeLookup",
-                          type: "POST",
-                          data: JSON.stringify(queryParams),
-                          contentType: "application/json"});
+        let request = self.get('ajax').request('/CodeLookup', {
+          type: 'POST',
+          data: JSON.stringify(queryParams),
+          contentType: 'application/json'
+        });
+
         request.then((results) => {
           process(results.map((result) => {
             return { name: result.Name, code: result.Code };
@@ -76,15 +86,25 @@ export default Ember.Mixin.create({
         return this.hide();
       }
     });
-  }),
+  },
 
-  _teardownTypeahead: Ember.on('willDestroyElement', 'willUpdate', function _teardownTypeahead() {
+  willDestroyElement() {
+    this._super(...arguments);
+    this._teardownTypeahead();
+  },
+
+  willUpdate() {
+    this._super(...arguments);
+    this._teardownTypeahead();
+  },
+
+  _teardownTypeahead() {
     if (this.isDestroyed) {
       return;
     }
 
     this.$('.typeahead').typeahead('destroy');
-  }),
+  },
 
   actions: {
     selectCodingSystem(codeSystem) {
@@ -105,7 +125,10 @@ function codingComputedProperty(propertyName) {
     set(property, value) {
       let coding = this.get('characteristic.valueCodeableConcept.coding.firstObject');
       if (coding) {
-        coding.set(propertyName, value);
+        run(this, () => {
+          coding.set(propertyName, value);
+        });
+        this.attrs.onChange();
       }
     }
   });

@@ -15,11 +15,15 @@
       <div class="selected-filter-details">
         <span class="pane-inner-label">for system</span>
         <span class="pane-select">
-          {{select-fx options=codingSystems value=selectedCodingSystem valuePath="system" onChange="selectCodingSystem"}}
+          {{select-fx options=codingSystems value=selectedCodingSystem valuePath="system" onChange=(action "selectCodingSystem")}}
         </span>
         <span class="pane-inner-label">is</span>
         <span class="pane-input">
-          {{input class="input-control condition typeahead" placeholder="condition code" value=codeValue}}
+          <input
+            class="input-control condition typeahead"
+            placeholder="condition code"
+            value={{codeValue}}
+            onchange={{action (mut codeValue) value="target.value"}}>
         </span>
       </div>
     {{/if}}

@@ -1,8 +1,13 @@
 import Ember from 'ember';
+import Component from 'ember-component';
+import run from 'ember-runloop';
+import service from 'ember-service/inject';
 
 const { computed, generateGuid } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
+  routing: service('-routing'),
+
   filterName: computed({
     get() {
       return this.get('group.name') || '';
@@ -12,8 +17,11 @@ export default Ember.Component.extend({
       return newValue;
     }
   }),
+
   group: null,
   panes: null,
+
+  _filterCounts: null,
 
   hasFilterPane: computed.gt('panes.length', 0),
 
@@ -37,20 +45,43 @@ export default Ember.Component.extend({
     this._super(...arguments);
   },
 
+  registerFilterCounts(filterCounts) {
+    this.set('_filterCounts', filterCounts);
+    filterCounts.updateCounts();
+  },
+
+  unregisterFilterCounts(filterCounts) {
+    let currentFilterCounts = this.get('_filterCounts');
+    if (currentFilterCounts === filterCounts) {
+      this.set('_filterCounts', null);
+    }
+  },
+
+  _updateCounts() {
+    let filterCounts = this.get('_filterCounts');
+    if (filterCounts) {
+      filterCounts.updateCounts();
+    }
+  },
+
   actions: {
-    saveFilter: function() {
-      this.set('group.name', this.get('filterName') || generateGuid({}, "Population "));
+    saveFilter() {
+      this.set('group.name', this.get('filterName') || generateGuid({}, 'Population '));
       this.get('group').save().then(() => {
-        this.attrs.onSave();
+        this.get('routing').transitionTo('patients.index');
       });
     },
 
-    addPane: function(pane) {
+    addPane(pane) {
       this.get('panes').addObject(Ember.Object.create(pane));
     },
 
-    removePane: function(pane) {
+    removePane(pane) {
       this.get('panes').removeObject(pane);
+    },
+
+    updateCounts() {
+      run.later(this, this._updateCounts);
     }
   }
 });

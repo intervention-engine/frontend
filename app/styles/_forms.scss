@@ -218,6 +218,63 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: $brand-secondary !important;
 }
 
+/* ------------------------- SLIDING SEARCH BOX ---------------------------- */
+
+.sliding-search-container {
+  position: relative;
+
+  .fa {
+    color: #333;
+    font-size: 12px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+
+    pointer-events: none;
+  }
+}
+
+.sliding-search {
+  outline: none;
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+
+  background-color: $table-bg-accent;
+  border: 1px solid $navbar-inverse-bg;
+
+  width: 25px;
+  font-size: 13px;
+  padding-left: 10px;
+  color: transparent;
+  cursor: pointer;
+
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.sliding-search:hover {
+  background-color: #fff;
+}
+
+.sliding-search:focus,
+.sliding-search.expanded {
+  width: 180px;
+  padding-left: 20px;
+  color: #000;
+  background-color: #fff;
+  cursor: auto;
+}
+
+.sliding-search::-webkit-search-decoration,
+.sliding-search::-webkit-search-cancel-button {
+  display: none;
+}
+
 /* ------------------------- VALIDATIONS ----------------------------------- */
 
 @mixin validation-styles {

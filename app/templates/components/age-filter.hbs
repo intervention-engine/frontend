@@ -15,19 +15,19 @@
       <div class="selected-filter-details">
         <span class="pane-inner-label">in</span>
         <span class="pane-select">
-          {{select-fx options=timePeriods value=selectedTimePeriod onChange="selectTimePeriod"}}
+          {{select-fx options=timePeriods value=selectedTimePeriod onChange=(action "selectTimePeriod")}}
         </span>
         <span class="pane-inner-label">is</span>
         <span class="pane-select">
-          {{select-fx options=comparators value=selectedComparator onChange="selectComparator"}}
+          {{select-fx options=comparators value=selectedComparator onChange=(action "selectComparator")}}
         </span>
         <span class="pane-input">
-          {{input class="input-control age" value=characteristic.valueRange.low.value}}
+          <input type="text" value={{lowValue}} class="input-control age" onchange={{action "updateValue" "lowValue"}}>
         </span>
         {{#if highValueExists}}
           <span class="pane-inner-label">and</span>
           <span class="pane-input">
-            {{input class="input-control age" value=characteristic.valueRange.high.value}}
+            <input type="text" value={{highValue}} class="input-control age" onchange={{action "updateValue" "highValue"}}>
           </span>
         {{/if}}
       </div>

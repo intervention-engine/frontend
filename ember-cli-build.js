@@ -5,6 +5,9 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // allows easier browser debugging
     sourcemaps: ['js'],
+    babel: {
+      includePolyfill: true
+    },
     emberHighCharts: {
       includeHighCharts: true,
       includeHighStock: false,
@@ -35,8 +38,20 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/numeraljs/numeral.js');
   app.import(app.bowerDirectory + '/uri.js/src/URI.js');
   app.import(app.bowerDirectory + '/bootstrap3-typeahead/bootstrap3-typeahead.js');
+  app.import(app.bowerDirectory + '/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css');
+  app.import(app.bowerDirectory + '/seiyria-bootstrap-slider/dist/bootstrap-slider.js');
   app.import('vendor/classie.js');
   app.import('vendor/selectFx.js');
+  app.import('vendor/shims/moment.js', {
+    exports: {
+      'moment': ['default']
+    }
+  });
+  app.import('vendor/shims/numeral.js', {
+    exports: {
+      'numeral': ['default']
+    }
+  });
 
   // bootstrap fonts
   var bootstrapFonts = new Funnel(app.bowerDirectory + '/bootstrap-sass-official/assets/fonts/bootstrap', {

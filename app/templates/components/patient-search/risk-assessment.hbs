@@ -1,0 +1,17 @@
+<form class="form-horizontal form-group-striped">
+  {{#each riskAssessments as |riskAssessment index|}}
+    {{#if riskAssessment}}
+      <div class="form-group">
+        <input type="radio"
+          name="risk-assessment-selection"
+          value={{riskAssessment}}
+          id={{concat riskAssessment index}}
+          class="css-checkbox"
+          checked={{eq currentAssessment riskAssessment}}
+          onchange={{action attrs.selectRiskAssessment value="target.value"}}>
+        <label for={{concat riskAssessment index}} class="css-label css-label-circle checkbox-label">{{riskAssessment}}</label>
+        <i class="fa fa-edit pull-right"></i>
+      </div>
+    {{/if}}
+  {{/each}}
+</form>

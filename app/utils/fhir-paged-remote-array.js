@@ -1,27 +1,47 @@
 import PagedRemoteArray from 'ember-cli-pagination/remote/paged-remote-array';
+import computed from 'ember-computed';
 
 export default PagedRemoteArray.extend({
   page: 1,
   totalPages: 0,
 
-  getPage: function(){
+  sortBy: null,
+  sortDescending: null,
+
+  getPage() {
     return (this.get('page') - 1 || 0) * this.get('perPage');
   },
 
-  totalPagesBinding: "total",
+  sortParams: computed('sortBy', 'sortDescending', {
+    get() {
+      let sortBy = this.get('sortBy');
+      let sortDescending = this.get('sortDescending');
 
-  rawFindFromStore: function() {
-    var store = this.get('store');
-    var modelName = this.get('modelName');
-    var ops = this.get('paramsForBackend');
-    var res = store.findQuery(modelName, ops);
+      if (sortBy == null) {
+        return {};
+      }
+
+      let sortDir = sortDescending ? 'desc' : 'asc';
+      return {
+        [`_sort:${sortDir}`]: sortBy
+      };
+    }
+  }),
+
+  totalPagesBinding: 'total',
+
+  rawFindFromStore() {
+    let store = this.get('store');
+    let modelName = this.get('modelName');
+    let ops = Object.assign({}, this.get('sortParams'), this.get('paramsForBackend'));
+
+    let res = store.query(modelName, ops);
     let perPage = this.get('perPage');
-    let self = this;
-    res.then(function(rows){
-      self.set('totalPages', Math.ceil(rows.meta['total']/perPage));
+
+    return res.then((rows) => {
+      this.set('totalPages', Math.ceil(rows.meta.total / perPage));
+
+      return rows;
     });
-    return res;
-},
-
-
+  }
 });

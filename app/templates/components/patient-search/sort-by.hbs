@@ -1,0 +1,30 @@
+<form class="form-horizontal form-group-striped">
+    {{#each sortOptions as |sortOption|}}
+    <div class="form-group">
+      <input type="radio"
+        name="risk-assessment-selection"
+        value={{sortOption.sortKey}}
+        id={{concat 'patientSortBy' sortOption.sortKey}}
+        class="css-checkbox"
+        checked={{eq sortBy sortOption.sortKey}}
+        onchange={{action attrs.selectSortBy sortOption.sortKey (or sortOption.defaultSortDescending false)}}>
+      <label for={{concat 'patientSortBy' sortOption.sortKey}} class="css-label css-label-circle checkbox-label">{{sortOption.name}}</label>
+      {{#if (eq sortBy sortOption.sortKey)}}
+        <div class="btn-group pull-right">
+          <button
+            type="button"
+            class="btn {{if (sort-descending sortDescending sortOption.invert) 'btn-default' 'btn-active'}}"
+            onclick={{action attrs.selectSortBy sortOption.sortKey (if sortOption.invert true false)}}>
+            <i class="fa fa-sort-{{sortOption.sortIcon}}-asc fa-fw"></i>
+          </button>
+          <button
+            type="button"
+            class="btn {{if (sort-descending sortDescending sortOption.invert) 'btn-active' 'btn-default'}}"
+            onclick={{action attrs.selectSortBy sortOption.sortKey (if sortOption.invert false true)}}>
+            <i class="fa fa-sort-{{sortOption.sortIcon}}-desc fa-fw"></i>
+          </button>
+        </div>
+      {{/if}}
+    </div>
+  {{/each}}
+</form>
