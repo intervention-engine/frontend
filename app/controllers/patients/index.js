@@ -9,8 +9,8 @@ export default Controller.extend({
   page: 1,
   perPage: 8,
 
-  populations: [],
   currentAssessment: 'Stroke', // default
+  selectedHuddle: null,
   patientSearch: '',
   currentPatient: null,
   sortBy: 'family',
@@ -20,7 +20,14 @@ export default Controller.extend({
   interventionTypes: [],
   groupId: '',
 
-  totalPatients: computed.reads('model.patients.meta.total'),
+  totalPatients: computed('model.patients.meta.total', 'selectedPopulations.length', 'populationPatients.length', function totalPatients() {
+    let selectedPopulationsCount = this.get('selectedPopulations.length');
+    if (selectedPopulationsCount === 0) {
+      return this.get('model.patients.meta.total');
+    }
+
+    return this.get('populationPatients.length');
+  }),
 
   selectedPopulations: computed({
     get() {
@@ -58,6 +65,10 @@ export default Controller.extend({
   actions: {
     selectRiskAssessment(assessment) {
       this.set('currentAssessment', assessment);
+    },
+
+    selectHuddle(huddle) {
+      this.set('selectedHuddle', huddle);
     },
 
     togglePopulation(population, active) {

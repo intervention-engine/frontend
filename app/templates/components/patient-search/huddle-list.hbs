@@ -12,13 +12,23 @@
     <div class="collapse in" id="chooseHuddleList">
       <form class="form-horizontal form-group-striped">
         <div class="form-group">
-          <input id="huddleList1" type="checkbox" class="css-checkbox" checked>
+          <input
+            id="huddleList1"
+            type="checkbox"
+            class="css-checkbox"
+            checked={{active}}
+            onclick={{action 'toggle'}}>
           <label for="huddleList1" class="css-label css-label-box checkbox-label">
             Geriatrics Huddle
           </label>
-          <i class="fa fa-edit pull-right"></i>
-          <div class="date-selector" style="padding-left:40px;font-size:0.8em;">
-            {{date-format nextMonday 'll'}} <span class="fa fa-chevron-down"></span>
+          <div class="date-selector" id="huddleFilterSelector" style="padding-left:40px;font-size:0.8em;cursor:pointer;">
+            {{#if selectedHuddle}}
+              {{moment-format selectedHuddle.date 'll'}}
+            {{else}}
+              <em>Not Selected</em>
+            {{/if}}
+            <span class="fa fa-chevron-down"></span>
+            <input type="hidden" id="huddleFilterInput" value="">
           </div>
         </div>
       </form>

@@ -1,0 +1,42 @@
+{{#bootstrap-modal title="Add to Huddle" onOpen=attrs.onOpen onClose=attrs.onClose}}
+  {{#if isLoading}}
+    <div class="modal-body modal-body-spinner">
+      {{ember-spinner config='small'}}
+    </div>
+  {{else}}
+    {{#if patientInExistingHuddle}}
+      <div class="alert alert-danger" style="position:relative;margin:0 0 20px;top:0;left:0;width:auto;">
+        <i class="fa fa-exclamation-circle"></i>
+        Patient already exists in selected huddle
+      </div>
+    {{/if}}
+    <form onsubmit={{action 'save'}}>
+      <div class="modal-body">
+        <div id="addToHuddlePikaday" class="form-group">
+          <label for="huddleDate">Huddle Date</label>
+          {{pikaday-input
+            id="huddleDate"
+            class="form-control"
+            value=huddleDate
+            format="dddd, MMMM Do YYYY"
+            theme=(concat elementId '-pikaday')
+            firstDay=0}}
+        </div>
+        <div class="form-group">
+          <label for="huddleLeader">Huddle Leader</label>
+          <input
+            type="text"
+            id="huddleLeader"
+            class="form-control"
+            value={{if existingHuddle existingHuddle.leader huddleLeader}}
+            onchange={{action (mut huddleLeader) value="target.value"}}
+            onkeyup={{action (mut huddleLeader) value="target.value"}}
+            disabled={{huddleLeaderDisabled}}>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" disabled={{saveBtnDisabled}}>Save</button>
+      </div>
+    </form>
+  {{/if}}
+{{/bootstrap-modal}}

@@ -2,7 +2,7 @@ import Component from 'ember-component';
 import computed from 'ember-computed';
 import service from 'ember-service/inject';
 import PatientIconClassNames from '../mixins/patient-icon-class-names';
-import moment from 'moment';
+import { isTodayOrAfter } from 'ember-on-fhir/helpers/is-today-or-after';
 
 export default Component.extend(PatientIconClassNames, {
   classNames: ['patient-badge'],
@@ -13,9 +13,10 @@ export default Component.extend(PatientIconClassNames, {
   assessment: null,
   maxRisk: 4, // TODO: get max risk for currentAssessment from Risk Assessment Service
 
-  nextHuddle: computed({
+  nextHuddle: computed('huddles.@each.date', {
     get() {
-      return moment().subtract(1, 'week');
+      let huddles = this.get('huddles').filter((huddle) => isTodayOrAfter([huddle.get('date')]));
+      return huddles.sortBy('date').objectAt(0);
     }
   }),
 

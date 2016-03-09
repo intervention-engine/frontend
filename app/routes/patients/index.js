@@ -1,15 +1,17 @@
 import Ember from 'ember';
 import Route from 'ember-route';
 import service from 'ember-service/inject';
-// import RSVP from 'rsvp';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import PaginatedRouteMixin from 'ember-cli-pagination/remote/route-mixin';
 import FHIRPagedRemoteArray from '../../utils/fhir-paged-remote-array';
+import { parseHuddles } from 'ember-on-fhir/models/huddle';
 
 const { RSVP } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
   store: service(),
+  ajax: service(),
+
   perPage: 8,
 
   model(params) {
@@ -33,7 +35,8 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
         sortDescending: params.sortDescending,
         groupId: params.groupId
       }),
-      populations: store.findAll('group')
+      groups: store.findAll('group'),
+      huddles: this.get('ajax').request('/Group', { data: { code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE' } }).then((response) => parseHuddles(response.entry || []))
       // risks: store.findAll('risk'),
       // notificationCounts: store.findAll('notification-count')
     });
