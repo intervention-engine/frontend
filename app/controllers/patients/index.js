@@ -4,7 +4,7 @@ import run from 'ember-runloop';
 import { A } from 'ember-array/utils';
 
 export default Controller.extend({
-  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending'],
+  queryParams: ['page', { currentAssessment: 'risk_assessment' },  'sortBy', 'sortDescending', 'groupId'],
 
   page: 1,
 
@@ -17,9 +17,12 @@ export default Controller.extend({
   riskLowValue: 1,
   riskHighValue: 4,
   interventionTypes: [],
+  groupId : '',
+
+
 
   totalPatients: computed('model.patients.meta.total', 'selectedPopulations.length', 'populationPatients.length', function totalPatients() {
-    let selectedPopulationsCount = this.get('selectedPopulations.length');
+    let selectedPopulationsCount = 0//this.get('selectedPopulations.length');
     if (selectedPopulationsCount === 0) {
       return this.get('model.patients.meta.total');
     }
@@ -43,9 +46,9 @@ export default Controller.extend({
   populationPatients: computed('selectedPopulations.[]', {
     get() {
       let selectedPopulations = this.get('selectedPopulations');
-      if (selectedPopulations.length === 0) {
+      // if (selectedPopulations.length === 0) {
         return this.get('model.patients');
-      }
+      // }
 
       let patients = new A([]);
       selectedPopulations.forEach(function(population) {
@@ -59,11 +62,11 @@ export default Controller.extend({
   }),
 
   sortedPatients: computed('selectedPopulations.length', 'filteredPatients.@each.fullName', function sortedPatients() {
-    if (this.get('selectedPopulations.length') === 0) {
+    // if (this.get('selectedPopulations.length') === 0) {
       return this.get('filteredPatients');
-    }
-
-    return this.get('filteredPatients').sortBy('fullName');
+    // }
+    //
+    // return this.get('filteredPatients').sortBy('fullName');
   }),
 
   filteredPatients: computed('populationPatients.[]', 'patientSearch', {
@@ -83,9 +86,27 @@ export default Controller.extend({
     togglePopulation(population, active) {
       if (active) {
         this.get('selectedPopulations').pushObject(population);
+        this.set('groupId', population.get('id'))
+
+
       } else {
         this.get('selectedPopulations').removeObject(population);
+        this.set('groupId', null)
       }
+
+      run(() => {
+
+        let patientsRemoteArray = this.get('model.patients');
+        let groupId = this.get('groupId')
+        this.set('page', 1);
+
+        // patientsRemoteArray.set('sortBy', sortBy);
+        // patientsRemoteArray.set('sortDescending', sortDescending);
+        patientsRemoteArray.set('groupId', groupId);
+        patientsRemoteArray.set('page', 1);
+        patientsRemoteArray.pageChanged();
+      });
+
     },
 
     setRiskScore(lowValue, highValue) {
@@ -112,6 +133,7 @@ export default Controller.extend({
         patientsRemoteArray.set('sortBy', sortBy);
         patientsRemoteArray.set('sortDescending', sortDescending);
         patientsRemoteArray.set('page', 1);
+        patientsRemoteArray.set('groupId', this.get('groupId'));
         patientsRemoteArray.pageChanged();
       });
     },
