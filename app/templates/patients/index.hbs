@@ -36,9 +36,7 @@
             {{patient-badge patient=patient assessment=currentAssessment}}
           {{/each}}
 
-          {{#if (eq selectedPopulations.length selectedPopulations.length)}}
-            {{page-numbers content=content.patients action=(action 'setPage')}}
-          {{/if}}
+          {{page-numbers content=content.patients action=(action 'setPage')}}
         </div>
       </div>
     </div>

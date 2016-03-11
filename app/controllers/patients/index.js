@@ -7,6 +7,7 @@ export default Controller.extend({
   queryParams: ['page', { currentAssessment: 'risk_assessment' },  'sortBy', 'sortDescending', 'groupId'],
 
   page: 1,
+  perPage: 8,
 
   populations: [],
   currentAssessment: 'Stroke', // default
@@ -45,28 +46,12 @@ export default Controller.extend({
 
   populationPatients: computed('selectedPopulations.[]', {
     get() {
-      let selectedPopulations = this.get('selectedPopulations');
-      // if (selectedPopulations.length === 0) {
-        return this.get('model.patients');
-      // }
-
-      let patients = new A([]);
-      selectedPopulations.forEach(function(population) {
-        population.get('groupList').then((groupList) => {
-          patients.addObjects(groupList.get('patientids'));
-        });
-      });
-
-      return patients;
+      return this.get('model.patients');
     }
   }),
 
-  sortedPatients: computed('selectedPopulations.length', 'filteredPatients.@each.fullName', function sortedPatients() {
-    // if (this.get('selectedPopulations.length') === 0) {
-      return this.get('filteredPatients');
-    // }
-    //
-    // return this.get('filteredPatients').sortBy('fullName');
+  sortedPatients: computed('filteredPatients.@each.fullName', function sortedPatients() {
+    return this.get('filteredPatients');
   }),
 
   filteredPatients: computed('populationPatients.[]', 'patientSearch', {
@@ -75,6 +60,35 @@ export default Controller.extend({
       return this.get('populationPatients').filter(function(p) {
         return p.get('fullName').toString().match(rx);
       });
+    }
+  }),
+
+  sortParams: computed('sortBy', 'sortDescending', {
+    get() {
+      let sortBy = this.get('sortBy');
+      let sortDescending = this.get('sortDescending');
+
+      if (sortBy == null) {
+        return {};
+      }
+
+      let sortDir = sortDescending ? 'desc' : 'asc';
+      return {
+        [`_sort:${sortDir}`]: sortBy
+      };
+    }
+  }),
+
+  groupParams: computed('groupId', {
+    get() {
+      let groupId = this.get('groupId')
+      return groupId?{'_query':'group', 'groupId': groupId}:{}
+    }
+  }),
+
+  queryParams: computed('sortParams', 'groupParams', {
+    get() {
+      return Object.assign({},this.get('groupParams'), this.get('sortParams'))
     }
   }),
 
@@ -91,18 +105,13 @@ export default Controller.extend({
 
       } else {
         this.get('selectedPopulations').removeObject(population);
-        this.set('groupId', null)
+        this.set('groupId', '')
       }
 
       run(() => {
-
-        let patientsRemoteArray = this.get('model.patients');
-        let groupId = this.get('groupId')
         this.set('page', 1);
-
-        // patientsRemoteArray.set('sortBy', sortBy);
-        // patientsRemoteArray.set('sortDescending', sortDescending);
-        patientsRemoteArray.set('groupId', groupId);
+        let patientsRemoteArray = this.get('model.patients');
+        patientsRemoteArray.set('otherParams', this.get('queryParams'))
         patientsRemoteArray.set('page', 1);
         patientsRemoteArray.pageChanged();
       });
@@ -124,16 +133,14 @@ export default Controller.extend({
       }
 
       run(() => {
-        let patientsRemoteArray = this.get('model.patients');
-
         this.set('sortBy', sortBy);
         this.set('sortDescending', sortDescending);
         this.set('page', 1);
 
-        patientsRemoteArray.set('sortBy', sortBy);
-        patientsRemoteArray.set('sortDescending', sortDescending);
+        this.set('page', 1);
+        let patientsRemoteArray = this.get('model.patients');
+        patientsRemoteArray.set('otherParams', this.get('queryParams'))
         patientsRemoteArray.set('page', 1);
-        patientsRemoteArray.set('groupId', this.get('groupId'));
         patientsRemoteArray.pageChanged();
       });
     },
