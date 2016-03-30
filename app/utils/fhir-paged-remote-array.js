@@ -4,9 +4,8 @@ import computed from 'ember-computed';
 export default PagedRemoteArray.extend({
   page: 1,
   totalPages: 0,
-
   sortBy: null,
-  sortDescending: null,
+  sortDescending: false,
 
   getPage() {
     return (this.get('page') - 1 || 0) * this.get('perPage');
@@ -33,9 +32,8 @@ export default PagedRemoteArray.extend({
   rawFindFromStore() {
     let store = this.get('store');
     let modelName = this.get('modelName');
-    let ops = Object.assign({}, this.get('sortParams'), this.get('paramsForBackend'));
+    let res = store.query(modelName, Object.assign({},  {_offset: this.get('paramsForBackend._offset')} ,{_count: this.get('paramsForBackend._count')}, this.get('otherParams'), this.get('sortParams')));
 
-    let res = store.query(modelName, ops);
     let perPage = this.get('perPage');
 
     return res.then((rows) => {

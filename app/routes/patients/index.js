@@ -10,7 +10,6 @@ const { RSVP } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
   store: service(),
-
   perPage: 8,
 
   model(params) {
@@ -30,8 +29,9 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
         page: params.page || 1,
         perPage,
         paramMapping,
-        sortBy: params.sortBy,
-        sortDescending: params.sortDescending
+        sortBy: 'family',
+        sortDescending: params.sortDescending,
+        groupId: params.groupId
       }),
       populations: store.findAll('group')
       // risks: store.findAll('risk'),

@@ -4,9 +4,10 @@ import run from 'ember-runloop';
 import { A } from 'ember-array/utils';
 
 export default Controller.extend({
-  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending'],
+  // queryParams: ['page', { currentAssessment: 'risk_assessment' },  'sortBy', 'sortDescending', 'groupId'],
 
   page: 1,
+  perPage: 8,
 
   populations: [],
   currentAssessment: 'Stroke', // default
@@ -17,15 +18,9 @@ export default Controller.extend({
   riskLowValue: 1,
   riskHighValue: 4,
   interventionTypes: [],
+  groupId: '',
 
-  totalPatients: computed('model.patients.meta.total', 'selectedPopulations.length', 'populationPatients.length', function totalPatients() {
-    let selectedPopulationsCount = this.get('selectedPopulations.length');
-    if (selectedPopulationsCount === 0) {
-      return this.get('model.patients.meta.total');
-    }
-
-    return this.get('populationPatients.length');
-  }),
+  totalPatients: computed.reads('model.patients.meta.total'),
 
   selectedPopulations: computed({
     get() {
@@ -40,31 +35,9 @@ export default Controller.extend({
     }
   }),
 
-  populationPatients: computed('selectedPopulations.[]', {
-    get() {
-      let selectedPopulations = this.get('selectedPopulations');
-      if (selectedPopulations.length === 0) {
-        return this.get('model.patients');
-      }
+  populationPatients: computed.reads('model.patients'),
 
-      let patients = new A([]);
-      selectedPopulations.forEach(function(population) {
-        population.get('groupList').then((groupList) => {
-          patients.addObjects(groupList.get('patientids'));
-        });
-      });
-
-      return patients;
-    }
-  }),
-
-  sortedPatients: computed('selectedPopulations.length', 'filteredPatients.@each.fullName', function sortedPatients() {
-    if (this.get('selectedPopulations.length') === 0) {
-      return this.get('filteredPatients');
-    }
-
-    return this.get('filteredPatients').sortBy('fullName');
-  }),
+  sortedPatients: computed.reads('filteredPatients'),
 
   filteredPatients: computed('populationPatients.[]', 'patientSearch', {
     get() {
@@ -75,6 +48,13 @@ export default Controller.extend({
     }
   }),
 
+  groupParams: computed('groupId', {
+    get() {
+      let groupId = this.get('groupId');
+      return groupId ? { '_query': 'group', groupId } : {};
+    }
+  }),
+
   actions: {
     selectRiskAssessment(assessment) {
       this.set('currentAssessment', assessment);
@@ -82,10 +62,26 @@ export default Controller.extend({
 
     togglePopulation(population, active) {
       if (active) {
-        this.get('selectedPopulations').pushObject(population);
+        this.set('selectedPopulations', A([population]));
+        this.set('groupId', population.get('id'));
+
       } else {
         this.get('selectedPopulations').removeObject(population);
+        this.set('groupId', '');
       }
+
+      run(() => {
+        this.set('page', 1);
+        let groupId = this.get('groupId');
+        let patientsRemoteArray = this.get('model.patients');
+        patientsRemoteArray.set('sortBy', this.get('sortBy'));
+        patientsRemoteArray.set('sortDescending', this.get('sortDescending'));
+        patientsRemoteArray.set('otherParams', groupId ? { '_query': 'group', groupId } : {});
+        console.log(patientsRemoteArray.get('paramsForBackend'));
+        patientsRemoteArray.set('page', 1);
+        patientsRemoteArray.pageChanged();
+      });
+
     },
 
     setRiskScore(lowValue, highValue) {
@@ -103,14 +99,15 @@ export default Controller.extend({
       }
 
       run(() => {
-        let patientsRemoteArray = this.get('model.patients');
-
         this.set('sortBy', sortBy);
         this.set('sortDescending', sortDescending);
         this.set('page', 1);
 
-        patientsRemoteArray.set('sortBy', sortBy);
-        patientsRemoteArray.set('sortDescending', sortDescending);
+        this.set('page', 1);
+        let patientsRemoteArray = this.get('model.patients');
+        patientsRemoteArray.set('sortBy', this.get('sortBy'));
+        patientsRemoteArray.set('sortDescending', this.get('sortDescending'));
+        patientsRemoteArray.set('otherParams', this.get('groupParams'));
         patientsRemoteArray.set('page', 1);
         patientsRemoteArray.pageChanged();
       });
