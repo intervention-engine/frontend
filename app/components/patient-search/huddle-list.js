@@ -56,30 +56,17 @@ export default Component.extend({
 
   active: computed.notEmpty('selectedHuddle'),
 
-  nextMonday: computed({
-    get() {
-      let now = moment();
-      let currentDay = now.day();
-
-      if (currentDay === 1) {
-        // today is Monday
-        return now;
-      } else if (currentDay < 1) {
-        // today is Sunday
-        return now.day(1);
-      } else if (currentDay > 1) {
-        // today is after Monday but before Sunday
-        return now.day(8);
-      }
-    }
-  }),
-
   didInsertElement() {
     this._super(...arguments);
 
     let defaultDate = null;
+    let setDefaultDate = false;
+    let selectedHuddle = this.get('selectedHuddle');
     let firstHuddle = this.get('firstHuddle');
-    if (firstHuddle) {
+    if (selectedHuddle) {
+      defaultDate = selectedHuddle.get('date');
+      setDefaultDate = true;
+    } else if (firstHuddle) {
       defaultDate = firstHuddle.get('date');
     }
 
@@ -87,6 +74,7 @@ export default Component.extend({
       field: document.getElementById('huddleFilterInput'),
       trigger: document.getElementById('huddleFilterSelector'),
       defaultDate,
+      setDefaultDate,
       minDate: this.get('minDate'),
       maxDate: this.get('maxDate'),
       disableDayFn: (date) => {

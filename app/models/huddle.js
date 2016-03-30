@@ -3,6 +3,7 @@ import get from 'ember-metal/get';
 import computed from 'ember-computed';
 import { A } from 'ember-array/utils';
 import { assert } from 'ember-metal/utils';
+import { isEmberArray } from 'ember-array/utils';
 import HuddlePatient from './huddle-patient';
 import moment from 'moment';
 
@@ -74,13 +75,17 @@ const Huddle = EmberObject.extend({
 export default Huddle;
 
 export function parseHuddles(huddleList) {
-  let huddles = new Array(huddleList.length);
-  for (let i = 0; i < huddleList.length; i++) {
-    let group = huddleList[i];
-    huddles[i] = huddleFromGroup(group);
-  }
+  if (isEmberArray(huddleList)) {
+    let huddles = new Array(huddleList.length);
+    for (let i = 0; i < huddleList.length; i++) {
+      let group = huddleList[i];
+      huddles[i] = huddleFromGroup(group);
+    }
 
-  return huddles;
+    return huddles;
+  } else {
+    return huddleFromGroup({ resource: huddleList });
+  }
 }
 
 function huddleFromGroup(group) {
