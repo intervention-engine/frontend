@@ -5,7 +5,7 @@ export default PagedRemoteArray.extend({
   page: 1,
   totalPages: 0,
   sortBy: null,
-  sortDesc: false,
+  sortDescending: false,
 
   getPage() {
     return (this.get('page') - 1 || 0) * this.get('perPage');
@@ -32,7 +32,7 @@ export default PagedRemoteArray.extend({
   rawFindFromStore() {
     let store = this.get('store');
     let modelName = this.get('modelName');
-    let res = store.query(modelName, Object.assign({},  this.get('paramsForBackend'), this.get('otherParams'), this.get('sortParams')));
+    let res = store.query(modelName, Object.assign({},  {_offset: this.get('paramsForBackend._offset')} ,{_count: this.get('paramsForBackend._count')}, this.get('otherParams'), this.get('sortParams')));
 
     let perPage = this.get('perPage');
 
