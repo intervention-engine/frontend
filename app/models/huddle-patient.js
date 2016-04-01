@@ -28,7 +28,9 @@ export default EmberObject.extend({
     if (reviewed) {
       obj.extension.push({
         url: 'http://interventionengine.org/fhir/extension/group/member/reviewed',
-        valueDateTime: moment(reviewed).format('YYYY-MM-DD')
+
+        // TODO: probably needs to change back to YYY-MM-DD once https://www.pivotaltracker.com/n/projects/1179330/stories/116585331 is fixed
+        valueDateTime: moment(reviewed).format('YYYY-MM-DDTHH:mm:ssZ')
       });
     }
 

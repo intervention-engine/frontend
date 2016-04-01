@@ -8,6 +8,9 @@ export default Controller.extend({
   showAddHuddleModal: false,
   showReviewPatientModal: false,
   defaultAddHuddleDate: null,
+
+  patientViewerComponent: null,
+
   huddles: computed({
     get() {
       return [];
@@ -50,11 +53,23 @@ export default Controller.extend({
 
     openReviewPatientModal(huddle) {
       this.set('showReviewPatientModal', true);
-      this.set('ReviewPatientHuddle', huddle);
+      this.set('reviewPatientHuddle', huddle);
     },
 
     hideReviewPatientModal() {
       this.set('showReviewPatientModal', false);
+      let patientViewer = this.get('patientViewerComponent');
+      if (patientViewer) {
+        patientViewer.notifyPropertyChange('nextScheduledHuddle');
+      }
+    },
+
+    registerPatientViewer(component) {
+      this.set('patientViewerComponent', component);
+    },
+
+    unregisterPatientViewer() {
+      this.set('patientViewerComponent', null);
     }
   }
 });

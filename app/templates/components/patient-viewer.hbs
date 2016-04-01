@@ -49,35 +49,41 @@
           <form class="form-horizontal form-group-striped">
             {{#if futureDisplayHuddle}}
               <div class="form-group">
-                <i class="fa fa-calendar-o"></i>
-                {{moment-format futureDisplayHuddle.date 'MMM D, YYYY'}}
+                <div class="next-huddle-date">
+                  <i class="fa fa-calendar-o"></i>
+                  {{moment-format futureDisplayHuddle.date 'MMM D, YYYY'}}
+
+                  <i class="fa fa-check-square-o pull-right cursor-pointer" onclick={{action attrs.openReviewPatientModal futureDisplayHuddle}}></i>
+                </div>
               </div>
             {{/if}}
             <div class="add-new-filter-lg">
               <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#patientViewerPikaday" aria-expanded="false" aria-controls="patientViewerPikaday" onclick={{action 'toggleScheduleChevron'}}>
                 <i class="fa fa-calendar-o"></i> Schedule <i class="fa {{if schedulePanelOpen 'fa-chevron-down' 'fa-chevron-right'}}"></i>
               </button>
+
               <div id="patientViewerPikaday" class="collapse">
                 <div id="patientViewerPikadayCalendar"></div>
                 <div class="patient-viewer-schedule-block">
+                  {{moment-format selectedScheduleDate 'MMM D, YYYY'}}
+
                   {{#if selectedScheduleHuddle}}
                     {{!-- <i class="fa fa-edit pull-right"></i> --}}
                     {{#unless selectedScheduleHuddlePatient.reviewed}}
-                      <i class="fa fa-check-square-o pull-right" onclick={{action attrs.openReviewPatientModal selectedScheduleHuddle}}></i>
+                      <i class="fa fa-check-square-o" onclick={{action attrs.openReviewPatientModal selectedScheduleHuddle}}></i>
                     {{/unless}}
                   {{else}}
-                    <i class="fa fa-plus-circle pull-right" onclick={{action attrs.openAddHuddleModal selectedScheduleDate}}></i>
+                    <i class="fa fa-plus-circle" onclick={{action attrs.openAddHuddleModal selectedScheduleDate}}></i>
                   {{/if}}
-                  {{moment-format selectedScheduleDate 'MMM D, YYYY'}}
 
                   <div class="meta">
                     {{#if selectedScheduleHuddle}}
                       Geriatrics Huddle<br>
                       Leader: {{selectedScheduleHuddle.displayLeader}}<br>
-                      Reason: {{selectedScheduleHuddlePatient.reasonText}}
+                      {{selectedScheduleHuddlePatient.reasonText}}
                       {{#if selectedScheduleHuddlePatient.reviewed}}
                         <br>
-                        Reviewed: {{moment-format selectedScheduleHuddlePatient.reviewed 'MMM D, YYYY'}}
+                        Reviewed on {{moment-format selectedScheduleHuddlePatient.reviewed 'MMM D, YYYY'}}
                       {{/if}}
                     {{else}}
                       Not scheduled

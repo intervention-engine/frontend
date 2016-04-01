@@ -72,6 +72,7 @@ export default Component.extend(HasStylesheetMixin, {
 
   setStyles() {
     let huddles = this.get('huddles');
+    let patient = this.get('patient');
     let pikadayThemeName = `${this.elementId}-pikaday`;
     let { sheet } = this.sheet;
 
@@ -82,7 +83,12 @@ export default Component.extend(HasStylesheetMixin, {
       let month = date.month();
       let day = date.date();
 
-      addCSSRule(sheet, `.${pikadayThemeName} [data-pika-year="${year}"][data-pika-month="${month}"][data-pika-day="${day}"]`, 'border: 1px dashed #5D8FAE');
+      let cssRule = 'border: 1px dashed #5D8FAE; border-radius: 3px;';
+      if (huddles[i].hasPatient(patient)) {
+        cssRule = 'background-color: #5D8FAE; color: #fff; border-radius: 3px; box-shadow: inset 0 1px 3px #53809c';
+      }
+
+      addCSSRule(sheet, `.${pikadayThemeName} [data-pika-year="${year}"][data-pika-month="${month}"][data-pika-day="${day}"]`, cssRule);
     }
   },
 

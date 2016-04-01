@@ -12,6 +12,7 @@ export default Component.extend(HasStylesheetMixin, {
   riskAssessments: null,
   currentAssessment: null,
   selectedCategory: null,
+  nextScheduledHuddle: null,
 
   selectedScheduleDate: computed({
     get() {
@@ -26,8 +27,15 @@ export default Component.extend(HasStylesheetMixin, {
     }
   }),
 
+  init() {
+    this._super(...arguments);
+    this.unreviewedHuddles = {};
+  },
+
   didInsertElement() {
     this._super(...arguments);
+    this.attrs.registerPatientViewer(this);
+
     this.picker = new Pikaday({
       defaultDate: this.get('selectedScheduleDate'),
       setDefaultDate: true,
@@ -43,32 +51,44 @@ export default Component.extend(HasStylesheetMixin, {
 
   willDestroyElement() {
     this._super(...arguments);
+    this.attrs.unregisterPatientViewer();
     if (this.picker) {
       this.picker.destroy();
       this.picker = null;
     }
   },
 
-  setScheduleStyles: observer('huddles.@each.date', function setScheduleStyles() {
+  setScheduleStyles: observer('huddles.@each.date', 'nextScheduledHuddle', function setScheduleStyles() {
     this.resetStylesheet();
 
     let huddles = this.get('huddles');
+    let patient = this.get('patient');
     let { sheet } = this.sheet;
 
     for (let i = 0; i < huddles.length; i++) {
       let date = moment(huddles[i].get('date'));
+      let patientReviewed = huddles[i].patientReviewed(patient);
 
       let year = date.year();
       let month = date.month();
       let day = date.date();
 
-      addCSSRule(sheet, `#patientViewerPikadayCalendar [data-pika-year="${year}"][data-pika-month="${month}"][data-pika-day="${day}"]`, 'border: 1px dashed #5D8FAE');
+      let backgroundColor = '#5D8FAE';
+      let boxShadow = '#53809c';
+      if (patientReviewed) {
+        backgroundColor = '#5C5C5C';
+        boxShadow = '#525252';
+      }
+
+      let cssRule = `background-color: ${backgroundColor}; color: #fff; border-radius: 3px; box-shadow: inset 0 1px 3px ${boxShadow};`;
+      addCSSRule(sheet, `#patientViewerPikadayCalendar [data-pika-year="${year}"][data-pika-month="${month}"][data-pika-day="${day}"]`, cssRule);
     }
   }),
 
-  futureHuddles: computed('huddles.@each.date', {
+  futureHuddles: computed('huddles.@each.date', 'nextScheduledHuddle', {
     get() {
-      return this.get('huddles').filter((huddle) => isTodayOrAfter([huddle.get('date')])).sort((a, b) => a.get('date') - b.get('date'));
+      let patient = this.get('patient');
+      return this.get('huddles').filter((huddle) => !huddle.patientReviewed(patient) && isTodayOrAfter([huddle.get('date')])).sort((a, b) => a.get('date') - b.get('date'));
     }
   }),
 

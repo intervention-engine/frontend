@@ -43,9 +43,21 @@ const Huddle = EmberObject.extend({
     return this.get('patientIds').contains(get(patient, 'id'));
   },
 
+  patientReviewed(patient) {
+    if (patient != null) {
+      let huddlePatient = this.get('patients').findBy('patientId', get(patient, 'id'));
+      if (huddlePatient != null) {
+        return huddlePatient.get('reviewed') != null;
+      }
+    }
+
+    return false;
+  },
+
   toFhirJson() {
     let id = this.get('id');
-    let huddleDate = moment(this.get('date')).format('YYYY-MM-DD');
+    // TODO: probably needs to change back to YYY-MM-DD once https://www.pivotaltracker.com/n/projects/1179330/stories/116585331 is fixed
+    let huddleDate = moment(this.get('date')).format('YYYY-MM-DDTHH:mm:ssZ');
     let obj = {
       resourceType: 'Group',
       meta: {

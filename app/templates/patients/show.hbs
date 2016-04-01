@@ -18,7 +18,9 @@
           selectCategory=(action "selectCategory")
           openAddInterventionModal=(action 'openAddInterventionModal')
           openAddHuddleModal=(action 'openAddHuddleModal')
-          openReviewPatientModal=(action 'openReviewPatientModal')}}
+          openReviewPatientModal=(action 'openReviewPatientModal')
+          registerPatientViewer=(action 'registerPatientViewer')
+          unregisterPatientViewer=(action 'unregisterPatientViewer')}}
       </div>
     </div>
   </div>
@@ -33,5 +35,5 @@
 {{/if}}
 
 {{#if showReviewPatientModal}}
-  {{review-patient-modal patient=model huddle=ReviewPatientHuddle onClose=(action 'hideReviewPatientModal')}}
+  {{review-patient-modal patient=model huddle=reviewPatientHuddle onClose=(action 'hideReviewPatientModal')}}
 {{/if}}

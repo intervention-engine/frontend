@@ -7,33 +7,53 @@
     {{#if patientInExistingHuddle}}
       <div class="alert alert-danger" style="position:relative;margin:0 0 20px;top:0;left:0;width:auto;">
         <i class="fa fa-exclamation-circle"></i>
-        Patient already exists in selected huddle
+        Patient already exists in selected huddle.
       </div>
     {{/if}}
+
     <form onsubmit={{action 'save'}}>
-      <div class="modal-body">
+      <div class="modal-body add-to-huddle-modal-body">
         <div id="addToHuddlePikaday" class="form-group">
-          <label for="huddleDate">Huddle Date</label>
-          {{pikaday-input
-            id="huddleDate"
-            class="form-control"
-            value=huddleDate
-            format="dddd, MMMM Do YYYY"
-            theme=(concat elementId '-pikaday')
-            firstDay=0}}
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="huddleDate">Huddle Date:</label>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="input-addon left-addon">
+                <i class="fa fa-calendar-o fa-fw left-addon-icon"></i>
+                {{pikaday-input
+                  id="huddleDate"
+                  class="form-control form-input-calendar"
+                  value=huddleDate
+                  format="dddd, MMMM Do YYYY"
+                  theme=(concat elementId '-pikaday')
+                  firstDay=0}}
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="form-group">
-          <label for="huddleLeader">Huddle Leader</label>
-          <input
-            type="text"
-            id="huddleLeader"
-            class="form-control"
-            value={{if existingHuddle existingHuddle.leader huddleLeader}}
-            onchange={{action (mut huddleLeader) value="target.value"}}
-            onkeyup={{action (mut huddleLeader) value="target.value"}}
-            disabled={{huddleLeaderDisabled}}>
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="huddleLeader">Leader:</label>
+            </div>
+
+            <div class="col-sm-8">
+              <input
+                type="text"
+                id="huddleLeader"
+                class="form-control"
+                value={{if existingHuddle existingHuddle.leader huddleLeader}}
+                onchange={{action (mut huddleLeader) value="target.value"}}
+                onkeyup={{action (mut huddleLeader) value="target.value"}}
+                disabled={{huddleLeaderDisabled}}>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" disabled={{saveBtnDisabled}}>Save</button>
       </div>
