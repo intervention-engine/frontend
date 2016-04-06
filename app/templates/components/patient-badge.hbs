@@ -34,6 +34,8 @@
             <span class="patient-next-huddle">
               <i class="fa fa-users"></i>
               {{moment-format nextHuddle.date 'll'}}
+              {{huddle-discussed-icon patient=patient huddle=nextHuddle}}
+              {{huddle-reason-icon patient=patient huddle=nextHuddle}}
             </span>
           {{/if}}
         </div>
