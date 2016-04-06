@@ -1,7 +1,11 @@
 import Controller from 'ember-controller';
 import computed from 'ember-computed';
+import service from 'ember-service/inject';
+import { parseHuddles } from 'ember-on-fhir/models/huddle';
 
 export default Controller.extend({
+  ajax: service(),
+
   currentAssessment: 'Stroke',
   selectedCategory: null,
   showAddInterventionModal: false,
@@ -49,6 +53,15 @@ export default Controller.extend({
 
     hideAddHuddleModal() {
       this.set('showAddHuddleModal', false);
+
+      this.get('ajax').request('/Group', {
+        data: {
+          code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE',
+          member: `Patient/${this.get('model.id')}`
+        }
+      }).then((response) => {
+        this.set('huddles', parseHuddles(response.entry || []));
+      });
     },
 
     openReviewPatientModal(huddle) {
