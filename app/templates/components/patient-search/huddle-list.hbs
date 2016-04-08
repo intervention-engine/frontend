@@ -21,7 +21,7 @@
           <label for="huddleList1" class="css-label css-label-box checkbox-label">
             Geriatrics Huddle
           </label>
-          <div class="date-selector" id="huddleFilterSelector" style="padding-left:40px;font-size:0.8em;cursor:pointer;">
+          <div class="date-selector" id="huddleFilterSelector">
             {{#if selectedHuddle}}
               {{moment-format selectedHuddle.date 'll'}}
             {{else}}

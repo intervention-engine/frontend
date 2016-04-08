@@ -50,7 +50,7 @@ export default Component.extend({
       if (huddles.length === 0) {
         return null;
       }
-      return get(huddles.sortBy('date').objectAt(huddles.length - 1), 'date');
+      return huddles.sortBy('date').get('lastObject.date');
     }
   }),
 
@@ -88,7 +88,7 @@ export default Component.extend({
     });
   },
 
-  willDestoryElement() {
+  willDestroyElement() {
     this._super(...arguments);
 
     if (this.pikaday) {

@@ -32,7 +32,7 @@ export default Component.extend({
     });
   },
 
-  willDestoryElement() {
+  willDestroyElement() {
     this._super(...arguments);
 
     if (this.isDestroyed) {
