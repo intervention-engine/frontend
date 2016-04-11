@@ -52,6 +52,11 @@ module.exports = function(defaults) {
       'numeral': ['default']
     }
   });
+  app.import('vendor/shims/pikaday.js', {
+    exports: {
+      'pikaday': ['default']
+    }
+  });
 
   // bootstrap fonts
   var bootstrapFonts = new Funnel(app.bowerDirectory + '/bootstrap-sass-official/assets/fonts/bootstrap', {

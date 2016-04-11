@@ -8,7 +8,19 @@
         </div>
       </div>
       <div class="patient-panel-body clearfix">
-        {{patient-viewer riskAssessments=riskAssessments patient=model currentAssessment=currentAssessment selectedCategory=selectedCategory setRiskAssessment=(action "setRiskAssessment") selectCategory=(action "selectCategory") openAddInterventionModal=(action 'openAddInterventionModal')}}
+        {{patient-viewer
+          riskAssessments=riskAssessments
+          patient=model
+          currentAssessment=currentAssessment
+          selectedCategory=selectedCategory
+          huddles=huddles
+          setRiskAssessment=(action "setRiskAssessment")
+          selectCategory=(action "selectCategory")
+          openAddInterventionModal=(action 'openAddInterventionModal')
+          openAddHuddleModal=(action 'openAddHuddleModal')
+          openReviewPatientModal=(action 'openReviewPatientModal')
+          registerPatientViewer=(action 'registerPatientViewer')
+          unregisterPatientViewer=(action 'unregisterPatientViewer')}}
       </div>
     </div>
   </div>
@@ -16,4 +28,12 @@
 
 {{#if showAddInterventionModal}}
   {{add-intervention-modal onClose=(action 'hideAddInterventionModal')}}
+{{/if}}
+
+{{#if showAddHuddleModal}}
+  {{add-to-huddle-modal patient=model defaultDate=defaultAddHuddleDate patientHuddles=huddles onClose=(action 'hideAddHuddleModal')}}
+{{/if}}
+
+{{#if showReviewPatientModal}}
+  {{review-patient-modal patient=model huddle=reviewPatientHuddle onClose=(action 'hideReviewPatientModal')}}
 {{/if}}

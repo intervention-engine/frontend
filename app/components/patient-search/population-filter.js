@@ -8,11 +8,7 @@ export default Component.extend({
     }
   }),
 
-  selectedPopulations: computed({
-    get() {
-      return [];
-    }
-  }),
+  selectedPopulation: null,
 
   actions: {
     togglePopulation(population, event) {

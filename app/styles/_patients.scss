@@ -22,18 +22,6 @@
     }
   }
 
-  // .patient-stats {
-  //   .icon-med-clipboard {
-  //     display: inline-block;
-  //     padding: 0 4px 0 5px;
-  //   }
-
-  //   .icon-medication {
-  //     display: inline-block;
-  //     padding: 0 4px;
-  //   }
-  // }
-
   // ----------------------- PATIENT LIST FILTERS -------------------------- //
 
   .patient-list-filters {
@@ -44,124 +32,12 @@
       left: 10px;
       padding: 0;
     }
+  }
 
-    // .patient-list {
-    //   .patients-striped {
-    //     > .ember-view:nth-child(odd) {
-    //       background-color: $table-bg-accent;
-    //     }
-
-    //     > .ember-view:first-child {
-    //       border-top: 1px solid $body-bg;
-    //     }
-
-    //     .patient {
-    //       position: relative;
-    //       margin: 0;
-    //       padding: 15px 0 15px 15px;
-    //       border-bottom: 1px solid $body-bg;
-    //       font-size: 16px;
-    //       min-height: 80px;
-
-    //       &:hover, &.active {
-    //         background-color: $brand-primary;
-
-    //         .patient-info .patient-name,
-    //         .patient-info .patient-age-gender,
-    //         .patient-info .patient-age-gender i {
-    //           color: $body-bg-inverse;
-    //         }
-
-    //         .patient-info .patient-risk-bar-container .patient-risk-bar {
-    //           color: $brand-primary;
-    //           background-color: $body-bg-inverse;
-    //         }
-    //       }
-
-    //       .patient-info {
-    //         position: relative;
-    //         cursor: pointer;
-
-    //         .patient-name {
-    //           overflow: hidden;
-    //           text-overflow: ellipsis;
-    //           color: $brand-primary;
-
-    //           @include respond-to(non-handheld) { font-size: 18px; }
-    //           @include respond-to(tablet) { font-size: 16px; }
-    //           @include respond-to(mobile) { font-size: 20px; }
-
-    //           @include respond-to(desktop-wide) { max-width: 175px; }
-    //           @include respond-to(desktop) { max-width: 120px; }
-    //           @include respond-to(tablet) { max-width: 80px; }
-
-    //           .badge {
-    //             display: inline-block;
-    //             background-color: $brand-alert;
-    //             width: 15px;
-    //             height: 15px;
-    //             padding: 0 2px;
-    //             line-height: 1.4;
-    //             margin-bottom: 10px;
-    //           }
-    //         }
-
-    //         .patient-age-gender {
-    //           line-height: 0;
-    //           color: lighten($brand-secondary, 28%);
-
-    //           @include respond-to(non-handheld) { font-size: 14px; }
-    //           @include respond-to(tablet) { font-size: 10px; }
-    //           @include respond-to(mobile) { font-size: 16px; }
-
-    //           i {
-    //             color: lighten($brand-secondary, 50%);
-
-    //             @include respond-to(non-handheld) { font-size: 20px; }
-    //             @include respond-to(tablet) { font-size: 16px; }
-    //             @include respond-to(mobile) { font-size: 20px; }
-    //           }
-
-    //           .patient-age {
-    //             margin-right: 15px;
-    //           }
-
-    //           .patient-gender i {
-    //             @include respond-to(non-handheld) { font-size: 18px; }
-    //             @include respond-to(tablet) { font-size: 14px; }
-    //             @include respond-to(mobile) { font-size: 18px; }
-    //           }
-    //         }
-
-    //         .patient-risk-bar-container {
-    //           position: absolute;
-    //           top: 38%;
-    //           right: -2px;
-    //           height: 15px;
-
-    //           @include respond-to(desktop-wide) { width: 150px; }
-    //           @include respond-to(desktop) { width: 100px; }
-    //           @include respond-to(tablet) { width: 85px; }
-    //           @include respond-to(mobile) { width: 250px; }
-
-    //           .patient-risk-bar {
-    //             float: right;
-    //             height: 15px;
-    //             background-color: $brand-primary;
-    //             font-size: 12px;
-    //             line-height: 12px;
-    //             color: #fff;
-    //             padding: 2px;
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-
-    // .select-patient {
-    //   min-height: 500px;
-    // }
+  .date-selector {
+    padding-left: 40px;
+    font-size: 0.8em;
+    cursor: pointer;
   }
 
   // ----------------------- PATIENT LIST RESULTS -------------------------- //
@@ -225,7 +101,7 @@
               float: right;
               height: 24px;
               background-color: $brand-primary;
-              font-size: 14px;
+              font-size: 20px;
               line-height: 24px;
               color: #fff;
               padding: 0 6px;
@@ -244,7 +120,9 @@
             }
 
             .patient-risk-bar-container .patient-risk-bar {
-              background-color: darken($brand-primary, 20%);
+              color: $brand-primary;
+              font-weight: 500;
+              background-color: #fff;
             }
           }
 
@@ -257,16 +135,6 @@
           }
         }
       }
-
-      // .add-intervention-icon {
-      //   font-size: 1.5em;
-      //   color: $brand-primary;
-      //   cursor: pointer;
-
-      //   &:hover {
-      //     color: darken($brand-primary, 10%);
-      //   }
-      // }
     }
   }
 
@@ -409,7 +277,6 @@
   .category-details {
     font-size: 18px;
     @include respond-to(desktop-wide) { width: 450px; }
-    @include respond-to(desktop) { margin-top: 80px; }
     @include respond-to(tablet) {
       width: 400px;
       margin: 0 auto 30px auto;

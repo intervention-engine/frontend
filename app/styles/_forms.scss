@@ -202,12 +202,17 @@ label.radio-label {
 
 /* ------------------------- FORM INPUT ------------------------------------ */
 
-.form-input {
+.form-input,
+.form-input-calendar {
   border: 1px solid lighten($brand-secondary, 30%);
   border-radius: 0;
   padding-left: 50px;
   height: 40px;
   line-height: 1.5;
+}
+
+.form-input-calendar {
+  padding-left: 40px;
 }
 
 // overwrite color of background and text for Chrome autofill

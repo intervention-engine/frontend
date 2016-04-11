@@ -16,7 +16,7 @@
             <div class="form-group">
               <input type="checkbox"
                 id={{population.id}}
-                checked={{array-contains selectedPopulations population}}
+                checked={{eq selectedPopulation population}}
                 class="css-checkbox"
                 onchange={{action 'togglePopulation' population}}>
               <label for={{population.id}} class="css-label css-label-box checkbox-label">

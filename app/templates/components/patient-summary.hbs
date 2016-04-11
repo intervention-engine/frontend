@@ -27,10 +27,12 @@
           <i class="fa fa-map-marker"></i>
           {{patient.location}}
         </span>
-        <span class="patient-next-huddle">
-          <i class="fa fa-users"></i>
-          {{date-format nextHuddle 'll'}}
-        </span>
+        {{#if huddle}}
+          <span class="patient-next-huddle">
+            <i class="fa fa-users"></i>
+            {{moment-format huddle.date 'll'}}
+          </span>
+        {{/if}}
       </div>
       <div class="col-xs-5 patient-risk-chart">
         {{patient-risk-chart chartData=risksWithBirthdayStart}}

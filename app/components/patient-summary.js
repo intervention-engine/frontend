@@ -8,6 +8,7 @@ export default Ember.Component.extend(PatientIconClassNames, {
 
   patient: null,
   currentAssessment: null,
+  huddle: null,
 
   risksWithBirthdayStart: Ember.computed('patient.sortedRisks', 'patient.birthDate', 'currentAssessment', function() {
     let currentAssessment = this.get('currentAssessment');

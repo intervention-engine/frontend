@@ -16,6 +16,7 @@
     "jquery": "1.12.0",
     "moment": "2.9.0",
     "numeraljs": "~1.5.3",
+    "pikaday": "~1.4.0",
     "pretender": "0.12.0",
     "seiyria-bootstrap-slider": "6.0.10",
     "spin.js": "2.3.2",

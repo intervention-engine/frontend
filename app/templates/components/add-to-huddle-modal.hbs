@@ -1,0 +1,62 @@
+{{#bootstrap-modal title="Add to Huddle" onOpen=attrs.onOpen onClose=attrs.onClose}}
+  {{#if isLoading}}
+    <div class="modal-body modal-body-spinner">
+      {{ember-spinner config='small'}}
+    </div>
+  {{else}}
+    {{#if patientInExistingHuddle}}
+      <div class="huddle-exists-alert alert alert-danger">
+        <i class="fa fa-exclamation-circle"></i>
+        Patient already exists in selected huddle.
+      </div>
+    {{/if}}
+
+    <form onsubmit={{action 'save'}}>
+      <div class="modal-body add-to-huddle-modal-body">
+        <div id="addToHuddlePikaday" class="form-group">
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="huddleDate">Huddle Date:</label>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="input-addon left-addon">
+                <i class="fa fa-calendar-o fa-fw left-addon-icon"></i>
+                {{pikaday-input
+                  id="huddleDate"
+                  class="form-control form-input-calendar"
+                  value=huddleDate
+                  format="dddd, MMMM Do YYYY"
+                  theme=(concat elementId '-pikaday')
+                  firstDay=0}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="huddleLeader">Leader:</label>
+            </div>
+
+            <div class="col-sm-8">
+              <input
+                type="text"
+                id="huddleLeader"
+                class="form-control"
+                value={{if existingHuddle existingHuddle.leader huddleLeader}}
+                onchange={{action (mut huddleLeader) value="target.value"}}
+                onkeyup={{action (mut huddleLeader) value="target.value"}}
+                disabled={{huddleLeaderDisabled}}>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" disabled={{saveBtnDisabled}}>Save</button>
+      </div>
+    </form>
+  {{/if}}
+{{/bootstrap-modal}}
