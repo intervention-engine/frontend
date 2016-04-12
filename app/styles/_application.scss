@@ -58,13 +58,23 @@ ul {
   }
 }
 
-.btn-primary {
-  width: 200px;
-  height: 45px;
-  background-color: $brand-primary;
-  border-color: darker($brand-primary, 10%);
+.btn-primary,
+.btn-ie,
+.btn-ie-lg {
   border-radius: 0;
   font-size: 20px;
+  height: 45px;
+}
+
+.btn-primary,
+.btn-ie-lg {
+  width: 200px;
+  height: 45px;
+}
+
+.btn-primary {
+  background-color: $brand-primary;
+  border-color: darker($brand-primary, 10%);
 }
 
 /* -------------------------------- OTHER -------------------------------- */

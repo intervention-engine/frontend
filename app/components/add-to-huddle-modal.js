@@ -12,6 +12,7 @@ export default Component.extend(HasStylesheetMixin, {
   store: service(),
 
   defaultDate: null,
+  huddle: null,
   huddles: null,
   patientHuddles: null, // master huddle list from the patient viewer controller
   huddleDate: computed('defaultDate', {
@@ -25,6 +26,17 @@ export default Component.extend(HasStylesheetMixin, {
   huddleLeaderDisabled: computed.notEmpty('existingHuddle'),
   formSaving: false,
   saveBtnDisabled: computed.or('formSaving', 'patientInExistingHuddle'),
+  removeBtnDisabled: computed.alias('formSaving'),
+
+  title: computed('huddle', {
+    get() {
+      if (this.get('huddle') == null) {
+        return 'Add to Huddle';
+      } else {
+        return 'Edit Huddle Patient';
+      }
+    }
+  }).readOnly(),
 
   existingHuddle: computed('huddles.[]', 'huddleDate', {
     get() {
@@ -61,7 +73,6 @@ export default Component.extend(HasStylesheetMixin, {
     this.get('ajax').request('/Group', {
       data: {
         code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE'
-        // member: `Patient/${this.get('patient.id')}`
       }
     }).then((response) => {
       this.set('isLoading', false);
@@ -96,6 +107,18 @@ export default Component.extend(HasStylesheetMixin, {
     return this.get('ajax').request('/ScheduleHuddles');
   },
 
+  deleteHuddle() {
+    let huddle = this.get('huddle');
+    if (huddle == null) {
+      return;
+    }
+
+    return this.get('ajax').request(`/Group/${huddle.get('id')}`, {
+      type: 'DELETE',
+      contentType: 'application/json; charset=UTF-8'
+    });
+  },
+
   actions: {
     save(event) {
       event.preventDefault();
@@ -103,6 +126,7 @@ export default Component.extend(HasStylesheetMixin, {
 
       this.set('formSaving', true);
 
+      let patient = this.get('patient');
       let huddle = this.get('existingHuddle');
       let newHuddle = false;
 
@@ -115,7 +139,7 @@ export default Component.extend(HasStylesheetMixin, {
         newHuddle = true;
       }
 
-      huddle.addPatient(this.get('patient'));
+      huddle.addPatient(patient);
 
       let url = newHuddle ? '/Group' : `/Group/${huddle.get('id')}`;
       let type = newHuddle ? 'POST' : 'PUT';
@@ -130,6 +154,65 @@ export default Component.extend(HasStylesheetMixin, {
         }
 
         this.get('patientHuddles').pushObject(huddle);
+
+        let oldHuddle = this.get('huddle');
+        if (oldHuddle != null) {
+          let promise;
+          if (oldHuddle.get('patients.length') === 1) {
+            // simple case, huddle has only one patient: destroy the huddle
+            promise = this.deleteHuddle();
+          } else {
+            oldHuddle.removePatient(patient);
+            promise = this.get('ajax').request(`/Group/${oldHuddle.get('id')}`, {
+              data: JSON.stringify(oldHuddle.toFhirJson()),
+              type: 'PUT',
+              contentType: 'application/json; charset=UTF-8'
+            });
+          }
+
+          promise.then(() => {
+            this.get('patientHuddles').removeObject(oldHuddle);
+            this.rescheduleHuddles().finally(this.attrs.onClose);
+          });
+
+          return;
+        }
+
+        this.rescheduleHuddles().finally(this.attrs.onClose);
+      }).catch(() => {
+        alert('Failed to save huddle, please try your request again');
+        this.set('formSaving', false);
+      });
+    },
+
+    removePatientFromHuddle(event) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      let huddle = this.get('huddle');
+      if (huddle == null) {
+        return;
+      }
+
+      this.set('formSaving', true);
+
+      let patient = this.get('patient');
+      let promise;
+
+      if (huddle.get('patients.length') === 1) {
+        // simple case, huddle has only one patient: destroy the huddle
+        promise = this.deleteHuddle();
+      } else {
+        huddle.removePatient(patient);
+        promise = this.get('ajax').request(`/Group/${huddle.get('id')}`, {
+          data: JSON.stringify(huddle.toFhirJson()),
+          type: 'PUT',
+          contentType: 'application/json; charset=UTF-8'
+        });
+      }
+
+      promise.then(() => {
+        this.get('patientHuddles').removeObject(huddle);
         this.rescheduleHuddles().finally(this.attrs.onClose);
       }).catch(() => {
         alert('Failed to save huddle, please try your request again');

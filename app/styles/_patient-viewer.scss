@@ -10,11 +10,18 @@
   margin-top: 0.5em;
   font-weight: 400;
   text-align: center;
+  position: relative;
+
+  .action-icons {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 
   .fa {
     color: $brand-primary;
     cursor: pointer;
-    margin-top: 6px;
+    // margin-top: 6px;
   }
 
   .meta {

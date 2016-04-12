@@ -13,6 +13,7 @@ export default Component.extend(HasStylesheetMixin, {
   currentAssessment: null,
   selectedCategory: null,
   nextScheduledHuddle: null,
+  displayEditHuddleModal: false,
   displayClearDiscussedModal: false,
 
   selectedScheduleDate: computed({
@@ -161,6 +162,11 @@ export default Component.extend(HasStylesheetMixin, {
     closeReviewPatientModal() {
       this.set('displayClearDiscussedModal', false);
       this.notifyPropertyChange('nextScheduledHuddle');
+    },
+
+    closeEditHuddleModal() {
+      this.set('displayEditHuddleModal', false);
+      this.attrs.refreshHuddles();
     }
   }
 });
