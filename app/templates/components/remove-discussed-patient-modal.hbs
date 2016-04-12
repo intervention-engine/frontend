@@ -1,0 +1,43 @@
+{{#bootstrap-modal title='Remove Patient as Discussed' onClose=(action attrs.onClose)}}
+  <form onsubmit={{action 'save'}}>
+    <div class="modal-body review-patient-modal-body">
+      <div class="form-group">
+        <div class="form-control-static row">
+          <div class="col-sm-6">
+            <label>Patient:</label>
+          </div>
+
+          <div class="col-sm-6 form-value">
+            {{patient.fullName}}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-control-static row">
+          <div class="col-sm-6">
+            <label>Huddle:</label>
+          </div>
+
+          <div class="col-sm-6 form-value">
+            Geriatrics Huddle
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-control-static row">
+          <div class="col-sm-6">
+            <label>Huddle Date:</label>
+          </div>
+
+          <div class="col-sm-6 form-value">
+            {{moment-format huddle.date 'MMM DD, YYYY'}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" onclick={{action attrs.onClose}}>Cancel</button>
+      <button type="submit" class="btn btn-danger">Remove</button>
+    </div>
+  </form>
+{{/bootstrap-modal}}
