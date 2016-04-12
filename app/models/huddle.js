@@ -36,6 +36,12 @@ const Huddle = EmberObject.extend({
     this.get('patients').pushObject(huddlePatient);
   },
 
+  getHuddlePatient(patient) {
+    if (patient != null) {
+      return this.get('patients').findBy('patientId', get(patient, 'id'));
+    }
+  },
+
   hasPatient(patient) {
     if (patient == null) {
       return false;
@@ -44,11 +50,9 @@ const Huddle = EmberObject.extend({
   },
 
   patientReviewed(patient) {
-    if (patient != null) {
-      let huddlePatient = this.get('patients').findBy('patientId', get(patient, 'id'));
-      if (huddlePatient != null) {
-        return huddlePatient.get('reviewed') != null;
-      }
+    let huddlePatient = this.getHuddlePatient(patient);
+    if (huddlePatient != null) {
+      return huddlePatient.get('reviewed') != null;
     }
 
     return false;

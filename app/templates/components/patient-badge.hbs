@@ -32,8 +32,9 @@
         <div class="col-xs-6">
           {{#if nextHuddle}}
             <span class="patient-next-huddle">
-              <i class="fa fa-users"></i>
+              {{huddle-reason-icon patient=patient huddle=nextHuddle}}
               {{moment-format nextHuddle.date 'll'}}
+              {{huddle-discussed-icon patient=patient huddle=nextHuddle}}
             </span>
           {{/if}}
         </div>

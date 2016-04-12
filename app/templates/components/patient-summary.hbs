@@ -15,22 +15,27 @@
             <span class="badge">{{patient.notifications.count}}</span>
           {{/if}}
         </div>
+
         <span class="patient-age">
           <i class={{ageIconClassName}}></i>
           {{patient.computedAge}} yrs
         </span>
+
         <span class="patient-gender">
           <i class="fa {{genderIconClassName}}"></i>
           {{patient.computedGender}}
         </span>
+
         <span class="patient-location">
           <i class="fa fa-map-marker"></i>
           {{patient.location}}
         </span>
+
         {{#if huddle}}
           <span class="patient-next-huddle">
-            <i class="fa fa-users"></i>
+            {{huddle-reason-icon patient=patient huddle=huddle}}
             {{moment-format huddle.date 'll'}}
+            {{huddle-discussed-icon patient=patient huddle=huddle}}
           </span>
         {{/if}}
       </div>

@@ -19,7 +19,6 @@ export default Component.extend(HasStylesheetMixin, {
       return new Date();
     }
   }),
-  schedulePanelOpen: false,
 
   huddles: computed({
     get() {
@@ -87,8 +86,7 @@ export default Component.extend(HasStylesheetMixin, {
 
   futureHuddles: computed('huddles.@each.date', 'nextScheduledHuddle', {
     get() {
-      let patient = this.get('patient');
-      return this.get('huddles').filter((huddle) => !huddle.patientReviewed(patient) && isTodayOrAfter([huddle.get('date')])).sort((a, b) => a.get('date') - b.get('date'));
+      return this.get('huddles').filter((huddle) => isTodayOrAfter([huddle.get('date')])).sort((a, b) => a.get('date') - b.get('date'));
     }
   }),
 
@@ -156,11 +154,5 @@ export default Component.extend(HasStylesheetMixin, {
     }
 
     return 0;
-  }),
-
-  actions: {
-    toggleScheduleChevron() {
-      this.toggleProperty('schedulePanelOpen');
-    }
-  }
+  })
 });
