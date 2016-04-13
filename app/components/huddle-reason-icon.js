@@ -36,22 +36,22 @@ export default Component.extend({
 
   reasonIconClass: computed('huddlePatient.reason', {
     get() {
-      let reason = this.get('huddlePatient.reason');
-      if (reason === REASON_CODES.CARRYOVER) {
-        return 'fa fa-fw fa-arrow-circle-o-right';
-      } else if (reason === REASON_CODES.MANUAL_ADDITION) {
-        return 'fa fa-fw fa-pencil';
-      } else if (reason === REASON_CODES.RECENT_ADMISSION) {
-        return 'fa fa-fw fa-h-square';
-      } else if (reason === REASON_CODES.RECENT_ED_VISIT) {
-        return 'fa fa-fw fa-ambulance';
-      } else if (reason === REASON_CODES.RECENT_READMISSION) {
-        return 'fa fa-fw fa-hospital-o';
-      } else if (reason === REASON_CODES.RISK_SCORE) {
-        return 'fa fa-fw fa-pie-chart';
+      switch(this.get('huddlePatient.reason')) {
+        case REASON_CODES.CARRYOVER:
+          return 'fa fa-fw fa-arrow-circle-o-right';
+        case REASON_CODES.MANUAL_ADDITION:
+          return 'fa fa-fw fa-pencil';
+        case REASON_CODES.RECENT_ADMISSION:
+          return 'fa fa-fw fa-h-square';
+        case REASON_CODES.RECENT_ED_VISIT:
+          return 'fa fa-fw fa-ambulance';
+        case REASON_CODES.RECENT_READMISSION:
+          return 'fa fa-fw fa-hospital-o';
+        case REASON_CODES.RISK_SCORE:
+          return 'fa fa-fw fa-pie-chart';
+        default:
+          return 'hidden';
       }
-
-      return 'hidden';
     }
   })
 });
