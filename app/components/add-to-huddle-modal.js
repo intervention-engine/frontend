@@ -92,6 +92,10 @@ export default Component.extend(HasStylesheetMixin, {
     }
   },
 
+  rescheduleHuddles() {
+    return this.get('ajax').request('/ScheduleHuddles');
+  },
+
   actions: {
     save(event) {
       event.preventDefault();
@@ -126,7 +130,7 @@ export default Component.extend(HasStylesheetMixin, {
         }
 
         this.get('patientHuddles').pushObject(huddle);
-        this.attrs.onClose();
+        this.rescheduleHuddles().finally(this.attrs.onClose);
       }).catch(() => {
         alert('Failed to save huddle, please try your request again');
         this.set('formSaving', false);

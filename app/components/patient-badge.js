@@ -15,8 +15,7 @@ export default Component.extend(PatientIconClassNames, {
 
   nextHuddle: computed('huddles.@each.date', {
     get() {
-      let patient = this.get('patient');
-      let huddles = this.get('huddles').filter((huddle) => !huddle.patientReviewed(patient) && isTodayOrAfter([huddle.get('date')]));
+      let huddles = this.get('huddles').filter((huddle) => isTodayOrAfter([huddle.get('date')]));
       return huddles.sortBy('date').objectAt(0);
     }
   }),

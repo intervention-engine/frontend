@@ -1,6 +1,15 @@
 import EmberObject from 'ember-object';
 import moment from 'moment';
 
+export const REASON_CODES = {
+  CARRYOVER: 'CARRYOVER',
+  MANUAL_ADDITION: 'MANUAL_ADDITION',
+  RECENT_ADMISSION: 'RECENT_ADMISSION',
+  RECENT_ED_VISIT: 'RECENT_ED_VISIT',
+  RECENT_READMISSION: 'RECENT_READMISSION',
+  RISK_SCORE: 'RISK_SCORE'
+};
+
 export default EmberObject.extend({
   patientId: null,
   reason: null,
