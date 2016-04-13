@@ -36,7 +36,7 @@ export default Component.extend({
 
   reasonIconClass: computed('huddlePatient.reason', {
     get() {
-      switch(this.get('huddlePatient.reason')) {
+      switch (this.get('huddlePatient.reason')) {
         case REASON_CODES.CARRYOVER:
           return 'fa fa-fw fa-arrow-circle-o-right';
         case REASON_CODES.MANUAL_ADDITION:
