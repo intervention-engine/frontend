@@ -55,7 +55,7 @@
                 type="text"
                 id="huddleLeader"
                 class="form-control"
-                value={{if existingHuddle existingHuddle.leader huddleLeader}}
+                value={{if existingHuddle existingHuddle.displayLeader huddleLeader}}
                 onchange={{action (mut huddleLeader) value="target.value"}}
                 onkeyup={{action (mut huddleLeader) value="target.value"}}
                 disabled={{huddleLeaderDisabled}}>

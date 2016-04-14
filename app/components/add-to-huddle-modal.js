@@ -20,7 +20,15 @@ export default Component.extend(HasStylesheetMixin, {
       return this.get('defaultDate') || new Date();
     }
   }),
-  huddleLeader: '',
+  huddleLeader: computed('huddle.displayLeader', {
+    get() {
+      let huddle = this.get('huddle');
+      if (huddle != null) {
+        return huddle.get('displayLeader');
+      }
+      return '';
+    }
+  }),
   patient: null,
   isLoading: true,
   huddleLeaderDisabled: computed.notEmpty('existingHuddle'),
