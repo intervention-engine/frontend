@@ -10,7 +10,7 @@ const { RSVP: { Promise } } = Ember;
 export default Base.extend({
   ajax: service(),
 
-  tokenEndpoint: '/login',
+  tokenEndpoint: '/auth',
 
   restore(data) {
     return new Promise(function(resolve, reject) {
