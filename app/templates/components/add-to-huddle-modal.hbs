@@ -1,10 +1,10 @@
-{{#bootstrap-modal title="Add to Huddle" onOpen=attrs.onOpen onClose=attrs.onClose}}
+{{#bootstrap-modal title=title onOpen=attrs.onOpen onClose=attrs.onClose}}
   {{#if isLoading}}
     <div class="modal-body modal-body-spinner">
       {{ember-spinner config='small'}}
     </div>
   {{else}}
-    {{#if patientInExistingHuddle}}
+    {{#if (and patientInExistingHuddle (not-eq huddle.id existingHuddle.id))}}
       <div class="huddle-exists-alert alert alert-danger">
         <i class="fa fa-exclamation-circle"></i>
         Patient already exists in selected huddle.
@@ -14,6 +14,16 @@
     <form onsubmit={{action 'save'}}>
       <div class="modal-body add-to-huddle-modal-body">
         <div id="addToHuddlePikaday" class="form-group">
+          {{#if huddle}}
+            <div class="row form-control-static">
+              <div class="col-sm-4">
+                <label>Current Date:</label>
+              </div>
+              <div class="col-sm-8">
+                {{moment-format huddle.date 'dddd, MMMM Do YYYY'}}
+              </div>
+            </div>
+          {{/if}}
           <div class="row">
             <div class="col-sm-4">
               <label for="huddleDate">Huddle Date:</label>
@@ -45,7 +55,7 @@
                 type="text"
                 id="huddleLeader"
                 class="form-control"
-                value={{if existingHuddle existingHuddle.leader huddleLeader}}
+                value={{if existingHuddle existingHuddle.displayLeader huddleLeader}}
                 onchange={{action (mut huddleLeader) value="target.value"}}
                 onkeyup={{action (mut huddleLeader) value="target.value"}}
                 disabled={{huddleLeaderDisabled}}>
@@ -55,6 +65,9 @@
       </div>
 
       <div class="modal-footer">
+        {{#if huddle}}
+          <button type="button" class="btn btn-danger btn-ie-lg" disabled={{removeBtnDisabled}} onclick={{action 'removePatientFromHuddle'}}>Remove</button>
+        {{/if}}
         <button type="submit" class="btn btn-primary" disabled={{saveBtnDisabled}}>Save</button>
       </div>
     </form>

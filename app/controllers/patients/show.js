@@ -28,6 +28,17 @@ export default Controller.extend({
     }
   }),
 
+  refreshHuddles() {
+    this.get('ajax').request('/Group', {
+      data: {
+        code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE',
+        member: `Patient/${this.get('model.id')}`
+      }
+    }).then((response) => {
+      this.set('huddles', parseHuddles(response.entry || []));
+    });
+  },
+
   actions: {
     setRiskAssessment(riskAssessment) {
       this.set('currentAssessment', riskAssessment);
@@ -53,15 +64,11 @@ export default Controller.extend({
 
     hideAddHuddleModal() {
       this.set('showAddHuddleModal', false);
+      this.refreshHuddles();
+    },
 
-      this.get('ajax').request('/Group', {
-        data: {
-          code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE',
-          member: `Patient/${this.get('model.id')}`
-        }
-      }).then((response) => {
-        this.set('huddles', parseHuddles(response.entry || []));
-      });
+    refreshHuddles() {
+      this.refreshHuddles();
     },
 
     openReviewPatientModal(huddle) {
