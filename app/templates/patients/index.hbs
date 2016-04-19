@@ -5,7 +5,7 @@
     {{/nested-panel}}
     {{#nested-panel panelName="Choose Filters" panelId="chooseFilters"}}
       {{patient-search/population-filter populations=populations selectedPopulation=selectedPopulation togglePopulation=(action "togglePopulation")}}
-      {{patient-search/risk-score lowValue=riskLowValue highValue=riskHighValue onChange=(action "setRiskScore")}}
+      {{!-- {{patient-search/risk-score lowValue=riskLowValue highValue=riskHighValue onChange=(action "setRiskScore")}} --}}
       {{patient-search/huddle-list huddles=model.huddles selectedHuddle=selectedHuddle selectHuddle=(action 'selectHuddle')}}
     {{/nested-panel}}
     {{#nested-panel panelName="Choose Sort By" panelId="chooseSortBy"}}

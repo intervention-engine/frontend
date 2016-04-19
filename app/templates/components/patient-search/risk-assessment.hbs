@@ -10,7 +10,7 @@
           checked={{eq currentAssessment riskAssessment}}
           onchange={{action attrs.selectRiskAssessment value="target.value"}}>
         <label for={{concat riskAssessment index}} class="css-label css-label-circle checkbox-label">{{riskAssessment}}</label>
-        <i class="fa fa-edit pull-right"></i>
+        {{!-- <i class="fa fa-edit pull-right"></i> --}}
       </div>
     {{/if}}
   {{/each}}

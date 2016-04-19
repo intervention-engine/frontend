@@ -13,14 +13,15 @@
   <div class="form-group">
     {{#if active}}
       <div class="selected-filter-details">
-        <span class="pane-inner-label">in</span>
+        {{!-- <span class="pane-inner-label">in</span>
         <span class="pane-select">
           {{select-fx options=timePeriods value=selectedTimePeriod onChange=(action "selectTimePeriod")}}
         </span>
         <span class="pane-inner-label">is</span>
         <span class="pane-select">
           {{select-fx options=comparators value=selectedComparator onChange=(action "selectComparator")}}
-        </span>
+        </span> --}}
+        <span class="pane-inner-label">in years is between</span>
         <span class="pane-input">
           <input type="text" value={{lowValue}} class="input-control age" onchange={{action "updateValue" "lowValue"}}>
         </span>
