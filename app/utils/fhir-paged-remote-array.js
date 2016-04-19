@@ -22,9 +22,9 @@ export default PagedRemoteArray.extend({
         return {};
       }
 
-      let sortDir = sortDescending ? 'desc' : 'asc';
+      let sortDir = sortDescending ? '-' : '';
       return {
-        [`_sort:${sortDir}`]: sortBy
+        _sort: `${sortDir}${sortBy}`
       };
     }
   }),

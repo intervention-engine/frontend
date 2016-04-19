@@ -8,12 +8,12 @@ export default Component.extend({
   sortOptions: computed({
     get() {
       return [
-        { name: 'Name', sortKey: 'family', sortIcon: 'alpha' },
-        { name: 'Age', sortKey: 'birthdate', sortIcon: 'numeric', invert: true },
-        { name: 'Gender', sortKey: 'gender', sortIcon: 'alpha' },
-        { name: 'Location', sortKey: 'address', sortIcon: 'alpha' },
-        { name: 'Risk Score', sortKey: 'riskScore', sortIcon: 'numeric', defaultSortDescending: true },
-        { name: 'Notifications', sortKey: 'notifications', sortIcon: 'numeric', defaultSortDescending: true }
+        { name: 'Name', sortKey: 'name,birthdate', sortIcon: 'alpha' },
+        { name: 'Age', sortKey: 'birthdate,name', sortIcon: 'numeric', invert: true },
+        { name: 'Gender', sortKey: 'gender,name', sortIcon: 'alpha' },
+        { name: 'Location', sortKey: 'address,name', sortIcon: 'alpha' },
+        { name: 'Risk Score', sortKey: 'riskScore,name', sortIcon: 'numeric', defaultSortDescending: true },
+        { name: 'Notifications', sortKey: 'notifications,name', sortIcon: 'numeric', defaultSortDescending: true }
       ];
     }
   })
