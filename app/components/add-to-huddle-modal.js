@@ -29,9 +29,24 @@ export default Component.extend(HasStylesheetMixin, {
       return '';
     }
   }),
+  huddleReasonText: computed('huddle', {
+    get() {
+      let huddle = this.get('huddle');
+      if (huddle != null) {
+        return huddle.getHuddlePatient(this.get('patient')).get('reasonText');
+      }
+      return '';
+    }
+  }),
   patient: null,
   isLoading: true,
   huddleLeaderDisabled: computed.notEmpty('existingHuddle'),
+  huddleReasonTextDisabled: computed('huddle', 'huddleDate', {
+    get() {
+      let huddle = this.get('huddle');
+      return huddle != null && moment(this.get('huddleDate')).isSame(huddle.get('date'), 'day');
+    }
+  }),
   formSaving: false,
   saveBtnDisabled: computed.or('formSaving', 'patientInExistingHuddle'),
   removeBtnDisabled: computed.alias('formSaving'),
@@ -147,7 +162,7 @@ export default Component.extend(HasStylesheetMixin, {
         newHuddle = true;
       }
 
-      huddle.addPatient(patient);
+      huddle.addPatient(patient, this.get('huddleReasonText'));
 
       let url = newHuddle ? '/Group' : `/Group/${huddle.get('id')}`;
       let type = newHuddle ? 'POST' : 'PUT';

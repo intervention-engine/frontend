@@ -68,7 +68,7 @@
                     {{#if selectedScheduleHuddle}}
                       Geriatrics Huddle<br>
                       Leader: {{selectedScheduleHuddle.displayLeader}}<br>
-                      {{selectedScheduleHuddlePatient.reasonText}}
+                      {{selectedScheduleHuddlePatient.displayReasonText}}
                       {{#if selectedScheduleHuddlePatient.reviewed}}
                         <br>
                         Discussed on {{moment-format selectedScheduleHuddlePatient.reviewed 'MMM D, YYYY'}}

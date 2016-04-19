@@ -15,7 +15,7 @@ export default Component.extend({
     this.$().tooltip({
       container: 'body',
       title: () => {
-        return this.get('huddlePatient.reasonText');
+        return this.get('huddlePatient.displayReasonText');
       }
     });
   },

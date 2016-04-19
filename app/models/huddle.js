@@ -27,11 +27,11 @@ const Huddle = EmberObject.extend({
     }
   }).readOnly(),
 
-  addPatient(patient) {
+  addPatient(patient, reasonText) {
     let huddlePatient = HuddlePatient.create({
       patientId: patient.get('id'),
       reason: 'MANUAL_ADDITION',
-      reasonText: 'Manually Added'
+      reasonText: reasonText
     });
     this.get('patients').pushObject(huddlePatient);
   },
