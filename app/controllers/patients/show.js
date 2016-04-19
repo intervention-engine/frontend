@@ -5,7 +5,7 @@ import { parseHuddles } from 'ember-on-fhir/models/huddle';
 
 export default Controller.extend({
   ajax: service(),
-
+  queryParams: ['group'],
   currentAssessment: 'Stroke',
   selectedCategory: null,
   showAddInterventionModal: false,
