@@ -58,8 +58,6 @@ export default PagedRemoteArray.extend({
 
     return res.then((rows) => {
       this.set('totalPages', Math.ceil(rows.meta.total / perPage));
-      debugger
-
       return rows;
     });
   }
