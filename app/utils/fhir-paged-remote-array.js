@@ -8,7 +8,6 @@ export default PagedRemoteArray.extend({
   sortDescending: false,
   groupId: null,
   patientIds: [],
-  currentQueryURL: null,
 
   getPage() {
     return (this.get('page') - 1 || 0) * this.get('perPage');
