@@ -18,6 +18,16 @@ export default EmberObject.extend({
   reasonText: null,
   reviewed: null,
 
+  codedReasonText: computed('reason', 'reasonText', {
+    get() {
+      if (this.get('reason') === REASON_CODES.MANUAL_ADDITION) {
+        return 'Manually Added';
+      }
+
+      return this.get('reasonText');
+    }
+  }).readOnly(),
+
   displayReasonText: computed('reason', 'reasonText', {
     get() {
       let reasonText = this.get('reasonText');

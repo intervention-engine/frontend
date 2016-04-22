@@ -28,12 +28,21 @@ const Huddle = EmberObject.extend({
   }).readOnly(),
 
   addPatient(patient, reasonText) {
-    let huddlePatient = HuddlePatient.create({
-      patientId: patient.get('id'),
-      reason: 'MANUAL_ADDITION',
-      reasonText: reasonText
-    });
-    this.get('patients').pushObject(huddlePatient);
+    let huddlePatient = this.getHuddlePatient(patient);
+
+    if (huddlePatient != null) {
+      huddlePatient.setProperties({
+        reason: 'MANUAL_ADDITION',
+        reasonText
+      });
+    } else {
+      huddlePatient = HuddlePatient.create({
+        patientId: patient.get('id'),
+        reason: 'MANUAL_ADDITION',
+        reasonText
+      });
+      this.get('patients').pushObject(huddlePatient);
+    }
   },
 
   removePatient(patient) {

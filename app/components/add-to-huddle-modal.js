@@ -5,6 +5,7 @@ import { schedule } from 'ember-runloop';
 import moment from 'moment';
 import HasStylesheetMixin from 'ember-on-fhir/mixins/has-stylesheet';
 import Huddle, { parseHuddles } from 'ember-on-fhir/models/huddle';
+import { REASON_CODES } from 'ember-on-fhir/models/huddle-patient';
 import { addCSSRule } from 'ember-on-fhir/utils/create-stylesheet';
 
 export default Component.extend(HasStylesheetMixin, {
@@ -41,14 +42,35 @@ export default Component.extend(HasStylesheetMixin, {
   patient: null,
   isLoading: true,
   huddleLeaderDisabled: computed.notEmpty('existingHuddle'),
-  huddleReasonTextDisabled: computed('huddle', 'huddleDate', {
+  huddleReasonTextDisabled: computed('patientInExistingHuddle', {
     get() {
-      let huddle = this.get('huddle');
-      return huddle != null && moment(this.get('huddleDate')).isSame(huddle.get('date'), 'day');
+      if (this.get('patientInExistingHuddle')) {
+        let huddlePatient = this.get('existingHuddle').getHuddlePatient(this.get('patient'));
+        return huddlePatient.get('reason') !== REASON_CODES.MANUAL_ADDITION;
+      }
+
+      return false;
     }
   }),
   formSaving: false,
-  saveBtnDisabled: computed.or('formSaving', 'patientInExistingHuddle'),
+  saveBtnDisabled: computed('formSaving', 'patientInExistingHuddle', 'huddleReasonText', {
+    get() {
+      if (this.get('formSaving')) {
+        return true;
+      }
+
+      if (this.get('patientInExistingHuddle')) {
+        let huddlePatient = this.get('existingHuddle').getHuddlePatient(this.get('patient'));
+        if (huddlePatient.get('reason') === REASON_CODES.MANUAL_ADDITION) {
+          return huddlePatient.get('reasonText') === this.get('huddleReasonText');
+        }
+
+        return true;
+      }
+
+      return false;
+    }
+  }),
   removeBtnDisabled: computed.alias('formSaving'),
 
   title: computed('huddle', {
@@ -179,7 +201,7 @@ export default Component.extend(HasStylesheetMixin, {
         this.get('patientHuddles').pushObject(huddle);
 
         let oldHuddle = this.get('huddle');
-        if (oldHuddle != null) {
+        if (oldHuddle != null && oldHuddle.get('id') !== huddle.get('id')) {
           let promise;
           if (oldHuddle.get('patients.length') === 1) {
             // simple case, huddle has only one patient: destroy the huddle
