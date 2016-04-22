@@ -1,11 +1,15 @@
 import Controller from 'ember-controller';
 import computed from 'ember-computed';
 import service from 'ember-service/inject';
+import controller from 'ember-controller/inject';
+import run from 'ember-runloop';
+
 import { parseHuddles } from 'ember-on-fhir/models/huddle';
 
 export default Controller.extend({
+  indexController: controller('patients.index'),
   ajax: service(),
-
+  queryParams: ['group'],
   currentAssessment: 'Stroke',
   selectedCategory: null,
   showAddInterventionModal: false,
@@ -18,6 +22,29 @@ export default Controller.extend({
   huddles: computed({
     get() {
       return [];
+    }
+  }),
+  huddlePatients: computed.alias('indexController.model.patients'),
+  huddleCount: computed.alias('indexController.model.patients.meta.total'),
+  huddleOffset: computed.alias('huddlePatients.paramsForBackend._offset'),
+  currentPatientIndex: computed('huddlePatients', 'model', 'nextPatient', {
+    get() {
+      return this.get('huddlePatients').indexOf(this.get('model')) + 1 + this.get('huddleOffset');
+    }
+  }),
+  nextPatient: computed('currentPatientIndex', 'huddlePatients.firstObject', {
+    get() {
+      let nextIndex = this.get('huddlePatients').indexOf(this.get('model')) + 1;
+      // This handles the edge case of navigating to a patient on the next page
+      if (nextIndex >= this.get('huddlePatients.length')) {
+        return run(() => {
+          let currentPage = this.get('huddlePatients.page');
+          this.get('huddlePatients').set('page', currentPage + 1);
+          this.get('indexController').set('page', currentPage + 1);
+          return this.get('huddlePatients').get('firstObject');
+        });
+      }
+      return this.get('huddlePatients').toArray()[nextIndex];
     }
   }),
 

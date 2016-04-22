@@ -53,12 +53,10 @@ export default PagedRemoteArray.extend({
     let store = this.get('store');
     let modelName = this.get('modelName');
     let res = store.query(modelName, Object.assign({ _offset: this.get('paramsForBackend._offset'), _count: this.get('paramsForBackend._count') }, this.get('otherParams'), this.get('patientIdParams'), this.get('sortParams')));
-
     let perPage = this.get('perPage');
 
     return res.then((rows) => {
       this.set('totalPages', Math.ceil(rows.meta.total / perPage));
-
       return rows;
     });
   }
