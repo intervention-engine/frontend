@@ -8,7 +8,7 @@ export default Controller.extend({
   page: 1,
   perPage: 8,
 
-  currentAssessment: 'Stroke', // default
+  currentAssessment: 'Catastrophic Health Event', // default
   selectedPopulation: computed('groupId', {
     get() {
       let groupId = this.get('groupId');
@@ -70,7 +70,7 @@ export default Controller.extend({
   riskAssessments: computed({
     get() {
       // TODO: get this list from the backend
-      return ['Stroke', 'Negative Outcome'];
+      return ['Catastrophic Health Event'];
     }
   }),
 

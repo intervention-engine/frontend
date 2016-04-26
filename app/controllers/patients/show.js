@@ -9,8 +9,8 @@ import { parseHuddles } from 'ember-on-fhir/models/huddle';
 export default Controller.extend({
   indexController: controller('patients.index'),
   ajax: service(),
-  queryParams: ['group'],
-  currentAssessment: 'Stroke',
+
+  currentAssessment: 'Catastrophic Health Event',
   selectedCategory: null,
   showAddInterventionModal: false,
   showAddHuddleModal: false,
@@ -51,7 +51,7 @@ export default Controller.extend({
   riskAssessments: computed({
     get() {
       // TODO: get this list from the backend
-      return ['Stroke', 'Negative Outcome'];
+      return ['Catastrophic Health Event'];
     }
   }),
 
