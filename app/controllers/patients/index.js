@@ -31,7 +31,7 @@ export default Controller.extend({
   }),
   patientSearch: '',
   currentPatient: null,
-  sortBy: 'family',
+  sortBy: 'name,birthdate',
   sortDescending: false,
   riskLowValue: 1,
   riskHighValue: 4,

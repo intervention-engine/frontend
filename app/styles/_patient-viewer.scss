@@ -64,6 +64,15 @@
     display: block;
     text-align: right;
   }
+
+  textarea {
+    width: 100%;
+  }
+
+  textarea[disabled] {
+    cursor: not-allowed;
+    background-color: #eee;
+  }
 }
 
 .is-today .pika-button {
