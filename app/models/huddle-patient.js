@@ -1,4 +1,6 @@
 import EmberObject from 'ember-object';
+import computed from 'ember-computed';
+import { isEmpty } from 'ember-utils';
 import moment from 'moment';
 
 export const REASON_CODES = {
@@ -15,6 +17,28 @@ export default EmberObject.extend({
   reason: null,
   reasonText: null,
   reviewed: null,
+
+  codedReasonText: computed('reason', 'reasonText', {
+    get() {
+      if (this.get('reason') === REASON_CODES.MANUAL_ADDITION) {
+        return 'Manually Added';
+      }
+
+      return this.get('reasonText');
+    }
+  }).readOnly(),
+
+  displayReasonText: computed('reason', 'reasonText', {
+    get() {
+      let reasonText = this.get('reasonText');
+
+      if (this.get('reason') === REASON_CODES.MANUAL_ADDITION) {
+        return `Manually Added${isEmpty(reasonText) ? '' : ` - ${reasonText}`}`;
+      }
+
+      return reasonText;
+    }
+  }).readOnly(),
 
   toFhirJson() {
     let obj = {
