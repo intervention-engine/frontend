@@ -38,3 +38,15 @@
   position: relative;
   min-height: 300px;
 }
+
+.col-no-pad {
+  padding: 0;
+}
+
+.alert.alert-full {
+  position: relative;
+  width: auto;
+  top: 0;
+  left: 0;
+  padding: 15px;
+}

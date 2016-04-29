@@ -28,7 +28,7 @@
                     checked={{eq currentAssessment riskAssessment}}
                     onchange={{action attrs.setRiskAssessment value="target.value"}}>
                   <label for={{concat riskAssessment index}} class="css-label css-label-circle checkbox-label">{{riskAssessment}}</label>
-                  <i class="fa fa-edit pull-right"></i>
+                  {{!-- <i class="fa fa-edit pull-right"></i> --}}
                 </div>
               {{/if}}
             {{/each}}
@@ -68,7 +68,7 @@
                     {{#if selectedScheduleHuddle}}
                       Geriatrics Huddle<br>
                       {{!-- Leader: {{selectedScheduleHuddle.displayLeader}}<br> --}}
-					  {{selectedScheduleHuddlePatient.displayReasonText}}
+                      {{selectedScheduleHuddlePatient.displayReasonText}}
                       {{#if selectedScheduleHuddlePatient.reviewed}}
                         <br>
                         Discussed on {{moment-format selectedScheduleHuddlePatient.reviewed 'MMM D, YYYY'}}
@@ -89,57 +89,68 @@
     </div>
   </div>
 
-  <div class="col-lg-10 col-sm-9">
-    <div class="row">
+  <div class="col-lg-10 col-sm-9 {{unless hasRisks 'col-no-pad'}}">
+    {{#if hasRisks}}
+      <div class="row">
 
-      {{!--------------------- ASTER PLOT -------------------------------------}}
-      <div class="col-lg-8 col-md-6">
-        <div class="row">
-          <div class="col-lg-12 col-xs-12">
-            {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory=(action attrs.selectCategory)}}
-          </div>
+        {{!--------------------- ASTER PLOT -------------------------------------}}
+        <div class="col-lg-8 col-md-6">
+          <div class="row">
+            <div class="col-lg-12 col-xs-12">
+              {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory=(action attrs.selectCategory)}}
+            </div>
 
-          {{!------------------- CATEGORY DETAILS -------------------------------}}
+            {{!------------------- CATEGORY DETAILS -------------------------------}}
 
-          <div class="col-lg-12 col-xs-12">
-            {{#if selectedCategory}}
-              {{category-details category=selectedCategory}}
-            {{else}}
-              <div class="row category-details">
-                <div class="col-xs-12 category-name">
-                  Risk Assessment
+            <div class="col-lg-12 col-xs-12">
+              {{#if selectedCategory}}
+                {{category-details category=selectedCategory}}
+              {{else}}
+                <div class="row category-details">
+                  <div class="col-xs-12 category-name">
+                    Risk Assessment
+                  </div>
+
+                  <div class="category-stat">
+                    <div class="col-lg-3 col-md-4 col-xs-3">
+                      {{currentAssessment}}:
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
+                      {{computedRisk}}
+                    </div>
+                    <div class="col-lg-7 hidden-md col-xs-7">
+                      {{horizontal-bar-chart max=6 width=200 height=5 value=computedRisk}}
+                    </div>
+                    <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
+                      {{horizontal-bar-chart max=6 width=100 height=5 value=computedRisk}}
+                    </div>
+                  </div>
+
+                  <div class="sub-text">
+                    Choose category for more detail.
+                  </div>
                 </div>
-
-                <div class="category-stat">
-                  <div class="col-lg-3 col-md-4 col-xs-3">
-                    {{currentAssessment}}:
-                  </div>
-                  <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
-                    {{computedRisk}}
-                  </div>
-                  <div class="col-lg-7 hidden-md col-xs-7">
-                    {{horizontal-bar-chart max=6 width=200 height=5 value=computedRisk}}
-                  </div>
-                  <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
-                    {{horizontal-bar-chart max=6 width=100 height=5 value=computedRisk}}
-                  </div>
-                </div>
-
-                <div class="sub-text">
-                  Choose category for more detail.
-                </div>
-              </div>
-            {{/if}}
+              {{/if}}
+            </div>
           </div>
         </div>
-      </div>
 
-      {{!--------------------- PATIENT TIMELINE -------------------------------}}
+        {{!--------------------- PATIENT TIMELINE -------------------------------}}
 
-      <div class="col-lg-4 col-md-6">
-        {{patient-timeline patient=patient}}
+        <div class="col-lg-4 col-md-6">
+          {{patient-timeline patient=patient}}
+        </div>
       </div>
-    </div>
+    {{else}}
+      <div class="alert alert-danger alert-full">
+        No Risk Assessment
+      </div>
+      <div class="row">
+        <div class="col-xs-10">
+          {{patient-timeline patient=patient}}
+        </div>
+      </div>
+    {{/if}}
   </div>
 </div>
 
