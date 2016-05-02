@@ -137,15 +137,10 @@ export default Component.extend(HasStylesheetMixin, {
       }
     }
 
-    return [
-      { name: 'medications', title: 'Medications', value: 0, weight: 1 },
-      { name: 'conditions', title: 'Conditions', value: 0, weight: 2 },
-      { name: 'readmissions', title: 'Readmissions', value: 0, weight: 1 },
-      { name: 'utilization', title: 'Utilizations', value: 5, weight: 0.5 },
-      { name: 'social_barriers', title: 'Social Barriers', value: 2, weight: 1 },
-      { name: 'falls', title: 'Falls', value: 1, weight: 1 }
-    ];
+    return [];
   }),
+
+  hasRisks: computed.gt('slices.length', 0),
 
   computedRisk: computed('patient.currentRisk', 'currentAssessment', function() {
     let currentAssessment = this.get('currentAssessment');

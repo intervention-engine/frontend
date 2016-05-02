@@ -36,7 +36,7 @@ export default Ember.Component.extend(PatientIconClassNames, {
       return risks.filterBy('key', currentAssessment)[0].value.get('value');
     }
 
-    return 0;
+    return null;
   }),
 
   patientPhoto: Ember.computed.reads('patient.photo')
