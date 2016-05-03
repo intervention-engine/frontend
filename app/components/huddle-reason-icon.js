@@ -41,11 +41,7 @@ export default Component.extend({
           return 'fa fa-fw fa-arrow-circle-o-right';
         case REASON_CODES.MANUAL_ADDITION:
           return 'fa fa-fw fa-pencil';
-        case REASON_CODES.RECENT_ADMISSION:
-          return 'fa fa-fw fa-h-square';
-        case REASON_CODES.RECENT_ED_VISIT:
-          return 'fa fa-fw fa-ambulance';
-        case REASON_CODES.RECENT_READMISSION:
+        case REASON_CODES.RECENT_ENCOUNTER:
           return 'fa fa-fw fa-hospital-o';
         case REASON_CODES.RISK_SCORE:
           return 'fa fa-fw fa-pie-chart';
