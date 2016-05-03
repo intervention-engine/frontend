@@ -58,14 +58,7 @@ export default Controller.extend({
     }
   }),
 
-  totalPatients: computed('model.patients.meta.total', 'selectedPopulation', 'populationPatients.length', function totalPatients() {
-    let selectedPopulation = this.get('selectedPopulation');
-    if (selectedPopulation == null) {
-      return this.get('model.patients.meta.total');
-    }
-
-    return this.get('populationPatients.length');
-  }),
+  totalPatients: computed.reads('model.patients.meta.total'),
 
   riskAssessments: computed({
     get() {
