@@ -1,9 +1,10 @@
 import Controller from 'ember-controller';
 import computed from 'ember-computed';
+import observer from 'ember-metal/observer';
 import run from 'ember-runloop';
 
 export default Controller.extend({
-  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending', 'groupId', 'huddleId'],
+  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending', 'groupId', 'huddleId', 'patientSearch'],
 
   page: 1,
   perPage: 8,
@@ -39,6 +40,10 @@ export default Controller.extend({
   huddleId: '',
   groupId: '',
 
+  patientSearchObserver: observer('patientSearch', function() {
+    this.refetch();
+  }),
+
   populations: computed('model.groups.[]', {
     get() {
       return this.get('model.groups').filter((group) => {
@@ -69,26 +74,15 @@ export default Controller.extend({
 
   populationPatients: computed.reads('model.patients'),
 
-  sortedPatients: computed.reads('filteredPatients'),
-
-  filteredPatients: computed('populationPatients.[]', 'patientSearch', {
-    get() {
-      let rx = new RegExp(this.get('patientSearch'), 'gi');
-      return this.get('populationPatients').filter(function(p) {
-        return p.get('fullName').toString().match(rx);
-      });
-    }
-  }),
-
   refetch() {
     run(() => {
       this.set('page', 1);
-
       let patientsRemoteArray = this.get('model.patients');
       patientsRemoteArray.set('sortBy', this.get('sortBy'));
       patientsRemoteArray.set('sortDescending', this.get('sortDescending'));
       patientsRemoteArray.set('groupId', this.get('groupId'));
       patientsRemoteArray.set('patientIds', this.get('huddlePatientIds'));
+      patientsRemoteArray.set('patientSearch', this.get('patientSearch'));
       patientsRemoteArray.set('page', 1);
       patientsRemoteArray.pageChanged();
     });
