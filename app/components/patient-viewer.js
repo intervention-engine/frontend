@@ -11,6 +11,7 @@ export default Component.extend(HasStylesheetMixin, {
   patient: null,
   riskAssessments: null,
   currentAssessment: null,
+  naRiskAssessment: false,
   selectedCategory: null,
   nextScheduledHuddle: null,
   displayEditHuddleModal: false,
@@ -151,6 +152,10 @@ export default Component.extend(HasStylesheetMixin, {
     }
 
     return 0;
+  }),
+
+  noRiskAssessmentReason: computed('naRiskAssessment', function() {
+    return this.get('naRiskAssessment') ? 'Risk Assessment Not Applicable' : 'No Risk Assessment';
   }),
 
   actions: {
