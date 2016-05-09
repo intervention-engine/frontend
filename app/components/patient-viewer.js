@@ -11,7 +11,19 @@ export default Component.extend(HasStylesheetMixin, {
   patient: null,
   riskAssessments: null,
   currentAssessment: null,
-  naRiskAssessment: false,
+  naRiskAssessment: computed('patientRisks.[]', {
+    get() {
+      let firstRisk = this.get('patientRisks.firstObject');
+      if (firstRisk) {
+        let code = firstRisk.get('prediction.firstObject.probabilityCodeableConcept.coding.firstObject');
+        if (code) {
+          return code.get('system') === 'http://snomed.info/sct' && code.get('code') === '385432009';
+        }
+      }
+
+      return false;
+    }
+  }),
   selectedCategory: null,
   nextScheduledHuddle: null,
   displayEditHuddleModal: false,
@@ -129,19 +141,30 @@ export default Component.extend(HasStylesheetMixin, {
     }
   }),
 
-  slices: computed('currentAssessment', 'patient.sortedRisks.@each.pie', function() {
-    let currentAssessment = this.get('currentAssessment');
-    if (currentAssessment) {
-      let risk = this.get('patient.sortedRisks').filterBy('prediction.firstObject.outcome.displayText', this.get('currentAssessment')).get('lastObject');
-      if (risk) {
-        return risk.get('pie').get('sliceArray');
-      }
+  patientRisks: computed('currentAssessment', 'patient.sortedRisks.[]', {
+    get() {
+      return this.get('patient.sortedRisks').filterBy('prediction.firstObject.outcome.displayText', this.get('currentAssessment'));
     }
-
-    return [];
   }),
 
-  hasRisks: computed.gt('slices.length', 0),
+  slices: computed('currentAssessment', 'patientRisks.@each.pie', function() {
+    let patientRisks = this.get('patientRisks');
+    if (patientRisks.get('length') === 0) {
+      return [];
+    }
+
+    return patientRisks.get('lastObject.pie.sliceArray');
+  }),
+
+  hasRisks: computed('patientRisks.length', 'naRiskAssessment', {
+    get() {
+      if (this.get('naRiskAssessment')) {
+        return false;
+      }
+
+      return this.get('patientRisks.length') > 0;
+    }
+  }),
 
   computedRisk: computed('patient.currentRisk', 'currentAssessment', function() {
     let currentAssessment = this.get('currentAssessment');
