@@ -40,7 +40,9 @@
         {{/if}}
       </div>
       <div class="col-xs-5 patient-risk-chart">
-        {{patient-risk-chart chartData=risksWithBirthdayStart}}
+        {{#if hasRisks}}
+          {{patient-risk-chart chartData=risksWithBirthdayStart}}
+        {{/if}}
       </div>
       <div class="col-xs-1">
         {{#if computedRisk}}

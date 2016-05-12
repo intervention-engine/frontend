@@ -26,7 +26,7 @@ export default Component.extend(PatientIconClassNames, {
       let risks = this.get('patient.currentRisk');
 
       if (assessment && risks.length > 0) {
-        return risks.filterBy('key', assessment)[0].value.get('value');
+        return risks.filterBy('key', assessment).get('firstObject.value.value') || null;
       }
 
       return 0;
