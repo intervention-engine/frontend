@@ -41,7 +41,7 @@ export default Controller.extend({
   groupId: '',
 
   patientSearchObserver: observer('patientSearch', function() {
-    run.debounce(this, this.refetch(), 150)
+    run.debounce(this, this.refetch(), 150);
   }),
 
   populations: computed('model.groups.[]', {
