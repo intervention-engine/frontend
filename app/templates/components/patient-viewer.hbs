@@ -1,10 +1,9 @@
-{{patient-summary patient=patient currentAssessment=currentAssessment huddle=futureDisplayHuddle hasRisks=hasRisks}}
-
 {{!------------------------- PATIENT SUMMARY --------------------------------}}
+{{patient-summary patient=patient currentAssessment=currentAssessment huddle=futureDisplayHuddle hasRisks=hasRisks}}
 
 {{!------------------------- PATIENT STATS ----------------------------------}}
 <div class="row">
-  <div class="col-lg-2 col-sm-3 col-reset">
+  <div class="patient-view-stats col-sm-3 col-reset">
     <div class="panel">
       <div class="panel-heading">
         <div class="collapse-panel-title">
@@ -14,6 +13,7 @@
           </a>
         </div>
       </div>
+
       <div class="panel-body">
         <div class="collapse in" id="chooseRiskAssessment">
           <form class="form-horizontal form-group-striped">
@@ -35,6 +35,7 @@
           </form>
         </div>
       </div>
+
       <div class="panel-heading">
         <div class="collapse-panel-title">
           <a data-toggle="collapse" href="#huddleList" aria-expanded="true" aria-controls="collapseOne">
@@ -44,6 +45,7 @@
           </a>
         </div>
       </div>
+
       <div class="panel-body">
         <div class="collapse in" id="huddleList">
           <form class="form-horizontal form-group-striped">
@@ -89,55 +91,50 @@
     </div>
   </div>
 
-  <div class="col-lg-10 col-sm-9 {{unless hasRisks 'col-no-pad'}}">
+  <div class="patient-view-display col-sm-9 {{unless hasRisks 'col-no-pad'}}">
     {{#if hasRisks}}
       <div class="row">
 
         {{!--------------------- ASTER PLOT -------------------------------------}}
-        <div class="col-lg-8 col-md-6">
-          <div class="row">
-            <div class="col-lg-12 col-xs-12">
-              {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory=(action attrs.selectCategory)}}
-            </div>
+        <div class="aster-plot-container col-lg-6 col-md-5">
+          {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory=(action attrs.selectCategory)}}
 
-            {{!------------------- CATEGORY DETAILS -------------------------------}}
+          {{!------------------- CATEGORY DETAILS -------------------------------}}
+          {{#if selectedCategory}}
+            {{category-details category=selectedCategory}}
+          {{else}}
+            <div class="category-details">
+              <div class="category-name">
+                {{currentAssessment}}
+              </div>
 
-            <div class="col-lg-12 col-xs-12">
-              {{#if selectedCategory}}
-                {{category-details category=selectedCategory}}
-              {{else}}
-                <div class="row category-details">
-                  <div class="col-xs-12 category-name">
-                    Risk Assessment
-                  </div>
-
-                  <div class="category-stat">
-                    <div class="col-lg-3 col-md-4 col-xs-3">
-                      {{currentAssessment}}:
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
-                      {{computedRisk}}
-                    </div>
-                    <div class="col-lg-7 hidden-md col-xs-7">
-                      {{horizontal-bar-chart max=6 width=200 height=5 value=computedRisk}}
-                    </div>
-                    <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
-                      {{horizontal-bar-chart max=6 width=100 height=5 value=computedRisk}}
-                    </div>
-                  </div>
-
-                  <div class="sub-text">
-                    Choose category for more detail.
-                  </div>
+              <div class="category-stat row">
+                <div class="category-stat-label col-md-2">
+                  Risk:
                 </div>
-              {{/if}}
+
+                <div class="col-lg-1 col-md-2 col-xs-2 category-stat-value">
+                  {{computedRisk}}
+                </div>
+
+                <div class="col-lg-7 hidden-md col-xs-7">
+                  {{horizontal-bar-chart max=4 width=300 height=5 value=computedRisk}}
+                </div>
+
+                <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
+                  {{horizontal-bar-chart max=4 width=180 height=5 value=computedRisk}}
+                </div>
+              </div>
+
+              <div class="sub-text">
+                Choose category for more detail.
+              </div>
             </div>
-          </div>
+          {{/if}}
         </div>
 
         {{!--------------------- PATIENT TIMELINE -------------------------------}}
-
-        <div class="col-lg-4 col-md-6">
+        <div class="patient-timeline-container col-lg-6 col-md-7">
           {{patient-timeline patient=patient}}
         </div>
       </div>

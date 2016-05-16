@@ -20,7 +20,7 @@ export default C3Chart.extend({
 
     // group data by dates
     let nestedData = d3.nest()
-      .key((d) =>moment(d.get('date')).toDate())
+      .key((d) => moment(d.get('date')).toDate())
       .entries(data);
 
     let labels = nestedData.map((value) => {

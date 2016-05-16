@@ -43,8 +43,9 @@ export default Component.extend(PatientIconClassNames, {
     }
 
     let riskBar = this.element.querySelector('.patient-risk-bar');
+
     if (riskBar) {
-      let width = Math.floor(this.get('computedRisk') * this.get('maxRisk') * 3);
+      let width = Math.floor(100 / this.get('maxRisk') * this.get('computedRisk'));
       riskBar.style.width = `${width}%`;
     }
   },

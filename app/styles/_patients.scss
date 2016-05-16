@@ -92,8 +92,8 @@
             right: 0;
             height: 24px;
 
-            @include respond-to(desktop-wide) { width: 175px; }
-            @include respond-to(desktop) { width: 175px; }
+            @include respond-to(desktop-wide) { width: 350px; }
+            @include respond-to(desktop) { width: 200px; }
             @include respond-to(tablet) { width: 85px; }
             @include respond-to(mobile) { width: 250px; }
 
@@ -265,9 +265,9 @@
 
   .aster-plot {
     margin: 0 auto;
-    padding: 20px;
-    @include respond-to(desktop) { padding: 20px 5px; }
-    @include respond-to(tablet) { width: 400px; }
+    padding: 10px;
+    width: 400px;
+    @include respond-to(desktop) { width: 315px; }
 
     .category {
       cursor: pointer;
@@ -275,8 +275,8 @@
   }
 
   .category-details {
+    margin: auto;
     font-size: 18px;
-    @include respond-to(desktop-wide) { width: 450px; }
     @include respond-to(tablet) {
       width: 400px;
       margin: 0 auto 30px auto;
@@ -288,8 +288,20 @@
       padding: 10px;
     }
 
-    .category-stat-value {
-      font-weight: 500;
+    .category-stat {
+      margin: auto;
+      @include respond-to(desktop-wide) { width: 80%; }
+
+      .category-stat-label {
+        text-align: right;
+        line-height: 30px;
+      }
+
+      .category-stat-value {
+        font-size: 1.2em;
+        font-weight: 500;
+        text-align: right;
+      }
     }
 
     .sub-text {
