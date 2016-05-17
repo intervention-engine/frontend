@@ -3,12 +3,13 @@
 
 {{!------------------------- PATIENT STATS ----------------------------------}}
 <div class="row">
-  <div class="patient-view-stats col-sm-3 col-reset">
+  <div class="patient-view-stats col-md-3 col-sm-5 col-reset">
     <div class="panel">
       <div class="panel-heading">
         <div class="collapse-panel-title">
           <a data-toggle="collapse" href="#chooseRiskAssessment" aria-expanded="true" aria-controls="collapseOne">
-            Choose Risk Assessment
+            <i class="fa fa-fw fa-pie-chart" aria-hidden="true"></i>
+            Risk Assessment
             <i class="fa fa-chevron-down pull-right"></i>
           </a>
         </div>
@@ -91,7 +92,7 @@
     </div>
   </div>
 
-  <div class="patient-view-display col-sm-9 {{unless hasRisks 'col-no-pad'}}">
+  <div class="patient-view-display col-md-9 col-sm-7 {{unless hasRisks 'col-no-pad'}}">
     {{#if hasRisks}}
       <div class="row">
 
@@ -109,19 +110,19 @@
               </div>
 
               <div class="category-stat row">
-                <div class="category-stat-label col-md-2">
+                <div class="category-stat-label col-md-2 col-sm-3">
                   Risk:
                 </div>
 
-                <div class="col-lg-1 col-md-2 col-xs-2 category-stat-value">
+                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 category-stat-value">
                   {{computedRisk}}
                 </div>
 
-                <div class="col-lg-7 hidden-md col-xs-7">
+                <div class="col-lg-7 hidden-md hidden-sm col-xs-7">
                   {{horizontal-bar-chart max=4 width=300 height=5 value=computedRisk}}
                 </div>
 
-                <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
+                <div class="col-md-5 col-sm-5 hidden-lg hidden-xs">
                   {{horizontal-bar-chart max=4 width=180 height=5 value=computedRisk}}
                 </div>
               </div>
@@ -134,7 +135,7 @@
         </div>
 
         {{!--------------------- PATIENT TIMELINE -------------------------------}}
-        <div class="patient-timeline-container col-lg-6 col-md-7">
+        <div class="patient-timeline-container col-lg-6 col-md-7 hidden-sm hidden-xs">
           {{patient-timeline patient=patient}}
         </div>
       </div>
@@ -142,12 +143,18 @@
       <div class="alert alert-danger alert-full">
         {{noRiskAssessmentReason}}
       </div>
+
       <div class="row">
         <div class="col-xs-10">
           {{patient-timeline patient=patient}}
         </div>
       </div>
     {{/if}}
+  </div>
+
+  <hr />
+  <div class="patient-timeline-wide-container clearfix hidden-lg hidden-md">
+    {{patient-timeline patient=patient}}
   </div>
 </div>
 

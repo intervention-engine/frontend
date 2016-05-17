@@ -72,6 +72,7 @@
           }
 
           .patient-name {
+            margin-left: 10px;
             font-size: 24px;
           }
 
@@ -82,7 +83,7 @@
             .patient-age,
             .patient-gender,
             .patient-location {
-              margin-right: 1em;
+              margin: 0 12px;
             }
           }
 
@@ -94,7 +95,7 @@
 
             @include respond-to(desktop-wide) { width: 350px; }
             @include respond-to(desktop) { width: 200px; }
-            @include respond-to(tablet) { width: 85px; }
+            @include respond-to(tablet) { width: 150px; }
             @include respond-to(mobile) { width: 250px; }
 
             .patient-risk-bar {
@@ -135,6 +136,16 @@
           }
         }
       }
+    }
+  }
+
+  // ----------------------- PATIENT SHOW ---------------------------------- //
+
+  .patient-show {
+    @include respond-to(tablet) {
+      position: absolute;
+      left: 10px;
+      padding: 0;
     }
   }
 

@@ -4,7 +4,7 @@ import service from 'ember-service/inject';
 import run from 'ember-runloop';
 
 export default Component.extend({
-  classNames: ['filter-counts', 'col-sm-8'],
+  classNames: ['filter-counts'],
 
   ajax: service(),
 

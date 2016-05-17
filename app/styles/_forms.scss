@@ -95,7 +95,7 @@ input[type=radio].css-checkbox {
 input[type=checkbox].css-checkbox + label.css-label,
 input[type=radio].css-checkbox + label.css-label {
   display: inline-block;
-  height: 30px;
+  // height: 30px;
   line-height: 30px;
   background-repeat: no-repeat;
   background-position: 0 0;
@@ -268,7 +268,7 @@ input:-webkit-autofill:focus {
 
 .sliding-search:focus,
 .sliding-search.expanded {
-  width: 300px;
+  width: 250px;
   padding-left: 20px;
   color: #000;
   background-color: #fff;

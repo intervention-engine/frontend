@@ -17,6 +17,14 @@
     height: 100px;
     margin: 0 15px 0 0;
     text-align: center;
+
+    @include respond-to(tablet) {
+      font-size: 1.5em;
+      width: 50px;
+      height: 50px;
+      padding: 2px 0;
+      margin: 20px 10px 0 -8px;
+    }
   }
 
   .pane-content {
@@ -65,6 +73,7 @@
 
 .pane-input input {
   padding: 0;
+  margin: 0;
   border: 1px solid lighten($brand-secondary, 20%);
 
   &.age {
@@ -74,7 +83,9 @@
 
   &.condition,
   &.encounter {
-    width: 245px;
+    width: 600px;
     padding-left: 10px;
+
+    @include respond-to(tablet) { width: 230px; }
   }
 }

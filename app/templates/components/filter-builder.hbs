@@ -1,11 +1,11 @@
 <div class="container">
   <div class="title-panel row">
-    <div class="title-text col-sm-4">Filter Builder</div>
-    {{filter-counts group=group}}
+    <div class="title-text col-md-4 col-sm-12">Filter Builder</div>
+    <div class="col-md-8 col-sm-12">{{filter-counts group=group}}</div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-3">
+  <div class="row filter-builder-container">
+    <div class="col-md-3 col-sm-5">
       <div class="panel">
         <div class="panel-heading">
           <div class="panel-title">
@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-md-9 col-sm-7">
       <div class="panel">
         <div class="panel-heading">
           <div class="panel-title">
@@ -71,11 +71,15 @@
               {{#each panes as |pane|}}
                 {{filter-pane pane=pane group=group onChange=(action "updateCounts") removePane=(action "removePane")}}
               {{/each}}
-              <div class="save-new-filter">
-                <span class="pane-input">
+
+              <div class="save-new-filter row">
+                <div class="pane-input">
                   {{input type="text" value=filterName placeholder="name of filter"}}
-                </span>
-                <button class="btn btn-lg btn-primary" {{action "saveFilter"}}>Save Filter</button>
+                </div>
+
+                <div class="col-sm-12">
+                  <button class="btn btn-lg btn-primary pull-right" {{action "saveFilter"}}>Save Filter</button>
+                </div>
               </div>
             {{else}}
               <span class="sub-text">
