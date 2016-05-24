@@ -4,7 +4,7 @@ import observer from 'ember-metal/observer';
 import run from 'ember-runloop';
 
 export default Controller.extend({
-  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending', 'groupId', 'huddleId', 'patientSearch'],
+  queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending', 'groupId', 'huddleId'],
 
   page: 1,
   perPage: 8,
@@ -41,7 +41,7 @@ export default Controller.extend({
   groupId: '',
 
   patientSearchObserver: observer('patientSearch', function() {
-    run.debounce(this, this.refetch(), 150);
+    run.debounce(this, this.refetch, 150);
   }),
 
   populations: computed('model.groups.[]', {
