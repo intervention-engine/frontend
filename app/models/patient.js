@@ -40,7 +40,7 @@ export default Patient.extend({
            item.hasCode('type', { code: '99223', system: 'http://www.ama-assn.org/go/cpt' });
   }),
 
-  events: Ember.computed('encounters.[]', 'conditions.[]', 'medications.[]', function() {
+  events: Ember.computed('encounters.[]', 'conditions.[]', 'medications.[]', 'sortedRisks.[]', function() {
     let events =  Ember.A([]);
     this.get('encounters').map(function(e) {
       let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'encounter' });
@@ -67,6 +67,11 @@ export default Patient.extend({
         let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'medication', isEnd: true });
         events.push(patientEvent);
       }
+    });
+    this.get('sortedRisks').map(function(e) {
+      let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'riskChanged' });
+      events.push(patientEvent);
+
     });
     return events.sortBy('effectiveDate').reverse();
   }),
