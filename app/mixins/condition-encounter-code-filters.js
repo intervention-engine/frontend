@@ -49,6 +49,9 @@ export default Ember.Mixin.create({
       matcher() {
         return true;
       },
+      sorter(items) {
+        return items;
+      },
       source(query, process) {
         let queryParams = {
           codesystem: self.get('selectedCodingSystem.system'),
