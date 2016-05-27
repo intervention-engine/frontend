@@ -2,10 +2,9 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  type: DS.attr('string'),
-  event: DS.attr(),
+  displayText: DS.attr('string', { defaultValue: '' }),
   isEnd: DS.attr('boolean', { defaultValue: false }),
-  displayText: Ember.computed.reads('event.displayText'),
+  deltaRisk: DS.attr('number', { defaultValue: 0.0 }),
   effectiveDate: Ember.computed('isEnd', 'event', function() {
     if (this.get('isEnd')) {
       return this.get('event.endDate');
