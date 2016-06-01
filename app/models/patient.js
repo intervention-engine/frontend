@@ -42,24 +42,29 @@ export default Patient.extend({
 
   events: Ember.computed('encounters.[]', 'conditions.[]', 'medications.[]', 'sortedRisks.[]', function() {
     let events =  Ember.A([]);
+
     this.get('encounters').map(function(e) {
       let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'encounter' });
       events.push(patientEvent);
+
       if (e.hasOccured('endDate')) {
         let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'encounter', isEnd: true });
         events.push(patientEvent);
       }
     });
+
     this.get('conditions').map(function(e) {
       if (e.get('verificationStatus') === 'confirmed') {
         let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'condition' });
         events.push(patientEvent);
+
         if (e.hasOccured('endDate')) {
           let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'condition', isEnd: true });
           events.push(patientEvent);
         }
       }
     });
+
     this.get('medications').map(function(e) {
       let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'medication' });
       events.push(patientEvent);
@@ -68,22 +73,25 @@ export default Patient.extend({
         events.push(patientEvent);
       }
     });
-    this.get('risksByOutcome').map(function(outcome) {
 
+    this.get('risksByOutcome').map(function(outcome) {
       let riskTransitions = outcome.values.map(function(e, i) {
         let previousRisk = outcome.values[i - 1];
+
         if (!previousRisk) {
           let displayText = `Risk of '${outcome.key}' started at ${e.get('value')}`;
           return e.store.createRecord('risk-event', { event: e, displayText, deltaRisk: e.get('value') , type: 'riskIncreased' });
         }
+
         let deltaRisk = e.get('value') - previousRisk.get('value');
         let direction = deltaRisk > 0 ? 'increased' : 'decreased';
-        let displayText = `Risk of '${outcome.key}' ${direction} by ${Math.abs(deltaRisk)} and is now ${e.get('value')}`;
+        let displayText = `Risk of '${outcome.key}' ${direction} from ${previousRisk.get('value')} to ${e.get('value')}`;
         return e.store.createRecord('risk-event', { event: e, displayText, deltaRisk , type: `risk${direction.capitalize()}` });
-
       });
+
       events.push(...riskTransitions.filter((e) => e.get('deltaRisk') !== 0));
     });
+
     return events.sortBy('effectiveDate').reverse();
   }),
 
