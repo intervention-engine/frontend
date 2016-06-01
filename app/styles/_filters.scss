@@ -14,6 +14,7 @@
 
   .count {
     min-width: 150px;
+    margin: 0;
 
     .count-value {
       display: inline-block;
@@ -102,12 +103,13 @@
     .pane-input input {
       padding-left: 10px;
       height: 45px;
-      width: 325px;
+      width: 350px;
       font-size: 20px;
+      margin: 15px;
     }
 
     button {
-      margin: 0 1px 5px 10px;
+      margin: 5px 1px 5px 10px;
     }
   }
 }

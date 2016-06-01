@@ -1,8 +1,12 @@
 // ------------------------- TIMELINE -------------------------------------- //
+.patient-timeline-wide-container {
+  clear: both;
+  margin: 40px;
+  padding-top: 20px;
+}
+
 .timeline {
-  margin: 20px auto;
-  @include respond-to(desktop) { margin: 20px 0 0 80px; }
-  @include respond-to(tablet) { margin: 20px 0 0 80px; }
+  margin: 0 10px 0 30px;
 
   .timeline-icon-search {
     .timeline-icon {

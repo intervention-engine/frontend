@@ -1,35 +1,41 @@
-<div class="row category-details">
-  <div class="col-xs-12 category-name">
+<div class="category-details">
+  <div class="category-name">
     {{category.name}}
   </div>
 
-  <div class="category-stat">
-    <div class="col-lg-3 col-md-4 col-xs-3">
+  <div class="category-stat row">
+    <div class="category-stat-label col-lg-2 col-md-3 col-xs-3">
       Risk:
     </div>
+
     <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
       {{category.value}}
     </div>
-    <div class="col-lg-7 hidden-md col-xs-7">
-      {{horizontal-bar-chart max=category.maxValue width=200 height=5 value=category.value}}
+
+    <div class="col-lg-8 hidden-md hidden-sm col-xs-7">
+      {{horizontal-bar-chart max=category.maxValue width=300 height=5 value=category.value}}
     </div>
-    <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
-      {{horizontal-bar-chart max=category.maxValue width=100 height=5 value=category.value}}
+
+    <div class="col-md-6 col-sm-7 hidden-lg hidden-xs">
+      {{horizontal-bar-chart max=category.maxValue width=150 height=5 value=category.value}}
     </div>
   </div>
 
-  <div class="category-stat">
-    <div class="col-lg-3 col-md-4 col-xs-3">
+  <div class="category-stat row">
+    <div class="category-stat-label col-lg-2 col-md-3 col-xs-3">
       Weight:
     </div>
+
     <div class="col-lg-2 col-md-3 col-xs-2 category-stat-value">
       {{category.weight}}
     </div>
-    <div class="col-lg-7 hidden-md col-xs-7">
-      {{horizontal-bar-chart max=category.maxWeight width=200 height=5 value=category.weight}}
+
+    <div class="col-lg-8 hidden-md hidden-sm col-xs-7">
+      {{horizontal-bar-chart max=category.maxWeight width=300 height=5 value=category.weight}}
     </div>
-    <div class="col-md-5 hidden-lg hidden-sm hidden-xs">
-      {{horizontal-bar-chart max=category.maxWeight width=100 height=5 value=category.weight}}
+
+    <div class="col-md-6 col-sm-6 hidden-lg hidden-xs">
+      {{horizontal-bar-chart max=category.maxWeight width=150 height=5 value=category.weight}}
     </div>
   </div>
 </div>

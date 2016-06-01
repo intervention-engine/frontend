@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="count col-sm-3">
+  <div class="count col-sm-4">
     <span class="count-value" id="patient-count">
       {{#if loading}}
         {{ember-spinner config='small' top='30%'}}
@@ -10,7 +10,8 @@
     </span><br/>
     <span>patients</span>
   </div>
-  <div class="count col-sm-3">
+
+  <div class="count col-sm-4">
     <span class="count-value" id="condition-count">
       {{#if loading}}
         {{ember-spinner config='small' top='30%'}}
@@ -21,7 +22,8 @@
     </span><br/>
     <span>conditions</span>
   </div>
-  <div class="count col-sm-3">
+
+  <div class="count col-sm-4">
     <span class="count-value" id="encounter-count">
       {{#if loading}}
         {{ember-spinner config='small' top='30%'}}
