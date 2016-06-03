@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import C3Chart from 'ember-cli-c3/components/c3-chart';
 import moment from 'moment';
+import get from 'ember-metal/get';
 
 const { computed } = Ember;
 
@@ -41,6 +42,19 @@ export default C3Chart.extend({
       ],
       types: {
         risk: 'area-spline'
+      },
+      selection: {
+        enabled: true,
+        multiple: false
+      },
+      onselected: () => {
+        let index = get(this.get('chart').selected(), 'firstObject.index');
+        if (index != null) {
+          this.attrs.setSelectedRisk(data.objectAt(index));
+        }
+      },
+      onunselected: () => {
+        this.attrs.setSelectedRisk(null);
       }
     };
   }),
@@ -82,6 +96,9 @@ export default C3Chart.extend({
             expand: {
               r: 5.5
             }
+          },
+          select: {
+            r: 6.5
           }
         },
         size: {

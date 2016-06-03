@@ -1,5 +1,5 @@
 {{!------------------------- PATIENT SUMMARY --------------------------------}}
-{{patient-summary patient=patient currentAssessment=currentAssessment huddle=futureDisplayHuddle hasRisks=hasRisks}}
+{{patient-summary patient=patient currentAssessment=currentAssessment huddle=futureDisplayHuddle hasRisks=hasRisks setSelectedRisk=(action 'setSelectedRisk')}}
 
 {{!------------------------- PATIENT STATS ----------------------------------}}
 <div class="row">
@@ -115,7 +115,7 @@
                 </div>
 
                 <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 category-stat-value">
-                  {{computedRisk}}
+                  {{selectedPatientRiskOrLast.value}}
                 </div>
 
                 <div class="col-lg-7 hidden-md hidden-sm col-xs-7">

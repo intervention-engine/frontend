@@ -42,7 +42,7 @@
 
       <div class="col-xs-5 patient-risk-chart">
         {{#if hasRisks}}
-          {{patient-risk-chart chartData=risksWithBirthdayStart}}
+          {{patient-risk-chart chartData=risksWithBirthdayStart setSelectedRisk=attrs.setSelectedRisk}}
         {{/if}}
       </div>
 
