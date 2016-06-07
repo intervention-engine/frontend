@@ -2,22 +2,35 @@ import Ember from 'ember';
 import C3Chart from 'ember-cli-c3/components/c3-chart';
 import moment from 'moment';
 import get from 'ember-metal/get';
+import run from 'ember-runloop';
 
 const { computed } = Ember;
 
 export default C3Chart.extend({
   classNames: ['patient-risk-chart'],
 
+  selectedRisk: null,
+
   offsetTime: 4,        // default time offset numeral
   offsetUnit: 'years',  // default time offset unit
-  height: 54,          // default height of chart
+  height: 54,           // default height of chart
 
-  data: computed('chartData.[]', 'offsetTime', 'offsetUnit', function() {
+  didInsertElement() {
+    this._super(...arguments);
+
+    this.get('chart').select(null, [this.get('filteredChartData.length') - 1]);
+  },
+
+  filteredChartData: computed('chartData.[]', 'offsetTime', 'offsetUnit', function filteredChartData() {
     let startDate = moment().subtract(this.get('offsetTime'), this.get('offsetUnit'));
 
-    let data = this.get('chartData').filter(function(datum) {
+    return this.get('chartData').filter(function(datum) {
       return !startDate.isAfter(datum.get('date'));
     });
+  }),
+
+  data: computed('filteredChartData.[]', function() {
+    let data = this.get('filteredChartData');
 
     // group data by dates
     let nestedData = d3.nest()
@@ -50,11 +63,23 @@ export default C3Chart.extend({
       onselected: () => {
         let index = get(this.get('chart').selected(), 'firstObject.index');
         if (index != null) {
-          this.attrs.setSelectedRisk(data.objectAt(index));
+          let selectedDataPoint = data.objectAt(index);
+          if (selectedDataPoint !== this.get('selectedRisk')) {
+            this.attrs.setSelectedRisk(selectedDataPoint);
+          }
         }
       },
       onunselected: () => {
-        this.attrs.setSelectedRisk(null);
+        run(() => this.attrs.setSelectedRisk(null));
+
+        run.later(() => {
+          if (this.get('chart').selected().length === 0) {
+            let index = this.get('filteredChartData').indexOf(this.get('selectedRisk'));
+            if (index !== -1) {
+              this.get('chart').select(null, [index]);
+            }
+          }
+        });
       }
     };
   }),

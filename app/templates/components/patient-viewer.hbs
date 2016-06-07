@@ -1,5 +1,5 @@
 {{!------------------------- PATIENT SUMMARY --------------------------------}}
-{{patient-summary patient=patient currentAssessment=currentAssessment huddle=futureDisplayHuddle hasRisks=hasRisks setSelectedRisk=(action 'setSelectedRisk')}}
+{{patient-summary patient=patient currentAssessment=currentAssessment huddle=futureDisplayHuddle hasRisks=hasRisks setSelectedRisk=(action 'setSelectedRisk') selectedRisk=selectedPatientRiskOrLast}}
 
 {{!------------------------- PATIENT STATS ----------------------------------}}
 <div class="row">
@@ -98,39 +98,43 @@
 
         {{!--------------------- ASTER PLOT -------------------------------------}}
         <div class="aster-plot-container col-lg-6 col-md-5">
-          {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory=(action attrs.selectCategory)}}
-
-          {{!------------------- CATEGORY DETAILS -------------------------------}}
-          {{#if selectedCategory}}
-            {{category-details category=selectedCategory}}
+          {{#if pieIsLoading}}
+            {{ember-spinner config='large'}}
           {{else}}
-            <div class="category-details">
-              <div class="category-name">
-                {{currentAssessment}}
+            {{aster-plot-chart patient=patient data=slices selectedCategory=selectedCategory selectCategory=(action attrs.selectCategory)}}
+
+            {{!------------------- CATEGORY DETAILS -------------------------------}}
+            {{#if selectedCategory}}
+              {{category-details category=selectedCategory}}
+            {{else}}
+              <div class="category-details">
+                <div class="category-name">
+                  {{currentAssessment}}
+                </div>
+
+                <div class="category-stat row">
+                  <div class="category-stat-label col-md-2 col-sm-3">
+                    Risk:
+                  </div>
+
+                  <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 category-stat-value">
+                    {{selectedPatientRiskOrLast.value}}
+                  </div>
+
+                  <div class="col-lg-7 hidden-md hidden-sm col-xs-7">
+                    {{horizontal-bar-chart max=4 width=300 height=5 value=computedRisk}}
+                  </div>
+
+                  <div class="col-md-5 col-sm-5 hidden-lg hidden-xs">
+                    {{horizontal-bar-chart max=4 width=180 height=5 value=computedRisk}}
+                  </div>
+                </div>
+
+                <div class="sub-text">
+                  Choose category for more detail.
+                </div>
               </div>
-
-              <div class="category-stat row">
-                <div class="category-stat-label col-md-2 col-sm-3">
-                  Risk:
-                </div>
-
-                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 category-stat-value">
-                  {{selectedPatientRiskOrLast.value}}
-                </div>
-
-                <div class="col-lg-7 hidden-md hidden-sm col-xs-7">
-                  {{horizontal-bar-chart max=4 width=300 height=5 value=computedRisk}}
-                </div>
-
-                <div class="col-md-5 col-sm-5 hidden-lg hidden-xs">
-                  {{horizontal-bar-chart max=4 width=180 height=5 value=computedRisk}}
-                </div>
-              </div>
-
-              <div class="sub-text">
-                Choose category for more detail.
-              </div>
-            </div>
+            {{/if}}
           {{/if}}
         </div>
 

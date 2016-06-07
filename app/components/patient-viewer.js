@@ -180,6 +180,8 @@ export default Component.extend(HasStylesheetMixin, {
     return DS.PromiseObject.create({ promise });
   }),
 
+  pieIsLoading: computed.reads('pie.isPending'),
+
   slices: computed('selectedPatientRiskOrLast', 'pie', 'pie.isFulfilled', function() {
     let selectedPatientRiskOrLast = this.get('selectedPatientRiskOrLast');
     if (selectedPatientRiskOrLast == null) {
@@ -229,7 +231,6 @@ export default Component.extend(HasStylesheetMixin, {
       let selectedCategory = this.get('selectedCategory');
       this.set('oldCategoryName', selectedCategory == null ? null : selectedCategory.name);
       this.set('selectedPatientRisk', risk);
-      this.attrs.selectCategory(null);
     }
   }
 });

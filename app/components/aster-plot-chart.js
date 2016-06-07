@@ -28,6 +28,7 @@ export default Component.extend({
     g.append('g').classed('inner', true);
 
     this.updateChart();
+    this.selectedCategoryObserver();
   },
 
   selectedCategoryObserver: observer('selectedCategory', function selectedCategoryObserver() {

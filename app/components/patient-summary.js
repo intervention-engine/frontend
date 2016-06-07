@@ -9,6 +9,7 @@ export default Ember.Component.extend(PatientIconClassNames, {
 
   patient: null,
   currentAssessment: null,
+  selectedRisk: null,
   huddle: null,
   hasRisks: false,
 
