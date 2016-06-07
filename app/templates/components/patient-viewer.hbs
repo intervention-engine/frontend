@@ -98,6 +98,10 @@
 
         {{!--------------------- ASTER PLOT -------------------------------------}}
         <div class="aster-plot-container col-lg-6 col-md-5">
+          <div class="current-risk-date">
+            {{moment-format selectedPatientRiskOrLast.date 'll'}}
+          </div>
+
           {{#if pieIsLoading}}
             {{ember-spinner config='large'}}
           {{else}}
