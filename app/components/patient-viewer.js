@@ -144,7 +144,7 @@ export default Component.extend(HasStylesheetMixin, {
     }
   }),
 
-  patientRisks: computed('currentAssessment', 'patient.sortedRisks.[]', {
+  patientRisks: computed('patient', 'currentAssessment', 'patient.sortedRisks.[]', {
     get() {
       return this.get('patient.sortedRisks').filterBy('prediction.firstObject.outcome.displayText', this.get('currentAssessment'));
     }
@@ -156,7 +156,7 @@ export default Component.extend(HasStylesheetMixin, {
     }
   }),
 
-  pie: computed('currentAssessment', 'selectedPatientRiskOrLast', function pie() {
+  pie: computed('patient', 'currentAssessment', 'selectedPatientRiskOrLast', function pie() {
     let selectedPatientRiskOrLast = this.get('selectedPatientRiskOrLast');
 
     if (selectedPatientRiskOrLast == null) {

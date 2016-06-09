@@ -117,6 +117,10 @@ export default Controller.extend({
 
     unregisterPatientViewer() {
       this.set('patientViewerComponent', null);
+    },
+
+    nextPatient() {
+      this.set('selectedCategory', null);
     }
   }
 });

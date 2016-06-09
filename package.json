@@ -51,6 +51,7 @@
     "ember-drag-drop": "pgrippi/ember-drag-drop#master",
     "ember-export-application-global": "1.0.5",
     "ember-fhir-adapter": "0.0.12",
+    "ember-link-action": "0.0.34",
     "ember-load-initializers": "0.5.1",
     "ember-modal-dialog": "0.8.3",
     "ember-moment": "6.1.0",
