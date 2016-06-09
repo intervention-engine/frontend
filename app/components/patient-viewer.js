@@ -150,7 +150,7 @@ export default Component.extend(HasStylesheetMixin, {
     }
   }),
 
-  selectedPatientRiskOrLast: computed('selectedPatientRisk', 'patientRisks.lastObject', {
+  selectedPatientRiskOrLast: computed('patient', 'currentAssessment', 'selectedPatientRisk', 'patientRisks.lastObject', {
     get() {
       return this.get('selectedPatientRisk') || this.get('patientRisks.lastObject');
     }
