@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import service from 'ember-service/inject';
-import get from 'ember-metal/get';
 import PatientIconClassNames from '../mixins/patient-icon-class-names';
 
 export default Ember.Component.extend(PatientIconClassNames, {
@@ -29,17 +28,6 @@ export default Ember.Component.extend(PatientIconClassNames, {
     let risks = [birthRisk];
     risks.pushObjects(this.get('patient.sortedRisks'));
     return risks.filterBy('prediction.firstObject.outcome.displayText', currentAssessment);
-  }),
-
-  computedRisk: Ember.computed('patient.currentRisk', 'currentAssessment', function() {
-    let currentAssessment = this.get('currentAssessment');
-    let risks = this.get('patient.currentRisk');
-
-    if (currentAssessment && risks.length > 0) {
-      return get(risks.filterBy('key', currentAssessment), 'firstObject.value.value') || null;
-    }
-
-    return null;
   }),
 
   patientPhoto: Ember.computed.reads('patient.photo')
