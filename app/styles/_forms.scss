@@ -225,10 +225,11 @@ input:-webkit-autofill:focus {
 /* ------------------------- SLIDING SEARCH BOX ---------------------------- */
 
 .sliding-search-container {
+  display: inline-block;
   position: relative;
 
   .fa {
-    color: #333;
+    color: $brand-secondary;
     font-size: 12px;
     position: absolute;
     top: 4px;
@@ -269,7 +270,7 @@ input:-webkit-autofill:focus {
 .sliding-search.expanded {
   width: 250px;
   padding-left: 20px;
-  color: #000;
+  color: $brand-secondary;
   background-color: #fff;
   cursor: auto;
 }

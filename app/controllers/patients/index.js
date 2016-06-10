@@ -2,9 +2,12 @@ import Controller from 'ember-controller';
 import computed from 'ember-computed';
 import observer from 'ember-metal/observer';
 import run from 'ember-runloop';
+import inject from 'ember-service/inject';
 
 export default Controller.extend({
   queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending', 'groupId', 'huddleId'],
+
+  router: inject('-routing'),
 
   page: 1,
   perPage: 8,
@@ -132,6 +135,14 @@ export default Controller.extend({
 
     setPage(page) {
       this.set('page', page);
+    },
+
+    openPatientPrintList(event) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      let url = this.get('router.router').generate('patients.print');
+      window.open(url, 'patientPrintList', 'menubar=no,toolbar=no,location=no,status=yes,width=200');
     }
   }
 });

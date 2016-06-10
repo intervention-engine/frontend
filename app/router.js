@@ -13,6 +13,7 @@ Router.map(function() {
 
   this.resource('patients', function() {
     this.route('show', { path: ':id' });
+    this.route('print');
   });
 
   this.route('login');

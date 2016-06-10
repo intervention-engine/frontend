@@ -1,0 +1,7 @@
+<td>{{patient.fullName}}</td>
+<td>{{patient.computedGender}}</td>
+<td>{{patient.computedAge}} yrs</td>
+<td>{{#if nextHuddle}}{{moment-format nextHuddle.date 'll'}}{{/if}}</td>
+<td>{{#if huddlePatient}}{{huddlePatient.displayReasonText}}{{/if}}</td>
+<td>{{#if huddlePatient.reviewed}}<i class="fa fa-check"></i>{{/if}}</td>
+<td>{{computedRisk}}</td>
