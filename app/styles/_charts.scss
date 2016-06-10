@@ -8,9 +8,23 @@
     stroke-width: 1px;
     stroke: white;
     fill: $brand-primary !important;
+
+    &._selected_ {
+      fill: $brand-danger !important;
+    }
+  }
+
+  .c3-selected-circle {
+    stroke-width: 0;
+    fill: $brand-danger !important;
   }
 
   .c3-tooltip {
     color: #333;
   }
+}
+
+.aster-plot-container {
+  min-height: 300px;
+  position: relative;
 }

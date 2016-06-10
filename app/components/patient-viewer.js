@@ -6,6 +6,7 @@ import { addCSSRule } from 'ember-on-fhir/utils/create-stylesheet';
 import { isTodayOrAfter } from 'ember-on-fhir/helpers/is-today-or-after';
 import moment from 'moment';
 import Pikaday from 'pikaday';
+import DS from 'ember-data';
 
 export default Component.extend(HasStylesheetMixin, {
   patient: null,
@@ -25,9 +26,11 @@ export default Component.extend(HasStylesheetMixin, {
     }
   }),
   selectedCategory: null,
+  oldCategoryName: null,
   nextScheduledHuddle: null,
   displayEditHuddleModal: false,
   displayClearDiscussedModal: false,
+  selectedPatientRisk: null,
 
   selectedScheduleDate: computed({
     get() {
@@ -141,19 +144,51 @@ export default Component.extend(HasStylesheetMixin, {
     }
   }),
 
-  patientRisks: computed('currentAssessment', 'patient.sortedRisks.[]', {
+  patientRisks: computed('patient', 'currentAssessment', 'patient.sortedRisks.[]', {
     get() {
       return this.get('patient.sortedRisks').filterBy('prediction.firstObject.outcome.displayText', this.get('currentAssessment'));
     }
   }),
 
-  slices: computed('currentAssessment', 'patientRisks.@each.pie', function() {
-    let patientRisks = this.get('patientRisks');
-    if (patientRisks.get('length') === 0) {
+  selectedPatientRiskOrLast: computed('patient', 'currentAssessment', 'selectedPatientRisk', 'patientRisks.lastObject', {
+    get() {
+      return this.get('selectedPatientRisk') || this.get('patientRisks.lastObject');
+    }
+  }),
+
+  pie: computed('patient', 'currentAssessment', 'selectedPatientRiskOrLast', function pie() {
+    let selectedPatientRiskOrLast = this.get('selectedPatientRiskOrLast');
+
+    if (selectedPatientRiskOrLast == null) {
+      return null;
+    }
+
+    let promise = selectedPatientRiskOrLast.get('pie').then((pie) => {
+      let oldCategoryName = this.get('oldCategoryName');
+
+      if (oldCategoryName) {
+        let slices = pie.get('sliceArray');
+        let slice = slices.findBy('name', oldCategoryName);
+        this.attrs.selectCategory(slice);
+
+        this.set('oldCategoryName', null);
+      }
+
+      return pie;
+    });
+
+    return DS.PromiseObject.create({ promise });
+  }),
+
+  pieIsLoading: computed.reads('pie.isPending'),
+
+  slices: computed('selectedPatientRiskOrLast', 'pie', 'pie.isFulfilled', function() {
+    let selectedPatientRiskOrLast = this.get('selectedPatientRiskOrLast');
+    if (selectedPatientRiskOrLast == null) {
       return [];
     }
 
-    return patientRisks.get('lastObject.pie.sliceArray');
+    return this.get('pie.sliceArray') || [];
   }),
 
   hasRisks: computed('patientRisks.length', 'naRiskAssessment', {
@@ -190,6 +225,12 @@ export default Component.extend(HasStylesheetMixin, {
     closeEditHuddleModal() {
       this.set('displayEditHuddleModal', false);
       this.attrs.refreshHuddles();
+    },
+
+    setSelectedRisk(risk) {
+      let selectedCategory = this.get('selectedCategory');
+      this.set('oldCategoryName', selectedCategory == null ? null : selectedCategory.name);
+      this.set('selectedPatientRisk', risk);
     }
   }
 });

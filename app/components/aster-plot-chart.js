@@ -28,7 +28,29 @@ export default Component.extend({
     g.append('g').classed('inner', true);
 
     this.updateChart();
+    this.selectedCategoryObserver();
   },
+
+  selectedCategoryObserver: observer('selectedCategory', function selectedCategoryObserver() {
+    let svg = d3.select(this.element).select('svg');
+
+    if (svg == null) {
+      return;
+    }
+
+    svg.selectAll('.category').classed('active', false);
+
+    let category = this.get('selectedCategory');
+    if (category != null) {
+      svg.selectAll(`.category${category.name.camelize().capitalize()}`).classed('active', true);
+    }
+  }),
+
+  tip: computed({
+    get() {
+      return d3.tip().attr('class', 'd3-tip').html((d) => `${d.data.name} : ${d.data.value}`);
+    }
+  }),
 
   updateChart: observer('data', function updateChart() {
     let svg = d3.select(this.element).select('svg');
@@ -49,16 +71,14 @@ export default Component.extend({
     let maxSliceRadius = 0.8 * radius;
 
     let selectCategory = (d) => {
-      svg.selectAll('.category').classed('active', false);
       if (this.get('selectedCategory') === d.data) {
         this.attrs.selectCategory(null);
       } else {
-        svg.selectAll(`.category${d.data.name.camelize().capitalize()}`).classed('active', true);
         this.attrs.selectCategory(d.data);
       }
     };
 
-    let tip = d3.tip().attr('class', 'd3-tip').html((d) => `${d.data.name} : ${d.data.value}`);
+    let tip = this.get('tip');
 
     svg.call(tip);
 
