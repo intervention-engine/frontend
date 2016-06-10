@@ -116,6 +116,15 @@ export default Ember.Mixin.create({
 
       this.set('selectedCodingSystem', codingSystem);
       this.set('system', codingSystem.url);
+    },
+
+    addCode(context) {
+      let conditionCoding= context.get('store').createRecord('coding');
+      context.get('coding').pushObject(conditionCoding);
+    },
+
+    removeCode(context, code){
+      context.get('coding').removeObject(code);
     }
   }
 });
