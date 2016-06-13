@@ -3,6 +3,7 @@ import computed from 'ember-computed';
 import observer from 'ember-metal/observer';
 import run from 'ember-runloop';
 import inject from 'ember-service/inject';
+import { isEmpty } from 'ember-utils';
 
 export default Controller.extend({
   queryParams: ['page', { currentAssessment: 'risk_assessment' }, 'sortBy', 'sortDescending', 'groupId', 'huddleId'],
@@ -141,7 +142,29 @@ export default Controller.extend({
       event.preventDefault();
       event.stopImmediatePropagation();
 
-      let url = this.get('router.router').generate('patients.print');
+      let queryParams = {
+        sortBy: this.get('sortBy'),
+        sortDescending: this.get('sortDescending'),
+        assessment: this.get('currentAssessment')
+      };
+
+      let huddleId = this.get('huddleId');
+      let groupId = this.get('groupId');
+
+      if (huddleId) {
+        queryParams.huddleId = huddleId;
+      }
+
+      if (groupId) {
+        queryParams.groupId = groupId;
+      }
+
+      let patientSearch = this.get('patientSearch');
+      if (!isEmpty(patientSearch)) {
+        queryParams.name = patientSearch;
+      }
+
+      let url = this.get('router.router').generate('patients.print', { queryParams });
       window.open(url, 'patientPrintList', 'menubar=no,toolbar=no,location=no,status=yes,width=200');
     }
   }

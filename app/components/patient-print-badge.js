@@ -7,7 +7,7 @@ export default Component.extend({
 
   patient: null,
   huddles: null,
-  assessment: null,
+  riskAssessment: null,
 
   nextHuddle: computed('huddles.@each.date', {
     get() {
@@ -27,17 +27,12 @@ export default Component.extend({
     }
   }),
 
-  computedRisk: computed('patient.currentRisk', 'assessment', {
+  computedRisk: computed('riskAssessment', {
     get() {
-      let assessment = this.get('assessment');
-      let risks = this.get('patient.currentRisk');
-
-      console.debug(assessment)
-
-      if (assessment && risks.length > 0) {
-        return risks.filterBy('key', assessment).get('firstObject.value.value') || null;
+      let riskAssessment = this.get('riskAssessment');
+      if (riskAssessment) {
+        return riskAssessment.get('value') || null;
       }
-
       return null;
     }
   }).readOnly()

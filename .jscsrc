@@ -1,5 +1,6 @@
 {
   "preset": "ember-suave",
   "excludeFiles": ["fixtures/**/*.js"],
-  "maxErrors": null
+  "maxErrors": null,
+  "disallowDirectPropertyAccess": []
 }

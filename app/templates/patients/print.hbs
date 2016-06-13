@@ -1,3 +1,27 @@
+<dl class="dl-horizontal">
+  <dt>Risk Assessment:</dt>
+  <dd>{{assessment}}</dd>
+  {{#if model.group}}
+    <dt>Population:</dt>
+    <dd>{{model.group.name}}</dd>
+  {{/if}}
+  {{#if huddleId}}
+    <dt>Huddle:</dt>
+    <dd>Geriatrics Huddle ({{moment-format currentHuddle.date 'll'}})</dd>
+  {{/if}}
+  {{#if name}}
+    <dt>Patient Name Search:</dt>
+    <dd>{{name}}</dd>
+  {{/if}}
+  <dt>Sort By:</dt>
+  <dd>{{sortByDisplayText}}</dd>
+</dl>
+
+<div class="text-center">
+  <button class="hide-in-print btn btn-primary" onclick={{action 'print'}}>Print</button>
+  <button class="hide-in-print btn btn-ie-lg btn-default" onclick={{action 'closeWindow'}}>Close Window</button>
+</div>
+
 <table class="table table-striped">
 <thead>
   <tr class="th-no-bottom">
@@ -17,7 +41,7 @@
 </thead>
 <tbody>
   {{#each model.patients as |patient|}}
-    {{patient-print-badge patient=patient huddles=(patient-huddles model.huddles patient) assessment=currentAssessment}}
+    {{patient-print-badge patient=patient huddles=(patient-huddles model.huddles patient) riskAssessment=(get risksByPatient patient.id)}}
   {{/each}}
 </tbody>
 </table>
