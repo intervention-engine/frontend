@@ -17,7 +17,7 @@
         <i class="fa fa-plus-circle" onclick={{action "addCode" characteristic.valueCodeableConcept}}></i>
         <span class="pane-inner-label">for system</span>
         <span class="pane-select">
-          {{select-fx options=codingSystems value=coding.system valuePath="system" onChange=(action "selectCodingSystem")}}
+          {{select-fx options=codingSystems value="coding.system" valuePath="system" onChange=(action "selectCodingSystem" coding)}}
         </span>
         <span class="pane-inner-label">is</span>
         <span class="pane-input">
@@ -25,7 +25,8 @@
             class="input-control condition typeahead"
             placeholder="condition code"
             value={{coding.code}}
-            onchange={{action (mut coding.code) value="target.value"}}>
+            onchange={{action (mut coding.code) value="target.value"}}
+            onkeyup={{action (mut coding.code) value="target.value"}}>
         </span>
         <button type="button" class="close" onclick={{action "removeCode" characteristic.valueCodeableConcept coding}} aria-label="Close">
           <span aria-hidden="true"><i class="fa fa-times"></i></span>

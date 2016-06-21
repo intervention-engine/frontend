@@ -22,8 +22,12 @@ export default Ember.Mixin.create({
 
   selectedCodingSystem: null,
 
-  codeValue: codingComputedProperty('code'),
-  system: codingComputedProperty('system'),
+  // codeValue: codingComputedProperty('code'),
+  // system: codingComputedProperty('system'),
+
+  codeChangedObserver: Ember.observer('characteristic.valueCodeableConcept.coding.@each.system', 'characteristic.valueCodeableConcept.coding.@each.code', function() {
+    run.debounce(this, this.attrs.onChange, 150);
+  }),
 
   // since we're not using 2 way binding on the select-fx component, the only way
   // to set the default value to ICD-9 is to use an observer
@@ -31,7 +35,7 @@ export default Ember.Mixin.create({
     this._super(active);
 
     if (active) {
-      this.send('selectCodingSystem', this.get('codingSystems.firstObject.system'));
+      this.send('selectCodingSystem', this.get('characteristic.valueCodeableConcept.coding.firstObject'), this.get('codingSystems.firstObject.system'));
     }
   },
 
@@ -111,38 +115,38 @@ export default Ember.Mixin.create({
   },
 
   actions: {
-    selectCodingSystem(codeSystem) {
+    selectCodingSystem(coding, codeSystem) {
       let codingSystem = this.get('codingSystems').findBy('system', codeSystem);
-
-      this.set('selectedCodingSystem', codingSystem);
-      this.set('system', codingSystem.url);
+      // this.set('selectedCodingSystem', codingSystem);
+      coding.set('system', codingSystem.url);
     },
 
     addCode(context) {
-      let conditionCoding= context.get('store').createRecord('coding');
+      let conditionCoding = context.get('store').createRecord('coding');
+      conditionCoding.set('system', this.get('codingSystems.firstObject').url);
       context.get('coding').pushObject(conditionCoding);
     },
 
-    removeCode(context, code){
+    removeCode(context, code) {
       context.get('coding').removeObject(code);
     }
   }
 });
 
-function codingComputedProperty(propertyName) {
-  return Ember.computed({
-    get() {
-      return this.get(`characteristic.valueCodeableConcept.coding.firstObject.${propertyName}`);
-    },
+// function codingComputedProperty(propertyName) {
+//   return Ember.computed({
+//     get() {
+//       return this.get(`characteristic.valueCodeableConcept.coding.firstObject.${propertyName}`);
+//     },
 
-    set(property, value) {
-      let coding = this.get('characteristic.valueCodeableConcept.coding.firstObject');
-      if (coding) {
-        run(this, () => {
-          coding.set(propertyName, value);
-        });
-        this.attrs.onChange();
-      }
-    }
-  });
-}
+//     set(property, value) {
+//       let coding = this.get('characteristic.valueCodeableConcept.coding.firstObject');
+//       if (coding) {
+//         run(this, () => {
+//           coding.set(propertyName, value);
+//         });
+//         this.attrs.onChange();
+//       }
+//     }
+//   });
+// }

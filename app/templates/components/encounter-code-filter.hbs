@@ -12,20 +12,31 @@
 
   <div class="form-group">
     {{#if active}}
-      <div class="selected-filter-details">
+      {{#each characteristic.valueCodeableConcept.coding as |coding|}}
+        <div class="selected-filter-details">
+        <i class="fa fa-plus-circle" onclick={{action "addCode" characteristic.valueCodeableConcept}}></i>
         <span class="pane-inner-label">for system</span>
         <span class="pane-select">
-          {{select-fx options=codingSystems value=selectedCodingSystem valuePath="system" onChange=(action "selectCodingSystem")}}
+          {{select-fx options=codingSystems value="coding.system" valuePath="system" onChange=(action "selectCodingSystem" coding)}}
         </span>
         <span class="pane-inner-label">is</span>
         <span class="pane-input">
           <input
-            class="input-control encounter typeahead"
-            placeholder="encounter code"
-            value={{codeValue}}
-            onchange={{action (mut codeValue) value="target.value"}}>
+            class="input-control condition typeahead"
+            placeholder="condition code"
+            value={{coding.code}}
+            onchange={{action (mut coding.code) value="target.value"}}
+            onkeyup={{action (mut coding.code) value="target.value"}}>
         </span>
+        <button type="button" class="close" onclick={{action "removeCode" characteristic.valueCodeableConcept coding}} aria-label="Close">
+          <span aria-hidden="true"><i class="fa fa-times"></i></span>
+        </button>
       </div>
+      {{else}}
+        <div class="selected-filter-details">
+          <span onclick={{action "addCode" characteristic.valueCodeableConcept}}><i class="fa fa-plus-circle"></i> Add new coding </span>
+        </div>
+      {{/each}}
     {{/if}}
   </div>
 </form>
