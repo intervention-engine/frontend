@@ -48,6 +48,24 @@ export default Controller.extend({
     }
   }),
 
+  prevPatient: computed('huddlePatients.last', {
+    get() {
+      let nextIndex = this.get('huddlePatients').indexOf(this.get('model')) - 1;
+      // This handles the edge case of navigating to a patient on the next page
+      let currentPage = this.get('huddlePatients.page');
+      if (nextIndex < 0 && currentPage > 1) {
+        let url = new URL(this.get('huddlePatients.meta.link').findBy('relation', 'previous').url)
+        // Because the prev/next links are full URL we have to strip the host off. 
+        this.get('ajax').request(url.pathname + url.search).then((res) => {
+        // Avoiding the overhead of a full Ember deserialize on this so just digging into it manually.
+          this.set('prevPatient', res.entry.reverse()[0].resource.id);
+        });
+        
+      }
+      return this.get('huddlePatients').toArray()[nextIndex];
+    }
+  }),
+
   riskAssessments: computed({
     get() {
       // TODO: get this list from the backend
