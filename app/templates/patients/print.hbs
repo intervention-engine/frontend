@@ -1,0 +1,75 @@
+<table>
+  <tbody>
+    <tr>
+      <td class="list-label">Risk Assessment:</td>
+      <td>{{assessment}}</td>
+    </tr>
+
+    {{#if model.group}}
+      <tr>
+        <td class="list-label">Population:</td>
+        <td>{{model.group.name}}</td>
+      </tr>
+    {{/if}}
+
+    {{#if huddleId}}
+      <tr>
+        <td class="list-label">Huddle:</td>
+        <td>Geriatrics Huddle ({{moment-format currentHuddle.date 'll'}})</td>
+      </tr>
+    {{/if}}
+
+    {{#if name}}
+      <tr>
+        <td class="list-label">Patient Name Search:</td>
+        <td>{{name}}</td>
+      </tr>
+    {{/if}}
+
+    <tr>
+      <td class="list-label">Sort By:</td>
+      <td>{{sortByDisplayText}}</td>
+    </tr>
+
+    <tr>
+      <td class="list-label">Total Patients:</td>
+      <td>{{model.patients.length}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hide-in-print text-center">
+  <button class="btn btn-primary" onclick={{action 'print'}}>Print</button>
+  <button class="btn btn-ie-lg btn-default" onclick={{action 'closeWindow'}}>Close Window</button>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr class="th-no-bottom">
+      <th colspan="3">&nbsp;</th>
+      <th colspan="3" class="text-center th-border-bottom">Next Huddle</th>
+      <th>&nbsp;</th>
+    </tr>
+
+    <tr class="th-no-top">
+      <th>Patient Name</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th>Date</th>
+      <th>Reason</th>
+      <th>Reviewed</th>
+      <th>Risk</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each model.patients as |patient|}}
+      {{patient-print-badge patient=patient huddles=(patient-huddles model.huddles patient) riskAssessment=(get risksByPatient patient.id)}}
+    {{/each}}
+  </tbody>
+</table>
+
+<div class="text-center">
+  <button class="hide-in-print btn btn-primary" onclick={{action 'print'}}>Print</button>
+  <button class="hide-in-print btn btn-ie-lg btn-default" onclick={{action 'closeWindow'}}>Close Window</button>
+</div>

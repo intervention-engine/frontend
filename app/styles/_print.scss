@@ -1,0 +1,15 @@
+@media print {
+  .hide-in-print {
+    display: none;
+  }
+
+  .print-small {
+    font-size: 0.5em;
+  }
+}
+
+.list-label {
+  font-weight: 600;
+  text-align: right;
+  padding-right: 10px;
+}

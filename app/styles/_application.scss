@@ -75,7 +75,15 @@ ul {
 
 .btn-primary {
   background-color: $brand-primary;
-  border-color: darker($brand-primary, 10%);
+  border-color: darken($brand-primary, 10%);
+}
+
+.fa-rounded {
+  color: $brand-secondary;
+  background-color: $table-bg-accent;
+  border-radius: 50%;
+  font-size: 14px;
+  padding: 0.28em;
 }
 
 /* -------------------------------- OTHER -------------------------------- */
@@ -141,4 +149,3 @@ svg {
 .cursor-pointer {
   cursor: pointer;
 }
-

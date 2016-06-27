@@ -32,6 +32,7 @@
                 onkeyup={{action (mut patientSearch) value="target.value"}}
                 onchange={{action (mut patientSearch) value="target.value"}}>
             </div>
+            <i class="fa fa-print fa-rounded cursor-pointer" title="Print Patient List" onclick={{action 'openPatientPrintList'}}></i>
           </div>
         </div>
       </div>
