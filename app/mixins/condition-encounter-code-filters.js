@@ -58,7 +58,7 @@ export default Ember.Mixin.create({
       },
       source(query, process) {
         let codings = self.get('characteristic.valueCodeableConcept.coding').toArray();
-        let codesystem = codings[this.$element.attr('index')].get('system')
+        let codesystem = codings[this.$element.attr('index')].get('system');
         let queryParams = {
           codesystem,
           query,
