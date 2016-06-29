@@ -57,8 +57,10 @@ export default Ember.Mixin.create({
         return items;
       },
       source(query, process) {
+        let codings = self.get('characteristic.valueCodeableConcept.coding').toArray();
+        let codesystem = codings[this.$element.attr('index')].get('system')
         let queryParams = {
-          codesystem: self.get('selectedCodingSystem.system'),
+          codesystem,
           query,
           limit: AUTOCOMPLETE_ITEM_MAX
         };

@@ -12,7 +12,7 @@
 
   <div class="form-group">
     {{#if active}}
-      {{#each characteristic.valueCodeableConcept.coding as |coding|}}
+      {{#each characteristic.valueCodeableConcept.coding as |coding index|}}
         <div class="selected-filter-details">
         <i class="fa fa-plus-circle" onclick={{action "addCode" characteristic.valueCodeableConcept}}></i>
         <span class="pane-inner-label">for system</span>
@@ -25,6 +25,7 @@
             class="input-control condition typeahead"
             placeholder="condition code"
             value={{coding.code}}
+            index={{index}}
             onchange={{action (mut coding.code) value="target.value"}}
             onkeyup={{action (mut coding.code) value="target.value"}}>
         </span>
