@@ -58,7 +58,7 @@ export default Ember.Mixin.create({
       },
       source(query, process) {
         let codings = self.get('characteristic.valueCodeableConcept.coding').toArray();
-        let codesystem = codings[this.$element.attr('index')].get('system');
+        let codesystem = codings[this.$element.attr('index')].get('display');
         let queryParams = {
           codesystem,
           query,
@@ -119,13 +119,16 @@ export default Ember.Mixin.create({
   actions: {
     selectCodingSystem(coding, codeSystem) {
       let codingSystem = this.get('codingSystems').findBy('system', codeSystem);
+
       // this.set('selectedCodingSystem', codingSystem);
       coding.set('system', codingSystem.url);
+      coding.set('display', codingSystem.system);
     },
 
     addCode(context) {
       let conditionCoding = context.get('store').createRecord('coding');
       conditionCoding.set('system', this.get('codingSystems.firstObject').url);
+      conditionCoding.set('display', this.get('codingSystems.firstObject').system);
       context.get('coding').pushObject(conditionCoding);
     },
 
