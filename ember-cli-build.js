@@ -32,6 +32,7 @@ module.exports = function(defaults) {
   var Funnel = require('broccoli-funnel');
   var gzipFiles = require('broccoli-gzip');
 
+  app.import('vendor/drag-drop-webkit-mobile/ios-drag-drop.js');
   app.import(app.bowerDirectory + '/bootstrap-sass-official/assets/javascripts/bootstrap.js');
   app.import(app.bowerDirectory + '/d3-tip/index.js');
   app.import(app.bowerDirectory + '/moment/moment.js');
