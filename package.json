@@ -25,6 +25,7 @@
     "broccoli-asset-rev": "2.4.2",
     "broccoli-funnel": "1.0.1",
     "broccoli-gzip": "0.2.1",
+    "drag-drop-webkit-mobile": "1.1.0",
     "ember-ajax": "0.7.1",
     "ember-c3-shim": "0.0.2",
     "ember-cli": "2.3.0",
