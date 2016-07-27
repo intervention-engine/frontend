@@ -44,7 +44,7 @@
         display: block;
         position: absolute;
         top: 30px;
-        left: -18px;
+        left: -17px;
         border-top: 18px solid transparent;
         border-bottom: 18px solid transparent;
         border-right: 18px solid $body-bg;
@@ -71,21 +71,25 @@
   padding: 0 5px;
 }
 
-.pane-input input {
-  padding: 0;
-  margin: 0;
-  border: 1px solid lighten($brand-secondary, 20%);
+.pane-input {
+  display: inline-block;
 
-  &.age {
-    width: 40px;
-    text-align: center;
-  }
+  input {
+    padding: 0;
+    margin: 0;
+    border: 1px solid lighten($brand-secondary, 20%);
 
-  &.condition,
-  &.encounter {
-    width: 600px;
-    padding-left: 10px;
+    &.age {
+      width: 40px;
+      text-align: center;
+    }
 
-    @include respond-to(tablet) { width: 230px; }
+    &.condition,
+    &.encounter {
+      width: 500px;
+      padding-left: 10px;
+
+      @include respond-to(tablet) { width: 230px; }
+    }
   }
 }

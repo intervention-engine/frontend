@@ -12,19 +12,24 @@
 
   <div class="form-group">
     {{#if active}}
+      {{#each characteristic.valueCodeableConcept.coding as |coding index|}}
+        <div class="selected-filter-details selected-filter-details-spaced">
+          <span class="pane-inner-label">{{if (gt index 0) 'or ' }}for system</span>
+          <span class="pane-select">
+            {{select-fx options=codingSystems value="coding.system" valuePath="system" onChange=(action "selectCodingSystem" coding)}}
+          </span>
+          <span class="pane-inner-label">is</span>
+          {{coding-typeahead
+            coding=coding
+            type="encounter"
+            placeholder="encounter code"}}
+          <button type="button" class="close" onclick={{action "removeCode" characteristic.valueCodeableConcept coding}} aria-label="Close">
+            <span aria-hidden="true"><i class="fa fa-times"></i></span>
+          </button>
+        </div>
+      {{/each}}
       <div class="selected-filter-details">
-        <span class="pane-inner-label">for system</span>
-        <span class="pane-select">
-          {{select-fx options=codingSystems value=selectedCodingSystem valuePath="system" onChange=(action "selectCodingSystem")}}
-        </span>
-        <span class="pane-inner-label">is</span>
-        <span class="pane-input">
-          <input
-            class="input-control encounter typeahead"
-            placeholder="encounter code"
-            value={{codeValue}}
-            onchange={{action (mut codeValue) value="target.value"}}>
-        </span>
+        <span class="cursor-pointer" onclick={{action "addCode" characteristic.valueCodeableConcept}}><i class="fa fa-plus-circle"></i> Add new coding </span>
       </div>
     {{/if}}
   </div>
