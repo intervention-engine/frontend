@@ -7,6 +7,6 @@ export default Component.extend({
     openLogoutModal(event) {
       event.preventDefault();
       this.set('showLogoutModal', true);
-    },
+    }
   }
 });
