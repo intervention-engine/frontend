@@ -1,0 +1,10 @@
+{{#bootstrap-modal title="Logout" onClose=attrs.onClose}}
+  <div class="modal-body logout-modal-body">
+    <i class="fa fa-exclamation-circle"></i>
+    <span class="logout-modal-body-text"> To log out, please close your browser window.</span>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" onclick={{action attrs.onClose}}>OK</button>
+  </div>
+{{/bootstrap-modal}}

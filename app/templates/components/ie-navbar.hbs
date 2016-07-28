@@ -18,14 +18,12 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav navbar-right">
       {{#navbar-active-link}}{{#link-to "patients"}}<i class="fa fa-user"></i> Patients{{/link-to}}{{/navbar-active-link}}
-      {{!-- {{#navbar-active-link}}{{#link-to "index"}}<i class="fa fa-users"></i> Populations{{/link-to}}{{/navbar-active-link}} --}}
       {{#navbar-active-link}}{{#link-to "filters.new"}}<i class="fa fa-filter"></i> Filter Builder{{/link-to}}{{/navbar-active-link}}
-      {{!-- {{#navbar-active-link}}{{#link-to utilities}}<i class="fa fa-cogs"></i> Utilities{{/link-to}}{{/navbar-active-link}} --}}
-      {{#if session.isAuthenticated}}
-        <li><a href="#" onclick={{action 'invalidateSession'}} class="navbar-right"><i class="fa fa-sign-out"></i> Logout</a></li>
-      {{else}}
-        <li>{{#link-to 'login' class="navbar-right"}}<i class="fa fa-sign-in"></i> Log In{{/link-to}}</li>
-      {{/if}}
+      <li><a href="#" onclick={{action "openLogoutModal"}} class="navbar-right"><i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
   </div>
 </nav>
+
+{{#if showLogoutModal}}
+  {{logout-modal onClose=(action (mut showLogoutModal) false)}}
+{{/if}}
