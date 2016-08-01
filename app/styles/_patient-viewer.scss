@@ -56,27 +56,6 @@
   }
 }
 
-.review-patient-modal-body,
-.add-to-huddle-modal-body {
-  margin: 25px 60px;
-
-  .form-group { margin: 0; }
-
-  label {
-    display: block;
-    text-align: right;
-  }
-
-  textarea {
-    width: 100%;
-  }
-
-  textarea[disabled] {
-    cursor: not-allowed;
-    background-color: #eee;
-  }
-}
-
 .is-today .pika-button {
   color: $brand-alert;
 }
