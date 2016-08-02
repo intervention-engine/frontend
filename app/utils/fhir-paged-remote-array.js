@@ -56,6 +56,12 @@ export default PagedRemoteArray.extend({
     }
   }),
 
+  searchParams: computed('paramsForBackend', 'otherParams', 'patientIdParams', 'patientSearchParam', {
+    get() {
+      return Object.assign({ _offset: this.get('paramsForBackend._offset'), _count: this.get('paramsForBackend._count') }, this.get('otherParams'), this.get('patientIdParams'), this.get('patientSearchParam'), this.get('sortParams'));
+    }
+  }),
+
   totalPagesBinding: 'total',
 
   rawFindFromStore() {

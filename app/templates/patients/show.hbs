@@ -5,11 +5,10 @@
         {{#link-to 'patients.index'}}<i class="fa fa-chevron-left"></i>  Back to Patient List{{/link-to}}
         <div class="pull-right">
           {{#if huddlePatients}}
-            {{!-- {{#link-to 'patients.show' prevPatient }}<i class="fa fa-chevron-left"></i>{{/link-to}} --}}
-            <button {{action "changeCurrentPatientIndex" -1}}>prev</button>
+            {{#link-to 'patients.show' prevPatient.firstObject }}<i class="fa fa-chevron-left"></i>{{/link-to}}
+            
             {{currentPatientIndex}} / {{huddleCount}}
-            <button {{action "changeCurrentPatientIndex" 1}}>next</button>
-            {{!-- {{#link-to 'patients.show' nextPatient invokeAction=(action 'nextPatient')}}<i class="fa fa-chevron-right"></i>{{/link-to}} --}}
+            {{#link-to 'patients.show' nextPatient.firstObject }}<i class="fa fa-chevron-right"></i>{{/link-to}}
 
           {{/if}}
         </div>
