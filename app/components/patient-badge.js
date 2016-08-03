@@ -12,6 +12,7 @@ export default Component.extend(PatientIconClassNames, {
   patient: null,
   assessment: null,
   maxRisk: 4, // TODO: get max risk for currentAssessment from Risk Assessment Service
+  index: 0,
 
   nextHuddle: computed('huddles.@each.date', {
     get() {

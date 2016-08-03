@@ -1,10 +1,7 @@
 import Controller from 'ember-controller';
 import computed from 'ember-computed';
-import observer from 'ember-metal/observer';
 import service from 'ember-service/inject';
 import controller from 'ember-controller/inject';
-import run from 'ember-runloop';
-
 import { parseHuddles } from 'ember-on-fhir/models/huddle';
 
 export default Controller.extend({
@@ -28,7 +25,6 @@ export default Controller.extend({
   huddlePatients: computed.alias('indexController.model.patients'),
   huddleCount: computed.alias('indexController.model.patients.meta.total'),
   huddleOffset: computed.alias('huddlePatients.paramsForBackend._offset'),
-  
   currentPatientIndex: computed('huddlePatients', 'model', 'nextPatient', {
     get() {
       return this.get('huddlePatients').indexOf(this.get('model')) + 1 + this.get('huddleOffset');
@@ -39,15 +35,15 @@ export default Controller.extend({
     get() {
       let params = this.get('indexController.model.patients.searchParams');
       let index = this.get('currentPatientIndex');
-
-
-      return this.store.find('patient', Object.assign(params, {_count:1, _offset:index}))
+      return this.store.find('patient', Object.assign(params, { _count: 1, _offset: index }));
     }
   }),
 
   prevPatient: computed('currentPatientIndex', {
     get() {
-      return this.store.find('patient', {_offset: this.get('currentPatientIndex') - 2, _count:1 } )
+      let params = this.get('indexController.model.patients.searchParams');
+      let index = this.get('currentPatientIndex');
+      return this.store.find('patient', Object.assign(params, { _count: 1, _offset: index - 2 }));
     }
   }),
 
@@ -70,8 +66,12 @@ export default Controller.extend({
   },
 
   actions: {
-    changeCurrentPatientIndex(amount){
-      this.set('currentPatientIndex', this.get('currentPatientIndex') + amount);
+    changeCurrentPatientIndex(amount) {
+      let newIndex = this.get('currentPatientIndex') + amount;
+      if (newIndex > this.get('huddleCount') || newIndex <= 0) {
+        return;
+      }
+      this.set('currentPatientIndex', newIndex);
     },
 
     setRiskAssessment(riskAssessment) {

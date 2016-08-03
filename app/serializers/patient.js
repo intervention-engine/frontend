@@ -2,7 +2,7 @@ import PatientSerializer from 'ember-fhir-adapter/serializers/patient';
 
 export default PatientSerializer.extend({
   extract(store, type, payload/*, id, requestType*/) {
-    store.setMetadataFor(type.modelName, { total: payload.total, link:payload.link });
+    store.setMetadataFor(type.modelName, { total: payload.total, link: payload.link });
     return this._super(...arguments);
   },
 
