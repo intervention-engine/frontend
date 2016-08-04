@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import Patient from 'ember-fhir-adapter/models/patient';
+import { uniqBy } from '../helpers/uniqBy';
 import moment from 'moment';
 
 export default Patient.extend({
@@ -99,8 +100,16 @@ export default Patient.extend({
     return med.isActive('endDate');
   }),
 
+  uniqueActiveMedications: Ember.computed('activeMedications', function() {
+    return uniqBy(this.get('activeMedications').toArray(), 'displayText');
+  }),
+
   activeConditions: Ember.computed.filter('conditions', function(cond) {
     return cond.isActive('endDate') && cond.get('verificationStatus') === 'confirmed';
+  }),
+
+  uniqueActiveConditions: Ember.computed('activeConditions', function() {
+    return uniqBy(this.get('activeConditions').toArray(), 'displayText');
   }),
 
   futureAppointments: Ember.computed.filter('appointments', function(appointment) {
