@@ -45,34 +45,21 @@ export default Patient.extend({
     let events =  Ember.A([]);
 
     this.get('encounters').map(function(e) {
-      let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'encounter' });
+      let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'encounter',  isEnd: e.hasOccured('endDate') });
       events.push(patientEvent);
-
-      if (e.hasOccured('endDate')) {
-        let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'encounter', isEnd: true });
-        events.push(patientEvent);
-      }
     });
 
     this.get('conditions').map(function(e) {
       if (e.get('verificationStatus') === 'confirmed') {
-        let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'condition' });
+        let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'condition',  isEnd: e.hasOccured('endDate') });
         events.push(patientEvent);
 
-        if (e.hasOccured('endDate')) {
-          let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'condition', isEnd: true });
-          events.push(patientEvent);
-        }
       }
     });
 
     this.get('medications').map(function(e) {
-      let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'medication' });
+      let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'medication',  isEnd: e.hasOccured('endDate') });
       events.push(patientEvent);
-      if (e.hasOccured('endDate')) {
-        let patientEvent = e.store.createRecord('patient-event', { event: e, type: 'medication', isEnd: true });
-        events.push(patientEvent);
-      }
     });
 
     this.get('risksByOutcome').map(function(outcome) {
@@ -93,7 +80,7 @@ export default Patient.extend({
       events.push(...riskTransitions.filter((e) => e.get('deltaRisk') !== 0));
     });
 
-    return events.sortBy('effectiveDate').reverse();
+    return events.sortBy('event.startDate').reverse();
   }),
 
   activeMedications: Ember.computed.filter('medications', function(med) {
