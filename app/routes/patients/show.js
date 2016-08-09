@@ -11,6 +11,11 @@ export default Route.extend({
   },
 
   afterModel(model/*, transition */) {
+    let controller = this.controllerFor('patients.show');
+    if (controller.get('huddlePatients')) {
+      let patientIndex = controller.get('huddlePatients').indexOf(model) + 1 + controller.get('huddleOffset');
+      controller.set('currentPatientIndex', patientIndex);
+    }
     return this.get('ajax').request('/Group', {
       data: {
         code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE',
