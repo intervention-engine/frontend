@@ -1,13 +1,18 @@
 <div class="timeline-event {{eventClass}}">
   <div class="timeline-event-text">
     {{event.displayText}}
-    {{#if event.isEnd}}
-    (End)
-    {{/if}}
+    
   </div>
 
   <div class="timeline-event-start-date">
-    {{moment-format event.effectiveDate 'lll'}}
+    {{#if event.event.startDate}}
+      {{moment-format event.event.startDate 'lll'}} 
+      {{#if event.isEnd}}
+        - {{moment-format event.event.endDate 'lll'}}
+      {{/if}}
+    {{else}}
+      Unknown Date
+    {{/if}}
   </div>
 
   <div class="timeline-event-icon">
