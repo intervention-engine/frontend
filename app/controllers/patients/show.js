@@ -2,8 +2,6 @@ import Controller from 'ember-controller';
 import computed from 'ember-computed';
 import service from 'ember-service/inject';
 import controller from 'ember-controller/inject';
-import run from 'ember-runloop';
-
 import { parseHuddles } from 'ember-on-fhir/models/huddle';
 
 export default Controller.extend({
@@ -32,19 +30,20 @@ export default Controller.extend({
       return this.get('huddlePatients').indexOf(this.get('model')) + 1 + this.get('huddleOffset');
     }
   }),
-  nextPatient: computed('currentPatientIndex', 'huddlePatients.firstObject', {
+
+  nextPatient: computed('currentPatientIndex', {
     get() {
-      let nextIndex = this.get('huddlePatients').indexOf(this.get('model')) + 1;
-      // This handles the edge case of navigating to a patient on the next page
-      if (nextIndex >= this.get('huddlePatients.length')) {
-        return run(() => {
-          let currentPage = this.get('huddlePatients.page');
-          this.get('huddlePatients').set('page', currentPage + 1);
-          this.get('indexController').set('page', currentPage + 1);
-          return this.get('huddlePatients').get('firstObject');
-        });
-      }
-      return this.get('huddlePatients').toArray()[nextIndex];
+      let params = this.get('indexController.model.patients.searchParams');
+      let index = this.get('currentPatientIndex');
+      return this.store.find('patient', Object.assign(params, { _count: 1, _offset: index }));
+    }
+  }),
+
+  prevPatient: computed('currentPatientIndex', {
+    get() {
+      let params = this.get('indexController.model.patients.searchParams');
+      let index = this.get('currentPatientIndex');
+      return this.store.find('patient', Object.assign(params, { _count: 1, _offset: index - 2 }));
     }
   }),
 
@@ -67,6 +66,14 @@ export default Controller.extend({
   },
 
   actions: {
+    changeCurrentPatientIndex(amount) {
+      let newIndex = this.get('currentPatientIndex') + amount;
+      if (newIndex > this.get('huddleCount') || newIndex <= 0) {
+        return;
+      }
+      this.set('currentPatientIndex', newIndex);
+    },
+
     setRiskAssessment(riskAssessment) {
       this.set('currentAssessment', riskAssessment);
       this.set('selectedCategory', null);

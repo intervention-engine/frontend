@@ -9,6 +9,7 @@ export default PagedRemoteArray.extend({
   groupId: null,
   patientIds: [],
   patientSearch: null,
+  link: null,
 
   getPage() {
     return (this.get('page') - 1 || 0) * this.get('perPage');
@@ -55,6 +56,12 @@ export default PagedRemoteArray.extend({
     }
   }),
 
+  searchParams: computed('paramsForBackend', 'otherParams', 'patientIdParams', 'patientSearchParam', {
+    get() {
+      return Object.assign({ _offset: this.get('paramsForBackend._offset'), _count: this.get('paramsForBackend._count') }, this.get('otherParams'), this.get('patientIdParams'), this.get('patientSearchParam'), this.get('sortParams'));
+    }
+  }),
+
   totalPagesBinding: 'total',
 
   rawFindFromStore() {
@@ -62,9 +69,9 @@ export default PagedRemoteArray.extend({
     let modelName = this.get('modelName');
     let res = store.query(modelName, Object.assign({ _offset: this.get('paramsForBackend._offset'), _count: this.get('paramsForBackend._count') }, this.get('otherParams'), this.get('patientIdParams'), this.get('patientSearchParam'), this.get('sortParams')));
     let perPage = this.get('perPage');
-
     return res.then((rows) => {
       this.set('totalPages', Math.ceil(rows.meta.total / perPage));
+      this.set('link', rows.meta.link);
       return rows;
     });
   }
