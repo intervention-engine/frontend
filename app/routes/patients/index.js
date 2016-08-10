@@ -16,6 +16,17 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
   perPage: 8,
   huddle: null,
 
+  activate() {
+    let controller = this.controllerFor('patients.show');
+    if (controller.get('huddlePatients')) {
+      // Ember controllers are singletons, this means when we overwrite the computed property we lose being able to compute it.
+      // If we have the controller set up when we activate THIS route we want to reset that computed property.
+      controller.set('currentPatientIndex',  Ember.computed('huddlePatients', 'model', function() {
+        return this.get('huddlePatients').indexOf(this.get('model')) + 1 + this.get('huddleOffset');
+      }));
+    }
+  },
+
   beforeModel(transition) {
     let huddleId = get(transition, 'queryParams.huddleId');
     if (huddleId) {
