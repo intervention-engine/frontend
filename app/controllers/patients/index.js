@@ -165,7 +165,7 @@ export default Controller.extend({
       }
 
       let url = this.get('router.router').generate('patients.print', { queryParams });
-      window.open(url, 'patientPrintList', 'menubar=no,toolbar=no,location=no,status=yes,width=200');
+      window.open(url, 'patientPrintList', 'menubar=no,toolbar=no,location=no,status=yes,resizable=yes,scrollbars=yes');
     }
   }
 });
