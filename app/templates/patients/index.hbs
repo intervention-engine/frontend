@@ -23,7 +23,7 @@
         <div class="collapse-panel-title">
           Patients ({{totalPatients}})
 
-          <div class="pull-right">
+          <div class="patient-list-results-buttons pull-right">
             <div class="sliding-search-container">
               <i class="fa fa-search fa-fw"></i>
               <input
@@ -32,7 +32,8 @@
                 onkeyup={{action (mut patientSearch) value="target.value"}}
                 onchange={{action (mut patientSearch) value="target.value"}}>
             </div>
-            <i class="fa fa-print fa-rounded cursor-pointer" title="Print Patient List" onclick={{action 'openPatientPrintList'}}></i>
+            
+            <i class="print-list-button fa fa-print cursor-pointer" title="Print Patient List" onclick={{action 'openPatientPrintList'}}></i>
           </div>
         </div>
       </div>

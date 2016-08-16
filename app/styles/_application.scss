@@ -1,7 +1,11 @@
 /* -------------------------------- DOM -------------------------------- */
 
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
   font-weight: 300;
   padding-bottom: 2em;
 }
@@ -23,6 +27,7 @@ ul {
 
 .logo {
   margin-top: -20px;
+  width: 260px;
 }
 
 /* -------------------------------- NAV -------------------------------- */
