@@ -19,7 +19,7 @@
               <div class="filter-type-icon">
                 <i class="fa fa-birthday-cake fa-fw"></i>
               </div>
-              Age
+              <div class="filter-type-name">Age</div>
               <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/draggable-object}}
@@ -29,7 +29,7 @@
               <div class="filter-type-icon">
                 <i class="fa fa-user fa-fw"></i>
               </div>
-              Gender
+              <div class="filter-type-name">Gender</div>
               <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/draggable-object}}
@@ -39,7 +39,7 @@
               <div class="filter-type-icon">
                 <i class="icon-med-clipboard"></i>
               </div>
-              Condition
+              <div class="filter-type-name">Condition</div>
               <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/draggable-object}}
@@ -49,7 +49,7 @@
               <div class="filter-type-icon">
                 <i class="fa fa-hospital-o fa-fw"></i>
               </div>
-              Encounter
+              <div class="filter-type-name">Encounter</div>
               <i class="fa fa-chevron-right filter-type-chevron"></i>
             </div>
           {{/draggable-object}}
@@ -73,11 +73,11 @@
               {{/each}}
 
               <div class="save-new-filter row">
-                <div class="pane-input">
+                <div class="pane-input col-sm-8">
                   {{input type="text" value=filterName placeholder="name of filter"}}
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-4">
                   <button class="btn btn-lg btn-primary pull-right" {{action "saveFilter"}}>Save Filter</button>
                 </div>
               </div>

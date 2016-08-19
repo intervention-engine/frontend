@@ -56,6 +56,11 @@
       color: #fff;
     }
 
+    .filter-type-name {
+      display: inline-block;
+      vertical-align: top;
+    }
+
     .filter-type-icon {
       display: inline-block;
       font-size: 1.3em;
@@ -93,7 +98,7 @@
   }
 
   .form-group {
-    padding: 10px;
+    padding: 0;
   }
 
   .save-new-filter {
@@ -103,9 +108,9 @@
     .pane-input input {
       padding-left: 10px;
       height: 45px;
-      width: 350px;
+      min-width: 400px;
       font-size: 20px;
-      margin: 15px;
+      margin: 5px 15px;
     }
 
     button {
@@ -117,6 +122,10 @@
 .selected-filter-details {
   margin-left: 35px;
   line-height: 40px;
+
+  input {
+    height: 40px;
+  }
 
   button.close {
     float: none;
@@ -146,9 +155,11 @@
 
 /* -------------------------------- FILTER ITEM -------------------------------- */
 
-.filter-item {
+form.filter-item {
+  margin: 15px 0;
+
   .form-group {
-    margin: 0 0 0 -15px;
+    margin: 0;
   }
 
   label {
