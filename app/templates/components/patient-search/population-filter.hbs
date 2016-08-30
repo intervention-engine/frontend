@@ -14,7 +14,7 @@
         {{#each populations as |population|}}
           {{#if population.name}}
             <div class="form-group">
-              <input type="radio"
+              <input type="checkbox"
                 id={{population.id}}
                 checked={{eq selectedPopulation population}}
                 class="css-checkbox"
