@@ -44,12 +44,13 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
 
     let store = this.get('store');
     let perPage = this.get('perPage');
-    let patientIds = [];
+    let groupIds = this.groupId;
 
-    if (params.huddleId) {
-      patientIds = this.get('huddle.patients').mapBy('patientId');
+    if (params.huddleId && params.groupId) {
+      groupIds = [params.huddleId, params.groupId];
     }
 
+    Ember.$.ajaxSetup({ traditional: true });
     return RSVP.hash({
       // patients: store.findAll('patient'),
       patients: FHIRPagedRemoteArray.create({
@@ -60,10 +61,9 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
         paramMapping,
         sortBy: params.sortBy || 'family',
         sortDescending: params.sortDescending,
-        groupId: params.groupId,
-        patientIds
+        groupId: groupIds
       }),
-      groups: store.findAll('group'),
+      groups: store.query('group', { actual: false }),
       huddles: this.get('ajax').request('/Group', { data: { code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE' } }).then((response) => parseHuddles(response.entry || []))
       // risks: store.findAll('risk'),
       // notificationCounts: store.findAll('notification-count')

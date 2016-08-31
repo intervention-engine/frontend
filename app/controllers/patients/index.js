@@ -84,8 +84,8 @@ export default Controller.extend({
       let patientsRemoteArray = this.get('model.patients');
       patientsRemoteArray.set('sortBy', this.get('sortBy'));
       patientsRemoteArray.set('sortDescending', this.get('sortDescending'));
-      patientsRemoteArray.set('groupId', this.get('groupId'));
-      patientsRemoteArray.set('patientIds', this.get('huddlePatientIds'));
+      patientsRemoteArray.set('groupId', this.get('huddleId') || this.get('groupId'));
+      // patientsRemoteArray.set('patientIds', this.get('huddlePatientIds'));
       patientsRemoteArray.set('patientSearch', this.get('patientSearch'));
       patientsRemoteArray.set('page', 1);
       patientsRemoteArray.pageChanged();
