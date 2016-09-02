@@ -37,7 +37,7 @@ export default Component.extend({
   reasonIconClass: computed('huddlePatient.reason', {
     get() {
       switch (this.get('huddlePatient.reason')) {
-        case REASON_CODES.CARRYOVER:
+        case REASON_CODES.ROLL_OVER:
           return 'fa fa-fw fa-arrow-circle-o-right';
         case REASON_CODES.MANUAL_ADDITION:
           return 'fa fa-fw fa-pencil';

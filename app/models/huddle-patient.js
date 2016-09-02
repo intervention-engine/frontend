@@ -4,7 +4,7 @@ import { isEmpty } from 'ember-utils';
 import moment from 'moment';
 
 export const REASON_CODES = {
-  CARRYOVER: 'CARRYOVER',
+  ROLL_OVER: 'ROLL_OVER',
   MANUAL_ADDITION: 'MANUAL_ADDITION',
   RECENT_ENCOUNTER: 'RECENT_ENCOUNTER',
   RISK_SCORE: 'RISK_SCORE'
