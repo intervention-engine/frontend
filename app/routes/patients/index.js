@@ -1,15 +1,14 @@
 import Ember from 'ember';
 import Route from 'ember-route';
 import service from 'ember-service/inject';
-import get from 'ember-metal/get';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import UnuthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 import PaginatedRouteMixin from 'ember-cli-pagination/remote/route-mixin';
 import FHIRPagedRemoteArray from '../../utils/fhir-paged-remote-array';
 import { parseHuddles } from 'ember-on-fhir/models/huddle';
 
 const { RSVP } = Ember;
 
-export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
+export default Route.extend(UnuthenticatedRouteMixin, PaginatedRouteMixin, {
   store: service(),
   ajax: service(),
 
@@ -27,15 +26,6 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
     }
   },
 
-  beforeModel(transition) {
-    let huddleId = get(transition, 'queryParams.huddleId');
-    if (huddleId) {
-      return this.get('ajax').request(`/Group/${huddleId}`).then((response) => {
-        this.set('huddle', parseHuddles(response));
-      });
-    }
-  },
-
   model(params) {
     let paramMapping = {
       page: '_offset',
@@ -44,12 +34,9 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
 
     let store = this.get('store');
     let perPage = this.get('perPage');
-    let patientIds = [];
+    let groupIds = [params.huddleId, params.groupId].filter((n) => n);
 
-    if (params.huddleId) {
-      patientIds = this.get('huddle.patients').mapBy('patientId');
-    }
-
+    Ember.$.ajaxSetup({ traditional: true });
     return RSVP.hash({
       // patients: store.findAll('patient'),
       patients: FHIRPagedRemoteArray.create({
@@ -60,10 +47,9 @@ export default Route.extend(AuthenticatedRouteMixin, PaginatedRouteMixin, {
         paramMapping,
         sortBy: params.sortBy || 'family',
         sortDescending: params.sortDescending,
-        groupId: params.groupId,
-        patientIds
+        groupId: groupIds
       }),
-      groups: store.findAll('group'),
+      groups: store.query('group', { actual: false }),
       huddles: this.get('ajax').request('/Group', { data: { code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE' } }).then((response) => parseHuddles(response.entry || []))
       // risks: store.findAll('risk'),
       // notificationCounts: store.findAll('notification-count')
