@@ -81,10 +81,12 @@ export default Controller.extend({
   refetch() {
     run(() => {
       this.set('page', 1);
+      let groupIds = [this.get('huddleId'), this.get('groupId')].filter((n) => n);
+
       let patientsRemoteArray = this.get('model.patients');
       patientsRemoteArray.set('sortBy', this.get('sortBy'));
       patientsRemoteArray.set('sortDescending', this.get('sortDescending'));
-      patientsRemoteArray.set('groupId', this.get('huddleId') || this.get('groupId'));
+      patientsRemoteArray.set('groupId', groupIds);
       // patientsRemoteArray.set('patientIds', this.get('huddlePatientIds'));
       patientsRemoteArray.set('patientSearch', this.get('patientSearch'));
       patientsRemoteArray.set('page', 1);
