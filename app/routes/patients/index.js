@@ -26,7 +26,6 @@ export default Route.extend(UnuthenticatedRouteMixin, PaginatedRouteMixin, {
     }
   },
 
-
   model(params) {
     let paramMapping = {
       page: '_offset',
