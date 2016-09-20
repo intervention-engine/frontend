@@ -79,7 +79,13 @@
         {{#if huddle}}
           <button type="button" class="btn btn-danger btn-ie-lg" disabled={{removeBtnDisabled}} onclick={{action 'removePatientFromHuddle'}}>Remove</button>
         {{/if}}
-        <button type="submit" class="btn btn-primary" disabled={{saveBtnDisabled}}>Save</button>
+        <button type="submit" class="btn btn-primary" disabled={{saveBtnDisabled}}>
+          {{#if formSaving}}
+            {{ember-spinner config='small' color='#fff'}}
+          {{else}}
+            Save
+          {{/if}}
+        </button>
       </div>
     </form>
   {{/if}}
