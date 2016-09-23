@@ -16,11 +16,13 @@ export default Component.extend(HasStylesheetMixin, {
   huddle: null,
   huddles: null,
   patientHuddles: null, // master huddle list from the patient viewer controller
+
   huddleDate: computed('defaultDate', {
     get() {
       return this.get('defaultDate') || new Date();
     }
   }),
+
   huddleLeader: computed('huddle.displayLeader', {
     get() {
       let huddle = this.get('huddle');
@@ -30,6 +32,7 @@ export default Component.extend(HasStylesheetMixin, {
       return '';
     }
   }),
+
   huddleReasonText: computed('huddle', {
     get() {
       let huddle = this.get('huddle');
@@ -39,9 +42,11 @@ export default Component.extend(HasStylesheetMixin, {
       return '';
     }
   }),
+
   patient: null,
   isLoading: true,
   huddleLeaderDisabled: computed.notEmpty('existingHuddle'),
+
   huddleReasonTextDisabled: computed('patientInExistingHuddle', {
     get() {
       if (this.get('patientInExistingHuddle')) {
@@ -52,7 +57,9 @@ export default Component.extend(HasStylesheetMixin, {
       return false;
     }
   }),
+
   formSaving: false,
+
   saveBtnDisabled: computed('formSaving', 'patientInExistingHuddle', 'huddleReasonText', {
     get() {
       if (this.get('formSaving')) {
@@ -71,6 +78,7 @@ export default Component.extend(HasStylesheetMixin, {
       return false;
     }
   }),
+
   removeBtnDisabled: computed.alias('formSaving'),
 
   title: computed('huddle', {
@@ -134,7 +142,6 @@ export default Component.extend(HasStylesheetMixin, {
 
     for (let i = 0; i < huddles.length; i++) {
       let date = moment(huddles[i].get('date'));
-
       let year = date.year();
       let month = date.month();
       let day = date.date();
@@ -181,6 +188,7 @@ export default Component.extend(HasStylesheetMixin, {
           leader: `Practitioner/${this.get('huddleLeader')}`,
           name: moment(this.get('huddleDate')).format('MMMM D, YYYY') // TODO: change this
         });
+
         newHuddle = true;
       }
 
