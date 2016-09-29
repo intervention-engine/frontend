@@ -53,10 +53,9 @@ export default Route.extend({
         };
 
         this.get('store').query('risk-assessment', riskParams).then((risks) => {
-          console.debug({ risks, ...response });
-          resolve({ risks, ...response });
+          resolve(Object.assign({ risks }, response));
         });
-      })
+      });
     });
   }
 });
