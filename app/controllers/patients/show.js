@@ -13,6 +13,7 @@ export default Controller.extend({
   showAddInterventionModal: false,
   showAddHuddleModal: false,
   showReviewPatientModal: false,
+  reviewPatientModalSkippable: false,
   defaultAddHuddleDate: null,
 
   patientViewerComponent: null,
@@ -66,6 +67,48 @@ export default Controller.extend({
   },
 
   actions: {
+    moveToNextPatient(skip = false) {
+      let newIndex = this.get('currentPatientIndex') + 1;
+      if (newIndex > this.get('huddleCount')) {
+        return;
+      }
+
+      let selectedHuddleId = this.get('indexController.selectedHuddle.id');
+      let selectedHuddle = selectedHuddleId ? this.get('huddles').findBy('id', selectedHuddleId) : null;
+      let patientReviewed = true;
+      if (selectedHuddle != null) {
+        patientReviewed = selectedHuddle.patientReviewed(this.get('model'));
+      }
+
+      if (!skip && !patientReviewed) {
+        this.set('reviewPatientModalSkippable', true);
+        this.set('showReviewPatientModal', true);
+        this.set('reviewPatientHuddle', selectedHuddle);
+
+        return;
+      }
+
+      this.set('reviewPatientModalSkippable', false);
+      this.set('showReviewPatientModal', false);
+
+      this.get('nextPatient').then((nextPatient) => {
+        this.set('currentPatientIndex', newIndex);
+        this.transitionToRoute('patients.show', nextPatient.get('firstObject'));
+      });
+    },
+
+    moveToPrevPatient() {
+      let newIndex = this.get('currentPatientIndex') - 1;
+      if (newIndex <= 0) {
+        return;
+      }
+
+      this.get('prevPatient').then((prevPatient) => {
+        this.set('currentPatientIndex', newIndex);
+        this.transitionToRoute('patients.show', prevPatient.get('firstObject'));
+      });
+    },
+
     changeCurrentPatientIndex(amount) {
       let newIndex = this.get('currentPatientIndex') + amount;
       if (newIndex > this.get('huddleCount') || newIndex <= 0) {
@@ -112,6 +155,7 @@ export default Controller.extend({
 
     hideReviewPatientModal() {
       this.set('showReviewPatientModal', false);
+      this.set('reviewPatientModalSkippable', false);
       let patientViewer = this.get('patientViewerComponent');
       if (patientViewer) {
         patientViewer.notifyPropertyChange('nextScheduledHuddle');
