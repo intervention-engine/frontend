@@ -7,6 +7,11 @@ export default Component.extend({
 
   huddle: null,
   patient: null,
+  skippable: false,
+
+  modalTitle: computed('skippable', function modalTitle() {
+    return `Mark Patient as Discussed${this.get('skippable') ? '?' : ''}`;
+  }),
 
   huddlePatient: computed('huddle', 'patient', {
     get() {
@@ -34,7 +39,13 @@ export default Component.extend({
         contentType: 'application/json; charset=UTF-8'
       });
 
-      promise.then(() => this.attrs.onClose());
+      promise.then(() => {
+        if (this.get('skippable')) {
+          this.attrs.onSkip();
+        } else {
+          this.attrs.onClose();
+        }
+      });
       promise.catch(() => {
         this.get('huddlePatient').set('reviewed', null);
         alert('Failed to save to the server, please try your request again');
