@@ -36,15 +36,27 @@ export default Route.extend({
   model(params) {
     let hash = {
       patients: this.get('store').query('patient', patientParams(params, this.get('huddle'))),
-      huddles: this.get('ajax').request('/Group', { data: { code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE' } }).then((response) => parseHuddles(response.entry || [])),
-      risks: this.get('store').query('risk-assessment', { _tag: 'MOST_RECENT', method: methodFromAssessment(params.assessment) })
+      huddles: this.get('ajax').request('/Group', { data: { code: 'http://interventionengine.org/fhir/cs/huddle|HUDDLE' } }).then((response) => parseHuddles(response.entry || []))
     };
 
     if (params.groupId) {
       hash.group = this.get('store').find('group', params.groupId);
     }
 
-    return RSVP.hash(hash);
+    return new RSVP.Promise((resolve) => {
+      RSVP.hash(hash).then((response) => {
+        let patientIds = response.patients.mapBy('id');
+        let riskParams = {
+          method: `http://interventionengine.org/risk-assessments|${methodFromAssessment(params.assessment)}`,
+          _tag: 'http://interventionengine.org/tags/|MOST_RECENT',
+          'subject:Patient': patientIds.join(',')
+        };
+
+        this.get('store').query('risk-assessment', riskParams).then((risks) => {
+          resolve(Object.assign({ risks }, response));
+        });
+      });
+    });
   }
 });
 
