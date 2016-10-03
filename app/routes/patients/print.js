@@ -47,6 +47,7 @@ export default Route.extend({
       RSVP.hash(hash).then((response) => {
         let patientIds = response.patients.mapBy('id');
         let riskParams = {
+          _count: patientIds.length,
           method: `http://interventionengine.org/risk-assessments|${methodFromAssessment(params.assessment)}`,
           _tag: 'http://interventionengine.org/tags/|MOST_RECENT',
           'subject:Patient': patientIds.join(',')
